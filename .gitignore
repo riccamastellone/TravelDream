@@ -26,9 +26,9 @@
 *.sqlite
 
 # eclipse generated
-#.project
-#.settings
-#.classpath
+.project
+.settings
+.classpath
 
 # OS generated files #
 ######################

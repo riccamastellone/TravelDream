@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -28,10 +29,9 @@ public class Utente implements Serializable {
 
 	private String password;
 
-	//bi-directional many-to-one association to Gruppo
-	@ManyToOne
-	@JoinColumn(name="id_gruppo")
-	private Gruppo gruppo;
+	//bi-directional many-to-one association to UtenteGruppo
+	@OneToMany(mappedBy="utente")
+	private List<UtenteGruppo> utenteGruppos;
 
 	public Utente() {
 	}
@@ -92,12 +92,26 @@ public class Utente implements Serializable {
 		this.password = password;
 	}
 
-	public Gruppo getGruppo() {
-		return this.gruppo;
+	public List<UtenteGruppo> getUtenteGruppos() {
+		return this.utenteGruppos;
 	}
 
-	public void setGruppo(Gruppo gruppo) {
-		this.gruppo = gruppo;
+	public void setUtenteGruppos(List<UtenteGruppo> utenteGruppos) {
+		this.utenteGruppos = utenteGruppos;
+	}
+
+	public UtenteGruppo addUtenteGruppo(UtenteGruppo utenteGruppo) {
+		getUtenteGruppos().add(utenteGruppo);
+		utenteGruppo.setUtente(this);
+
+		return utenteGruppo;
+	}
+
+	public UtenteGruppo removeUtenteGruppo(UtenteGruppo utenteGruppo) {
+		getUtenteGruppos().remove(utenteGruppo);
+		utenteGruppo.setUtente(null);
+
+		return utenteGruppo;
 	}
 
 }

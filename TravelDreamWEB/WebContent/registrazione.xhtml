@@ -23,6 +23,14 @@
 				<h:outputLabel for="lastName">Last name:</h:outputLabel>
 				<p:inputText id="lastName" value="#{registerBean.user.lastName}" />
 				<p:message for="lastName" />
+				
+				<h:outputLabel for="dataDiNascita">Data di nascita:</h:outputLabel>
+				<p:inputText id="dataDiNascita" value="#{registerBean.user.dataDiNascita}" />
+				<p:message for="dataDiNascita" />
+				
+				<h:outputLabel for="indirizzo">Indirizzo:</h:outputLabel>
+				<p:inputText id="secondName" value="#{registerBean.user.indirizzoName}" />
+				<p:message for="secondName" />
 
 				<h:outputLabel for="password">Password:</h:outputLabel>
 				<p:password id="password" value="#{registerBean.user.password}"
@@ -31,6 +39,7 @@
 
 				<h:outputLabel for="pwd2">Confirm Password:</h:outputLabel>
 				<p:password id="pwd2" label="Confirm Password" value="#{registerBean.user.password}"/>
+				
 			</h:panelGrid>
 			<p:commandButton value="Register" update="regGrid"
 				action="#{registerBean.register()}" />

@@ -1,8 +1,14 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
+
+import org.apache.commons.codec.digest.DigestUtils;
+
+import registrazione.client.UtenteDTO;
 
 
 /**
@@ -34,6 +40,18 @@ public class Utente implements Serializable {
 	private List<UtenteGruppo> utenteGruppos;
 
 	public Utente() {
+	}
+	
+	public Utente(UtenteDTO utente) {
+		
+		this.nome = utente.getNome();
+		this.cognome = utente.getCognome();
+		this.dataNascita = utente.getDataNascita();
+		this.email = utente.getEmail();
+		this.indirizzo = utente.getIndirizzo();
+		this.password = DigestUtils.sha512Hex(utente.getPassword());
+		
+		
 	}
 
 	public int getId() {

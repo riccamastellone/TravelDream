@@ -8,7 +8,9 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.xhtml</url-pattern>
+    <url-pattern>/faces/*</url-pattern>
+	<url-pattern>*.xhtml</url-pattern>
+	<url-pattern>*.jsf</url-pattern>
   </servlet-mapping>
   <login-config>
     <auth-method>FORM</auth-method>
@@ -21,10 +23,10 @@
     <web-resource-collection>
       <web-resource-name>Admins Pages</web-resource-name>
       <description></description>
-      <url-pattern>/admins/*</url-pattern>
+      <url-pattern>/admin/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <role-name>admin</role-name>
+      <role-name>AMMINISTRATORE</role-name>
     </auth-constraint>
   </security-constraint>
   <security-constraint>
@@ -34,7 +36,7 @@
       <url-pattern>/dipendente/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <role-name>dipendente</role-name>
+      <role-name>DIPENDENTE</role-name>
     </auth-constraint>
   </security-constraint>
   <security-constraint>
@@ -44,7 +46,7 @@
       <url-pattern>/store/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <role-name>cliente</role-name>
+      <role-name>CLIENTE</role-name>
     </auth-constraint>
   </security-constraint>
   <welcome-file-list>

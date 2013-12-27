@@ -42,6 +42,7 @@ public class RegistrazioneBean {
 	}
 	
 	public String register(){
+		System.out.println("bottone premuto");
 		userMgr.salvaUtente(user);
 		return "home?faces-redirect=true";
 	}

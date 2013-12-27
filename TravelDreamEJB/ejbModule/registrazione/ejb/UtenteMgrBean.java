@@ -1,8 +1,13 @@
 package registrazione.ejb;
 
+import java.util.List;
+import java.util.ArrayList;
+
+
 import javax.annotation.Resource;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -84,6 +89,25 @@ public class UtenteMgrBean implements UtenteMrg{
 		}
 			
 		return false;
+	}
+
+
+
+
+	@Override
+	public List<UtenteDTO> getUtentiByGruppi(String gruppo) {
+		ArrayList<UtenteDTO> utentiDTO = new ArrayList<UtenteDTO>();
+		
+		//query dichiarate nell entita UtenteGruppo 
+		Query queryGetUtentibyGruppo = em.createNamedQuery("UtenteGruppo.findAllByGroup").setParameter("gruppo", gruppo);
+		
+		List<UtenteGruppo> utenti = queryGetUtentibyGruppo.getResultList();
+		
+		for (UtenteGruppo utenteGruppo : utenti) {
+			Utente utente = utenteGruppo.getUtente();
+			utentiDTO.add(convertToDTO(utente));	
+		}
+		return utentiDTO;
 	}
 
 

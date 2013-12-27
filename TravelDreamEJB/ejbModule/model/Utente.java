@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -16,7 +17,12 @@ import registrazione.client.UtenteDTO;
  * 
  */
 @Entity
-@NamedQuery(name="Utente.findAll", query="SELECT u FROM Utente u")
+@NamedQueries({
+		@NamedQuery(name="Utente.findAll", 
+				 	query="SELECT u FROM Utente u"),
+		})
+
+
 public class Utente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -131,5 +137,6 @@ public class Utente implements Serializable {
 
 		return utenteGruppo;
 	}
+
 
 }

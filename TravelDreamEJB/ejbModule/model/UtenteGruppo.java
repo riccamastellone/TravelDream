@@ -9,7 +9,13 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="UtenteGruppo.findAll", query="SELECT u FROM UtenteGruppo u")
+@NamedQueries({
+	@NamedQuery(name="UtenteGruppo.findAll", 
+				query="SELECT u FROM UtenteGruppo u"),
+				
+	@NamedQuery(name="UtenteGruppo.findAllByGroup",
+				query="SELECT u FROM UtenteGruppo u WHERE u.gruppo = :gruppo"),		
+	})
 public class UtenteGruppo implements Serializable {
 	private static final long serialVersionUID = 1L;
 

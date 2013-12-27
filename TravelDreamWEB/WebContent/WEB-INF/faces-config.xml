@@ -10,5 +10,11 @@
 		<managed-bean-class>registrazione.web.RegistrazioneBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>listaDipendenti</managed-bean-name>
+		<managed-bean-class>admin.web.ListaDipendenti</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 
 </faces-config>

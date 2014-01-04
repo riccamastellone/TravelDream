@@ -15,7 +15,7 @@
   <login-config>
     <auth-method>FORM</auth-method>
     <form-login-config>
-      <form-login-page>/home.xhtml</form-login-page>
+      <form-login-page>/login.xhtml</form-login-page>
       <form-error-page>/loginError.xhtml</form-error-page>
     </form-login-config>
   </login-config>
@@ -23,7 +23,7 @@
     <web-resource-collection>
       <web-resource-name>Admins Pages</web-resource-name>
       <description></description>
-      <url-pattern>/adminghfdhgf/*</url-pattern>
+      <url-pattern>/admin/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>AMMINISTRATORE</role-name>
@@ -33,7 +33,7 @@
     <web-resource-collection>
       <web-resource-name>Dipendente Pages</web-resource-name>
       <description></description>
-      <url-pattern>/dipendenteadas/*</url-pattern>
+      <url-pattern>/dipendente/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>DIPENDENTE</role-name>

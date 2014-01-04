@@ -26,13 +26,14 @@ import registrazione.client.UtenteDTO;
 public class Utente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	
 	private int id;
-
+	
 	private String cognome;
 
 	private String dataNascita;
-
+	
+	@Id
 	private String email;
 
 	private String indirizzo;
@@ -55,7 +56,7 @@ public class Utente implements Serializable {
 		this.dataNascita = utente.getDataNascita();
 		this.email = utente.getEmail();
 		this.indirizzo = utente.getIndirizzo();
-		this.password = DigestUtils.sha512Hex(utente.getPassword());
+		this.password = DigestUtils.md5Hex(utente.getPassword());
 		
 		
 	}

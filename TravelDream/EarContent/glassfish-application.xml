@@ -16,5 +16,5 @@ GlassFish Application Server 3.1 Java EE Application 6.0//EN"
 		<role-name>DIPENDENTE</role-name>
 		<group-name>DIPENDENTE</group-name>
 	</security-role-mapping>
-	<realm>TravelDreamRealm</realm>
+	<realm>travelrealm</realm>
 </glassfish-application>

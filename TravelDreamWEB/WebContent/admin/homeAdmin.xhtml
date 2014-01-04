@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
 >
 <h:head>
 <title>index.xhtml</title>
@@ -11,39 +12,19 @@ xmlns:f="http://java.sun.com/jsf/core"
 
 <h:body>
 
-<h1>JSF 2.0 View Data From The Database Table Example</h1>
-
-<h:dataTable value="#{listDipendenti.getUtenti()}" var="u" border="1">
-
-<h:column>
-<f:facet name="header">
-User ID
-</f:facet>
-#{u.userID}
-</h:column>
-
-<h:column>
-<f:facet name="header">
-Name
-</f:facet>
-#{u.getName()}
-</h:column>
-
-<h:column>
-<f:facet name="header">
-Address
-</f:facet>
-#{u.address}
-</h:column>
-
-<h:column>
-<f:facet name="header">
-Created Date
-</f:facet>
-#{u.created_date}
-</h:column>
-
-</h:dataTable>
+<table>
+ 
+   <ui:repeat var="o" value="#{listaDipendenti.getUtenti()}" varStatus="status">
+ 
+	<tr>
+		<td>#{o.nome}</td>
+		<td>#{o.cognome}</td>
+		
+	</tr>
+ 
+   </ui:repeat>
+ 
+</table>
 
 </h:body>
 

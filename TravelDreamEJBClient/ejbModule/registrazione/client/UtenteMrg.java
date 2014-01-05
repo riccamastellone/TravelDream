@@ -11,7 +11,7 @@ public interface UtenteMrg {
 	 * 
 	 * @param utente
 	 */
-	public void salvaUtente(UtenteDTO utente);
+	public void salvaUtente(UtenteDTO utente, String tipo);
 	
 	public UtenteDTO getUserDTO();
 	

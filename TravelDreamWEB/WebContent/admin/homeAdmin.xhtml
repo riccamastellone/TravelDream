@@ -11,7 +11,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 </h:head>
 
 <h:body>
-
+	<h:link outcome="aggiungi" value="Aggiungi nuovo dipendente" /><br /> 
 <table>
  
    <ui:repeat var="dipendente" value="#{listaDipendenti.getUtenti()}" varStatus="status">
@@ -25,10 +25,11 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 		<td><h:inputText value="prova" /></td>
 		
 	</tr>
- 
+
    </ui:repeat>
  
 </table>
+
 
 </h:body>
 

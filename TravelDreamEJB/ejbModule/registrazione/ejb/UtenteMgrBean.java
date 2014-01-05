@@ -34,13 +34,22 @@ public class UtenteMgrBean implements UtenteMrg{
 	 * creo un utente e gli associo il gruppo CLIENTE
 	 */
 	@Override
-	public void salvaUtente(UtenteDTO utente) {
+	public void salvaUtente(UtenteDTO utente, String tipo) {
 		System.out.println("salvo utente");
 
 		Utente  user = new Utente(utente);	//aggiungo alla tabella Utente una tupla utilizzanto il DTO
 		
 		UtenteGruppo usergroup = new UtenteGruppo();	//aggiungo una tupla a UtenteGruppo settando manualmente i parametri
-		usergroup.setGruppo(Gruppo._CLIENTE);	
+		
+		//controllo quale gruppo settare
+		if (tipo.equals("cliente"))
+		{
+			usergroup.setGruppo(Gruppo._CLIENTE);
+		}
+		else
+		{
+			usergroup.setGruppo(Gruppo._DIPENDENTE);
+		}
 		usergroup.setUtente(user);
 	
 		em.persist(user);   //scrivo a database sulla tabella utente

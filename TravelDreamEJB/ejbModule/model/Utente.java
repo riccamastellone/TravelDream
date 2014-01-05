@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -17,6 +16,7 @@ import registrazione.client.UtenteDTO;
  * 
  */
 @Entity
+@Table(name="Utente")
 @NamedQueries({
 		@NamedQuery(name="Utente.findAll", 
 				 	query="SELECT u FROM Utente u"),
@@ -25,7 +25,6 @@ import registrazione.client.UtenteDTO;
 
 public class Utente implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	
 	private int id;
 	
@@ -56,7 +55,7 @@ public class Utente implements Serializable {
 		this.dataNascita = utente.getDataNascita();
 		this.email = utente.getEmail();
 		this.indirizzo = utente.getIndirizzo();
-		this.password = DigestUtils.md5Hex(utente.getPassword());
+		this.password = DigestUtils.sha256Hex(utente.getPassword());
 		
 		
 	}

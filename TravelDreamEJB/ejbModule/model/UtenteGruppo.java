@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name="UtenteGruppo")
 @NamedQueries({
 	@NamedQuery(name="UtenteGruppo.findAll", 
 				query="SELECT u FROM UtenteGruppo u"),

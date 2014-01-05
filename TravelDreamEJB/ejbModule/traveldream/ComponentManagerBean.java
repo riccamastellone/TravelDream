@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import model.Hotel;
-import traveldream.dtos.HotelDTO;
+import dtos.HotelDTO;
 
 
 @Stateless

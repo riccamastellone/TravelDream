@@ -1,4 +1,4 @@
-package traveldream.dtos;
+package dtos;
 
 
 import javax.validation.constraints.NotNull;

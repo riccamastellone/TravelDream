@@ -22,7 +22,10 @@
 					<p><h:link outcome="admin/homeAdmin" value="Admin" /><br />
 					<h:link outcome="dipendente/homeDipendente" value="Dipendente" /></p>
 				</div> 
-
+			
+			<h:form>
+		<h:commandButton action="#{logoutBean.logout}" value="Logout" />
+	</h:form>
                 </ui:define>
 
         </ui:composition>

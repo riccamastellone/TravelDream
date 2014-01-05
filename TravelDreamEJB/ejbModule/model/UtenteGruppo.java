@@ -28,7 +28,7 @@ public class UtenteGruppo implements Serializable {
 
 	//bi-directional many-to-one association to Utente
 	@ManyToOne
-	@JoinColumn(name="idutente")
+	@JoinColumn(name="email")
 	private Utente utente;
 
 	public UtenteGruppo() {

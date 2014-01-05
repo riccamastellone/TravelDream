@@ -2,7 +2,7 @@
 
 DROP TABLE IF EXISTS `utente`;
 
-CREATE TABLE `utente` (
+CREATE TABLE `Utente` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(30) NOT NULL,
   `cognome` varchar(30) NOT NULL,
@@ -15,10 +15,24 @@ CREATE TABLE `utente` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `utenteGruppo`;
-CREATE TABLE `utenteGruppo` (
+CREATE TABLE `UtenteGruppo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idutente` varchar(255) NOT NULL,
   `gruppo` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`idutente`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `Hotel`;
+CREATE TABLE `Hotel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) DEFAULT NULL,
+  `stelle` int(11) DEFAULT NULL,
+  `costo_giornaliero` int(11) DEFAULT NULL,
+  `immagine` varchar(255) DEFAULT NULL,
+  `luogo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `UtenteGruppo`
+  ADD CONSTRAINT `FK_UtenteGruppo_idutente` FOREIGN KEY (`idutente`) REFERENCES `Utente` (`email`);

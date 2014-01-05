@@ -4,6 +4,7 @@
 		<jta-data-source>jdbc/TravelDreamDB</jta-data-source>
 		<class>model.Utente</class>
 		<class>model.UtenteGruppo</class>
+		<class>model.Hotel</class>
 		<properties>
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
 		</properties>

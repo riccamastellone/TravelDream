@@ -31,7 +31,7 @@ public class UtenteMgrBean implements UtenteMrg{
 	private EJBContext context;
 	
 	/**
-	 * creo un utente e gli associo il gruppo UTENTE
+	 * creo un utente e gli associo il gruppo CLIENTE
 	 */
 	@Override
 	public void salvaUtente(UtenteDTO utente) {
@@ -57,12 +57,21 @@ public class UtenteMgrBean implements UtenteMrg{
 		return userDTO;
 	}
 	
+	
+	/**
+	 * serve per non invaidare il paradigma MVC
+	 * non scrive direttamente sul modello ma crea dal modello dei data tranfer object (DTO)
+	 * 
+	 * @param user
+	 * @return
+	 */
 	private UtenteDTO convertToDTO(Utente user) {
 		UtenteDTO udto = new UtenteDTO();
 		udto.setEmail(user.getEmail());
 		udto.setNome(user.getNome());
 		udto.setCognome(user.getCognome());
-		udto.setEmail(user.getEmail());
+		udto.setDataNascita(user.getDataNascita());
+		udto.setIndirizzo(user.getIndirizzo());
 		return udto;
 	}
 
@@ -94,6 +103,11 @@ public class UtenteMgrBean implements UtenteMrg{
 
 
 
+	/**
+	 * 
+	 * utile per le funzioni dell'amministratore
+	 * restituisce gli utenti appartenenti al grupo selezionato
+	 */
 	@Override
 	public ArrayList<UtenteDTO> getUtentiByGruppi(String gruppo) {
 		

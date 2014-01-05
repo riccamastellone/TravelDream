@@ -18,10 +18,6 @@ public class ListaDipendenti {
 	
 	public ListaDipendenti(){
 		this.dipendenti = new ArrayList<UtenteDTO>();
-		UtenteDTO pippoDto = new UtenteDTO();
-		pippoDto.setCognome("strati");
-		pippoDto.setNome("bruno");
-		this.dipendenti.add(pippoDto);
 	}
 	
 	//prova render lista dipendenti (ho messo CLIENTE per provare)

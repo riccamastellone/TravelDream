@@ -18,22 +18,16 @@ public class Hotel implements Serializable {
         public static final String FIND_ALL = "Hotel.findAll";
 
         @Id
-        @Column(name="ID")
         private int id;
 
-        @Column(name="Costo giornaliero")
         private int costo_giornaliero;
 
-        @Column(name="Immagine")
         private String immagine;
 
-        @Column(name="Luogo")
         private String luogo;
 
-        @Column(name="Nome")
         private String nome;
 
-        @Column(name="Stelle")
         private int stelle;
 
 

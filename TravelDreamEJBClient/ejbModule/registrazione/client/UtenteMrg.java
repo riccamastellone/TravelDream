@@ -1,6 +1,7 @@
 package registrazione.client;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 
 public interface UtenteMrg {
@@ -28,6 +29,6 @@ public interface UtenteMrg {
 	 * @param gruppo
 	 * @return
 	 */
-	public List<UtenteDTO> getUtentiByGruppi(String gruppo);
+	public ArrayList<UtenteDTO> getUtentiByGruppi(String gruppo);
 
 }

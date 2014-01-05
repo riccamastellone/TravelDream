@@ -14,12 +14,13 @@
   </servlet-mapping>
   <login-config>
     <auth-method>FORM</auth-method>
+    <!--  <realm-name>travelrealm</realm-name> -->
     <form-login-config>
       <form-login-page>/login.xhtml</form-login-page>
       <form-error-page>/loginError.xhtml</form-error-page>
     </form-login-config>
   </login-config>
-  <security-constraint>
+  <!--  <security-constraint>
     <web-resource-collection>
       <web-resource-name>Admins Pages</web-resource-name>
       <description></description>
@@ -28,7 +29,7 @@
     <auth-constraint>
       <role-name>AMMINISTRATORE</role-name>
     </auth-constraint>
-  </security-constraint>
+  </security-constraint> -->
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Dipendente Pages</web-resource-name>

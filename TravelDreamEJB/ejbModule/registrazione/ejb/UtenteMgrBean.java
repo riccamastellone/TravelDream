@@ -95,7 +95,8 @@ public class UtenteMgrBean implements UtenteMrg{
 
 
 	@Override
-	public List<UtenteDTO> getUtentiByGruppi(String gruppo) {
+	public ArrayList<UtenteDTO> getUtentiByGruppi(String gruppo) {
+		
 		ArrayList<UtenteDTO> utentiDTO = new ArrayList<UtenteDTO>();
 		
 		//query dichiarate nell entita UtenteGruppo 

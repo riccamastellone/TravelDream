@@ -58,6 +58,7 @@ DROP TABLE IF EXISTS `Pacchetto`;
 CREATE TABLE `Pacchetto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
+  `immagine` varchar(255) DEFAULT NULL,
   `localita` varchar(255) NOT NULL,
   `descrizione` text NOT NULL,
   `inizio_validita` date NOT NULL,

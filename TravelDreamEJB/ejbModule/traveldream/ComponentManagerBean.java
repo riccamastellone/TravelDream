@@ -56,9 +56,11 @@ public class ComponentManagerBean  {
 		hdto.setLuogo(h.getLuogo());
 		hdto.setNome(h.getNome());
 		hdto.setStelle(h.getStelle());
-		hdto.setPathtoImage("");
+		hdto.setPathtoImage(h.getImmagine());
+		hdto.setDisponibilita(h.getDisponibilita());
+		hdto.setDescrizione(h.getDescrizione());
 		return hdto;
- 
+		
 	}
 	
 

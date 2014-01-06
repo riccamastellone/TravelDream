@@ -16,7 +16,7 @@ public class Hotel implements Serializable {
 	@Id
 	private int id;
 
-	private int costo_giornaliero;
+	private float costo_giornaliero;
 
 	private int disponibilita;
 
@@ -52,7 +52,7 @@ public class Hotel implements Serializable {
 		this.id = id;
 	}
 
-	public int getCosto_giornaliero() {
+	public float getCosto_giornaliero() {
 		return this.costo_giornaliero;
 	}
 

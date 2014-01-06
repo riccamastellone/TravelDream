@@ -13,10 +13,11 @@ import model.Hotel;
 import model.Volo;
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.VoloDTO;
+import traveldream.gestioneComponente.ComponenteMng;
 
 
 @Stateless
-public class ComponentManagerBean  {
+public class ComponentManagerBean implements ComponenteMng  {
 
 	@PersistenceContext
     private EntityManager em;

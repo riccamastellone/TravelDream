@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>TravelDream</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="jquery-ui.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputScript library="js" name="jquery-2.0.3.min.js" />
+	<h:outputScript library="js" name="bootstrap.min.js" />
+	<h:outputScript library="js" name="jquery-ui.js" />
+</h:head>
+<h:body>
+	
+	<nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">TravelDream</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/home.xhtml">Home</a></li>
+            <li><a href="#">Build your package</a></li>
+            <li><a href="#">Contacts</a></li>
+          </ul>
+          
+          <ul class="nav navbar-nav navbar-right">
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search" />
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello User <b class="caret"></b></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Your Profile</a></li>
+                <li><a href="#">Invite Friends</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Logout</a></li>
+              </ul>
+            </li>
+            
+          </ul>
+          
+        </div><!-- /.navbar-collapse -->
+      </nav>
+      
+      
+	<div id="content">
+	  <ui:insert name="content">
+	  </ui:insert>
+	</div>
+	<footer>
+	<p>
+		&copy; 2013<br />
+		<a href="mailto:riccardo.mastellone@mail.polimi.it">Riccardo
+			Mastellone</a> | <a href="mailto:seba0691@gmail.com">Sebastiano
+			Mariani</a> | <a href="mailto:sara.marchesini@gmail.com">Sara
+			Marchesini</a>
+	</p>
+	</footer>
+		
+</h:body>
+</html>

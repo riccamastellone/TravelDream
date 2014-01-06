@@ -1,4 +1,7 @@
+-- Scherma del database per TravelDream
 
+CREATE SCHEMA IF NOT EXISTS `traveldream` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `traveldream` ;
 
 DROP TABLE IF EXISTS `utente`;
 
@@ -78,5 +81,19 @@ CREATE TABLE `VoloPacchetto` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_volo`) REFERENCES `Volo` (`id`),
   FOREIGN KEY (`id_pacchetto`) REFERENCES `Pacchetto` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `Pacchetto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) NOT NULL,
+  `immagine` varchar(255) DEFAULT NULL,
+  `localita` varchar(255) NOT NULL,
+  `descrizione` text NOT NULL,
+  `inizio_validita` date NOT NULL,
+  `fine_validita` date NOT NULL,
+  `id_hotel` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_hotel`) REFERENCES `Hotel` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

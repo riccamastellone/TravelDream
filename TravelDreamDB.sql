@@ -66,4 +66,17 @@ CREATE TABLE `Pacchetto` (
   `id_hotel` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_hotel`) REFERENCES `Hotel` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `VoloPacchetto`; 
+
+CREATE TABLE `VoloPacchetto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_volo` int(11) NOT NULL,
+  `id_pacchetto` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_volo`) REFERENCES `Volo` (`id`),
+  FOREIGN KEY (`id_pacchetto`) REFERENCES `Pacchetto` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

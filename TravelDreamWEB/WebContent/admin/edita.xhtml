@@ -34,12 +34,12 @@
 				<p:message for="indirizzo" />
 
 				<h:outputLabel for="password">Password:</h:outputLabel>
-				<p:password id="password" value="#{registrazioneBean.user.password}"
+				<p:inputText id="password" value="#{registrazioneBean.user.password}"
 					feedback="true" match="pwd2" label="Password"/>
 				<p:message for="password" />
 
 				<h:outputLabel for="pwd2">Confirm Password:</h:outputLabel>
-				<p:password id="pwd2" label="Confirm Password" value="#{registrazioneBean.user.password}"/>
+				<p:inputText id="pwd2" label="Confirm Password" value="#{registrazioneBean.user.password}"/>
 				
 			</h:panelGrid>
 			<p:commandButton value="Register" update="regGrid"

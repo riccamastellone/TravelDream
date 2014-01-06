@@ -16,7 +16,10 @@ import javax.persistence.*;
 				query="SELECT u FROM UtenteGruppo u"),
 				
 	@NamedQuery(name="UtenteGruppo.findAllByGroup",
-				query="SELECT u FROM UtenteGruppo u WHERE u.gruppo = :gruppo"),		
+				query="SELECT u FROM UtenteGruppo u WHERE u.gruppo = :gruppo"),
+				
+	@NamedQuery(name="UtenteGruppo.findByIdUtente",
+				query="SELECT u FROM UtenteGruppo u WHERE u.utente = :utente"),
 	})
 public class UtenteGruppo implements Serializable {
 	private static final long serialVersionUID = 1L;

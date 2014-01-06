@@ -33,9 +33,9 @@ public interface UtenteMrg {
 	
 	/**
 	 * 
-	 * aggiorna il dipendente
+	 * aggiorna il utente
 	 * se la password e stata cambiata fa l hash e la cambia se no lascia l hash vecchio
 	 */
-	public void aggiornaDipendente(UtenteDTO utente);
+	public void aggiornaUtente(UtenteDTO utente, String vecchiaEmail);
 
 }

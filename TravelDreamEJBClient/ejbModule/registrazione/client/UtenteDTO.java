@@ -81,6 +81,7 @@ public class UtenteDTO{
 		System.out.println(this.getCognome());
 		System.out.println(this.getEmail());
 		System.out.println(this.getIndirizzo());
+		System.out.println(this.getPassword());
 	}
      
 

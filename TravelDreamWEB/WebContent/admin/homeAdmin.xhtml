@@ -11,20 +11,27 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 </h:head>
 
 <h:body>
-
+	<h:link outcome="aggiungi" value="Aggiungi nuovo dipendente" /><br /> 
 <table>
  
-   <ui:repeat var="o" value="#{listaDipendenti.getUtenti()}" varStatus="status">
+   <ui:repeat var="dipendente" value="#{listaDipendenti.getUtenti()}" varStatus="status">
  
 	<tr>
-		<td>#{o.nome}</td>
-		<td>#{o.cognome}</td>
+		<h:form>
+  		<h:outputText value="#{dipendente.nome} " />
+  		<h:outputText value="#{dipendente.cognome} "/>
+  		<h:outputText value="#{dipendente.indirizzo} "/>
+  		<h:outputText value="#{dipendente.email} "/>
+  		<h:commandButton value="Edit" action="#{registrazioneBean.goToEdit(dipendente)}" />
+  		<div/>
+		</h:form>
 		
 	</tr>
- 
+
    </ui:repeat>
  
 </table>
+
 
 </h:body>
 

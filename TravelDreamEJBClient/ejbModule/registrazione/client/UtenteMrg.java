@@ -1,6 +1,7 @@
 package registrazione.client;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 
 public interface UtenteMrg {
@@ -10,7 +11,7 @@ public interface UtenteMrg {
 	 * 
 	 * @param utente
 	 */
-	public void salvaUtente(UtenteDTO utente);
+	public void salvaUtente(UtenteDTO utente, String tipo);
 	
 	public UtenteDTO getUserDTO();
 	
@@ -28,6 +29,13 @@ public interface UtenteMrg {
 	 * @param gruppo
 	 * @return
 	 */
-	public List<UtenteDTO> getUtentiByGruppi(String gruppo);
+	public ArrayList<UtenteDTO> getUtentiByGruppi(String gruppo);
+	
+	/**
+	 * 
+	 * aggiorna il utente
+	 * se la password e stata cambiata fa l hash e la cambia se no lascia l hash vecchio
+	 */
+	public void aggiornaUtente(UtenteDTO utente, String vecchiaEmail);
 
 }

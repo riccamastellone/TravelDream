@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import dtos.HotelDTO;
+import traveldream.dtos.HotelDTO;
 
 @Entity
 @Table(name="Hotel")

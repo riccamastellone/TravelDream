@@ -7,6 +7,7 @@
 		<class>model.Hotel</class>
 		<properties>
 			<property name="javax.persistence.schema-generation.create-database-schemas" value="true"/>
+			<property name="eclipselink.ddl-generation" value="none"/>
 		</properties>
 	</persistence-unit>
 </persistence>

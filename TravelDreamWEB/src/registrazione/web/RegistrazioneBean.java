@@ -3,8 +3,8 @@ package registrazione.web;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.ejb.EJB;
-import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
@@ -13,10 +13,12 @@ import registrazione.client.UtenteDTO;
 import registrazione.client.UtenteMrg;
 
 @ManagedBean(name="registrazioneBean")
-@RequestScoped
+@SessionScoped
 public class RegistrazioneBean {
 	
 	private UtenteDTO user;
+	
+	private String vecchiaEmail;
 	
 	@EJB
 	private UtenteMrg userMgr;
@@ -41,11 +43,51 @@ public class RegistrazioneBean {
 		}
 	}
 	
+	/**
+	 * 
+	 * passa al busibess tier l'informazioni del nuovo CLIENTE
+	 * @return
+	 */
 	public String register(){
 		System.out.println("bottone premuto");
-		userMgr.salvaUtente(user);
+		userMgr.salvaUtente(user, "cliente");
 		return "home?faces-redirect=true";
 	}
+	
+	/**
+	 * 
+	 * passa al busibess tier l'informazioni del nuovo DIPENDENTE
+	 * @return
+	 */
+	public String aggiungiDipendente(){
+		System.out.println("bottone premuto");
+		userMgr.salvaUtente(user, "dipendnte");
+		return "homeAdmin?faces-redirect=true";
+	}
+	
+	/**
+	 * 
+	 * carica la pagina edita con i campi del dipendente passato
+	 * @param dipendente
+	 * @return
+	 */
+	public String goToEdit(UtenteDTO dipendente){
+		this.user = dipendente;
+		this.vecchiaEmail = dipendente.getEmail();
+		return "edita?faces-redirect=true";
+	}
+	
+	//DEBUG
+	public void printaUser() {
+		System.out.println("--DOPO CARICAMENTO--");
+		this.user.printaDati();
+	}
+	
+	public void editDipendente() {
+		System.out.println("tato premuto");
+		userMgr.aggiornaUtente(user, vecchiaEmail);
+	}
+	
 	
 
 }

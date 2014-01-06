@@ -32,6 +32,7 @@ CREATE TABLE `Hotel` (
   `costo_giornaliero` int(11) DEFAULT NULL,
   `immagine` varchar(255) DEFAULT NULL,
   `luogo` varchar(255) DEFAULT NULL,
+  `descrizione` text DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

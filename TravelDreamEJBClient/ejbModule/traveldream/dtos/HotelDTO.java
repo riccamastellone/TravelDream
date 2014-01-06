@@ -22,7 +22,10 @@ public class HotelDTO {
 	@NotNull
 	private Integer stelle;
 	
+	@NotNull
 	private Integer disponibilita;
+	
+	private String descrizione;
 
 	public Integer getStelle() {
 		return this.stelle;
@@ -70,6 +73,14 @@ public class HotelDTO {
 
 	public void setDisponibilita(Integer disponibilita) {
 		this.disponibilita = disponibilita;
+	}
+
+	public String getDescrizione() {
+		return descrizione;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
 	}
 
 	

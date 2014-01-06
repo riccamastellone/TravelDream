@@ -10,7 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import model.Hotel;
+import model.Volo;
 import traveldream.dtos.HotelDTO;
+import traveldream.dtos.VoloDTO;
 
 
 @Stateless
@@ -56,9 +58,23 @@ public class ComponentManagerBean  {
 		hdto.setLuogo(h.getLuogo());
 		hdto.setNome(h.getNome());
 		hdto.setStelle(h.getStelle());
-		hdto.setPathtoImage("");
+		hdto.setPathtoImage(h.getImmagine());
+		hdto.setDisponibilita(h.getDisponibilita());
+		hdto.setDescrizione(h.getDescrizione());
 		return hdto;
- 
+		
+	}
+	
+	private VoloDTO VoloToDTO(Volo h) {
+		VoloDTO vl = new VoloDTO();
+		vl.setArrivo(h.getArrivo());
+		vl.setCittaPartenza(h.getCittaPartenza());
+		vl.setCittaArrivo(h.getCittaArrivo());
+		vl.setCosto(h.getCosto());
+		vl.setDisponibilita(h.getDisponibilita());
+		vl.setNomeCompagnia(h.getNomeCompagnia());
+		vl.setPartenza(h.getPartenza());
+		return vl;
 	}
 	
 

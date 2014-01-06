@@ -19,6 +19,8 @@ public class Hotel implements Serializable {
         private int id;
 
         private int costo_giornaliero;
+        
+        private int disponibilita;
 
         private String immagine;
 
@@ -89,5 +91,13 @@ public class Hotel implements Serializable {
         public void setStelle(int stelle) {
                 this.stelle = stelle;
         }
+
+		public int getDisponibilita() {
+			return disponibilita;
+		}
+
+		public void setDisponibilita(int disponibilita) {
+			this.disponibilita = disponibilita;
+		}
 
 }

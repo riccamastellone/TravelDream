@@ -14,6 +14,7 @@ public class Hotel implements Serializable {
 	public static final String FIND_ALL = "Hotel.findAll";
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
 	private float costo_giornaliero;

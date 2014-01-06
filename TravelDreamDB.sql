@@ -21,7 +21,7 @@ CREATE TABLE `UtenteGruppo` (
   `gruppo` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`email`),
-  FOREIGN KEY (`email`) REFERENCES `Utente` (`email`);
+  FOREIGN KEY (`email`) REFERENCES `Utente` (`email`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `Hotel`;
@@ -52,3 +52,18 @@ CREATE TABLE `Volo` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+DROP TABLE IF EXISTS `Pacchetto`;
+
+CREATE TABLE `Pacchetto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) NOT NULL,
+  `immagine` varchar(255) DEFAULT NULL,
+  `localita` varchar(255) NOT NULL,
+  `descrizione` text NOT NULL,
+  `inizio_validita` date NOT NULL,
+  `fine_validita` date NOT NULL,
+  `id_hotel` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_hotel`) REFERENCES `Hotel` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

@@ -5,9 +5,9 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 
-@ManagedBean
+@ManagedBean(name="commonBean")
 @RequestScoped
-public class LogoutBean {
+public class CommonBean {
 	
 	public String logout() {
 	    FacesContext.getCurrentInstance().getExternalContext().invalidateSession();

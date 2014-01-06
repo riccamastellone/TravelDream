@@ -43,6 +43,12 @@ public class RegistrazioneBean {
 		}
 	}
 	
+	
+	
+	public String getUtenteNome() {
+		return userMgr.getUserDTO().getNome();
+	}
+	
 	/**
 	 * 
 	 * passa al busibess tier l'informazioni del nuovo CLIENTE

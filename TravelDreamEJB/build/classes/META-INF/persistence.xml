@@ -5,6 +5,7 @@
 		<class>model.Utente</class>
 		<class>model.UtenteGruppo</class>
 		<class>model.Hotel</class>
+		<class>model.Volo</class>
 		<properties>
 			<property name="javax.persistence.schema-generation.create-database-schemas" value="true"/>
 			<property name="eclipselink.ddl-generation" value="none"/>

@@ -35,8 +35,20 @@ CREATE TABLE `Hotel` (
   `luogo` varchar(255) DEFAULT NULL,
   `descrizione` text DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `Volo`;
 
+CREATE TABLE `Volo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `disponibilita` int(11) NOT NULL DEFAULT '0',
+  `costo` float(6,2) NOT NULL,
+  `citta_partenza` varchar(255) NOT NULL,
+  `citta_arrivo` varchar(255) NOT NULL,
+  `partenza` datetime NOT NULL,
+  `arrivo` datetime NOT NULL,
+  `nome_compagnia` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -20,14 +20,19 @@ public class HotelDTO {
 	private String PathtoImage; 
 	
 	@NotNull
-	private Integer Stelle;
+	private Integer stelle;
+	
+	@NotNull
+	private Integer disponibilita;
+	
+	private String descrizione;
 
 	public Integer getStelle() {
-		return Stelle;
+		return this.stelle;
 	}
 
 	public void setStelle(Integer stelle) {
-		Stelle = stelle;
+		this.stelle = stelle;
 	}
 
 	public String getPathtoImage() {
@@ -60,6 +65,22 @@ public class HotelDTO {
 
 	public void setCosto_giornaliero(Integer costo_giornaliero) {
 		this.costo_giornaliero = costo_giornaliero;
+	}
+
+	public Integer getDisponibilita() {
+		return disponibilita;
+	}
+
+	public void setDisponibilita(Integer disponibilita) {
+		this.disponibilita = disponibilita;
+	}
+
+	public String getDescrizione() {
+		return descrizione;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
 	}
 
 	

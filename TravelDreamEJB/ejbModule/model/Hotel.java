@@ -18,7 +18,7 @@ public class Hotel implements Serializable {
 
 	private int costo_giornaliero;
 
-	private int disponibilita;
+	//private int disponibilita;
 
 	private String immagine;
 
@@ -26,7 +26,7 @@ public class Hotel implements Serializable {
 
 	private String nome;
 	
-	private String descrizione;
+	//private String descrizione;
 
 	private int stelle;
 
@@ -40,8 +40,8 @@ public class Hotel implements Serializable {
 		this.costo_giornaliero = hoteldto.getCosto_giornaliero();
 		this.immagine = hoteldto.getPathtoImage();
 		this.stelle = hoteldto.getStelle();
-		this.disponibilita = hoteldto.getDisponibilita();
-		this.setDescrizione(hoteldto.getDescrizione());
+		//this.disponibilita = hoteldto.getDisponibilita();
+		//this.setDescrizione(hoteldto.getDescrizione());
 	}
 
 	public int getId() {
@@ -92,6 +92,7 @@ public class Hotel implements Serializable {
 		this.stelle = stelle;
 	}
 
+	/*
 	public int getDisponibilita() {
 		return disponibilita;
 	}
@@ -107,5 +108,5 @@ public class Hotel implements Serializable {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-
+*/
 }

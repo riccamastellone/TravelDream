@@ -19,7 +19,7 @@ public class Pacchetto implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private Object descrizione;
+	private String descrizione;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fine_validita")
@@ -56,11 +56,11 @@ public class Pacchetto implements Serializable {
 		this.id = id;
 	}
 
-	public Object getDescrizione() {
+	public String getDescrizione() {
 		return this.descrizione;
 	}
 
-	public void setDescrizione(Object descrizione) {
+	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
 

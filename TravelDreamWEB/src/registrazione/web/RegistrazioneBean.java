@@ -88,6 +88,9 @@ public class RegistrazioneBean {
 		userMgr.aggiornaUtente(user, vecchiaEmail);
 	}
 	
+	public void getGruppoBean(){
+		System.out.println(userMgr.getGruppo(userMgr.getUserDTO()));
+	}
 	
 
 }

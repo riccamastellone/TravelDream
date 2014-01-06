@@ -37,5 +37,8 @@ public interface UtenteMrg {
 	 * se la password e stata cambiata fa l hash e la cambia se no lascia l hash vecchio
 	 */
 	public void aggiornaUtente(UtenteDTO utente, String vecchiaEmail);
+	
+	public String getGruppo(UtenteDTO utente);
+	
 
 }

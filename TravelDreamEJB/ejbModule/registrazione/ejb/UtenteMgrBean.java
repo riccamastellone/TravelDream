@@ -140,7 +140,7 @@ public class UtenteMgrBean implements UtenteMrg{
     {
     	return findUtente(getPrincipalUsername());
     }
-
+    
 	private Utente findUtente(String email) {
 		return em.find(Utente.class, email);
 	}
@@ -161,7 +161,13 @@ public class UtenteMgrBean implements UtenteMrg{
 	}
 
 
-
+	//DEBUG
+	public String getGruppo(UtenteDTO utente){
+		Utente user = this.findUtente(utente.getEmail());
+		
+		UtenteGruppo gruppo = this.getUtenteGruppoByEmail(user);
+		return gruppo.getGruppo();
+	}
 
 	/**
 	 * 

@@ -31,7 +31,7 @@ public class UtenteMgrBean implements UtenteMrg{
 	private EJBContext context;
 	
 	/**
-	 * creo un utente e gli associo il gruppo CLIENTE
+	 * creo un utente e gli associo il gruppo CLIENTE o DIPENDENTE a seconda del chiamante
 	 */
 	@Override
 	public void salvaUtente(UtenteDTO utente, String tipo) {
@@ -132,6 +132,15 @@ public class UtenteMgrBean implements UtenteMrg{
 			utentiDTO.add(convertToDTO(utente));	
 		}
 		return utentiDTO;
+	}
+
+
+
+
+	@Override
+	public void aggiornaDipendente(UtenteDTO utente) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

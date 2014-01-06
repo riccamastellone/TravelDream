@@ -30,5 +30,12 @@ public interface UtenteMrg {
 	 * @return
 	 */
 	public ArrayList<UtenteDTO> getUtentiByGruppi(String gruppo);
+	
+	/**
+	 * 
+	 * aggiorna il dipendente
+	 * se la password e stata cambiata fa l hash e la cambia se no lascia l hash vecchio
+	 */
+	public void aggiornaDipendente(UtenteDTO utente);
 
 }

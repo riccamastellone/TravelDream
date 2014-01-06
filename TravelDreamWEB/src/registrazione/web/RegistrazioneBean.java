@@ -2,9 +2,11 @@ package registrazione.web;
 
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.ejb.EJB;
-import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
@@ -13,7 +15,7 @@ import registrazione.client.UtenteDTO;
 import registrazione.client.UtenteMrg;
 
 @ManagedBean(name="registrazioneBean")
-@RequestScoped
+@SessionScoped
 public class RegistrazioneBean {
 	
 	private UtenteDTO user;
@@ -51,6 +53,21 @@ public class RegistrazioneBean {
 		System.out.println("bottone premuto");
 		userMgr.salvaUtente(user, "dipendnte");
 		return "home?faces-redirect=true";
+	}
+	
+	public String goToEdit(UtenteDTO dipendente){
+		this.user = dipendente;
+		return "edita?faces-redirect=true";
+	}
+	
+	public void printaUser() {
+		System.out.println("--DOPO CARICAMENTO--");
+		this.user.printaDati();
+	}
+	
+	public void editDipendnete() {
+		System.out.println("--DOPO CARICAMENTO--");
+		this.user.printaDati();
 	}
 	
 	

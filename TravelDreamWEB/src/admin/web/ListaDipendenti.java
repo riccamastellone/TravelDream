@@ -13,6 +13,7 @@ public class ListaDipendenti {
 	
 	private ArrayList<UtenteDTO> dipendenti;
 	
+	
 	@EJB
 	private UtenteMrg userMgr;
 	
@@ -23,6 +24,12 @@ public class ListaDipendenti {
 	//prova render lista dipendenti (ho messo CLIENTE per provare)
 	public ArrayList<UtenteDTO> getUtenti(){
 		return userMgr.getUtentiByGruppi("CLIENTE");
+	}
+	
+	public void edit(){
+		//this.user = dipendente;
+		System.out.println("tasto premuto");
+		//return "admin/edita?faces-redirect=true";
 	}
 
 }

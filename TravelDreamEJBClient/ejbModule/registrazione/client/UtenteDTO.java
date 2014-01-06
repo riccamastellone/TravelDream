@@ -75,6 +75,13 @@ public class UtenteDTO{
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public void printaDati() {
+		System.out.println(this.getNome());
+		System.out.println(this.getCognome());
+		System.out.println(this.getEmail());
+		System.out.println(this.getIndirizzo());
+	}
      
 
 }

@@ -17,12 +17,14 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
    <ui:repeat var="dipendente" value="#{listaDipendenti.getUtenti()}" varStatus="status">
  
 	<tr>
-		<td>#{dipendente.nome}</td>
-		<td>#{dipendente.cognome}</td>
-		<td>#{dipendente.indirizzo}</td>
-		<td>#{dipendente.dataNascita}</td>
-		<td>#{dipendente.email}</td>
-		<td><h:inputText value="prova" /></td>
+		<h:form>
+  		<h:outputText value="#{dipendente.nome} " />
+  		<h:outputText value="#{dipendente.cognome} "/>
+  		<h:outputText value="#{dipendente.indirizzo} "/>
+  		<h:outputText value="#{dipendente.email} "/>
+  		<h:commandButton value="Edit" action="#{registrazioneBean.goToEdit(dipendente)}" />
+  		<div/>
+		</h:form>
 		
 	</tr>
 

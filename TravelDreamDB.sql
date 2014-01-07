@@ -15,16 +15,15 @@ CREATE TABLE `Utente` (
   `password` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `utenteGruppo`;
 CREATE TABLE `UtenteGruppo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
+  `utente` varchar(255) NOT NULL,
   `gruppo` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `nome_UNIQUE` (`email`),
-  FOREIGN KEY (`email`) REFERENCES `Utente` (`email`)
+  FOREIGN KEY (`utente`) REFERENCES `Utente` (`email`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `Hotel`;
@@ -84,16 +83,20 @@ CREATE TABLE `VoloPacchetto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `Pacchetto` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) NOT NULL,
-  `immagine` varchar(255) DEFAULT NULL,
-  `localita` varchar(255) NOT NULL,
-  `descrizione` text NOT NULL,
-  `inizio_validita` date NOT NULL,
-  `fine_validita` date NOT NULL,
-  `id_hotel` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_hotel`) REFERENCES `Hotel` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `Prenotazione`; 
 
+CREATE TABLE `Prenotazione` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `persone` int(4) NOT NULL,
+  `costo_persona` float(6,2) NOT NULL COMMENT 'Costo totale per persona',
+  `utente` varchar(255) NOT NULL,
+  `volo_andata` int(11) NOT NULL,
+  `volo_ritorno` int(11) NOT NULL,
+  `hotel` int(11) NOT NULL,
+  `data_creazione` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`utente`) REFERENCES `Utente` (`email`),
+  FOREIGN KEY (`volo_andata`) REFERENCES `Volo` (`id`),
+  FOREIGN KEY (`volo_ritorno`) REFERENCES `Volo` (`id`),
+  FOREIGN KEY (`hotel`) REFERENCES `Hotel` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;

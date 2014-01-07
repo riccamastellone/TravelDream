@@ -17,7 +17,8 @@ public class Hotel implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private float costo_giornaliero;
+	@Column(name = "costo_giornaliero")
+	private float costoGiornaliero;
 
 	private int disponibilita;
 
@@ -38,7 +39,7 @@ public class Hotel implements Serializable {
 	public Hotel(HotelDTO hoteldto) {
 		this.nome = hoteldto.getNome();
 		this.luogo = hoteldto.getLuogo();
-		this.costo_giornaliero = hoteldto.getCosto_giornaliero();
+		this.costoGiornaliero = hoteldto.getCostoGiornaliero();
 		this.immagine = hoteldto.getPathtoImage();
 		this.stelle = hoteldto.getStelle();
 		this.disponibilita = hoteldto.getDisponibilita();
@@ -53,12 +54,12 @@ public class Hotel implements Serializable {
 		this.id = id;
 	}
 
-	public float getCosto_giornaliero() {
-		return this.costo_giornaliero;
+	public float getCostoGiornaliero() {
+		return this.costoGiornaliero;
 	}
 
-	public void setCosto_giornaliero(int costo_giornaliero) {
-		this.costo_giornaliero = costo_giornaliero;
+	public void setCostoGiornaliero(int costoGiornaliero) {
+		this.costoGiornaliero = costoGiornaliero;
 	}
 
 	public String getImmagine() {

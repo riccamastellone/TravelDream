@@ -40,11 +40,11 @@ public class ComponentManagerBean implements ComponenteMng  {
 	public void remove() {
 	}
     
-	//sfrutto la named query per ritornare tutti gli hotel dal DB
-	//convertendoli in DTO per il managed bean
+	/* HOTEL */
+	
 	public ArrayList<HotelDTO> getAllHotel()
 	{
-		List <Hotel> myList;
+		List<Hotel> myList;
 		ArrayList <HotelDTO> myDTOlist = new ArrayList <HotelDTO> ();
 		myList = em.createNamedQuery(Hotel.FIND_ALL, Hotel.class).getResultList();
 		for (Hotel h : myList)
@@ -56,7 +56,7 @@ public class ComponentManagerBean implements ComponenteMng  {
 
 	private HotelDTO HotelToDTO(Hotel h) {
 		HotelDTO hdto = new HotelDTO();
-		hdto.setCosto_giornaliero(h.getCosto_giornaliero());
+		hdto.setCostoGiornaliero(h.getCostoGiornaliero());
 		hdto.setLuogo(h.getLuogo());
 		hdto.setNome(h.getNome());
 		hdto.setStelle(h.getStelle());
@@ -66,6 +66,11 @@ public class ComponentManagerBean implements ComponenteMng  {
 		return hdto;
 		
 	}
+	
+	/* END HOTEL */
+	
+	
+	/* VOLI */
 	
 	private VoloDTO convertVoloToDTO(Volo h) {
 		VoloDTO vl = new VoloDTO();
@@ -98,10 +103,8 @@ public class ComponentManagerBean implements ComponenteMng  {
 		// TODO Auto-generated method stub
 	ArrayList<VoloDTO> voliDTO = new ArrayList<VoloDTO>();
 		
-		//query dichiarate nell entita UtenteGruppo 
-		Query queryGetAllVoli = em.createNamedQuery("Volo.findAll");
-		
-		List<Volo> voli = queryGetAllVoli.getResultList();
+		//query dichiarate nell entita UtenteGruppo 		
+		List<Volo> voli = em.createNamedQuery("Volo.findAll", Volo.class).getResultList();;
 		
 		for (Volo volo : voli) {
 			
@@ -143,6 +146,8 @@ public class ComponentManagerBean implements ComponenteMng  {
 		voloDaCancellare.setEliminato(1);
 		em.merge(voloDaCancellare);		
 	}
+	
+	/* END VOLI */
 	
 
 

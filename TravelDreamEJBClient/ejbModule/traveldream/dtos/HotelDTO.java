@@ -14,10 +14,10 @@ public class HotelDTO {
 	private String luogo;
 	
 	@NotNull
-    private float costo_giornaliero;
+    private float costoGiornaliero;
 	 
 	@NotEmpty
-	private String PathtoImage; 
+	private String pathtoImage; 
 	
 	@NotNull
 	private Integer stelle;
@@ -36,11 +36,11 @@ public class HotelDTO {
 	}
 
 	public String getPathtoImage() {
-		return PathtoImage;
+		return pathtoImage;
 	}
 
 	public void setPathtoImage(String pathtoImage) {
-		PathtoImage = pathtoImage;
+		this.pathtoImage = pathtoImage;
 	}
 
 	public String getNome() {
@@ -59,12 +59,12 @@ public class HotelDTO {
 		this.luogo = luogo;
 	}
 
-	public float getCosto_giornaliero() {
-		return costo_giornaliero;
+	public float getCostoGiornaliero() {
+		return costoGiornaliero;
 	}
 
-	public void setCosto_giornaliero(float f) {
-		this.costo_giornaliero = f;
+	public void setCostoGiornaliero(float f) {
+		this.costoGiornaliero = f;
 	}
 
 	public Integer getDisponibilita() {

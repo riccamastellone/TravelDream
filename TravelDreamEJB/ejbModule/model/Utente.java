@@ -26,6 +26,7 @@ import registrazione.client.UtenteDTO;
 public class Utente implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
@@ -33,7 +34,6 @@ public class Utente implements Serializable {
 
 	private String dataNascita;
 	
-	@Id
 	private String email;
 
 	private String indirizzo;

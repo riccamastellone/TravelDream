@@ -31,11 +31,9 @@ public class VoloBean {
 	
 	private String dataArrivo;
 	
-	private ArrayList<VoloDTO> elencoVoli;
 	
 	public VoloBean(){
 		this.volo = new VoloDTO();
-		this.elencoVoli = new ArrayList<VoloDTO>();
 		//this.elencoVoli = cmpMng.getVoli();
 
 	}
@@ -90,14 +88,6 @@ public class VoloBean {
 	}
 	
 
-	public ArrayList<VoloDTO> getElencoVoli() {
-		return elencoVoli;
-	}
-
-
-	public void setElencoVoli(ArrayList<VoloDTO> elencoVoli) {
-		this.elencoVoli = elencoVoli;
-	}
 	
 	public ArrayList<VoloDTO> getVoli() {
 			return cmpMng.getVoli();

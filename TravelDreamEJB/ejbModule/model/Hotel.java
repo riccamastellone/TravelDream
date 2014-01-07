@@ -58,7 +58,7 @@ public class Hotel implements Serializable {
 		return this.costoGiornaliero;
 	}
 
-	public void setCostoGiornaliero(int costoGiornaliero) {
+	public void setCostoGiornaliero(float costoGiornaliero) {
 		this.costoGiornaliero = costoGiornaliero;
 	}
 

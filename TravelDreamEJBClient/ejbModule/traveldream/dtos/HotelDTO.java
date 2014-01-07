@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class HotelDTO {
+	
+	private int id;
 
 	@NotEmpty 
 	private String nome;
@@ -81,6 +83,14 @@ public class HotelDTO {
 
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	

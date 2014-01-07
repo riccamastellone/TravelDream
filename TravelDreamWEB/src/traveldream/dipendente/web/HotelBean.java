@@ -3,8 +3,12 @@ package traveldream.dipendente.web;
 import java.util.ArrayList;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.event.FileUploadEvent;
 
 import com.sun.el.parser.ParseException;
 
@@ -45,31 +49,27 @@ public class HotelBean {
 		}
 		return this.allHotel;
 	}
-	/*
 	
-	public String goToEdit(VoloDTO volo){
-
-		this.volo = volo;
-		DateFormat formato = new SimpleDateFormat("MM/dd/yyyy");
-		this.dataArrivo = formato.format(this.volo.getArrivo());
-		this.dataPartenza = formato.format(this.volo.getPartenza());
+	
+	public String goToEdit(HotelDTO hotel){
+		this.hotel = hotel;
 		return "edita?faces-redirect=true";
 
 	}
 
-	public String editVolo() throws ParseException {
-		System.out.println("tato premuto");
-		VoloDTO voloDTO = this.volo;
-		voloDTO.setArrivo(this.converti(this.dataArrivo));
-		voloDTO.setPartenza(this.converti(this.dataPartenza));
-		this.volo = new VoloDTO();
-		this.dataArrivo = null;
-		this.dataPartenza = null;
-		cmpMng.aggiornaVolo(voloDTO);
-		this.voli = cmpMng.getVoli();
+	public String aggiornaHotel() throws ParseException {
+		HotelDTO hotelDTO = this.hotel;
+		this.hotel = new HotelDTO();
+		cmpMng.aggiornaHotel(hotelDTO);
+		refreshHotels();
 		return "catalogo?faces-redirect=true";
 	}
-
+	
+	public void handleFileUpload(FileUploadEvent event) {
+		FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+/*
 	public void deleteVolo(VoloDTO volo) {
 		System.out.println("tasto premuto");
 		cmpMng.deleteVolo(volo);

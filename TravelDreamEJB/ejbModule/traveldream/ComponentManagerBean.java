@@ -73,6 +73,21 @@ public class ComponentManagerBean implements ComponenteMng  {
 		em.persist(hotelNuovo);
 	}
 	
+	public void aggiornaHotel(HotelDTO hotel) {
+		Hotel hotelNuovo = this.findHotel(hotel.getId());
+		hotelNuovo.setCostoGiornaliero(hotel.getCostoGiornaliero());
+		hotelNuovo.setDescrizione(hotel.getDescrizione());
+		hotelNuovo.setDisponibilita(hotel.getDisponibilita());
+		hotelNuovo.setLuogo(hotel.getLuogo());
+		hotelNuovo.setNome(hotel.getNome());
+		hotelNuovo.setStelle(hotel.getStelle());
+		em.merge(hotelNuovo);
+	}
+	
+	private Hotel findHotel(int id) {
+		return em.find(Hotel.class, id);
+	}
+	
 	/* END HOTEL */
 	
 	
@@ -124,9 +139,6 @@ public class ComponentManagerBean implements ComponenteMng  {
 	}
 
 
-
-
-	@Override
 	public void aggiornaVolo(VoloDTO volo) {
 		// TODO Auto-generated method stub
 		Volo voloDaModificare = this.findVolo(volo.getId());

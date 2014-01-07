@@ -5,45 +5,45 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the Pacchetto database table.
  * 
  */
 @Entity
-@NamedQuery(name="Pacchetto.findAll", query="SELECT p FROM Pacchetto p")
+@NamedQuery(name = "Pacchetto.findAll", query = "SELECT p FROM Pacchetto p")
 public class Pacchetto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String descrizione;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fine_validita")
+	@Column(name = "fine_validita")
 	private Date fineValidita;
+
+	@ManyToOne
+	@JoinColumn(name = "hotel")
+	private Hotel hotel;
 
 	private String immagine;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="inizio_validita")
+	@Column(name = "inizio_validita")
 	private Date inizioValidita;
 
 	private String localita;
 
 	private String nome;
 
-	//bi-directional many-to-one association to Hotel
-	@ManyToOne
-	@JoinColumn(name="hotel")
-	private Hotel hotel;
-
-
-	//bi-directional many-to-one association to VoloPacchetto
-	@OneToMany(mappedBy="pacchetto")
+	@OneToMany(mappedBy = "pacchetto")
 	private List<VoloPacchetto> voliPacchetto;
+
+	// bi-directional many-to-one association to AttivitaSecondariaPacchetto
+	@OneToMany(mappedBy = "pacchettoBean")
+	private List<AttivitaSecondariaPacchetto> attivitaSecondariePacchetto;
 
 	public Pacchetto() {
 	}
@@ -70,6 +70,14 @@ public class Pacchetto implements Serializable {
 
 	public void setFineValidita(Date fineValidita) {
 		this.fineValidita = fineValidita;
+	}
+
+	public Hotel getHotel() {
+		return this.hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 
 	public String getImmagine() {
@@ -104,14 +112,6 @@ public class Pacchetto implements Serializable {
 		this.nome = nome;
 	}
 
-	public Hotel getHotel() {
-		return this.hotel;
-	}
-
-	public void setHotel(Hotel hotel) {
-		this.hotel = hotel;
-	}
-
 	public List<VoloPacchetto> getVoliPacchetto() {
 		return this.voliPacchetto;
 	}
@@ -123,15 +123,38 @@ public class Pacchetto implements Serializable {
 	public VoloPacchetto addVoloPacchetto(VoloPacchetto voloPacchetto) {
 		getVoliPacchetto().add(voloPacchetto);
 		voloPacchetto.setPacchetto(this);
-
 		return voloPacchetto;
 	}
 
 	public VoloPacchetto removeVoloPacchetto(VoloPacchetto voloPacchetto) {
 		getVoliPacchetto().remove(voloPacchetto);
 		voloPacchetto.setPacchetto(null);
-
 		return voloPacchetto;
+	}
+
+	public List<AttivitaSecondariaPacchetto> getAttivitaSecondariePacchetto() {
+		return this.attivitaSecondariePacchetto;
+	}
+
+	public void setAttivitaSecondariePacchetto(
+			List<AttivitaSecondariaPacchetto> attivitaSecondariePacchetto) {
+		this.attivitaSecondariePacchetto = attivitaSecondariePacchetto;
+	}
+
+	public AttivitaSecondariaPacchetto addAttivitaSecondariePacchetto(
+			AttivitaSecondariaPacchetto attivitaSecondariePacchetto) {
+		getAttivitaSecondariePacchetto().add(attivitaSecondariePacchetto);
+		attivitaSecondariePacchetto.setPacchettoBean(this);
+
+		return attivitaSecondariePacchetto;
+	}
+
+	public AttivitaSecondariaPacchetto removeAttivitaSecondariePacchetto(
+			AttivitaSecondariaPacchetto attivitaSecondariePacchetto) {
+		getAttivitaSecondariePacchetto().remove(attivitaSecondariePacchetto);
+		attivitaSecondariePacchetto.setPacchettoBean(null);
+
+		return attivitaSecondariePacchetto;
 	}
 
 }

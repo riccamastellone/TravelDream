@@ -65,9 +65,9 @@ CREATE TABLE `Pacchetto` (
   `descrizione` text NOT NULL,
   `inizio_validita` date NOT NULL,
   `fine_validita` date NOT NULL,
-  `id_hotel` int(11) NOT NULL,
+  `hotel` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_hotel`) REFERENCES `Hotel` (`id`)
+  FOREIGN KEY (`hotel`) REFERENCES `Hotel` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -75,11 +75,11 @@ DROP TABLE IF EXISTS `VoloPacchetto`;
 
 CREATE TABLE `VoloPacchetto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_volo` int(11) NOT NULL,
-  `id_pacchetto` int(11) NOT NULL,
+  `volo` int(11) NOT NULL,
+  `pacchetto` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_volo`) REFERENCES `Volo` (`id`),
-  FOREIGN KEY (`id_pacchetto`) REFERENCES `Pacchetto` (`id`)
+  FOREIGN KEY (`volo`) REFERENCES `Volo` (`id`),
+  FOREIGN KEY (`pacchetto`) REFERENCES `Pacchetto` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -112,3 +112,15 @@ CREATE TABLE `AttivitaSecondaria` (
   `descrizione` TEXT DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `AttivitaSecondariaPacchetto`; 
+CREATE TABLE IF NOT EXISTS `AttivitaSecondariaPacchetto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pacchetto` INT NOT NULL,
+  `attivita_secondaria` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`pacchetto`) REFERENCES `Pacchetto` (`id`),
+  FOREIGN KEY (`attivita_secondaria`) REFERENCES `AttivitaSecondaria` (`id`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+

@@ -19,12 +19,12 @@ public class VoloPacchetto implements Serializable {
 
 	//bi-directional many-to-one association to Pacchetto
 	@ManyToOne
-	@JoinColumn(name="id_pacchetto")
+	@JoinColumn(name="pacchetto")
 	private Pacchetto pacchetto;
 
 	//bi-directional many-to-one association to Volo
 	@ManyToOne
-	@JoinColumn(name="id_volo")
+	@JoinColumn(name="volo")
 	private Volo volo;
 
 	public VoloPacchetto() {

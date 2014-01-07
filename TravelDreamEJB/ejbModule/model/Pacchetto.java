@@ -37,7 +37,7 @@ public class Pacchetto implements Serializable {
 
 	//bi-directional many-to-one association to Hotel
 	@ManyToOne
-	@JoinColumn(name="id_hotel")
+	@JoinColumn(name="hotel")
 	private Hotel hotel;
 
 

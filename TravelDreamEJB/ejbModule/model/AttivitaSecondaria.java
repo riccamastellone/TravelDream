@@ -52,7 +52,7 @@ public class AttivitaSecondaria implements Serializable {
 		this.disponibilita = a.getDisponibilita();
 		this.localita = a.getLocalita();
 		this.nome = a.getNome();
-		this.eliminato = 0;
+		this.eliminato = 0; // non ha senso creare un elemento gia eliminato!
 	}
 
 	public int getId() {

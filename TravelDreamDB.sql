@@ -100,3 +100,15 @@ CREATE TABLE `Prenotazione` (
   FOREIGN KEY (`volo_ritorno`) REFERENCES `Volo` (`id`),
   FOREIGN KEY (`hotel`) REFERENCES `Hotel` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+
+
+DROP TABLE IF EXISTS `AttivitaSecondaria`; 
+CREATE TABLE `AttivitaSecondaria` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(255) NOT NULL,
+  `disponibilita` int(11) NOT NULL DEFAULT '0',
+  `costo` float(6,2) NOT NULL,
+  `localita` varchar(255) NOT NULL,
+  `descrizione` TEXT DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8;

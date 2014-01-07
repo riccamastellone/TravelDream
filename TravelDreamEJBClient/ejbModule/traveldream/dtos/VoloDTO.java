@@ -3,6 +3,7 @@ package traveldream.dtos;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.validation.constraints.*;
@@ -102,6 +103,8 @@ public class VoloDTO {
 			System.out.println(this.getPartenza());
 			
 		}
+	 
+	
 	 
 	
 }

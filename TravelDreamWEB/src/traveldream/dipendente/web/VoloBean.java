@@ -1,5 +1,6 @@
 package traveldream.dipendente.web;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,8 +18,8 @@ import traveldream.gestioneComponente.ComponenteMng;
 @RequestScoped
 public class VoloBean {
 
-	//@EJB
-	//private ComponenteMng cmpMng;
+	@EJB
+	private ComponenteMng cmpMng;
 	
 	private VoloDTO volo;
 	
@@ -26,8 +27,12 @@ public class VoloBean {
 	
 	private String dataArrivo;
 	
+	private ArrayList<VoloDTO> elencoVoli;
+	
 	public VoloBean(){
 		this.volo = new VoloDTO();
+		this.elencoVoli = new ArrayList<VoloDTO>();
+		//this.elencoVoli = cmpMng.getVoli();
 
 	}
 	
@@ -40,24 +45,6 @@ public class VoloBean {
 		this.volo = volo;
 	}
 	
-	public void aggiungiVolo() throws ParseException{
-		this.volo.setPartenza(this.converti(dataPartenza));
-		this.volo.setArrivo(this.converti(dataArrivo));
-		System.out.println(this.volo);
-		
-		this.volo.printaDati();
-	}
-	
-	public Date converti(String data) throws ParseException{
-		if (data.equals("")){
-			return null;
-		}
-		 SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");
-		 Date convertedDate = dateFormat.parse(data);
-		 return convertedDate;
-	}
-	
-
 
 	public String getDataPartenza() {
 		return dataPartenza;
@@ -78,5 +65,40 @@ public class VoloBean {
 		this.dataArrivo = dataArrivo;
 	}
 	
+	
+	public String aggiungiVolo() throws ParseException{
+		this.volo.setPartenza(this.converti(dataPartenza));
+		this.volo.setArrivo(this.converti(dataArrivo));
+		System.out.println(this.volo);
+		this.volo.printaDati();
+		cmpMng.salvaVolo(volo);
+		return "catalogo?faces-redirect=true";
+		
+	}
+	
+	public Date converti(String data) throws ParseException{
+		if (data.equals("")){
+			return null;
+		}
+		 SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");
+		 Date convertedDate = dateFormat.parse(data);
+		 return convertedDate;
+	}
+	
+
+	public ArrayList<VoloDTO> getElencoVoli() {
+		return elencoVoli;
+	}
+
+
+	public void setElencoVoli(ArrayList<VoloDTO> elencoVoli) {
+		this.elencoVoli = elencoVoli;
+	}
+	
+	 public ArrayList<VoloDTO> getVoli() {
+			return cmpMng.getVoli();
+		}
+	
+
 	
 }

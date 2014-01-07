@@ -124,3 +124,14 @@ CREATE TABLE IF NOT EXISTS `AttivitaSecondariaPacchetto` (
 ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `AttivitaSecondariaPrenotazione`; 
+CREATE TABLE IF NOT EXISTS `AttivitaSecondariaPrenotazione` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `prenotazione` INT NOT NULL,
+  `attivita_secondaria` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`prenotazione`) REFERENCES `Prenotazione` (`id`),
+  FOREIGN KEY (`attivita_secondaria`) REFERENCES `AttivitaSecondaria` (`id`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+

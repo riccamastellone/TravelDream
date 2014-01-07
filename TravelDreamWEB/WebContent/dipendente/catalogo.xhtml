@@ -5,20 +5,18 @@
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
 xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:p="http://primefaces.org/ui"
+xmlns:p="http://primefaces.org/ui">
 
->
-<h:head>
-<title>index.xhtml</title>
-</h:head>
+<ui:composition template="template.xhtml">
 
-<h:body>
+	<ui:define name="content">
+
 	<h:link outcome="aggiungiVolo" value="Aggiungi nuovo volo" /><br /> 
 	<h:form>  
   
     <p:dataTable id="dataTable" var="volo" value="#{voloBean.getVoli()}">  
         <f:facet name="header">  
-            Ajax Sorting  
+            Elenco Voli 
         </f:facet>  
   
         <p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">  
@@ -52,8 +50,9 @@ xmlns:p="http://primefaces.org/ui"
   
 </h:form> 
 
+ </ui:define>
 
+</ui:composition>
 
-</h:body>
 
 </html>

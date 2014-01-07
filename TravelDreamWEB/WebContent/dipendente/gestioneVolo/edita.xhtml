@@ -46,9 +46,10 @@
 			<label >Costo:</label> 
 			<h:inputText p:placeholder="Inserisci il costo" class="form-control" value="#{voloBean.volo.costo}" />
 		</div>
-
-		<h:commandButton value="Edita"  class="btn btn-default"
-				action="#{voloBean.editVolo()}" />
+		<div class="pull-right">
+		<h:commandButton value="Indietro"  class="btn btn-default" onclick="history.go(-1)" />&nbsp;
+		<h:commandButton value="Salva"  class="btn btn-primary" action="#{voloBean.editVolo()}" />
+		</div>
 	</h:form>
 	
 

@@ -11,10 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import model.Hotel;
-import model.Utente;
-import model.UtenteGruppo;
 import model.Volo;
-import registrazione.client.UtenteDTO;
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.gestioneComponente.ComponenteMng;

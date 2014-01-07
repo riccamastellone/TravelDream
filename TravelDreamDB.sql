@@ -111,6 +111,7 @@ CREATE TABLE `AttivitaSecondaria` (
   `costo` float(6,2) NOT NULL,
   `localita` varchar(255) NOT NULL,
   `descrizione` TEXT DEFAULT NULL,
+  `eliminato` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB DEFAULT CHARSET=utf8;
 

@@ -57,7 +57,7 @@ public class Volo implements Serializable {
 		this.disponibilita = volo.getDisponibilita();
 		this.nomeCompagnia = volo.getNomeCompagnia();
 		this.partenza = volo.getPartenza();
-		this.setEliminato(volo.getEliminato());
+		this.setEliminato(0); // non ha senso creare un elemento gia eliminato!
 	}
 
 	public int getId() {

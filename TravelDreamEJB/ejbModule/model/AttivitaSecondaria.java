@@ -1,7 +1,11 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import traveldream.dtos.AttivitaSecondariaDTO;
+
 import java.util.List;
 
 
@@ -27,6 +31,8 @@ public class AttivitaSecondaria implements Serializable {
 	private String localita;
 
 	private String nome;
+	
+	private int eliminato;
 
 	//bi-directional many-to-one association to AttivitaSecondariaPacchetto
 	@OneToMany(mappedBy="attivitaSecondariaBean")
@@ -37,6 +43,15 @@ public class AttivitaSecondaria implements Serializable {
 	private List<AttivitaSecondariaPrenotazione> attivitaSecondariePrenotazione;
 
 	public AttivitaSecondaria() {
+	}
+	
+	public AttivitaSecondaria(AttivitaSecondariaDTO a) {
+		this.costo = a.getCosto();
+		this.descrizione = a.getDescrizione();
+		this.disponibilita = a.getDisponibilita();
+		this.localita = a.getLocalita();
+		this.nome = a.getNome();
+		this.eliminato = 0;
 	}
 
 	public int getId() {
@@ -129,6 +144,14 @@ public class AttivitaSecondaria implements Serializable {
 		attivitaSecondariePrenotazione.setAttivitaSecondariaBean(null);
 
 		return attivitaSecondariePrenotazione;
+	}
+
+	public int getEliminato() {
+		return eliminato;
+	}
+
+	public void setEliminato(int eliminato) {
+		this.eliminato = eliminato;
 	}
 
 }

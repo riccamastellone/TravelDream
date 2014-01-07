@@ -48,14 +48,24 @@ xmlns:p="http://primefaces.org/ui">
             <h:outputText value="#{volo.costo} €" />  
         </p:column>
         
-         <p:column headerText="">  
+         <p:column headerText="" width="100">  
          	<div class="btn-group">
 
-         	
-            	<h:commandButton id="edit" value="Edit" class="btn btn-default"  type="button" action="#{voloBean.goToEdit(volo)}"> 
-           			<f:ajax execute="edit" render="editDialog" />
-           		</h:commandButton>
-           			<p:dialog id="editDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="400" >  
+            	<h:commandLink id="edit" class="btn btn-default"  onclick="PF('dlg2').show()" type="button" action="#{voloBean.goToEdit(volo)}"> 
+            		<span class="glyphicon glyphicon-pencil"></span>
+           			<f:ajax execute="edit" update="editDialog" />
+           		</h:commandLink>
+            	<h:commandLink id="canc" class="btn btn-default btn-danger" onclick="return confirm('Confermi di voler eliminare questo volo?');"  action="#{voloBean.deleteVolo(volo)}">
+					<span class="glyphicon glyphicon-trash white"></span>
+            		<f:ajax execute="canc" render="dataTable" />
+            	</h:commandLink> 
+            </div>
+        </p:column>
+        
+    </p:dataTable>  
+    
+    <p:dialog id="editDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="400">  
+
     		<h:form>
 	
 		<div class="form-group">
@@ -106,14 +116,7 @@ xmlns:p="http://primefaces.org/ui">
   });
  </script> 
 	</p:dialog> 
-            	<h:commandButton id="canc" value="Canc" class="btn btn-default btn-danger" action="#{voloBean.deleteVolo(volo)}">
-
-            		<f:ajax execute="canc" render="dataTable" />
-            	</h:commandButton> 
-            </div>
-        </p:column>
-        
-    </p:dataTable>  
+            
     
   
              

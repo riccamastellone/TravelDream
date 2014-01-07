@@ -10,6 +10,7 @@ xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../template.xhtml">
 
 	<ui:define name="content">
+	  
 	
 	<h:link outcome="aggiungiVolo"  class="btn btn-default pull-right" value="Aggiungi nuovo volo" /><br /><br /> 
 	<h:form>  
@@ -51,19 +52,10 @@ xmlns:p="http://primefaces.org/ui">
          	<div class="btn-group">
 
          	
-            	<h:commandButton id="edit" value="Edit" class="btn btn-default"  onclick="PF('dlg2').show();" type="button" action="#{voloBean.goToEdit(volo)}"> 
-           			<f:ajax execute="edit" render="dataTable" />
+            	<h:commandButton id="edit" value="Edit" class="btn btn-default"  type="button" action="#{voloBean.goToEdit(volo)}"> 
+           			<f:ajax execute="edit" render="editDialog" />
            		</h:commandButton>
-            	<h:commandButton id="canc" value="Canc" class="btn btn-default btn-danger" action="#{voloBean.deleteVolo(volo)}">
-
-            		<f:ajax execute="canc" render="dataTable" />
-            	</h:commandButton> 
-            </div>
-        </p:column>
-        
-    </p:dataTable>  
-    
-    <p:dialog id="editDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="400" >  
+           			<p:dialog id="editDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="400" >  
     		<h:form>
 	
 		<div class="form-group">
@@ -113,7 +105,17 @@ xmlns:p="http://primefaces.org/ui">
 	  $( ".datepicker" ).datepicker();
   });
  </script> 
-	</p:dialog>   
+	</p:dialog> 
+            	<h:commandButton id="canc" value="Canc" class="btn btn-default btn-danger" action="#{voloBean.deleteVolo(volo)}">
+
+            		<f:ajax execute="canc" render="dataTable" />
+            	</h:commandButton> 
+            </div>
+        </p:column>
+        
+    </p:dataTable>  
+    
+  
              
   <p:remoteCommand name="loadEdit" update="editDialog">  
         <f:setPropertyActionListener value="#{true}" target="#{requestScope.shouldRender}" />  

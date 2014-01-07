@@ -76,6 +76,7 @@ public class UtenteDTO{
         this.password = password;
     }
     
+    //DEBUG
     public void printaDati() {
 		System.out.println(this.getNome());
 		System.out.println(this.getCognome());

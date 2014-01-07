@@ -8,15 +8,20 @@ import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import model.Hotel;
+import model.Utente;
+import model.UtenteGruppo;
 import model.Volo;
+import registrazione.client.UtenteDTO;
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.VoloDTO;
+import traveldream.gestioneComponente.ComponenteMng;
 
 
 @Stateless
-public class ComponentManagerBean  {
+public class ComponentManagerBean implements ComponenteMng  {
 
 	@PersistenceContext
     private EntityManager em;
@@ -65,8 +70,9 @@ public class ComponentManagerBean  {
 		
 	}
 	
-	private VoloDTO VoloToDTO(Volo h) {
+	private VoloDTO convertVoloToDTO(Volo h) {
 		VoloDTO vl = new VoloDTO();
+		vl.setId(h.getId());
 		vl.setArrivo(h.getArrivo());
 		vl.setCittaPartenza(h.getCittaPartenza());
 		vl.setCittaArrivo(h.getCittaArrivo());
@@ -76,6 +82,58 @@ public class ComponentManagerBean  {
 		vl.setPartenza(h.getPartenza());
 		vl.setEliminato(h.getEliminato());
 		return vl;
+	}
+
+
+
+	@Override
+	public void salvaVolo(VoloDTO volo) {
+		// TODO Auto-generated method stub
+		System.out.println("salvo volo");
+		Volo voloNuovo = new Volo(volo); 
+		em.persist(voloNuovo);
+	}
+
+
+
+	@Override
+	public ArrayList<VoloDTO> getVoli() {
+		// TODO Auto-generated method stub
+	ArrayList<VoloDTO> voliDTO = new ArrayList<VoloDTO>();
+		
+		//query dichiarate nell entita UtenteGruppo 
+		Query queryGetAllVoli = em.createNamedQuery("Volo.findAll");
+		
+		List<Volo> voli = queryGetAllVoli.getResultList();
+		
+		for (Volo volo : voli) {
+			
+			voliDTO.add(this.convertVoloToDTO(volo));	
+		}
+		return voliDTO;
+	}
+
+
+
+	@Override
+	public void aggiornaVolo(VoloDTO volo) {
+		// TODO Auto-generated method stub
+		Volo voloDaModificare = this.findVolo(volo.getId());
+		voloDaModificare.setArrivo(volo.getArrivo());
+		voloDaModificare.setCittaArrivo(volo.getCittaArrivo());
+		voloDaModificare.setCittaPartenza(volo.getCittaPartenza());
+		voloDaModificare.setCosto(volo.getCosto());
+		voloDaModificare.setDisponibilita(volo.getDisponibilita());
+		voloDaModificare.setNomeCompagnia(volo.getNomeCompagnia());
+		voloDaModificare.setPartenza(volo.getPartenza());
+		
+		em.merge(voloDaModificare);
+		
+		
+	}
+	
+	private Volo findVolo(int id) {
+		return em.find(Volo.class, id);
 	}
 	
 

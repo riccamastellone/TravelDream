@@ -74,6 +74,7 @@ public class ComponentManagerBean  {
 		vl.setDisponibilita(h.getDisponibilita());
 		vl.setNomeCompagnia(h.getNomeCompagnia());
 		vl.setPartenza(h.getPartenza());
+		vl.setEliminato(h.getEliminato());
 		return vl;
 	}
 	

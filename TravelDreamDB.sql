@@ -51,6 +51,7 @@ CREATE TABLE `Volo` (
   `partenza` datetime NOT NULL,
   `arrivo` datetime NOT NULL,
   `nome_compagnia` varchar(255) NOT NULL,
+  `eliminato` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

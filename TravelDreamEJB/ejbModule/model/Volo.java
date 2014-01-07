@@ -16,7 +16,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="Volo")
-@NamedQuery(name="Volo.findAll", query="SELECT v FROM Volo v")
+@NamedQuery(name="Volo.findAll", query="SELECT v FROM Volo v WHERE 'eliminato' != 1")
 public class Volo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -42,6 +42,8 @@ public class Volo implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date partenza;
+	
+	private int eliminato;
 
 	public Volo() {
 		
@@ -55,6 +57,7 @@ public class Volo implements Serializable {
 		this.disponibilita = volo.getDisponibilita();
 		this.nomeCompagnia = volo.getNomeCompagnia();
 		this.partenza = volo.getPartenza();
+		this.setEliminato(volo.getEliminato());
 	}
 
 	public int getId() {
@@ -119,6 +122,14 @@ public class Volo implements Serializable {
 
 	public void setPartenza(Date partenza) {
 		this.partenza = partenza;
+	}
+
+	public int getEliminato() {
+		return eliminato;
+	}
+
+	public void setEliminato(int eliminato) {
+		this.eliminato = eliminato;
 	}
 
 }

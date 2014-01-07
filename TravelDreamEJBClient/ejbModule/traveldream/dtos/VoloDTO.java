@@ -30,6 +30,8 @@ public class VoloDTO {
 
 	@NotEmpty
 	private Date partenza;
+	
+	private int eliminato;
 
 	public Date getArrivo() {
 		return this.arrivo;
@@ -85,6 +87,14 @@ public class VoloDTO {
 
 	public void setPartenza(Date partenza) {
 		this.partenza = partenza;
+	}
+
+	public int getEliminato() {
+		return eliminato;
+	}
+
+	public void setEliminato(int eliminato) {
+		this.eliminato = eliminato;
 	}
 	
 }

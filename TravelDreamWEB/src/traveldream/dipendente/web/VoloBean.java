@@ -7,9 +7,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+
+import org.primefaces.event.RowEditEvent;
 
 import traveldream.dtos.VoloDTO;
 import traveldream.gestioneComponente.ComponenteMng;
@@ -97,7 +101,7 @@ public class VoloBean {
 
 	}
 
-	public String editVolo() throws ParseException {
+	public void editVolo() throws ParseException {
 		System.out.println("tato premuto");
 		VoloDTO voloDTO = this.volo;
 		voloDTO.setArrivo(this.converti(this.dataArrivo));
@@ -107,7 +111,7 @@ public class VoloBean {
 		this.dataPartenza = null;
 		cmpMng.aggiornaVolo(voloDTO);
 		this.voli = cmpMng.getVoli();
-		return "catalogo?faces-redirect=true";
+		//return "catalogo?faces-redirect=true";
 	}
 
 	public void deleteVolo(VoloDTO volo) {
@@ -123,5 +127,16 @@ public class VoloBean {
 		return "catalogo?faces-redirect=true";
 	}
 	
+	 public void onEdit(RowEditEvent event) {  
+	       FacesMessage msg = new FacesMessage("Volo Aggiornato");  
+	       cmpMng.aggiornaVolo((VoloDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg);  
+	    } 
+	
+	 public void onDelete(RowEditEvent event) {  
+	       FacesMessage msg = new FacesMessage("Volo Cancellato");  
+	       cmpMng.deleteVolo((VoloDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg);  
+	    } 
 
 }

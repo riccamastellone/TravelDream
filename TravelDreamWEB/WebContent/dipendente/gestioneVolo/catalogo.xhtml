@@ -14,52 +14,97 @@ xmlns:p="http://primefaces.org/ui">
  
 	
 	<h:link outcome="aggiungiVolo"  class="btn btn-default pull-right" value="Aggiungi nuovo volo" /><br /><br /> 
-	<h:form>  
+	<h:form id="form"> 
+	
+	 	 <p:growl id="messages" showDetail="true"/>  
   
-    <p:dataTable id="dataTable" var="volo" value="#{voloBean.getVoli()}">  
+    <p:dataTable id="dataTable" var="volo" value="#{voloBean.getVoli()}" editable="true">  
         <f:facet name="header">  
             Elenco Voli 
         </f:facet>  
+        
+        <p:ajax event="rowEdit" listener="#{voloBean.onEdit}" update=":form:messages" />  
+        <p:ajax event="rowEditCancel" listener="#{voloBean.onDelete}" update=":form:messages" />  
   
         <p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">  
-            <h:outputText value="#{volo.nomeCompagnia}" />  
+        	<p:cellEditor> 
+        		<f:facet name="output">
+            		<h:outputText value="#{volo.nomeCompagnia}" />  
+            	</f:facet>
+            	<f:facet name="input">  
+                    <p:inputText value="#{volo.nomeCompagnia}" style="width:100%"/>  
+                </f:facet> 
+            </p:cellEditor> 
         </p:column>  
   
-        <p:column sortBy="cittaPartenza" headerText="Città di partenza">  
-            <h:outputText value="#{volo.cittaPartenza}" />  
+        <p:column sortBy="cittaPartenza" headerText="Città di partenza"> 
+        	<p:cellEditor> 
+        		<f:facet name="output"> 
+            		<h:outputText value="#{volo.cittaPartenza}" /> 
+            	</f:facet>
+            	<f:facet name="input">  
+                    <p:inputText value="#{volo.cittaPartenza}" style="width:100%"/>  
+                </f:facet>
+            </p:cellEditor> 
         </p:column>  
   
-        <p:column sortBy="cittaArrivo" headerText="Città di arrivo">  
-            <h:outputText value="#{volo.cittaArrivo}" />  
+        <p:column sortBy="cittaArrivo" headerText="Città di arrivo"> 
+        	<p:cellEditor> 
+        		<f:facet name="output"> 
+            		<h:outputText value="#{volo.cittaArrivo}" /> 
+            	</f:facet>
+            	<f:facet name="input">  
+                    <p:inputText value="#{volo.cittaArrivo}" style="width:100%"/>  
+                </f:facet>
+            </p:cellEditor>	 
         </p:column>  
         
-        <p:column sortBy="partenza" headerText="Data di Partenza">  
-            <h:outputText value="#{volo.partenza}" />  
+        <p:column sortBy="partenza" headerText="Data di Partenza"> 
+        	<p:cellEditor> 
+        		<f:facet name="output">  
+            		<h:outputText value="#{volo.partenza}" /> 
+            	</f:facet>
+            	<f:facet name="input">  
+                    <p:inputText value="#{volo.partenza}" style="width:100%"/>  
+                </f:facet>
+            </p:cellEditor>	 
         </p:column> 
         
-        <p:column sortBy="arrivo" headerText="Data di arrivo">  
-            <h:outputText value="#{volo.arrivo}" />  
+        <p:column sortBy="arrivo" headerText="Data di arrivo">
+        	<p:cellEditor> 
+        		<f:facet name="output">   
+           			 <h:outputText value="#{volo.arrivo}" />  
+           		</f:facet>
+           		<f:facet name="input">  
+                    <p:inputText value="#{volo.arrivo}" style="width:100%"/>  
+                </f:facet>
+           	</p:cellEditor>	
         </p:column> 
   
-        <p:column sortBy="disponibilita" headerText="Posti disponibili">  
-            <h:outputText value="#{volo.disponibilita}" />  
+        <p:column sortBy="disponibilita" headerText="Posti disponibili"> 
+        	<p:cellEditor> 
+        		<f:facet name="output"> 
+            		<h:outputText value="#{volo.disponibilita}" />  
+            	</f:facet>
+            	<f:facet name="input">  
+                    <p:inputText value="#{volo.disponibilita}" style="width:100%"/>  
+                </f:facet>
+            </p:cellEditor>	
         </p:column>  
         
-        <p:column sortBy="costo" headerText="Prezzo">  
-            <h:outputText value="#{volo.costo} €" />  
+        <p:column sortBy="costo" headerText="Prezzo"> 
+        	<p:cellEditor> 
+        		<f:facet name="output"> 
+            		<h:outputText value="#{volo.costo} €" /> 
+            	</f:facet>
+            	<f:facet name="input">  
+                    <p:inputText value="#{volo.costo}" style="width:100%"/>  
+                </f:facet>
+            </p:cellEditor>	 
         </p:column>
         
-         <p:column headerText="" width="100">  
-         	<div class="btn-group">
-
-            	<h:commandLink id="edit" class="btn btn-default"  type="button" action="#{voloBean.goToEdit(volo)}">
-            		<span class="glyphicon glyphicon-pencil"></span>
-            	</h:commandLink>           		
-            	<h:commandLink id="canc" class="btn btn-default btn-danger" onclick="return confirm('Confermi di voler eliminare questo volo?');"  action="#{voloBean.deleteVolo(volo)}">
-					<span class="glyphicon glyphicon-trash white"></span>
-            		<f:ajax execute="canc" render="dataTable" />
-            	</h:commandLink> 
-            </div>
+      	<p:column style="width:6%">  
+            <p:rowEditor />  
         </p:column>
         
         </p:dataTable>

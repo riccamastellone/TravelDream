@@ -31,7 +31,7 @@
     <auth-constraint>
       <role-name>AMMINISTRATORE</role-name>
     </auth-constraint>
-  </security-constraint> -->
+  </security-constraint> 
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Dipendente Pages</web-resource-name>
@@ -39,9 +39,9 @@
       <url-pattern>/dipendente/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <role-name>DIPENDENTE</role-name>
+      <role-name>DIPENDENTE</role-name> 
     </auth-constraint>
-  </security-constraint>
+  </security-constraint> -->
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>cliente Pages</web-resource-name>

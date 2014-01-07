@@ -2,47 +2,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
 <ui:composition template="template.xhtml">
 
 	<ui:define name="content">
 		
 	<br></br>
-	<form role="form">
-		<div class="form-group">
-			<label for="cittaPartenza">Citta Partenza:</label> 
-			<input  type="email" class="form-control" placeholder="Inserisci la città di partenza" value="#{voloBean.volo.cittaPartenza}" />
-		</div>
-		
-		<div class="form-group">
-			<label for="cittaArrivo">Citta Arrivo:</label> 
-			<input  type="text" class="form-control" placeholder="Inserisci la città di arrivo" value="#{voloBean.volo.cittaArrivo}" />
-		</div>
-		
-		<div class="form-group">
-			<label for="nomeCompagnia">Nome Compagnia:</label> 
-			<input type="text" class="form-control" placeholder="Inserisci la compagnia aerea" value="#{voloBean.volo.nomeCompagnia}" />
-		</div>
-		
-		<div class="form-group">
-			<label for="dataPartenza">Data Partenza:</label> 
-			<input type="text" class="form-control" id="datepicker" placeholder="Inserisci la data di partenza" value="#{voloBean.volo.partenza}" />
-		</div>
-		
-		<div class="form-group">
-			<label for="dataArrivo">Data Partenza:</label> 
-			<input type="text" class="form-control" id="datepicker2" placeholder="Inserisci la data di arrivo" value="#{voloBean.volo.arrivo}" />
-		</div>
-		
-		<button type="submit" class="btn btn-default">Submit</button>
-	</form>
+	<h:form>
 	
-	
+		<div class="form-group">
+			<label >Citta Partenza:</label> 
+			<h:inputText p:placeholder="Inserisci la città di partenza" class="form-control" placeholder="Inserisci la città di partenza" value="#{voloBean.volo.cittaPartenza}" />
+		</div>
+		
+		<div class="form-group">
+			<label >Citta Arrivo:</label> 
+			<h:inputText p:placeholder="Inserisci la città di arrivo" class="form-control" value="#{voloBean.volo.cittaArrivo}" />
+		</div>
+		
+		<div class="form-group">
+			<label >Nome Compagnia:</label> 
+			<h:inputText p:placeholder="Inserisci il nome della compagnia" class="form-control" value="#{voloBean.volo.nomeCompagnia}" />
+		</div>
+		
+		<div class="form-group">
+			<label >Data partenza :</label> 
+			<h:inputText p:placeholder="Inserisci la data di partenza" class="form-control datepicker" value="#{voloBean.dataPartenza}" />
+		</div>
+		
+		<div class="form-group">
+			<label >Data arrivo:</label> 
+			<h:inputText p:placeholder="Inserisci la data di arrivo" class="form-control datepicker" value="#{voloBean.dataArrivo}" />
+		</div>
+		
+		<div class="form-group">
+			<label >Disponibilità:</label> 
+			<h:inputText p:placeholder="Inserisci il numero di posti disponibili" class="form-control" value="#{voloBean.volo.disponibilita}" />
+		</div>
+		
+		<div class="form-group">
+			<label >Costo:</label> 
+			<h:inputText p:placeholder="Inserisci il costo" class="form-control" value="#{voloBean.volo.costo}" />
+		</div>
+
+		<h:commandButton value="Aggiungi"  class="btn btn-default"
+				action="#{voloBean.aggiungiVolo()}" />
+	</h:form>
+		
  <script>
   $(function() {
-	  $( "#datepicker" ).datepicker();
-	  $( "#datepicker2" ).datepicker();
+	  $( ".datepicker" ).datepicker();
   });
  </script>
  

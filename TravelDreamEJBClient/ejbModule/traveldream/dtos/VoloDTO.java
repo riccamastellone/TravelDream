@@ -1,6 +1,8 @@
 package traveldream.dtos;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.validation.constraints.*;
@@ -31,6 +33,10 @@ public class VoloDTO {
 	@NotEmpty
 	private Date partenza;
 
+	public VoloDTO() {
+		
+	}
+	
 	public Date getArrivo() {
 		return this.arrivo;
 	}
@@ -86,5 +92,16 @@ public class VoloDTO {
 	public void setPartenza(Date partenza) {
 		this.partenza = partenza;
 	}
+	
+	 public void printaDati() {
+			System.out.println(this.getCittaArrivo());
+			System.out.println(this.getCittaPartenza());
+			System.out.println(this.getCosto());
+			System.out.println(this.getDisponibilita());
+			System.out.println(this.getArrivo());
+			System.out.println(this.getPartenza());
+			
+		}
+	 
 	
 }

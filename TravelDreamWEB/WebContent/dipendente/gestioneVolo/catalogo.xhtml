@@ -10,7 +10,8 @@ xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../template.xhtml">
 
 	<ui:define name="content">
-	  
+	 
+ 
 	
 	<h:link outcome="aggiungiVolo"  class="btn btn-default pull-right" value="Aggiungi nuovo volo" /><br /><br /> 
 	<h:form>  
@@ -51,10 +52,7 @@ xmlns:p="http://primefaces.org/ui">
          <p:column headerText="" width="100">  
          	<div class="btn-group">
 
-            	<h:commandLink id="edit" class="btn btn-default"  onclick="PF('dlg2').show()" type="button" action="#{voloBean.goToEdit(volo)}"> 
-            		<span class="glyphicon glyphicon-pencil"></span>
-           			<f:ajax execute="edit" update="editDialog" />
-           		</h:commandLink>
+            	<h:commandLink id="edit" class="btn btn-default"  type="button" action="#{voloBean.goToEdit(volo)}" />           		
             	<h:commandLink id="canc" class="btn btn-default btn-danger" onclick="return confirm('Confermi di voler eliminare questo volo?');"  action="#{voloBean.deleteVolo(volo)}">
 					<span class="glyphicon glyphicon-trash white"></span>
             		<f:ajax execute="canc" render="dataTable" />
@@ -62,67 +60,7 @@ xmlns:p="http://primefaces.org/ui">
             </div>
         </p:column>
         
-    </p:dataTable>  
-    
-    <p:dialog id="editDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="400">  
-
-    		<h:form>
-	
-		<div class="form-group">
-			<label >Citta Partenza:</label> 
-			<h:inputText p:placeholder="Inserisci la città di partenza" class="form-control" placeholder="Inserisci la città di partenza" value="#{voloBean.volo.cittaPartenza}" />
-		</div>
-		
-		<div class="form-group">
-			<label >Citta Arrivo:</label> 
-			<h:inputText p:placeholder="Inserisci la città di arrivo" class="form-control" value="#{voloBean.volo.cittaArrivo}" />
-		</div>
-		
-		<div class="form-group">
-			<label >Nome Compagnia:</label> 
-			<h:inputText p:placeholder="Inserisci il nome della compagnia" class="form-control" value="#{voloBean.volo.nomeCompagnia}" />
-		</div>
-		
-		<div class="form-group">
-			<label >Data partenza :</label> 
-			<h:inputText p:placeholder="Inserisci la data di partenza" class="form-control datepicker" value="#{voloBean.dataPartenza}" />
-		</div>
-		
-		<div class="form-group">
-			<label >Data arrivo:</label> 
-			<h:inputText p:placeholder="Inserisci la data di arrivo" class="form-control datepicker" value="#{voloBean.dataArrivo}" />
-		</div>
-		
-		<div class="form-group">
-			<label >Disponibilità:</label> 
-			<h:inputText p:placeholder="Inserisci il numero di posti disponibili" class="form-control" value="#{voloBean.volo.disponibilita}" />
-		</div>
-		
-		<div class="form-group">
-			<label >Costo:</label> 
-			<h:inputText p:placeholder="Inserisci il costo" class="form-control" value="#{voloBean.volo.costo}" />
-		</div>
-		<div class="pull-right">
-		<h:commandButton value="Indietro"  class="btn btn-default" onclick="history.go(-1)" />&nbsp;
-		<h:commandButton value="Salva"  class="btn btn-primary" action="#{voloBean.editVolo()}" />
-		</div>
-	</h:form>
-	
-
-		
- <script>
-  $(function() {
-	  $( ".datepicker" ).datepicker();
-  });
- </script> 
-	</p:dialog> 
-            
-    
-  
-             
-  <p:remoteCommand name="loadEdit" update="editDialog">  
-        <f:setPropertyActionListener value="#{true}" target="#{requestScope.shouldRender}" />  
-   </p:remoteCommand>
+        </p:dataTable>
   
 </h:form> 
 

@@ -140,7 +140,8 @@ public class ComponentManagerBean implements ComponenteMng  {
 	public void deleteVolo(VoloDTO volo) {
 		// TODO Auto-generated method stub
 		Volo voloDaCancellare = this.findVolo(volo.getId());
-		em.remove(voloDaCancellare);		
+		voloDaCancellare.setEliminato(1);
+		em.merge(voloDaCancellare);		
 	}
 	
 

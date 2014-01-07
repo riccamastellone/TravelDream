@@ -49,11 +49,13 @@ xmlns:p="http://primefaces.org/ui">
         
          <p:column headerText="">  
          	<div class="btn-group">
+
          	
             	<h:commandButton id="edit" value="Edit" class="btn btn-default"  onclick="PF('dlg2').show();" type="button" action="#{voloBean.goToEdit(volo)}"> 
            			<f:ajax execute="edit" render="dataTable" />
            		</h:commandButton>
             	<h:commandButton id="canc" value="Canc" class="btn btn-default btn-danger" action="#{voloBean.deleteVolo(volo)}">
+
             		<f:ajax execute="canc" render="dataTable" />
             	</h:commandButton> 
             </div>

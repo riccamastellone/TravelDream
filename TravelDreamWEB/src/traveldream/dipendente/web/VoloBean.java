@@ -110,6 +110,12 @@ public class VoloBean {
 		return "edita?faces-redirect=true";
 	}
 	
+	public String editVolo() {
+		System.out.println("tato premuto");
+		cmpMng.aggiornaVolo(volo);
+		return "catalogo?faces-redirect=true";
+	}
+	
 
 	
 }

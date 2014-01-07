@@ -10,5 +10,7 @@ public interface ComponenteMng {
 	public void salvaVolo(VoloDTO volo);
 	
 	public ArrayList<VoloDTO> getVoli();
+	
+	public void aggiornaVolo(VoloDTO volo);
 
 }

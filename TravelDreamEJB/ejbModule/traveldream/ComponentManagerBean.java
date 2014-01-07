@@ -72,6 +72,7 @@ public class ComponentManagerBean implements ComponenteMng  {
 	
 	private VoloDTO convertVoloToDTO(Volo h) {
 		VoloDTO vl = new VoloDTO();
+		vl.setId(h.getId());
 		vl.setArrivo(h.getArrivo());
 		vl.setCittaPartenza(h.getCittaPartenza());
 		vl.setCittaArrivo(h.getCittaArrivo());
@@ -109,6 +110,29 @@ public class ComponentManagerBean implements ComponenteMng  {
 			voliDTO.add(this.convertVoloToDTO(volo));	
 		}
 		return voliDTO;
+	}
+
+
+
+	@Override
+	public void aggiornaVolo(VoloDTO volo) {
+		// TODO Auto-generated method stub
+		Volo voloDaModificare = this.findVolo(volo.getId());
+		voloDaModificare.setArrivo(volo.getArrivo());
+		voloDaModificare.setCittaArrivo(volo.getCittaArrivo());
+		voloDaModificare.setCittaPartenza(volo.getCittaPartenza());
+		voloDaModificare.setCosto(volo.getCosto());
+		voloDaModificare.setDisponibilita(volo.getDisponibilita());
+		voloDaModificare.setNomeCompagnia(volo.getNomeCompagnia());
+		voloDaModificare.setPartenza(volo.getPartenza());
+		
+		em.merge(voloDaModificare);
+		
+		
+	}
+	
+	private Volo findVolo(int id) {
+		return em.find(Volo.class, id);
 	}
 	
 

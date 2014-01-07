@@ -46,6 +46,12 @@ xmlns:p="http://primefaces.org/ui">
         <p:column sortBy="costo" headerText="Prezzo">  
             <h:outputText value="#{volo.costo}" />  
         </p:column>
+        
+         <p:column headerText="">  
+            <h:commandButton value="Edit" class="btn btn-default"/> 
+            <h:commandButton value="Cancella" class="btn btn-default"/> 
+        </p:column>
+        
     </p:dataTable>  
   
 </h:form> 

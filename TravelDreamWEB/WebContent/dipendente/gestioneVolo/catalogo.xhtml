@@ -19,7 +19,7 @@ xmlns:p="http://primefaces.org/ui">
 	<h:link outcome="aggiungiVolo"  class="btn btn-default pull-right" value="Aggiungi nuovo volo" /><br /><br /> 
 	<h:form id="form"> 
 	
-	 	 <p:growl id="messages" showDetail="true"/>  
+	<p:growl id="messages" showDetail="true"/>  
   
     <p:dataTable id="dataTable" var="volo" value="#{voloBean.getVoli()}" editable="true">  
         <f:facet name="header">  
@@ -71,7 +71,7 @@ xmlns:p="http://primefaces.org/ui">
             		
             	</f:facet>
             	<f:facet name="input">  
-                    <p:inputText value="#{volo.partenzaInStringa}" class="datepicker" style="width:100%" > 
+                    <p:inputText value="#{volo.partenzaInStringa}" styleClass="datepicker" style="width:100%" >  
                     	
             		</p:inputText> 
                 </f:facet>
@@ -86,7 +86,7 @@ xmlns:p="http://primefaces.org/ui">
             		</h:outputText>  
            		</f:facet>
            		<f:facet name="input">  
-                    <p:inputText value="#{volo.arrivoInStringa}" class="datepicker" style="width:100%" >
+                    <p:inputText value="#{volo.arrivoInStringa}" styleClass="datepicker" style="width:100%"  > 
                     	
             		</p:inputText>   
                 </f:facet>

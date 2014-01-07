@@ -52,7 +52,9 @@ xmlns:p="http://primefaces.org/ui">
          <p:column headerText="" width="100">  
          	<div class="btn-group">
 
-            	<h:commandLink id="edit" class="btn btn-default"  type="button" action="#{voloBean.goToEdit(volo)}" />           		
+            	<h:commandLink id="edit" class="btn btn-default"  type="button" action="#{voloBean.goToEdit(volo)}">
+            		<span class="glyphicon glyphicon-pencil"></span>
+            	</h:commandLink>           		
             	<h:commandLink id="canc" class="btn btn-default btn-danger" onclick="return confirm('Confermi di voler eliminare questo volo?');"  action="#{voloBean.deleteVolo(volo)}">
 					<span class="glyphicon glyphicon-trash white"></span>
             		<f:ajax execute="canc" render="dataTable" />

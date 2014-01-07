@@ -67,6 +67,12 @@ public class ComponentManagerBean implements ComponenteMng  {
 		
 	}
 	
+	public void salvaHotel(HotelDTO hotel) {
+		System.out.println("salvo nuovo hotel");
+		Hotel hotelNuovo = new Hotel(hotel); 
+		em.persist(hotelNuovo);
+	}
+	
 	/* END HOTEL */
 	
 	

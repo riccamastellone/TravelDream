@@ -6,6 +6,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import com.sun.el.parser.ParseException;
+
 import traveldream.dtos.HotelDTO;
 import traveldream.gestioneComponente.ComponenteMng;
 
@@ -25,22 +27,21 @@ public class HotelBean {
 	}
 
 
-/*
-	public String aggiungiVolo() throws ParseException {
-		this.volo.setPartenza(this.converti(dataPartenza));
-		this.volo.setArrivo(this.converti(dataArrivo));
-		System.out.println(this.volo);
-		this.volo.printaDati();
-		cmpMng.salvaVolo(volo);
-		this.voli = cmpMng.getVoli();
+	public String aggiungiHotel() throws ParseException {
+		cmpMng.salvaHotel(hotel);
+		refreshHotels();
 		return "catalogo?faces-redirect=true";
 
-	} */
+	} 
+	
+	private void refreshHotels() {
+		this.allHotel = cmpMng.getAllHotel();
+	}
 
 
 	public ArrayList<HotelDTO> getAllHotel() {
 		if (this.allHotel == null) {
-			this.allHotel = cmpMng.getAllHotel();
+			refreshHotels();
 		}
 		return this.allHotel;
 	}

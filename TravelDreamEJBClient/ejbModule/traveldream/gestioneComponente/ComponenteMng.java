@@ -18,5 +18,7 @@ public interface ComponenteMng {
 	
 	/* HOTEL */
 	public ArrayList<HotelDTO> getAllHotel();
+	
+	public void salvaHotel(HotelDTO hotel);
 
 }

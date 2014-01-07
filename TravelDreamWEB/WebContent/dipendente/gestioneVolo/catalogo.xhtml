@@ -47,12 +47,15 @@ xmlns:p="http://primefaces.org/ui">
             <h:outputText value="#{volo.costo} €" />  
         </p:column>
         
-         <p:column headerText="">  
+         <p:column headerText="" width="100">  
          	<div class="btn-group">
-            	<h:commandButton value="Edit" class="btn btn-default" action="#{voloBean.goToEdit(volo)}"/> 
-            	<h:commandButton id="canc" onclick="return confirm('Confermi di voler eliminare questo volo?');" value="Canc" class="btn btn-default btn-danger" action="#{voloBean.deleteVolo(volo)}">
+            	<h:commandLink class="btn btn-default" action="#{voloBean.goToEdit(volo)}"> 
+            		<span class="glyphicon glyphicon-pencil"></span>
+            	</h:commandLink> 
+            	<h:commandLink id="canc" onclick="return confirm('Confermi di voler eliminare questo volo?');" class="btn btn-default btn-danger" action="#{voloBean.deleteVolo(volo)}">
+            		<span class="glyphicon glyphicon-trash white"></span>
             		<f:ajax execute="canc" render="dataTable" />
-            	</h:commandButton> 
+            	</h:commandLink> 
             </div>
         </p:column>
         

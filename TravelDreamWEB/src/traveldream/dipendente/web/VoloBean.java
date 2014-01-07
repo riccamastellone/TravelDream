@@ -102,12 +102,12 @@ public class VoloBean {
 			return cmpMng.getVoli();
 	}
 	
-	public String goToEdit(VoloDTO volo){
+	public void goToEdit(VoloDTO volo){
 		this.volo = volo;
 		DateFormat formato = new SimpleDateFormat("MM/dd/yyyy");
 		this.dataArrivo = formato.format(this.volo.getArrivo());
 		this.dataPartenza = formato.format(this.volo.getPartenza());
-		return "edita?faces-redirect=true";
+		
 	}
 	
 	public String editVolo() {

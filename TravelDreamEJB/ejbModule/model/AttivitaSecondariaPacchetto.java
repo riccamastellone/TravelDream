@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name= "AttivitaSecondariaPacchetto")
 @NamedQuery(name="AttivitaSecondariaPacchetto.findAll", query="SELECT a FROM AttivitaSecondariaPacchetto a")
 public class AttivitaSecondariaPacchetto implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -16,7 +16,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="Volo")
-@NamedQuery(name="Volo.findAll", query="SELECT v FROM Volo v WHERE 'eliminato' != 1")
+@NamedQuery(name="Volo.findAll", query="SELECT v FROM Volo v WHERE v.getEliminato != 1")
 public class Volo implements Serializable {
 	private static final long serialVersionUID = 1L;
 

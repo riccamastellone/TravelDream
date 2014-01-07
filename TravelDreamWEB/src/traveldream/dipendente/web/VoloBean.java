@@ -116,6 +116,12 @@ public class VoloBean {
 		return "catalogo?faces-redirect=true";
 	}
 	
+	public void deleteVolo(VoloDTO volo){
+		System.out.println("tasto premuto");
+		cmpMng.deleteVolo(volo);
+		
+	}
+	
 
 	
 }

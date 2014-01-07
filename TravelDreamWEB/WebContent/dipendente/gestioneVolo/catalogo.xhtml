@@ -48,8 +48,12 @@ xmlns:p="http://primefaces.org/ui">
         </p:column>
         
          <p:column headerText="">  
-            <h:commandButton value="Edit" class="btn btn-default" action="#{voloBean.goToEdit(volo)}"/> 
-            <h:commandButton value="Cancella" class="btn btn-default"/> 
+         	<div class="btn-group">
+            	<h:commandButton value="Edit" class="btn btn-default" action="#{voloBean.goToEdit(volo)}"/> 
+            	<h:commandButton id="canc" value="Canc" class="btn btn-default btn-danger" action="#{voloBean.deleteVolo(volo)}">
+            		<f:ajax execute="canc" render="dataTable" />
+            	</h:commandButton> 
+            </div>
         </p:column>
         
     </p:dataTable>  

@@ -112,6 +112,11 @@ public class ComponentManagerBean implements ComponenteMng  {
 		}
 		return voliDTO;
 	}
+	
+	private Volo findVolo(int id) {
+		return em.find(Volo.class, id);
+	}
+
 
 
 
@@ -132,8 +137,13 @@ public class ComponentManagerBean implements ComponenteMng  {
 		
 	}
 	
-	private Volo findVolo(int id) {
-		return em.find(Volo.class, id);
+
+
+	@Override
+	public void deleteVolo(VoloDTO volo) {
+		// TODO Auto-generated method stub
+		Volo voloDaCancellare = this.findVolo(volo.getId());
+		em.remove(voloDaCancellare);		
 	}
 	
 

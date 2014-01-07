@@ -10,8 +10,8 @@ xmlns:p="http://primefaces.org/ui">
 <ui:composition template="template.xhtml">
 
 	<ui:define name="content">
-
-	<h:link outcome="aggiungiVolo" value="Aggiungi nuovo volo" /><br /> 
+	
+	<h:link outcome="aggiungiVolo"  class="btn btn-default pull-right" value="Aggiungi nuovo volo" /><br /><br /> 
 	<h:form>  
   
     <p:dataTable id="dataTable" var="volo" value="#{voloBean.getVoli()}">  

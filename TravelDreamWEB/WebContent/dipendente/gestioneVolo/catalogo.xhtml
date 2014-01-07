@@ -7,7 +7,7 @@ xmlns:f="http://java.sun.com/jsf/core"
 xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="template.xhtml">
+<ui:composition template="../template.xhtml">
 
 	<ui:define name="content">
 	
@@ -23,11 +23,11 @@ xmlns:p="http://primefaces.org/ui">
             <h:outputText value="#{volo.nomeCompagnia}" />  
         </p:column>  
   
-        <p:column sortBy="citaPartenza" headerText="Città di partenza">  
+        <p:column sortBy="cittaPartenza" headerText="Città di partenza">  
             <h:outputText value="#{volo.cittaPartenza}" />  
         </p:column>  
   
-        <p:column sortBy="citaArrivo" headerText="Città di arrivo">  
+        <p:column sortBy="cittaArrivo" headerText="Città di arrivo">  
             <h:outputText value="#{volo.cittaArrivo}" />  
         </p:column>  
         
@@ -48,7 +48,7 @@ xmlns:p="http://primefaces.org/ui">
         </p:column>
         
          <p:column headerText="">  
-            <h:commandButton value="Edit" class="btn btn-default"/> 
+            <h:commandButton value="Edit" class="btn btn-default" action="#{voloBean.goToEdit(volo)}"/> 
             <h:commandButton value="Cancella" class="btn btn-default"/> 
         </p:column>
         

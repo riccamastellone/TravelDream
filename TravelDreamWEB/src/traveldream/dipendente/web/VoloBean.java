@@ -2,20 +2,23 @@ package traveldream.dipendente.web;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
+import registrazione.client.UtenteDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.gestioneComponente.ComponenteMng;
 
 @ManagedBean(name="voloBean")
-@RequestScoped
+@SessionScoped
 public class VoloBean {
 
 	@EJB
@@ -95,9 +98,17 @@ public class VoloBean {
 		this.elencoVoli = elencoVoli;
 	}
 	
-	 public ArrayList<VoloDTO> getVoli() {
+	public ArrayList<VoloDTO> getVoli() {
 			return cmpMng.getVoli();
-		}
+	}
+	
+	public String goToEdit(VoloDTO volo){
+		this.volo = volo;
+		DateFormat formato = new SimpleDateFormat("MM/dd/yyyy");
+		this.dataArrivo = formato.format(this.volo.getArrivo());
+		this.dataPartenza = formato.format(this.volo.getPartenza());
+		return "edita?faces-redirect=true";
+	}
 	
 
 	

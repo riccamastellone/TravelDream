@@ -65,6 +65,7 @@ public class VoloBean {
 		System.out.println(this.volo);
 		this.volo.printaDati();
 		cmpMng.salvaVolo(volo);
+		this.voli = cmpMng.getVoli();
 		return "catalogo?faces-redirect=true";
 
 	}
@@ -96,13 +97,16 @@ public class VoloBean {
 
 	}
 
-	public String editVolo() {
+	public String editVolo() throws ParseException {
 		System.out.println("tato premuto");
 		VoloDTO voloDTO = this.volo;
-		this.volo = null;
+		voloDTO.setArrivo(this.converti(this.dataArrivo));
+		voloDTO.setPartenza(this.converti(this.dataPartenza));
+		this.volo = new VoloDTO();
 		this.dataArrivo = null;
 		this.dataPartenza = null;
 		cmpMng.aggiornaVolo(voloDTO);
+		this.voli = cmpMng.getVoli();
 		return "catalogo?faces-redirect=true";
 	}
 
@@ -113,7 +117,7 @@ public class VoloBean {
 	}
 	
 	public String indietro() {
-		this.volo = null;
+		this.volo = new VoloDTO();
 		this.dataArrivo = null;
 		this.dataPartenza = null;
 		return "catalogo?faces-redirect=true";

@@ -6,13 +6,16 @@ xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
 xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:p="http://primefaces.org/ui">
-
+  
 <ui:composition template="../template.xhtml">
 
 	<ui:define name="content">
-	 
- 
 	
+<!-- 
+<h:head>Voli</h:head>
+
+<h:body>
+-->	
 	<h:link outcome="aggiungiVolo"  class="btn btn-default pull-right" value="Aggiungi nuovo volo" /><br /><br /> 
 	<h:form id="form"> 
 	
@@ -62,10 +65,15 @@ xmlns:p="http://primefaces.org/ui">
         <p:column sortBy="partenza" headerText="Data di Partenza"> 
         	<p:cellEditor> 
         		<f:facet name="output">  
-            		<h:outputText value="#{volo.partenza}" /> 
+            		<h:outputText value="#{volo.partenzaInStringa}" > 
+            			
+            		</h:outputText>
+            		
             	</f:facet>
             	<f:facet name="input">  
-                    <p:inputText value="#{volo.partenza}" style="width:100%"/>  
+                    <p:inputText value="#{volo.partenzaInStringa}" class="datepicker" style="width:100%" > 
+                    	
+            		</p:inputText> 
                 </f:facet>
             </p:cellEditor>	 
         </p:column> 
@@ -73,10 +81,14 @@ xmlns:p="http://primefaces.org/ui">
         <p:column sortBy="arrivo" headerText="Data di arrivo">
         	<p:cellEditor> 
         		<f:facet name="output">   
-           			 <h:outputText value="#{volo.arrivo}" />  
+           			 <h:outputText value="#{volo.arrivoInStringa}" >
+           			 	
+            		</h:outputText>  
            		</f:facet>
            		<f:facet name="input">  
-                    <p:inputText value="#{volo.arrivo}" style="width:100%"/>  
+                    <p:inputText value="#{volo.arrivoInStringa}" class="datepicker" style="width:100%" >
+                    	
+            		</p:inputText>   
                 </f:facet>
            	</p:cellEditor>	
         </p:column> 
@@ -111,9 +123,18 @@ xmlns:p="http://primefaces.org/ui">
   
 </h:form> 
 
+ <script>
+  $(function() {
+	  $( ".datepicker" ).datepicker();
+  });
+ </script>
+ <!-- 
+</h:body>
+-->
+
  </ui:define>
 
 </ui:composition>
-
+ 
 
 </html>

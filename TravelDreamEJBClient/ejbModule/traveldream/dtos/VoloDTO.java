@@ -35,6 +35,13 @@ public class VoloDTO {
 	private Date partenza;
 	
 	private int eliminato;
+	
+	private String arrivoInStringa;
+	
+	private String partenzaInStringa;
+
+	
+	
 
 	public VoloDTO() {
 		
@@ -119,6 +126,22 @@ public class VoloDTO {
 			System.out.println(this.getDisponibilita());
 			System.out.println(this.getArrivo());
 			System.out.println(this.getPartenza());			
+	}
+
+	public String getArrivoInStringa() {
+		return arrivoInStringa;
+	}
+
+	public void setArrivoInStringa(String arrivoInStringa) {
+		this.arrivoInStringa = arrivoInStringa;
+	}
+
+	public String getPartenzaInStringa() {
+		return partenzaInStringa;
+	}
+
+	public void setPartenzaInStringa(String partenzaInStringa) {
+		this.partenzaInStringa = partenzaInStringa;
 	}
 
 	

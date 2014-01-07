@@ -104,7 +104,11 @@ public class VoloBean {
 	
 	public String editVolo() {
 		System.out.println("tato premuto");
-		cmpMng.aggiornaVolo(volo);
+		VoloDTO voloDTO = this.volo;
+		this.volo = null;
+		this.dataArrivo = null;
+		this.dataPartenza = null;
+		cmpMng.aggiornaVolo(voloDTO);
 		return "catalogo?faces-redirect=true";
 	}
 	
@@ -112,6 +116,13 @@ public class VoloBean {
 		System.out.println("tasto premuto");
 		cmpMng.deleteVolo(volo);
 		
+	}
+	
+	public String indietro() {
+		this.volo = null;
+		this.dataArrivo = null;
+		this.dataPartenza = null;
+		return "catalogo?faces-redirect=true";
 	}
 	
 

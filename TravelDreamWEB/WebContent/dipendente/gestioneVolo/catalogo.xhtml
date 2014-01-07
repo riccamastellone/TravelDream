@@ -50,7 +50,7 @@ xmlns:p="http://primefaces.org/ui">
          <p:column headerText="">  
          	<div class="btn-group">
             	<h:commandButton value="Edit" class="btn btn-default" action="#{voloBean.goToEdit(volo)}"/> 
-            	<h:commandButton id="canc" value="Canc" class="btn btn-default btn-danger" action="#{voloBean.deleteVolo(volo)}">
+            	<h:commandButton id="canc" onclick="return confirm('Confermi di voler eliminare questo volo?');" value="Canc" class="btn btn-default btn-danger" action="#{voloBean.deleteVolo(volo)}">
             		<f:ajax execute="canc" render="dataTable" />
             	</h:commandButton> 
             </div>

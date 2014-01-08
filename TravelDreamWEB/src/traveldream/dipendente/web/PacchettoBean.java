@@ -37,6 +37,7 @@ public class PacchettoBean {
 		this.pacchetto = new PacchettoDTO();
 		this.volo = new VoloDTO();
 		this.voli = new ArrayList<VoloDTO>();
+		this.tipoVolo = "Andata";
 		
 		
 	}

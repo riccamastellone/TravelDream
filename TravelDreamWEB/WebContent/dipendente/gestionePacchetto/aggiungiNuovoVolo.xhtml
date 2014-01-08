@@ -48,10 +48,10 @@
 			<h:inputText p:placeholder="Inserisci il costo" class="form-control" value="#{pacchettoBean.volo.costo}" />
 		</div>
 		
-		<h:selectOneRadio value="#{pacchettoBean.tipoVolo}">
+		<pf:selectOneRadio value="#{pacchettoBean.tipoVolo}">
    			<f:selectItem itemValue="Andata" itemLabel="Andata" />
    			<f:selectItem itemValue="Ritorno" itemLabel="Ritorno" />
-   		</h:selectOneRadio>
+   		</pf:selectOneRadio>
 
 		<h:commandButton value="Aggiungi"  class="btn btn-default" action="#{pacchettoBean.aggiungiVoloNuovoAPacchetto()}" />
 		</h:form>

@@ -81,12 +81,22 @@ public class PacchettoMngBean implements PacchettoMng {
 		em.persist(voloPacchetto);
 	}
     
+	/**
+	 * serve per prender il volo appena salvato con l'id aggiornato
+	 * non riuscirei a passarlo al client se no
+	 * @param volo
+	 * @return
+	 */
 	private Volo getVoloById(VoloDTO volo){
 		
 		List<Volo> voli = em.createNamedQuery("Volo.getVoloById", Volo.class).setParameter("id", volo.getId()).getResultList();
 		return voli.get(0);
 	}
 	
+	/**
+	 * serve per prendere l ultimo pacchetto e per passarlo al client con l id aggiornato
+	 * @return
+	 */
 	private Pacchetto getLastPacchetto() {
 
 		List<Pacchetto> pacchetti = em.createNamedQuery("Pacchetto.selectMax", Pacchetto.class).getResultList();

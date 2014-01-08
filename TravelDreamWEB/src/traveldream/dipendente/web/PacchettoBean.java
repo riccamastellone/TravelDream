@@ -38,6 +38,7 @@ public class PacchettoBean {
 		this.volo = new VoloDTO();
 		this.voli = new ArrayList<VoloDTO>();
 		
+		
 	}
 
 	public PacchettoDTO getPacchetto() {
@@ -56,6 +57,9 @@ public class PacchettoBean {
 	public String goToAggiungiVoli(){
 		//mi serve l id aggiornato per scrivere nella tabella VoloPacchetto senza causare errori
 		this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
+		
+		//serve per precaricare la tabella di AggiungiVoloEsistente
+		this.voli = voloMng.getVoli();
 		return "aggiungiVoli?faces-redirect=true";
 	}
 
@@ -103,7 +107,14 @@ public class PacchettoBean {
 		
 		return "aggiungiVoli?faces-redirect=true";
 	}
-
+	
+	public void aggiungiVoloEsistenteAPacchetto(VoloDTO volo){
+		this.voli.remove(volo);
+		this.pkgMng.aggiungiVoloAPacchetto(pacchetto, volo, tipoVolo);
+		System.out.println("tastopremuto");
+	}
+	
+	
 
 
 }

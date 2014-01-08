@@ -13,14 +13,14 @@ import org.primefaces.event.FileUploadEvent;
 import com.sun.el.parser.ParseException;
 
 import traveldream.dtos.HotelDTO;
-import traveldream.gestioneComponente.ComponenteMng;
+import traveldream.manager.HotelMng;
 
 @ManagedBean(name = "hotelBean")
 @SessionScoped
 public class HotelBean {
 
 	@EJB
-	private ComponenteMng cmpMng;
+	private HotelMng hotelMng;
 
 	private HotelDTO hotel;
 
@@ -32,14 +32,14 @@ public class HotelBean {
 
 
 	public String aggiungiHotel() throws ParseException {
-		cmpMng.salvaHotel(hotel);
+		hotelMng.salvaHotel(hotel);
 		refreshHotels();
 		return "catalogo?faces-redirect=true";
 
 	} 
 	
 	private void refreshHotels() {
-		this.allHotel = cmpMng.getAllHotel();
+		this.allHotel = hotelMng.getAllHotel();
 	}
 
 
@@ -60,7 +60,7 @@ public class HotelBean {
 	public String aggiornaHotel() throws ParseException {
 		HotelDTO hotelDTO = this.hotel;
 		this.hotel = new HotelDTO();
-		cmpMng.aggiornaHotel(hotelDTO);
+		hotelMng.aggiornaHotel(hotelDTO);
 		refreshHotels();
 		return "catalogo?faces-redirect=true";
 	}
@@ -69,19 +69,7 @@ public class HotelBean {
 		FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-/*
-	public void deleteVolo(VoloDTO volo) {
-		System.out.println("tasto premuto");
-		cmpMng.deleteVolo(volo);
 
-	}
-	
-	public String indietro() {
-		this.volo = new VoloDTO();
-		this.dataArrivo = null;
-		this.dataPartenza = null;
-		return "catalogo?faces-redirect=true";
-	}*/
 
 	public HotelDTO getHotel() {
 		return hotel;

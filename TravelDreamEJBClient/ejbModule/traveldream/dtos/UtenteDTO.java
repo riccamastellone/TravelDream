@@ -1,4 +1,4 @@
-package registrazione.client;
+package traveldream.dtos;
 
 import javax.validation.constraints.Pattern;
 

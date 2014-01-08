@@ -8,9 +8,9 @@ import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import traveldream.dtos.UtenteDTO;
+import traveldream.manager.UtenteMrg;
 
-import registrazione.client.UtenteDTO;
-import registrazione.client.UtenteMrg;
 
 @ManagedBean(name="registrazioneBean")
 @SessionScoped

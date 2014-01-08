@@ -1,6 +1,8 @@
-package registrazione.client;
+package traveldream.manager;
 
 import java.util.ArrayList;
+
+import traveldream.dtos.UtenteDTO;
 
 
 

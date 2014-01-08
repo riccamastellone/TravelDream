@@ -7,8 +7,8 @@ import javax.persistence.*;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import traveldream.dtos.UtenteDTO;
 
-import registrazione.client.UtenteDTO;
 
 
 /**

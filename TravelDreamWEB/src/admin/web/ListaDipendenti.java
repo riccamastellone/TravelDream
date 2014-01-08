@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import traveldream.dtos.UtenteDTO;
+import traveldream.manager.UtenteMrg;
 
-import registrazione.client.UtenteDTO;
-import registrazione.client.UtenteMrg;
 
 @ManagedBean(name="listaDipendenti")
 public class ListaDipendenti {

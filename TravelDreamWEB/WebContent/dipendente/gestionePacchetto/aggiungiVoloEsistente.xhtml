@@ -56,18 +56,20 @@
 						<h:outputText value="#{volo.costo} €" />
 				</p:column>
 
-				<p:column >
-					<h:commandLink id="aggiungi" value="Salva" class="btn btn-primary" action="#{pacchettoBean.aggiungiVoloEsistenteAPacchetto(volo)}" >
-						<f:ajax execute="aggiungi" render="dataTable" />
-					</h:commandLink>
-				</p:column>
-				
+			
 				<p:column >
 					<p:selectOneRadio id="options" value="#{pacchettoBean.tipoVolo}">  
            				 <f:selectItem itemLabel="Andata" itemValue="Andata" />  
             			 <f:selectItem itemLabel="Ritorno" itemValue="Ritorno" />  
         			</p:selectOneRadio>
 				</p:column>
+				
+				<p:column >
+					<h:commandLink id="aggiungi" value="Salva" class="btn btn-primary" action="#{pacchettoBean.aggiungiVoloEsistenteAPacchetto(volo)}" >
+						<f:ajax execute="aggiungi" render="dataTable" />
+					</h:commandLink>
+				</p:column>
+				
 
 			</p:dataTable>
 

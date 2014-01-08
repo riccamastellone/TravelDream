@@ -2,141 +2,137 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" 
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:p="http://primefaces.org/ui">
- <!-- 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
 <ui:composition template="../template.xhtml">
 
 	<ui:define name="content">
--->	
 
-<h:head>Voli</h:head>
+		<h:link outcome="aggiungiVolo" class="btn btn-default pull-right"
+			value="Aggiungi nuovo volo" />
+		<br />
+		<br />
+		<h:form id="form">
 
-<h:body>
+			<p:growl id="messages" showDetail="true" />
 
-	<h:link outcome="aggiungiVolo"  class="btn btn-default pull-right" value="Aggiungi nuovo volo" /><br /><br /> 
-	<h:form id="form"> 
-	
-	<p:growl id="messages" showDetail="true"/>  
-  
-    <p:dataTable id="dataTable" var="volo" value="#{voloBean.getVoli()}" editable="true">  
-        <f:facet name="header">  
+			<p:dataTable id="dataTable" var="volo" value="#{voloBean.getVoli()}"
+				editable="true">
+				<f:facet name="header">  
             Elenco Voli 
-        </f:facet>  
-        
-        <p:ajax event="rowEdit" listener="#{voloBean.onEdit}" update=":form:messages" />  
-        <p:ajax event="rowEditCancel" listener="#{voloBean.onDelete}" update=":form:messages" />  
-  
-        <p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">  
-        	<p:cellEditor> 
-        		<f:facet name="output">
-            		<h:outputText value="#{volo.nomeCompagnia}" />  
-            	</f:facet>
-            	<f:facet name="input">  
-                    <p:inputText value="#{volo.nomeCompagnia}" style="width:100%"/>  
-                </f:facet> 
-            </p:cellEditor> 
-        </p:column>  
-  
-        <p:column sortBy="cittaPartenza" headerText="Città di partenza"> 
-        	<p:cellEditor> 
-        		<f:facet name="output"> 
-            		<h:outputText value="#{volo.cittaPartenza}" /> 
-            	</f:facet>
-            	<f:facet name="input">  
-                    <p:inputText value="#{volo.cittaPartenza}" style="width:100%"/>  
-                </f:facet>
-            </p:cellEditor> 
-        </p:column>  
-  
-        <p:column sortBy="cittaArrivo" headerText="Città di arrivo"> 
-        	<p:cellEditor> 
-        		<f:facet name="output"> 
-            		<h:outputText value="#{volo.cittaArrivo}" /> 
-            	</f:facet>
-            	<f:facet name="input">  
-                    <p:inputText value="#{volo.cittaArrivo}" style="width:100%"/>  
-                </f:facet>
-            </p:cellEditor>	 
-        </p:column>  
-        
-        <p:column sortBy="partenza" headerText="Data di Partenza"> 
-        	<p:cellEditor> 
-        		<f:facet name="output">  
-            		<h:outputText value="#{volo.partenzaInStringa}" > 
-            			
-            		</h:outputText>
-            		
-            	</f:facet>
-            	<f:facet name="input">  
-                    <p:inputText value="#{volo.partenzaInStringa}" styleClass="datepicker" style="width:100%" >  
-                    	
-            		</p:inputText> 
-                </f:facet>
-            </p:cellEditor>	 
-        </p:column> 
-        
-        <p:column sortBy="arrivo" headerText="Data di arrivo">
-        	<p:cellEditor> 
-        		<f:facet name="output">   
-           			 <h:outputText value="#{volo.arrivoInStringa}" >
-           			 	
-            		</h:outputText>  
-           		</f:facet>
-           		<f:facet name="input">  
-                    <p:inputText value="#{volo.arrivoInStringa}" styleClass="datepicker" style="width:100%"  > 
-                    	
-            		</p:inputText>   
-                </f:facet>
-           	</p:cellEditor>	
-        </p:column> 
-  
-        <p:column sortBy="disponibilita" headerText="Posti disponibili"> 
-        	<p:cellEditor> 
-        		<f:facet name="output"> 
-            		<h:outputText value="#{volo.disponibilita}" />  
-            	</f:facet>
-            	<f:facet name="input">  
-                    <p:inputText value="#{volo.disponibilita}" style="width:100%"/>  
-                </f:facet>
-            </p:cellEditor>	
-        </p:column>  
-        
-        <p:column sortBy="costo" headerText="Prezzo"> 
-        	<p:cellEditor> 
-        		<f:facet name="output"> 
-            		<h:outputText value="#{volo.costo} €" /> 
-            	</f:facet>
-            	<f:facet name="input">  
-                    <p:inputText value="#{volo.costo}" style="width:100%"/>  
-                </f:facet>
-            </p:cellEditor>	 
-        </p:column>
-        
-      	<p:column style="width:6%">  
-            <p:rowEditor />  
-        </p:column>
-        
-        </p:dataTable>
-  
-</h:form> 
+        </f:facet>
 
- <script>
-  $(function() {
-	  $( ".datepicker" ).datepicker();
-  });
- </script>
+				<p:ajax event="rowEdit" listener="#{voloBean.onEdit}"
+					update=":form:messages" />
+				<p:ajax event="rowEditCancel" listener="#{voloBean.onDelete}"
+					update=":form:messages" />
 
-</h:body>
+				<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{volo.nomeCompagnia}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{volo.nomeCompagnia}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
 
-<!-- 
- </ui:define>
+				<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{volo.cittaPartenza}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{volo.cittaPartenza}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{volo.cittaArrivo}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{volo.cittaArrivo}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column sortBy="partenza" headerText="Data di Partenza">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{volo.partenza}">
+
+							</h:outputText>
+
+						</f:facet>
+						<f:facet name="input">
+							<p:calendar value="#{volo.partenza}" pattern="MM/dd/yyyy HH:mm" /> 
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column sortBy="arrivo" headerText="Data di arrivo">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{volo.arrivo}">
+
+							</h:outputText>
+						</f:facet>
+						<f:facet name="input">
+							<p:calendar value="#{volo.arrivo}" pattern="MM/dd/yyyy HH:mm" /> 
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{volo.disponibilita}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{volo.disponibilita}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column sortBy="costo" headerText="Prezzo">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{volo.costo} €" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{volo.costo}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:6%">
+					<p:rowEditor />
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+		<script>
+			jQuery.noConflict();
+		</script>
+
+<script>
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(2)').addClass('active');
+			});
+		</script>
+	</ui:define>
 
 
 </ui:composition>
- -->
-
 </html>

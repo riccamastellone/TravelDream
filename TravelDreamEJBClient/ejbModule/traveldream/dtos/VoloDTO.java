@@ -13,8 +13,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class VoloDTO {
 
 	private int id;
-	@NotEmpty
+	
+	@NotNull
 	private Date arrivo;
+	
+	@NotNull
+	private Date partenza;
 
 	@NotEmpty
 	private String cittaArrivo;
@@ -31,16 +35,7 @@ public class VoloDTO {
 	@NotEmpty
 	private String nomeCompagnia;
 
-	@NotEmpty
-	private Date partenza;
-	
 	private int eliminato;
-	
-	private String arrivoInStringa;
-	
-	private String partenzaInStringa;
-
-	
 	
 
 	public VoloDTO() {
@@ -127,26 +122,6 @@ public class VoloDTO {
 			System.out.println(this.getArrivo());
 			System.out.println(this.getPartenza());			
 	}
-
-	public String getArrivoInStringa() {
-		return arrivoInStringa;
-	}
-
-	public void setArrivoInStringa(String arrivoInStringa) {
-		this.arrivoInStringa = arrivoInStringa;
-	}
-
-	public String getPartenzaInStringa() {
-		return partenzaInStringa;
-	}
-
-	public void setPartenzaInStringa(String partenzaInStringa) {
-		this.partenzaInStringa = partenzaInStringa;
-	}
-
-	
-	 
-	
 	 
 	
 }

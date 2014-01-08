@@ -41,8 +41,6 @@ public class VoloMngBean implements VoloMng  {
 		vl.setNomeCompagnia(h.getNomeCompagnia());
 		vl.setPartenza(h.getPartenza());
 		vl.setEliminato(h.getEliminato());
-		vl.setArrivoInStringa(this.ConvertiInStringa(h.getArrivo()));
-		vl.setPartenzaInStringa(this.ConvertiInStringa(h.getPartenza()));
 		return vl;
 	}
 
@@ -50,9 +48,6 @@ public class VoloMngBean implements VoloMng  {
 
 	@Override
 	public void salvaVolo(VoloDTO volo) throws ParseException {
-		// TODO Auto-generated method stub
-		volo.setArrivo(this.convertiInData(volo.getArrivoInStringa()));
-		volo.setPartenza(this.convertiInData(volo.getPartenzaInStringa()));
 		System.out.println("salvo volo");
 		Volo voloNuovo = new Volo(volo); 
 		em.persist(voloNuovo);
@@ -83,9 +78,6 @@ public class VoloMngBean implements VoloMng  {
 
 	@Override
 	public void aggiornaVolo(VoloDTO volo) throws ParseException {
-		// TODO Auto-generated method stub
-		volo.setArrivo(this.convertiInData(volo.getArrivoInStringa()));
-		volo.setPartenza(this.convertiInData(volo.getPartenzaInStringa()));
 		Volo voloDaModificare = this.findVolo(volo.getId());
 		voloDaModificare.setArrivo(volo.getArrivo());
 		voloDaModificare.setCittaArrivo(volo.getCittaArrivo());

@@ -59,8 +59,6 @@ public class VoloBean {
 
 
 	public void editVolo() throws ParseException {
-		
-		System.out.println("tato premuto");
 		VoloDTO voloDTO = this.volo;
 		this.volo = new VoloDTO();
 		voloMng.aggiornaVolo(voloDTO);
@@ -69,9 +67,7 @@ public class VoloBean {
 	}
 
 	public void deleteVolo(VoloDTO volo) {
-		System.out.println("tasto premuto");
 		voloMng.deleteVolo(volo);
-
 	}
 	
 	public String indietro() {
@@ -80,7 +76,6 @@ public class VoloBean {
 	}
 	
 	 public void onEdit(RowEditEvent event) throws ParseException { 
-		 System.out.println("fsdfsdfdgsdg");
 	       FacesMessage msg = new FacesMessage("Volo Aggiornato");  
 	       voloMng.aggiornaVolo((VoloDTO) event.getObject());
 	       FacesContext.getCurrentInstance().addMessage(null, msg);  

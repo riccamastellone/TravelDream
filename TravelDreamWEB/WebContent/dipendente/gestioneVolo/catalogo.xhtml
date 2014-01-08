@@ -1,85 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
 
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+ <!-- 
 <ui:composition template="../template.xhtml">
 
 	<ui:define name="content">
+-->	
 
+<h:head>Voli</h:head>
 
+<h:body>
 
-		<h:link outcome="aggiungiVolo" class="btn btn-default pull-right"
-			value="Aggiungi nuovo volo" />
-		<br />
-		<br />
-		<h:form>
-
-			<p:dataTable id="dataTable" var="volo" value="#{voloBean.getVoli()}">
-				<f:facet name="header">  
+	<h:link outcome="aggiungiVolo"  class="btn btn-default pull-right" value="Aggiungi nuovo volo" /><br /><br /> 
+	<h:form id="form"> 
+	
+	<p:growl id="messages" showDetail="true"/>  
+  
+    <p:dataTable id="dataTable" var="volo" value="#{voloBean.getVoli()}" editable="true">  
+        <f:facet name="header">  
             Elenco Voli 
-        </f:facet>
+        </f:facet>  
+        
+        <p:ajax event="rowEdit" listener="#{voloBean.onEdit}" update=":form:messages" />  
+        <p:ajax event="rowEditCancel" listener="#{voloBean.onDelete}" update=":form:messages" />  
+  
+        <p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">  
+        	<p:cellEditor> 
+        		<f:facet name="output">
+            		<h:outputText value="#{volo.nomeCompagnia}" />  
+            	</f:facet>
+            	<f:facet name="input">  
+                    <p:inputText value="#{volo.nomeCompagnia}" style="width:100%"/>  
+                </f:facet> 
+            </p:cellEditor> 
+        </p:column>  
+  
+        <p:column sortBy="cittaPartenza" headerText="Città di partenza"> 
+        	<p:cellEditor> 
+        		<f:facet name="output"> 
+            		<h:outputText value="#{volo.cittaPartenza}" /> 
+            	</f:facet>
+            	<f:facet name="input">  
+                    <p:inputText value="#{volo.cittaPartenza}" style="width:100%"/>  
+                </f:facet>
+            </p:cellEditor> 
+        </p:column>  
+  
+        <p:column sortBy="cittaArrivo" headerText="Città di arrivo"> 
+        	<p:cellEditor> 
+        		<f:facet name="output"> 
+            		<h:outputText value="#{volo.cittaArrivo}" /> 
+            	</f:facet>
+            	<f:facet name="input">  
+                    <p:inputText value="#{volo.cittaArrivo}" style="width:100%"/>  
+                </f:facet>
+            </p:cellEditor>	 
+        </p:column>  
+        
+        <p:column sortBy="partenza" headerText="Data di Partenza"> 
+        	<p:cellEditor> 
+        		<f:facet name="output">  
+            		<h:outputText value="#{volo.partenzaInStringa}" > 
+            			
+            		</h:outputText>
+            		
+            	</f:facet>
+            	<f:facet name="input">  
+                    <p:inputText value="#{volo.partenzaInStringa}" styleClass="datepicker" style="width:100%" >  
+                    	
+            		</p:inputText> 
+                </f:facet>
+            </p:cellEditor>	 
+        </p:column> 
+        
+        <p:column sortBy="arrivo" headerText="Data di arrivo">
+        	<p:cellEditor> 
+        		<f:facet name="output">   
+           			 <h:outputText value="#{volo.arrivoInStringa}" >
+           			 	
+            		</h:outputText>  
+           		</f:facet>
+           		<f:facet name="input">  
+                    <p:inputText value="#{volo.arrivoInStringa}" styleClass="datepicker" style="width:100%"  > 
+                    	
+            		</p:inputText>   
+                </f:facet>
+           	</p:cellEditor>	
+        </p:column> 
+  
+        <p:column sortBy="disponibilita" headerText="Posti disponibili"> 
+        	<p:cellEditor> 
+        		<f:facet name="output"> 
+            		<h:outputText value="#{volo.disponibilita}" />  
+            	</f:facet>
+            	<f:facet name="input">  
+                    <p:inputText value="#{volo.disponibilita}" style="width:100%"/>  
+                </f:facet>
+            </p:cellEditor>	
+        </p:column>  
+        
+        <p:column sortBy="costo" headerText="Prezzo"> 
+        	<p:cellEditor> 
+        		<f:facet name="output"> 
+            		<h:outputText value="#{volo.costo} €" /> 
+            	</f:facet>
+            	<f:facet name="input">  
+                    <p:inputText value="#{volo.costo}" style="width:100%"/>  
+                </f:facet>
+            </p:cellEditor>	 
+        </p:column>
+        
+      	<p:column style="width:6%">  
+            <p:rowEditor />  
+        </p:column>
+        
+        </p:dataTable>
+  
+</h:form> 
 
-				<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
-					<h:outputText value="#{volo.nomeCompagnia}" />
-				</p:column>
+ <script>
+  $(function() {
+	  $( ".datepicker" ).datepicker();
+  });
+ </script>
 
-				<p:column sortBy="cittaPartenza" headerText="Città di partenza">
-					<h:outputText value="#{volo.cittaPartenza}" />
-				</p:column>
+</h:body>
 
-				<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-					<h:outputText value="#{volo.cittaArrivo}" />
-				</p:column>
+<!-- 
+ </ui:define>
 
-				<p:column sortBy="partenza" headerText="Data di Partenza">
-					<h:outputText value="#{volo.partenza}" />
-				</p:column>
-
-				<p:column sortBy="arrivo" headerText="Data di arrivo">
-					<h:outputText value="#{volo.arrivo}" />
-				</p:column>
-
-				<p:column sortBy="disponibilita" headerText="Posti disponibili">
-					<h:outputText value="#{volo.disponibilita}" />
-				</p:column>
-
-				<p:column sortBy="costo" headerText="Prezzo">
-					<h:outputText value="#{volo.costo} €" />
-				</p:column>
-
-				<p:column headerText="" width="100">
-					<div class="btn-group">
-
-						<h:commandLink id="edit" class="btn btn-default" type="button"
-							action="#{voloBean.goToEdit(volo)}">
-							<span class="glyphicon glyphicon-pencil"></span>
-						</h:commandLink>
-						<h:commandLink id="canc" class="btn btn-default btn-danger"
-							onclick="return confirm('Confermi di voler eliminare questo volo?');"
-							action="#{voloBean.deleteVolo(volo)}">
-							<span class="glyphicon glyphicon-trash white"></span>
-							<f:ajax execute="canc" render="dataTable" />
-						</h:commandLink>
-					</div>
-				</p:column>
-
-			</p:dataTable>
-
-		</h:form>
-		<script>
-			$(function() {
-				$('.active').removeClass('active');
-				$('.nav li:nth-child(2)').addClass('active');
-			});
-		</script>
-	</ui:define>
 
 </ui:composition>
-
+ -->
 
 </html>

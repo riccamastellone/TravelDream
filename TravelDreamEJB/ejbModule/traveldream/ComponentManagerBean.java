@@ -1,6 +1,10 @@
 package traveldream;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -104,14 +108,18 @@ public class ComponentManagerBean implements ComponenteMng  {
 		vl.setNomeCompagnia(h.getNomeCompagnia());
 		vl.setPartenza(h.getPartenza());
 		vl.setEliminato(h.getEliminato());
+		vl.setArrivoInStringa(this.ConvertiInStringa(h.getArrivo()));
+		vl.setPartenzaInStringa(this.ConvertiInStringa(h.getPartenza()));
 		return vl;
 	}
 
 
 
 	@Override
-	public void salvaVolo(VoloDTO volo) {
+	public void salvaVolo(VoloDTO volo) throws ParseException {
 		// TODO Auto-generated method stub
+		volo.setArrivo(this.convertiInData(volo.getArrivoInStringa()));
+		volo.setPartenza(this.convertiInData(volo.getPartenzaInStringa()));
 		System.out.println("salvo volo");
 		Volo voloNuovo = new Volo(volo); 
 		em.persist(voloNuovo);
@@ -139,8 +147,12 @@ public class ComponentManagerBean implements ComponenteMng  {
 	}
 
 
-	public void aggiornaVolo(VoloDTO volo) {
+
+	@Override
+	public void aggiornaVolo(VoloDTO volo) throws ParseException {
 		// TODO Auto-generated method stub
+		volo.setArrivo(this.convertiInData(volo.getArrivoInStringa()));
+		volo.setPartenza(this.convertiInData(volo.getPartenzaInStringa()));
 		Volo voloDaModificare = this.findVolo(volo.getId());
 		voloDaModificare.setArrivo(volo.getArrivo());
 		voloDaModificare.setCittaArrivo(volo.getCittaArrivo());
@@ -149,6 +161,7 @@ public class ComponentManagerBean implements ComponenteMng  {
 		voloDaModificare.setDisponibilita(volo.getDisponibilita());
 		voloDaModificare.setNomeCompagnia(volo.getNomeCompagnia());
 		voloDaModificare.setPartenza(volo.getPartenza());
+		
 		
 		em.merge(voloDaModificare);
 		
@@ -164,9 +177,20 @@ public class ComponentManagerBean implements ComponenteMng  {
 		voloDaCancellare.setEliminato(1);
 		em.merge(voloDaCancellare);		
 	}
+
+	public Date convertiInData(String data) throws ParseException {
+		if (data.equals("")) {
+			return null;
+		}
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		Date convertedDate = dateFormat.parse(data);
+		return convertedDate;
+	}
 	
-	/* END VOLI */
-	
+	public String ConvertiInStringa(Date data){
+		DateFormat formato = new SimpleDateFormat("MM/dd/yyyy");
+		return formato.format(data);
+	}
 
 
 

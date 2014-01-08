@@ -7,9 +7,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+
+import org.primefaces.event.RowEditEvent;
 
 import traveldream.dtos.VoloDTO;
 import traveldream.gestioneComponente.ComponenteMng;
@@ -22,10 +26,6 @@ public class VoloBean {
 	private ComponenteMng cmpMng;
 
 	private VoloDTO volo;
-
-	private String dataPartenza;
-
-	private String dataArrivo;
 
 	private ArrayList<VoloDTO> voli;
 
@@ -43,41 +43,17 @@ public class VoloBean {
 		this.volo = volo;
 	}
 
-	public String getDataPartenza() {
-		return dataPartenza;
-	}
-
-	public void setDataPartenza(String dataPartenza) {
-		this.dataPartenza = dataPartenza;
-	}
-
-	public String getDataArrivo() {
-		return dataArrivo;
-	}
-
-	public void setDataArrivo(String dataArrivo) {
-		this.dataArrivo = dataArrivo;
-	}
 
 	public String aggiungiVolo() throws ParseException {
-		this.volo.setPartenza(this.converti(dataPartenza));
-		this.volo.setArrivo(this.converti(dataArrivo));
+		
 		System.out.println(this.volo);
-		this.volo.printaDati();
+		
 		cmpMng.salvaVolo(volo);
 		this.voli = cmpMng.getVoli();
 		return "catalogo?faces-redirect=true";
 
 	}
 
-	public Date converti(String data) throws ParseException {
-		if (data.equals("")) {
-			return null;
-		}
-		SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");
-		Date convertedDate = dateFormat.parse(data);
-		return convertedDate;
-	}
 
 	public ArrayList<VoloDTO> getVoli() {
 		if (this.voli == null) {
@@ -86,7 +62,7 @@ public class VoloBean {
 		return this.voli;
 	}
 	
-	
+	/*
 	public String goToEdit(VoloDTO volo){
 
 		this.volo = volo;
@@ -96,18 +72,16 @@ public class VoloBean {
 		return "edita?faces-redirect=true";
 
 	}
+	*/
 
-	public String editVolo() throws ParseException {
+	public void editVolo() throws ParseException {
+		
 		System.out.println("tato premuto");
 		VoloDTO voloDTO = this.volo;
-		voloDTO.setArrivo(this.converti(this.dataArrivo));
-		voloDTO.setPartenza(this.converti(this.dataPartenza));
 		this.volo = new VoloDTO();
-		this.dataArrivo = null;
-		this.dataPartenza = null;
 		cmpMng.aggiornaVolo(voloDTO);
 		this.voli = cmpMng.getVoli();
-		return "catalogo?faces-redirect=true";
+		//return "catalogo?faces-redirect=true";
 	}
 
 	public void deleteVolo(VoloDTO volo) {
@@ -118,10 +92,20 @@ public class VoloBean {
 	
 	public String indietro() {
 		this.volo = new VoloDTO();
-		this.dataArrivo = null;
-		this.dataPartenza = null;
 		return "catalogo?faces-redirect=true";
 	}
 	
+	 public void onEdit(RowEditEvent event) throws ParseException { 
+		 System.out.println("fsdfsdfdgsdg");
+	       FacesMessage msg = new FacesMessage("Volo Aggiornato");  
+	       cmpMng.aggiornaVolo((VoloDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg);  
+	    } 
+	
+	 public void onDelete(RowEditEvent event) {  
+	       FacesMessage msg = new FacesMessage("Volo Cancellato");  
+	       cmpMng.deleteVolo((VoloDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg);  
+	    } 
 
 }

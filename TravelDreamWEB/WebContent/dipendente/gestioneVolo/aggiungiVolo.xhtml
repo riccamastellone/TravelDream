@@ -8,56 +8,46 @@
 <ui:composition template="../template.xhtml">
 
 	<ui:define name="content">
+		
+	<br></br>
+	<h:form>
+	
+		<div class="form-group">
+			<label >Citta Partenza:</label> 
+			<h:inputText p:placeholder="Inserisci la città di partenza" class="form-control" placeholder="Inserisci la città di partenza" value="#{voloBean.volo.cittaPartenza}" />
+		</div>
+		
+		<div class="form-group">
+			<label >Citta Arrivo:</label> 
+			<h:inputText p:placeholder="Inserisci la città di arrivo" class="form-control" value="#{voloBean.volo.cittaArrivo}" />
+		</div>
+		
+		<div class="form-group">
+			<label >Nome Compagnia:</label> 
+			<h:inputText p:placeholder="Inserisci il nome della compagnia" class="form-control" value="#{voloBean.volo.nomeCompagnia}" />
+		</div>
+		
+		<div class="form-group">
+			<label >Data partenza :</label> 
+			<h:inputText p:placeholder="Inserisci la data di partenza" class="form-control datepicker" value="#{voloBean.volo.partenzaInStringa}" />
+		</div>
+		
+		<div class="form-group">
+			<label >Data arrivo:</label> 
+			<h:inputText p:placeholder="Inserisci la data di arrivo" class="form-control datepicker" value="#{voloBean.volo.arrivoInStringa}" />
+		</div>
+		
+		<div class="form-group">
+			<label >Disponibilità:</label> 
+			<h:inputText p:placeholder="Inserisci il numero di posti disponibili" class="form-control" value="#{voloBean.volo.disponibilita}" />
+		</div>
+		
+		<div class="form-group">
+			<label >Costo:</label> 
+			<h:inputText p:placeholder="Inserisci il costo" class="form-control" value="#{voloBean.volo.costo}" />
+		</div>
 
-		<br></br>
-		<h:form>
-
-			<div class="form-group">
-				<label>Citta Partenza:</label>
-				<h:inputText p:placeholder="Inserisci la città di partenza"
-					class="form-control" placeholder="Inserisci la città di partenza"
-					value="#{voloBean.volo.cittaPartenza}" />
-			</div>
-
-			<div class="form-group">
-				<label>Citta Arrivo:</label>
-				<h:inputText p:placeholder="Inserisci la città di arrivo"
-					class="form-control" value="#{voloBean.volo.cittaArrivo}" />
-			</div>
-
-			<div class="form-group">
-				<label>Nome Compagnia:</label>
-				<h:inputText p:placeholder="Inserisci il nome della compagnia"
-					class="form-control" value="#{voloBean.volo.nomeCompagnia}" />
-			</div>
-
-			<div class="form-group">
-				<label>Data partenza :</label>
-				<h:inputText p:placeholder="Inserisci la data di partenza"
-					class="form-control datepicker" value="#{voloBean.dataPartenza}" />
-			</div>
-
-			<div class="form-group">
-				<label>Data arrivo:</label>
-				<h:inputText p:placeholder="Inserisci la data di arrivo"
-					class="form-control datepicker" value="#{voloBean.dataArrivo}" />
-			</div>
-
-			<div class="form-group">
-				<label>Disponibilità:</label>
-				<h:inputText
-					p:placeholder="Inserisci il numero di posti disponibili"
-					class="form-control" value="#{voloBean.volo.disponibilita}" />
-			</div>
-
-			<div class="form-group">
-				<label>Costo:</label>
-				<h:inputText p:placeholder="Inserisci il costo" class="form-control"
-					value="#{voloBean.volo.costo}" />
-			</div>
-
-			<h:commandButton value="Aggiungi" class="btn btn-default"
-				action="#{voloBean.aggiungiVolo()}" />
+		<h:commandButton value="Aggiungi"  class="btn btn-default" action="#{voloBean.aggiungiVolo()}" />
 		</h:form>
 
 		<script>

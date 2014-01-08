@@ -66,7 +66,7 @@ CREATE TABLE `Pacchetto` (
   `descrizione` text NOT NULL,
   `inizio_validita` date NOT NULL,
   `fine_validita` date NOT NULL,
-  `hotel` int(11) NOT NULL,
+  `hotel` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`hotel`) REFERENCES `Hotel` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

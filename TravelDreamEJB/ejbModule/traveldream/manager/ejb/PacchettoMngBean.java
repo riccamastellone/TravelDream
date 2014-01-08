@@ -1,6 +1,9 @@
 package traveldream.manager.ejb;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
@@ -9,8 +12,12 @@ import javax.persistence.PersistenceContext;
 
 import com.sun.xml.rpc.processor.modeler.j2ee.xml.emptyType;
 
+import model.Hotel;
 import model.Pacchetto;
+import model.Volo;
+import model.VoloPacchetto;
 import traveldream.dtos.PacchettoDTO;
+import traveldream.dtos.VoloDTO;
 import traveldream.manager.PacchettoMng;
 
 /**
@@ -32,15 +39,59 @@ public class PacchettoMngBean implements PacchettoMng {
 	public PacchettoMngBean() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	private PacchettoDTO convertToDto(Pacchetto pacchetto){
+		PacchettoDTO p = new PacchettoDTO();
+		p.setId(pacchetto.getId());
+		p.setDescrizione(pacchetto.getDescrizione());
+		p.setInizioValidita(pacchetto.getInizioValidita());
+		p.setFineValidita(pacchetto.getFineValidita());
+		p.setLocalita(pacchetto.getLocalita());
+		p.setNome(pacchetto.getNome());
+		return p;
+	}
+	
+	private Pacchetto findPacchetto(int id) {
+		return em.find(Pacchetto.class, id);
+	}
 
 	@Override
-	public void salvaInfoGenerali(PacchettoDTO pacchetto) {
+	public PacchettoDTO salvaInfoGenerali(PacchettoDTO pacchetto) {
 		// TODO Auto-generated method stub		
 		Pacchetto pacchettoDaSalvare = new Pacchetto(pacchetto);
 		em.persist(pacchettoDaSalvare);
+		
+		//serve per fornire l'id el acchetto al client per poi aggiungere i voli
+		pacchettoDaSalvare = this.getLastPacchetto();
+		PacchettoDTO pacchettoNuovo = convertToDto(pacchettoDaSalvare);
 		System.out.println("salvo info generali");
+		return pacchettoNuovo;
+	}
+
+	@Override
+	public void aggiungiVoloAPacchetto(PacchettoDTO pacchetto, VoloDTO volo, String tipo) {
+		// TODO Auto-generated method stub
+		Volo voloNuovo = this.getVoloById(volo); 
+		
+		Pacchetto pacchettoDaAggiornare = this.findPacchetto(pacchetto.getId());
+		System.out.println(pacchettoDaAggiornare.getNome());
+		
+		VoloPacchetto voloPacchetto = new VoloPacchetto(pacchettoDaAggiornare, voloNuovo, tipo);
+		
+		em.persist(voloPacchetto);
 	}
     
+	private Volo getVoloById(VoloDTO volo){
+		
+		List<Volo> voli = em.createNamedQuery("Volo.getVoloById", Volo.class).setParameter("id", volo.getId()).getResultList();
+		return voli.get(0);
+	}
+	
+	private Pacchetto getLastPacchetto() {
+
+		List<Pacchetto> pacchetti = em.createNamedQuery("Pacchetto.selectMax", Pacchetto.class).getResultList();
+		return pacchetti.get(0);
+	}
  
 
 }

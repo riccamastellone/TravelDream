@@ -8,6 +8,7 @@ import traveldream.dtos.HotelDTO;
 import traveldream.dtos.VoloDTO;
 
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -16,7 +17,14 @@ import java.util.Date;
  */
 @Entity
 @Table(name="Volo")
-@NamedQuery(name="Volo.findAll", query="SELECT v FROM Volo v WHERE v.eliminato != 1")
+@NamedQueries({
+	@NamedQuery(name="Volo.findAll", query="SELECT v FROM Volo v WHERE v.eliminato != 1"),
+	
+	@NamedQuery(name="Volo.getVoloById", query="SELECT v FROM Volo v Where v.id = :id"),
+	
+	@NamedQuery(name="Volo.selectMax", query="SELECT v FROM Volo v Where v.id = (SELECT max(v.id) FROM Volo v)")
+})
+
 public class Volo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -44,6 +52,7 @@ public class Volo implements Serializable {
 	private Date partenza;
 	
 	private int eliminato;
+	
 
 	public Volo() {
 		

@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.sun.xml.rpc.processor.modeler.j2ee.xml.string;
+
 import traveldream.dtos.UtenteDTO;
 import traveldream.manager.UtenteMrg;
 import model.*;

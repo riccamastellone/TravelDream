@@ -17,7 +17,8 @@ public interface VoloMng {
 	public void aggiornaVolo(VoloDTO volo) throws ParseException;
 	
 	public void deleteVolo(VoloDTO volo);
-	
+		
+	public VoloDTO aggiungiVoloAPacchetto(VoloDTO volo) throws ParseException;
 	
 
 }

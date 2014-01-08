@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import model.Pacchetto;
 import model.Volo;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.VoloMng;
@@ -113,6 +114,23 @@ public class VoloMngBean implements VoloMng  {
 	public String ConvertiInStringa(Date data){
 		DateFormat formato = new SimpleDateFormat("MM/dd/yyyy");
 		return formato.format(data);
+	}
+
+
+
+	@Override
+	public VoloDTO aggiungiVoloAPacchetto(VoloDTO volo) throws ParseException {
+		// TODO Auto-generated method stub
+		salvaVolo(volo);
+		Volo voloDaRitornareVolo = this.getLastVolo();
+		volo.setId(voloDaRitornareVolo.getId());
+		return volo;
+	}
+	
+	private Volo getLastVolo() {
+
+		List<Volo> voli = em.createNamedQuery("Volo.selectMax", Volo.class).getResultList();
+		return voli.get(0);
 	}
 
 

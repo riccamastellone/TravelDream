@@ -17,7 +17,13 @@ import java.util.List;
  */
 @Entity
 @Table(name= "Pacchetto")
-@NamedQuery(name = "Pacchetto.findAll", query = "SELECT p FROM Pacchetto p")
+@NamedQueries({
+	
+	@NamedQuery(name = "Pacchetto.findAll", query = "SELECT p FROM Pacchetto p"),
+	
+	@NamedQuery(name= "Pacchetto.selectMax", query= "SELECT p FROM Pacchetto p WHERE p.id = (SELECT max(p.id) FROM Pacchetto p)")
+	
+})
 public class Pacchetto implements Serializable {
 	private static final long serialVersionUID = 1L;
 

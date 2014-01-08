@@ -46,6 +46,7 @@ public class AttivitaSecondaria implements Serializable {
 	public AttivitaSecondaria() {
 	}
 	
+	
 	public AttivitaSecondaria(AttivitaSecondariaDTO a) {
 		this.costo = a.getCosto();
 		this.descrizione = a.getDescrizione();

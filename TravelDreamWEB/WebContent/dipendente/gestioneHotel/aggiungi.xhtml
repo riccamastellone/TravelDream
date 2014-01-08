@@ -3,7 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://richfaces.org/rich">
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="../template.xhtml">
 
@@ -11,7 +11,6 @@
 
 		<br></br>
 		<h:form enctype="multipart/form-data">
-
 			<div class="form-group">
 				<label>Nome:</label>
 				<h:inputText class="form-control"
@@ -59,8 +58,7 @@
 					value="#{hotelBean.hotel.descrizione}" />
 			</div>
 
-
-
+			<p:fileUpload value="#{hotelBean.file}" mode="simple" />
 
 
 			<h:commandButton value="Aggiungi" class="btn btn-default"

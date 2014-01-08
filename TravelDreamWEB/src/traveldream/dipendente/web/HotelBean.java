@@ -1,5 +1,11 @@
 package traveldream.dipendente.web;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import javax.ejb.EJB;
@@ -8,7 +14,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import com.sun.el.parser.ParseException;
 
@@ -26,22 +35,15 @@ public class HotelBean {
 
 	private ArrayList<HotelDTO> allHotel;
 
+	private UploadedFile file;
+
 	public HotelBean() {
 		this.setHotel(new HotelDTO());
 	}
 
-
-	public String aggiungiHotel() throws ParseException {
-		hotelMng.salvaHotel(hotel);
-		refreshHotels();
-		return "catalogo?faces-redirect=true";
-
-	} 
-	
 	private void refreshHotels() {
 		this.allHotel = hotelMng.getAllHotel();
 	}
-
 
 	public ArrayList<HotelDTO> getAllHotel() {
 		if (this.allHotel == null) {
@@ -49,9 +51,8 @@ public class HotelBean {
 		}
 		return this.allHotel;
 	}
-	
-	
-	public String goToEdit(HotelDTO hotel){
+
+	public String goToEdit(HotelDTO hotel) {
 		this.hotel = hotel;
 		return "edita?faces-redirect=true";
 
@@ -64,12 +65,12 @@ public class HotelBean {
 		refreshHotels();
 		return "catalogo?faces-redirect=true";
 	}
-	
+
 	public void handleFileUpload(FileUploadEvent event) {
-		FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+		FacesMessage msg = new FacesMessage("Succesful", event.getFile()
+				.getFileName() + " is uploaded.");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-
 
 	public HotelDTO getHotel() {
 		return hotel;
@@ -78,6 +79,52 @@ public class HotelBean {
 	public void setHotel(HotelDTO hotel) {
 		this.hotel = hotel;
 	}
-	
+
+	public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}
+
+	public String aggiungiHotel() {
+
+		// Glassfish deve avere i permessi!!
+		File path = new File("/var/uploads");
+		String filename = FilenameUtils.getName(file.getFileName());
+		String basename = FilenameUtils.getBaseName(filename) + "_";
+		String extension = "." + FilenameUtils.getExtension(filename);
+
+		hotel.setPathtoImage(null);
+
+		// tentiamo di creare le cartelle
+		System.out.println(path.mkdirs());
+
+		InputStream input;
+		try {
+			File newFile = File.createTempFile(basename, extension, path);
+
+			System.out.println(newFile);
+
+			input = file.getInputstream();
+			OutputStream output = new FileOutputStream(newFile);
+			try {
+				IOUtils.copy(input, output);
+				hotel.setPathtoImage(newFile.toString());
+			} finally {
+				IOUtils.closeQuietly(input);
+				IOUtils.closeQuietly(output);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		hotelMng.salvaHotel(hotel);
+		refreshHotels();
+		return "catalogo?faces-redirect=true";
+
+	}
 
 }

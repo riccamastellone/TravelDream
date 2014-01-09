@@ -13,23 +13,22 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import model.Pacchetto;
 import model.Volo;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.VoloMng;
 
-
 @Stateless
-public class VoloMngBean implements VoloMng  {
+public class VoloMngBean implements VoloMng {
 
 	@PersistenceContext
-    private EntityManager em;
-	
+	private EntityManager em;
+
 	@Resource
 	private EJBContext context;
 
-	
 	/* VOLI */
-	
+
 	private VoloDTO convertVoloToDTO(Volo h) {
 		VoloDTO vl = new VoloDTO();
 		vl.setId(h.getId());
@@ -44,37 +43,33 @@ public class VoloMngBean implements VoloMng  {
 		return vl;
 	}
 
-
-
 	@Override
 	public void salvaVolo(VoloDTO volo) throws ParseException {
 		System.out.println("salvo volo");
-		Volo voloNuovo = new Volo(volo); 
+		Volo voloNuovo = new Volo(volo);
 		em.persist(voloNuovo);
 	}
-
-
 
 	@Override
 	public ArrayList<VoloDTO> getVoli() {
 		// TODO Auto-generated method stub
-	ArrayList<VoloDTO> voliDTO = new ArrayList<VoloDTO>();
-		
-		//query dichiarate nell entita UtenteGruppo 		
-		List<Volo> voli = em.createNamedQuery("Volo.findAll", Volo.class).getResultList();;
-		
+		ArrayList<VoloDTO> voliDTO = new ArrayList<VoloDTO>();
+
+		// query dichiarate nell entita UtenteGruppo
+		List<Volo> voli = em.createNamedQuery("Volo.findAll", Volo.class)
+				.getResultList();
+		;
+
 		for (Volo volo : voli) {
-			
-			voliDTO.add(this.convertVoloToDTO(volo));	
+
+			voliDTO.add(this.convertVoloToDTO(volo));
 		}
 		return voliDTO;
 	}
-	
+
 	private Volo findVolo(int id) {
 		return em.find(Volo.class, id);
 	}
-
-
 
 	@Override
 	public void aggiornaVolo(VoloDTO volo) throws ParseException {
@@ -86,37 +81,33 @@ public class VoloMngBean implements VoloMng  {
 		voloDaModificare.setDisponibilita(volo.getDisponibilita());
 		voloDaModificare.setNomeCompagnia(volo.getNomeCompagnia());
 		voloDaModificare.setPartenza(volo.getPartenza());
-				
-		em.merge(voloDaModificare);
-				
-	}
-	
 
+		em.merge(voloDaModificare);
+
+	}
 
 	@Override
 	public void deleteVolo(VoloDTO volo) {
 		// TODO Auto-generated method stub
 		Volo voloDaCancellare = this.findVolo(volo.getId());
 		voloDaCancellare.setEliminato(1);
-		em.merge(voloDaCancellare);		
+		em.merge(voloDaCancellare);
 	}
 
-	public Date convertiInData(String data) throws ParseException {
-		if (data.equals("")) {
-			return null;
-		}
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		Date convertedDate = dateFormat.parse(data);
-		return convertedDate;
-	}
-	
-	public String ConvertiInStringa(Date data){
-		DateFormat formato = new SimpleDateFormat("MM/dd/yyyy");
-		return formato.format(data);
+	@Override
+	public VoloDTO aggiungiVoloAPacchetto(VoloDTO volo) throws ParseException {
+		// TODO Auto-generated method stub
+		salvaVolo(volo);
+		Volo voloDaRitornareVolo = this.getLastVolo();
+		volo.setId(voloDaRitornareVolo.getId());
+		return volo;
 	}
 
+	private Volo getLastVolo() {
 
+		List<Volo> voli = em.createNamedQuery("Volo.selectMax", Volo.class)
+				.getResultList();
+		return voli.get(0);
+	}
 
-
-	
 }

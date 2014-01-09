@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import traveldream.dtos.AttivitaSecondariaDTO;
+import traveldream.dtos.PacchettoDTO;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +17,13 @@ import java.util.List;
  */
 @Entity
 @Table(name= "Pacchetto")
-@NamedQuery(name = "Pacchetto.findAll", query = "SELECT p FROM Pacchetto p")
+@NamedQueries({
+	
+	@NamedQuery(name = "Pacchetto.findAll", query = "SELECT p FROM Pacchetto p"),
+	
+	@NamedQuery(name= "Pacchetto.selectMax", query= "SELECT p FROM Pacchetto p WHERE p.id = (SELECT max(p.id) FROM Pacchetto p)")
+	
+})
 public class Pacchetto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -50,6 +60,16 @@ public class Pacchetto implements Serializable {
 
 	public Pacchetto() {
 	}
+	
+	public Pacchetto(PacchettoDTO pacchetto) {
+		
+		this.descrizione = pacchetto.getDescrizione();
+		this.nome = pacchetto.getNome();
+		this.inizioValidita = pacchetto.getInizioValidita();
+		this.fineValidita = pacchetto.getFineValidita();
+		this.localita = pacchetto.getLocalita();
+		
+	}	
 
 	public int getId() {
 		return this.id;
@@ -159,5 +179,26 @@ public class Pacchetto implements Serializable {
 
 		return attivitaSecondariePacchetto;
 	}
+	
+	
+	/*
+	/**
+	 * serve al costruttore per convertire il pacchettoDTO
+	 * @param attivitaSecondarieDTO
+	 * @return
+	 */
+	/*
+	public List<AttivitaSecondaria> convertiAttivitaSecondarie(List<AttivitaSecondariaDTO> attivitaSecondarieDTO) {
+		
+		List<AttivitaSecondaria> attivitaSecondarie = new ArrayList<AttivitaSecondaria>();
+		
+		for (AttivitaSecondariaDTO attivitaDTO : attivitaSecondarieDTO) {
+			AttivitaSecondaria attivita = new AttivitaSecondaria(attivitaDTO);
+			attivitaSecondarie.add(attivita);
+		}
+
+		return attivitaSecondarie;
+	}
+	*/
 
 }

@@ -14,47 +14,43 @@
 
 
 		<h:link outcome="aggiungi" class="btn btn-default pull-right"
-			value="Aggiungi nuovo hotel" />
+			value="Aggiungi nuova attivita secondaria" />
 		<br />
 		<br />
 		<h:form>
 
-			<p:dataTable id="dataTable" var="hotel" value="#{hotelBean.allHotel}">
+			<p:dataTable id="dataTable" var="attivita" value="#{attivitaBean.allAttivita}">
 				<f:facet name="header">  
-            Elenco Alberghi 
+            Elenco Attivita Secondarie 
         </f:facet>
 
 				<p:column sortBy="nome" headerText="Nome">
-					<h:outputText value="#{hotel.nome}" />
+					<h:outputText value="#{attivita.nome}" />
 				</p:column>
 
-				<p:column sortBy="stelle" headerText="Stelle">
-					<h:outputText value="#{hotel.stelle}" />
-				</p:column>
 
-				<p:column sortBy="costoGiornaliero" headerText="Costo giornaliero">
-					<h:outputText value="#{hotel.costoGiornaliero} €" />
+				<p:column sortBy="costoGiornaliero" headerText="Costo">
+					<h:outputText value="#{attivita.costo} €" />
 				</p:column>
 
 				<p:column sortBy="luogo" headerText="Luogo">
-					<h:outputText value="#{hotel.luogo}" />
+					<h:outputText value="#{attivita.localita}" />
 				</p:column>
 				
 				<p:column sortBy="disponibilita" headerText="Posti disponibili">
-					<h:outputText value="#{hotel.disponibilita}" />
+					<h:outputText value="#{attivita.disponibilita}" />
 				</p:column>
-
 
 				<p:column headerText="" width="100">
 					<div class="btn-group">
 
 						<h:commandLink id="edit" class="btn btn-default" type="button"
-							action="#{hotelBean.goToEdit(hotel)}">
+							action="#{attivitaBean.goToEdit(attivita)}">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</h:commandLink>
 						<h:commandLink id="canc" class="btn btn-default btn-danger"
-							onclick="return confirm('Confermi di voler eliminare questo hotel?');"
-							action="#{hotelBean.deleteHotel(hotel)}">
+							onclick="return confirm('Confermi di voler eliminare questa attivita?');"
+							action="#{attivitaBean.deleteAttivita(attivita)}">
 							<span class="glyphicon glyphicon-trash white"></span>
 							<f:ajax execute="canc" render="dataTable" />
 						</h:commandLink>
@@ -67,7 +63,7 @@
 		<script>
 			$(function() {
 				$('.active').removeClass('active');
-				$('.nav li:nth-child(3)').addClass('active');
+				$('.nav li:nth-child(5)').addClass('active');
 			});
 		</script>
 	</ui:define>

@@ -28,8 +28,17 @@ public class VoloPacchetto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="volo")
 	private Volo volo;
+	
+	private String tipo;
 
 	public VoloPacchetto() {
+	}
+	
+	public VoloPacchetto(Pacchetto pacchetto, Volo volo, String tipo) {
+		
+		this.pacchetto = pacchetto;
+		this.volo = volo;
+		this.tipo = tipo;
 	}
 
 	public int getId() {
@@ -54,6 +63,14 @@ public class VoloPacchetto implements Serializable {
 
 	public void setVolo(Volo volo) {
 		this.volo = volo;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }

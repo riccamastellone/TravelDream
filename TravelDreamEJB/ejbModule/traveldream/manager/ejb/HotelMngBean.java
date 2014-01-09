@@ -10,7 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import model.Hotel;
+import model.Volo;
 import traveldream.dtos.HotelDTO;
+import traveldream.dtos.VoloDTO;
 import traveldream.manager.HotelMng;
 
 /**
@@ -34,13 +36,10 @@ public class HotelMngBean implements HotelMng{
 
 	public void saveHotel(HotelDTO hoteldto) {
 
-		Hotel hotel = new Hotel(hoteldto);	//aggiungo alla tabella Utente una tupla utilizzanto il DTO
+		Hotel hotel = new Hotel(hoteldto);
 		em.persist(hotel);	
 	}
-	
 
-    
-	/* HOTEL */
 	
 	public ArrayList<HotelDTO> getAllHotel()
 	{
@@ -86,6 +85,12 @@ public class HotelMngBean implements HotelMng{
 	
 	private Hotel findHotel(int id) {
 		return em.find(Hotel.class, id);
+	}
+	
+	public void deleteHotel(HotelDTO hotel) {
+		Hotel hotelDaCancellare = this.findHotel(hotel.getId());
+		hotelDaCancellare.setEliminato(1);
+		em.merge(hotelDaCancellare);		
 	}
 
 }

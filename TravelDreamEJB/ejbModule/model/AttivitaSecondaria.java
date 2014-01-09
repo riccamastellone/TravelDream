@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Entity
 @Table(name= "AttivitaSecondaria")
-@NamedQuery(name="AttivitaSecondaria.findAll", query="SELECT a FROM AttivitaSecondaria a")
+@NamedQuery(name="AttivitaSecondaria.findAll", query="SELECT a FROM AttivitaSecondaria a WHERE a.eliminato != 1")
 public class AttivitaSecondaria implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -45,6 +45,7 @@ public class AttivitaSecondaria implements Serializable {
 
 	public AttivitaSecondaria() {
 	}
+	
 	
 	public AttivitaSecondaria(AttivitaSecondariaDTO a) {
 		this.costo = a.getCosto();

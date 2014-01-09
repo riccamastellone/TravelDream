@@ -1,8 +1,8 @@
 package traveldream.dtos;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,9 +33,18 @@ public class PacchettoDTO {
 	@NotEmpty
 	private String nome;
 
-	private List<VoloDTO> voli;
+	private List<VoloDTO> voliAndata;
+	
+	private List<VoloDTO> voliRitorno;
+	
 	
 	private List<AttivitaSecondariaDTO> attivitaSecondarie;
+	
+	public PacchettoDTO(){
+		this.voliAndata = new ArrayList<VoloDTO>();
+		this.voliRitorno = new ArrayList<VoloDTO>();
+		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
+	}
 
 	public int getId() {
 		return id;
@@ -101,13 +110,6 @@ public class PacchettoDTO {
 		this.nome = nome;
 	}
 
-	public List<VoloDTO> getVoli() {
-		return voli;
-	}
-
-	public void setVoli(List<VoloDTO> voli) {
-		this.voli = voli;
-	}
 
 	public List<AttivitaSecondariaDTO> getAttivitaSecondarie() {
 		return attivitaSecondarie;
@@ -115,6 +117,22 @@ public class PacchettoDTO {
 
 	public void setAttivitaSecondarie(List<AttivitaSecondariaDTO> attivitaSecondarie) {
 		this.attivitaSecondarie = attivitaSecondarie;
+	}
+
+	public List<VoloDTO> getVoliAndata() {
+		return voliAndata;
+	}
+
+	public void setVoliAndata(List<VoloDTO> voliAndata) {
+		this.voliAndata = voliAndata;
+	}
+
+	public List<VoloDTO> getVoliRitorno() {
+		return voliRitorno;
+	}
+
+	public void setVoliRitorno(List<VoloDTO> voliRitorno) {
+		this.voliRitorno = voliRitorno;
 	}
 	
 	

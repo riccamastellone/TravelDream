@@ -36,6 +36,7 @@ CREATE TABLE `Hotel` (
   `immagine` varchar(255) DEFAULT NULL,
   `luogo` varchar(255) DEFAULT NULL,
   `descrizione` text DEFAULT NULL,
+  `eliminato` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

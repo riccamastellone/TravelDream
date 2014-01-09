@@ -80,6 +80,7 @@ public class HotelBean {
 		this.hotel = hotel;
 	}
 
+
 	public UploadedFile getFile() {
 		return file;
 	}
@@ -91,7 +92,7 @@ public class HotelBean {
 	public String aggiungiHotel() {
 
 		// Glassfish deve avere i permessi!!
-		File path = new File("/var/uploads");
+		File path = new File("/var/uploads/up");
 		String filename = FilenameUtils.getName(file.getFileName());
 		String basename = FilenameUtils.getBaseName(filename) + "_";
 		String extension = "." + FilenameUtils.getExtension(filename);
@@ -124,7 +125,13 @@ public class HotelBean {
 		hotelMng.salvaHotel(hotel);
 		refreshHotels();
 		return "catalogo?faces-redirect=true";
+	}
+
+	public void deleteHotel(HotelDTO hotel) {
+		hotelMng.deleteHotel(hotel);
 
 	}
+	
+	
 
 }

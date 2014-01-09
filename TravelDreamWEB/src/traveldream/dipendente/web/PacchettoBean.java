@@ -206,8 +206,11 @@ public class PacchettoBean {
 	 * @param volo
 	 */
 	public void eliminaVoloAndata(VoloDTO volo){
-		
-		this.pacchetto.getVoliNuoviAndata().remove(volo);
+		if (this.voliEsistentiAndata.contains(volo)){
+			this.voli.add(volo);
+			this.voliEsistentiAndata.remove(volo);
+		}
+		//this.voliEsistentiAndata.remove(volo);
 		this.voliNuoviAndata.remove(volo);
 		this.pacchetto.getVoliAndata().remove(volo);		
 		
@@ -219,8 +222,11 @@ public class PacchettoBean {
 	 * @param volo
 	 */
 	public void eliminaVoloRitorno(VoloDTO volo){
-		
-		this.voliEsistentiRitorno.remove(volo);
+		if (this.voliEsistentiRitorno.contains(volo)){
+			this.voli.add(volo);
+			this.voliEsistentiRitorno.remove(volo);
+		}
+		//this.voliEsistentiRitorno.remove(volo);
 		this.voliNuoviRitorno.remove(volo);
 		this.pacchetto.getVoliRitorno().remove(volo);
 			

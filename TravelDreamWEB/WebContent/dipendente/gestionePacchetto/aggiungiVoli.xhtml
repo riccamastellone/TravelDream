@@ -10,12 +10,126 @@
 <ui:composition template="../template.xhtml">
 
 	<ui:define name="content">
-
-		<h:link outcome="aggiungiNuovoVolo" class="btn btn-default pull-right"
-			value="Aggiungi nuovo volo" />
+		<div>
+			<h:link outcome="aggiungiNuovoVolo" class="btn btn-default pull-right"
+				value="Aggiungi nuovo volo" />
 			
-		<h:link outcome="aggiungiVoloEsistente" class="btn btn-default pull-right"
-			value="Aggiungi volo esistente" />
+			<h:link outcome="aggiungiVoloEsistente" class="btn btn-default pull-right"
+				value="Aggiungi volo esistente" />
+		</div>	
+		
+		<div>
+		<h:form>
+
+
+			<p:dataTable id="dataTableAndata" var="volo" value="#{pacchettoBean.pacchetto.voliAndata}">
+				<f:facet name="header">  
+            		Elenco Voli Andata
+        		</f:facet>
+
+
+				<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">					
+						<h:outputText value="#{volo.nomeCompagnia}" />					
+				</p:column>
+
+				<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+						<h:outputText value="#{volo.cittaPartenza}" />
+				</p:column>
+
+				<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+						<h:outputText value="#{volo.cittaArrivo}" />
+				</p:column>
+
+				<p:column sortBy="partenza" headerText="Data di Partenza">
+						<h:outputText value="#{volo.partenza}" >
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm"/>
+						</h:outputText>							
+				</p:column>
+
+				<p:column sortBy="arrivo" headerText="Data di arrivo">
+						<h:outputText value="#{volo.arrivo}" >
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm"/>
+						</h:outputText>	
+				</p:column>
+
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">					
+						<h:outputText value="#{volo.disponibilita}" />
+						
+						 							
+				</p:column>
+
+				<p:column sortBy="costo" headerText="Prezzo">
+						<h:outputText value="#{volo.costo} €" />
+				</p:column>
+				
+				<p:column >
+					<h:commandLink id="aggiungi" value="Salva" class="btn btn-primary" action="#{pacchettoBean.aggiungiVoloEsistenteAPacchetto(volo)}" >
+						<f:ajax execute="aggiungi" render="dataTableAndata" />
+					</h:commandLink>
+				</p:column>
+				
+
+			</p:dataTable>
+
+		</h:form>
+		</div>
+		
+			<div>
+			<h:form>
+
+	
+			<p:dataTable id="dataTableRitorno" var="volo" value="#{pacchettoBean.pacchetto.voliRitorno}">
+				<f:facet name="header">  
+            		Elenco Voli Ritorno
+        		</f:facet>
+
+
+				<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">					
+						<h:outputText value="#{volo.nomeCompagnia}" />					
+				</p:column>
+
+				<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+						<h:outputText value="#{volo.cittaPartenza}" />
+				</p:column>
+
+				<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+						<h:outputText value="#{volo.cittaArrivo}" />
+				</p:column>
+
+				<p:column sortBy="partenza" headerText="Data di Partenza">
+						<h:outputText value="#{volo.partenza}" >
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm"/>
+						</h:outputText>							
+				</p:column>
+
+				<p:column sortBy="arrivo" headerText="Data di arrivo">
+						<h:outputText value="#{volo.arrivo}" >
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm"/>
+						</h:outputText>	
+				</p:column>
+
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">					
+						<h:outputText value="#{volo.disponibilita}" />
+						
+						 							
+				</p:column>
+
+				<p:column sortBy="costo" headerText="Prezzo">
+						<h:outputText value="#{volo.costo} €" />
+				</p:column>
+				
+				<p:column >
+					<h:commandLink id="aggiungi" value="Salva" class="btn btn-primary" action="#{pacchettoBean.aggiungiVoloEsistenteAPacchetto(volo)}" >
+						<f:ajax execute="aggiungi" render="dataTableRitorno" />
+					</h:commandLink>
+				</p:column>
+				
+
+			</p:dataTable>
+
+		</h:form>
+		
+		</div>
 		
 	</ui:define>
 

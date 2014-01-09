@@ -123,5 +123,21 @@ public class VoloDTO {
 			System.out.println(this.getPartenza());			
 	}
 	 
+	 public Object clone() {
+	      // non del tutto corretto ...
+	    VoloDTO voloDTO = new VoloDTO();
+	    voloDTO.id = this.id;
+	    voloDTO.arrivo = this.arrivo;
+	    voloDTO.partenza = this.partenza;
+	    voloDTO.cittaArrivo = this.cittaArrivo;
+	    voloDTO.cittaPartenza = this.cittaPartenza;
+	    voloDTO.costo = this.costo;
+	    voloDTO.disponibilita = this.disponibilita;
+	    voloDTO.nomeCompagnia = this.nomeCompagnia;
+	    voloDTO.eliminato = this.eliminato;
+	    return voloDTO;
+	  }
+
+	 
 	
 }

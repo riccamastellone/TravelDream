@@ -24,7 +24,7 @@
             Elenco Alberghi 
         </f:facet>
 
-				<p:column sortBy="nome" headerText="Nome">
+				<p:column sortBy="nome" headerText="Nome" filterBy = "#{hotel.nome}">
 					<h:outputText value="#{hotel.nome}" />
 				</p:column>
 

@@ -74,7 +74,7 @@ public class HotelMngBean implements HotelMng{
 	}
 	
 	public void aggiornaHotel(HotelDTO hotel) {
-		/*Hotel hotelNuovo = this.findHotel(hotel.getId());
+		Hotel hotelNuovo = this.findHotel(hotel.getId());
 		hotelNuovo.setCostoGiornaliero(hotel.getCostoGiornaliero());
 		hotelNuovo.setDescrizione(hotel.getDescrizione());
 		hotelNuovo.setDisponibilita(hotel.getDisponibilita());
@@ -86,9 +86,6 @@ public class HotelMngBean implements HotelMng{
 			hotelNuovo.setImmagine(hotel.getPathtoImage());
 		} 
 		em.merge(hotelNuovo);
-		*/
-		System.out.println(hotel.getId());
-		
 	}
 	
 	private Hotel findHotel(int id) {

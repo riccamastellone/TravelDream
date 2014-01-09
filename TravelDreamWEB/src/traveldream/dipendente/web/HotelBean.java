@@ -63,30 +63,29 @@ public class HotelBean {
 		HotelDTO hotelDTO = this.hotel;
 		this.hotel = new HotelDTO();
 		
-		/*
+		
 		try {
 			// Glassfish deve avere i permessi!!
 			File path = new File("/var/uploads/up");
 			String filename = FilenameUtils.getName(file.getFileName());
 			
 			String basename = FilenameUtils.getBaseName(filename) + "_";
-			System.out.println(basename);
 			String extension = "." + FilenameUtils.getExtension(filename);
 
 			// tentiamo di creare le cartelle
 			System.out.println(path.mkdirs());
+			
+			
 
 			InputStream input;
 			try {
 				File newFile = File.createTempFile(basename, extension, path);
 
-				System.out.println(newFile);
-
 				input = file.getInputstream();
 				OutputStream output = new FileOutputStream(newFile);
 				try {
 					IOUtils.copy(input, output);
-					hotelDTO.setPathtoImage(newFile.toString());
+					hotelDTO.setPathtoImage(FilenameUtils.getName(newFile.toString()));
 				} finally {
 					IOUtils.closeQuietly(input);
 					IOUtils.closeQuietly(output);
@@ -101,7 +100,6 @@ public class HotelBean {
 			
 		}
 		
-		*/
 		hotelMng.aggiornaHotel(hotelDTO);
 		refreshHotels();
 		return "catalogo?faces-redirect=true";
@@ -145,7 +143,7 @@ public class HotelBean {
 				OutputStream output = new FileOutputStream(newFile);
 				try {
 					IOUtils.copy(input, output);
-					hotel.setPathtoImage(newFile.toString());
+					hotel.setPathtoImage(FilenameUtils.getName(newFile.toString()));
 				} finally {
 					IOUtils.closeQuietly(input);
 					IOUtils.closeQuietly(output);

@@ -74,7 +74,12 @@
 			</p:dataTable>
 
 		</h:form>
-
+		<script>
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(4)').addClass('active');
+			});
+		</script>
 
 	</ui:define>
 

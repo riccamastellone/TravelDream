@@ -22,6 +22,7 @@ import org.primefaces.model.UploadedFile;
 import com.sun.el.parser.ParseException;
 
 import traveldream.dtos.HotelDTO;
+import traveldream.dtos.VoloDTO;
 import traveldream.manager.HotelMng;
 
 @ManagedBean(name = "hotelBean")
@@ -149,7 +150,6 @@ public class HotelBean {
 					IOUtils.closeQuietly(output);
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} finally {
@@ -160,6 +160,11 @@ public class HotelBean {
 		refreshHotels();
 		return "catalogo?faces-redirect=true";
 
+	}
+	
+	public String indietro() {
+		this.hotel = new HotelDTO();
+		return "catalogo?faces-redirect=true";
 	}
 
 	public void deleteHotel(HotelDTO hotel) {

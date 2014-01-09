@@ -53,21 +53,18 @@ public class AttivitaMngBean implements AttivitaMng {
 	private AttivitaSecondaria findAttivita(int id) {
 		return em.find(AttivitaSecondaria.class, id);
 	}
-/*
-	@Override
-	public void aggiornaVolo(VoloDTO volo) throws ParseException {
-		Volo voloDaModificare = this.findVolo(volo.getId());
-		voloDaModificare.setArrivo(volo.getArrivo());
-		voloDaModificare.setCittaArrivo(volo.getCittaArrivo());
-		voloDaModificare.setCittaPartenza(volo.getCittaPartenza());
-		voloDaModificare.setCosto(volo.getCosto());
-		voloDaModificare.setDisponibilita(volo.getDisponibilita());
-		voloDaModificare.setNomeCompagnia(volo.getNomeCompagnia());
-		voloDaModificare.setPartenza(volo.getPartenza());
 
-		em.merge(voloDaModificare);
+	public void aggiornaAttivita(AttivitaSecondariaDTO attivita)  {
+		AttivitaSecondaria as = this.findAttivita(attivita.getId());
+		as.setNome(attivita.getNome());
+		as.setLocalita(attivita.getLocalita());
+		as.setDisponibilita(attivita.getDisponibilita());
+		as.setCosto(attivita.getCosto());
+		as.setDescrizione(attivita.getDescrizione());
 
-	}*/
+		em.merge(as);
+
+	}
 
 	public void deleteAttivita(AttivitaSecondariaDTO attivita) {
 		AttivitaSecondaria attivitaDC = this.findAttivita(attivita.getId());

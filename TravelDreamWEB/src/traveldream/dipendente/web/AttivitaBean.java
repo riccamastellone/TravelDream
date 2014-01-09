@@ -51,20 +51,20 @@ public class AttivitaBean {
 		return this.allAttivita;
 	}
 	
-	/*
-	public String goToEdit(HotelDTO hotel){
-		this.hotel = hotel;
+	
+	public String goToEdit(AttivitaSecondariaDTO attivita){
+		this.attivita = attivita;
 		return "edita?faces-redirect=true";
 
 	}
-
-	public String aggiornaHotel() throws ParseException {
-		HotelDTO hotelDTO = this.hotel;
-		this.hotel = new HotelDTO();
-		hotelMng.aggiornaHotel(hotelDTO);
-		refreshHotels();
+	
+	public String aggiornaAttivita() throws ParseException {
+		AttivitaSecondariaDTO attivitaDTO = this.attivita;
+		this.attivita = new AttivitaSecondariaDTO();
+		attivitaMng.aggiornaAttivita(attivitaDTO);
+		refreshAttivita();
 		return "catalogo?faces-redirect=true";
-	}*/
+	}
 
 	public void deleteAttivita(AttivitaSecondariaDTO attivita) {
 		attivitaMng.deleteAttivita(attivita);

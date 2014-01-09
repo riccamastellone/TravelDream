@@ -10,15 +10,16 @@
 <ui:composition template="../template.xhtml">
 
 	<ui:define name="content">
-		<div>
+		<div style="text-align:right">
 			<h:link outcome="aggiungiNuovoVolo"
-				class="btn btn-default pull-right" value="Aggiungi nuovo volo" />
+				class="btn btn-default" value="Aggiungi nuovo volo" />
 
 			<h:link outcome="aggiungiVoloEsistente"
-				class="btn btn-default pull-right" value="Aggiungi volo esistente" />
+				class="btn btn-default" value="Aggiungi volo esistente" />
 		</div>
+		<br />
 
-		<div>
+		<div style="margin-bottom:20px;">
 			<h:form>
 
 
@@ -65,7 +66,7 @@
 
 					<p:column>
 						<h:commandLink id="eliminaAndata" value="Elimina"
-							class="btn btn-primary"
+							class="btn btn-danger white"
 							action="#{pacchettoBean.eliminaVoloAndata(volo)}">
 							<f:ajax execute="eliminaAndata" render="dataTableAndata" />
 						</h:commandLink>
@@ -77,7 +78,7 @@
 			</h:form>
 		</div>
 
-		<div>
+		<div style="margin-botton:15px;">
 			<h:form>
 
 
@@ -124,10 +125,11 @@
 
 					<p:column>
 						<h:commandLink id="eliminaRitorno" value="Elimina"
-							class="btn btn-primary"
+							class="btn btn-danger white"
 							action="#{pacchettoBean.eliminaVoloRitorno(volo)}">
 							<f:ajax execute="eliminaRitorno" render="dataTableRitorno" />
 						</h:commandLink>
+						
 					</p:column>
 
 
@@ -136,8 +138,8 @@
 			</h:form>
 
 		</div>
-
-		<div>
+		<br />
+		<div style="text-align:right">
 			<h:form>
 				<h:commandLink value="Salva" class="btn btn-primary"
 					action="#{pacchettoBean.aggiungiPacchetto()}" />

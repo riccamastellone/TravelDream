@@ -2,13 +2,12 @@ package traveldream.dipendente.web;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
-import org.primefaces.expression.impl.ThisExpressionResolver;
 
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
@@ -43,7 +42,7 @@ public class PacchettoBean {
 	//serve per l inserimento a db (NON creare un nuovo volo nella tabella voli ma associare e basta)
 	private List<VoloDTO> voliEsistentiRitorno;
 	
-	private VoloDTO volo;
+	private VoloDTO volo;	
 	
 	private String tipoVolo;
 	
@@ -52,14 +51,13 @@ public class PacchettoBean {
 		this.pacchetto = new PacchettoDTO();
 		this.volo = new VoloDTO();
 		this.voli = new ArrayList<VoloDTO>();
-		this.tipoVolo = "Andata";
+		this.setTipoVolo("Andata");
 		this.voliNuoviAndata = new ArrayList<VoloDTO>();
 		this.voliNuoviRitorno = new ArrayList<VoloDTO>();
 		this.setVoliEsistentiAndata(new ArrayList<VoloDTO>());
 		this.setVoliEsistentiRitorno(new ArrayList<VoloDTO>());
 		this.pacchetto.getVoliAndata().clear();
 		this.pacchetto.getVoliRitorno().clear();
-				
 	}
 
 	public PacchettoDTO getPacchetto() {
@@ -119,14 +117,6 @@ public class PacchettoBean {
 		this.volo = voloDTO;
 	}
 	
-	public String getTipoVolo() {
-		return tipoVolo;
-	}
-
-	public void setTipoVolo(String tipoVolo) {
-		this.tipoVolo = tipoVolo;
-	}
-	
 	
 	public String goToAggiungiVoli(){
 		//mi serve l id aggiornato per scrivere nella tabella VoloPacchetto senza causare errori
@@ -179,10 +169,10 @@ public class PacchettoBean {
 	 * aggiunge volo esistente a lista voliEsistenti distinguendo in andata e ritorno
 	 * @param volo
 	 */
-	public void aggiungiVoloEsistenteAPacchetto(VoloDTO volo) {
+	public void aggiungiVoloEsistenteAPacchetto(VoloDTO volo, int tipo) {
 		this.voli.remove(volo);
-		System.out.println(this.tipoVolo);
-		if (this.tipoVolo.equals("Andata")) {
+
+		if (tipo == 1) {
 
 			
 			//serve solamante per mostrare a schermo
@@ -262,7 +252,14 @@ public class PacchettoBean {
 		
 		return "catalogo?faces-redirect=true";
 	}
-	
+
+	public String getTipoVolo() {
+		return tipoVolo;
+	}
+
+	public void setTipoVolo(String tipoVolo) {
+		this.tipoVolo = tipoVolo;
+	}
 
 
 

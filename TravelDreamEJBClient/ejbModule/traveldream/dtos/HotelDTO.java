@@ -28,6 +28,8 @@ public class HotelDTO {
 	private Integer disponibilita;
 	
 	private String descrizione;
+	
+	private int eliminato;
 
 	public Integer getStelle() {
 		return this.stelle;
@@ -91,6 +93,14 @@ public class HotelDTO {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getEliminato() {
+		return eliminato;
+	}
+
+	public void setEliminato(int eliminato) {
+		this.eliminato = eliminato;
 	}
 
 	

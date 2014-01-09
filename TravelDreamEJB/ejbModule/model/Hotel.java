@@ -8,7 +8,7 @@ import traveldream.dtos.HotelDTO;
 
 @Entity
 @Table(name = "Hotel")
-@NamedQueries({ @NamedQuery(name = Hotel.FIND_ALL, query = "SELECT h FROM Hotel h") })
+@NamedQueries({ @NamedQuery(name = Hotel.FIND_ALL, query = "SELECT h FROM Hotel h WHERE h.eliminato != 1") })
 public class Hotel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String FIND_ALL = "Hotel.findAll";
@@ -31,6 +31,8 @@ public class Hotel implements Serializable {
 	private String descrizione;
 
 	private int stelle;
+	
+	private int eliminato;
 
 	public Hotel() {
 		super();
@@ -44,6 +46,7 @@ public class Hotel implements Serializable {
 		this.stelle = hoteldto.getStelle();
 		this.disponibilita = hoteldto.getDisponibilita();
 		this.setDescrizione(hoteldto.getDescrizione());
+		this.setEliminato(0); // non ha senso creare un elemento gia eliminato!
 	}
 
 	public int getId() {
@@ -109,6 +112,14 @@ public class Hotel implements Serializable {
 
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
+	}
+
+	public int getEliminato() {
+		return eliminato;
+	}
+
+	public void setEliminato(int eliminato) {
+		this.eliminato = eliminato;
 	}
 
 }

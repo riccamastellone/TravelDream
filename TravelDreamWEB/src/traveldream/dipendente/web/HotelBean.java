@@ -13,6 +13,7 @@ import org.primefaces.event.FileUploadEvent;
 import com.sun.el.parser.ParseException;
 
 import traveldream.dtos.HotelDTO;
+import traveldream.dtos.VoloDTO;
 import traveldream.manager.HotelMng;
 
 @ManagedBean(name = "hotelBean")
@@ -78,6 +79,8 @@ public class HotelBean {
 	public void setHotel(HotelDTO hotel) {
 		this.hotel = hotel;
 	}
-	
+	public void deleteHotel(HotelDTO hotel) {
+		hotelMng.deleteHotel(hotel);
+	}
 
 }

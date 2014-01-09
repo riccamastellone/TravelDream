@@ -181,7 +181,7 @@ public class PacchettoBean {
 	 */
 	public void aggiungiVoloEsistenteAPacchetto(VoloDTO volo) {
 		this.voli.remove(volo);
-		
+		System.out.println(this.tipoVolo);
 		if (this.tipoVolo.equals("Andata")) {
 
 			
@@ -191,7 +191,6 @@ public class PacchettoBean {
 			this.voliEsistentiAndata.add(this.pacchetto.getVoliAndata().get(this.pacchetto.getVoliAndata().size() - 1));
 
 		} else {
-			
 			//serve solamante per mostrare a schermo
 			this.pacchetto.getVoliRitorno().add((VoloDTO) volo.clone());
 			//utile per il eliminaVoloRitorno

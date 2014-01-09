@@ -33,13 +33,12 @@ public class AttivitaMngBean implements AttivitaMng {
 		as.setLocalita(a.getLocalita());
 		return as;
 	}
-/*
-	public void salvaVolo(VoloDTO volo) throws ParseException {
-		System.out.println("salvo volo");
-		Volo voloNuovo = new Volo(volo);
-		em.persist(voloNuovo);
+
+	public void salvaAttivita(AttivitaSecondariaDTO attivita) {
+		AttivitaSecondaria attivitaNew = new AttivitaSecondaria(attivita);
+		em.persist(attivitaNew);
 	}
-*/
+
 	public ArrayList<AttivitaSecondariaDTO> getAttivita() {
 		List<AttivitaSecondaria> myList;
 		ArrayList<AttivitaSecondariaDTO> attivitaDTO = new ArrayList<AttivitaSecondariaDTO>();

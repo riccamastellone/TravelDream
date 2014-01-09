@@ -4,13 +4,11 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import traveldream.dtos.AttivitaSecondariaDTO;
-import traveldream.dtos.HotelDTO;
-import traveldream.dtos.VoloDTO;
 
 public interface AttivitaMng {
 
 
-	//public void salvaVolo(VoloDTO volo) throws ParseException;
+	public void salvaAttivita(AttivitaSecondariaDTO attivita);
 
 	public ArrayList<AttivitaSecondariaDTO> getAttivita();
 	

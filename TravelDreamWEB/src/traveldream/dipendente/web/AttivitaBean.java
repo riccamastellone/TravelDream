@@ -31,14 +31,13 @@ public class AttivitaBean {
 	public AttivitaBean() {
 		this.setAttivita(new AttivitaSecondariaDTO());
 	}
-/*
 
 	public String aggiungiAttivita() throws ParseException {
 		attivitaMng.salvaAttivita(attivita);
 		refreshAttivita();
 		return "catalogo?faces-redirect=true";
 
-	} */
+	}
 	
 	private void refreshAttivita() {
 		this.allAttivita = attivitaMng.getAttivita();

@@ -59,17 +59,52 @@ public class HotelBean {
 	}
 
 	public String aggiornaHotel() throws ParseException {
+		
 		HotelDTO hotelDTO = this.hotel;
 		this.hotel = new HotelDTO();
+		
+		/*
+		try {
+			// Glassfish deve avere i permessi!!
+			File path = new File("/var/uploads/up");
+			String filename = FilenameUtils.getName(file.getFileName());
+			
+			String basename = FilenameUtils.getBaseName(filename) + "_";
+			System.out.println(basename);
+			String extension = "." + FilenameUtils.getExtension(filename);
+
+			// tentiamo di creare le cartelle
+			System.out.println(path.mkdirs());
+
+			InputStream input;
+			try {
+				File newFile = File.createTempFile(basename, extension, path);
+
+				System.out.println(newFile);
+
+				input = file.getInputstream();
+				OutputStream output = new FileOutputStream(newFile);
+				try {
+					IOUtils.copy(input, output);
+					hotelDTO.setPathtoImage(newFile.toString());
+				} finally {
+					IOUtils.closeQuietly(input);
+					IOUtils.closeQuietly(output);
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch(IllegalArgumentException e) {
+			hotelDTO.setPathtoImage(null);
+		} finally {
+			
+		}
+		
+		*/
 		hotelMng.aggiornaHotel(hotelDTO);
 		refreshHotels();
 		return "catalogo?faces-redirect=true";
-	}
-
-	public void handleFileUpload(FileUploadEvent event) {
-		FacesMessage msg = new FacesMessage("Succesful", event.getFile()
-				.getFileName() + " is uploaded.");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public HotelDTO getHotel() {
@@ -80,7 +115,6 @@ public class HotelBean {
 		this.hotel = hotel;
 	}
 
-
 	public UploadedFile getFile() {
 		return file;
 	}
@@ -90,48 +124,49 @@ public class HotelBean {
 	}
 
 	public String aggiungiHotel() {
-
-		// Glassfish deve avere i permessi!!
-		File path = new File("/var/uploads/up");
-		String filename = FilenameUtils.getName(file.getFileName());
-		String basename = FilenameUtils.getBaseName(filename) + "_";
-		String extension = "." + FilenameUtils.getExtension(filename);
-
 		hotel.setPathtoImage(null);
-
-		// tentiamo di creare le cartelle
-		System.out.println(path.mkdirs());
-
-		InputStream input;
 		try {
-			File newFile = File.createTempFile(basename, extension, path);
+			// Glassfish deve avere i permessi!!
+			File path = new File("/var/uploads/up");
+			String filename = FilenameUtils.getName(file.getFileName());
+			String basename = FilenameUtils.getBaseName(filename) + "_";
+			String extension = "." + FilenameUtils.getExtension(filename);
 
-			System.out.println(newFile);
+			// tentiamo di creare le cartelle
+			System.out.println(path.mkdirs());
 
-			input = file.getInputstream();
-			OutputStream output = new FileOutputStream(newFile);
+			InputStream input;
 			try {
-				IOUtils.copy(input, output);
-				hotel.setPathtoImage(newFile.toString());
-			} finally {
-				IOUtils.closeQuietly(input);
-				IOUtils.closeQuietly(output);
+				File newFile = File.createTempFile(basename, extension, path);
+
+				System.out.println(newFile);
+
+				input = file.getInputstream();
+				OutputStream output = new FileOutputStream(newFile);
+				try {
+					IOUtils.copy(input, output);
+					hotel.setPathtoImage(newFile.toString());
+				} finally {
+					IOUtils.closeQuietly(input);
+					IOUtils.closeQuietly(output);
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} finally {
+
 		}
 
 		hotelMng.salvaHotel(hotel);
 		refreshHotels();
 		return "catalogo?faces-redirect=true";
+
 	}
 
 	public void deleteHotel(HotelDTO hotel) {
 		hotelMng.deleteHotel(hotel);
 
 	}
-	
-	
 
 }

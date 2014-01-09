@@ -10,7 +10,7 @@
 	<ui:define name="content">
 
 		<br></br>
-		<h:form>
+		<h:form enctype="multipart/form-data">
 
 			<div class="form-group">
 				<label>Nome:</label>
@@ -58,6 +58,8 @@
 					p:placeholder="Inserisci una descrzione"
 					value="#{hotelBean.hotel.descrizione}" />
 			</div>
+			
+			<p:fileUpload value="#{hotelBean.file}" mode="simple" />
 
 			<h:commandButton value="Salva" class="btn btn-default"
 				action="#{hotelBean.aggiornaHotel()}" />

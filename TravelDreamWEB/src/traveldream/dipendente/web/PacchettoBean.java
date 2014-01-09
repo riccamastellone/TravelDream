@@ -153,15 +153,19 @@ public class PacchettoBean {
 		
 		if (this.tipoVolo.equals("Andata")){
 			
-			this.pacchetto.getVoliNuoviAndata().add((VoloDTO) this.volo.clone());
+			
 			//serve solamante per mostrare a schermo
-			this.pacchetto.getVoliAndata().put((VoloDTO) this.volo.clone(), "Andata");
+			this.pacchetto.getVoliAndata().add((VoloDTO) this.volo.clone());
+			//utile per il eliminaVoloAndata
+			this.voliNuoviAndata.add(this.pacchetto.getVoliAndata().get(this.pacchetto.getVoliAndata().size() - 1));
 			
 		}
 		else {
-			this.voliNuoviRitorno.add((VoloDTO) this.volo.clone());
+			
 			//serve solamante per mostrare a schermo
 			this.pacchetto.getVoliRitorno().add((VoloDTO) this.volo.clone());
+			//utile per il eliminaVoloRitorno
+			this.voliNuoviRitorno.add(this.pacchetto.getVoliRitorno().get(this.pacchetto.getVoliRitorno().size() - 1));
 		}
 		
 		//this.pkgMng.aggiungiVoloAPacchetto(pacchetto, volo, tipoVolo);
@@ -180,17 +184,46 @@ public class PacchettoBean {
 		
 		if (this.tipoVolo.equals("Andata")) {
 
-			this.voliEsistentiAndata.add((VoloDTO) volo.clone());
+			
 			//serve solamante per mostrare a schermo
-			this.pacchetto.getVoliAndata().put((VoloDTO) volo.clone(), "Andata");
+			this.pacchetto.getVoliAndata().add((VoloDTO) volo.clone());
+			//utile per il eliminaVoloAndata
+			this.voliEsistentiAndata.add(this.pacchetto.getVoliAndata().get(this.pacchetto.getVoliAndata().size() - 1));
 
 		} else {
-			this.voliEsistentiRitorno.add((VoloDTO) volo.clone());
+			
 			//serve solamante per mostrare a schermo
 			this.pacchetto.getVoliRitorno().add((VoloDTO) volo.clone());
+			//utile per il eliminaVoloRitorno
+			this.voliEsistentiRitorno.add(this.pacchetto.getVoliRitorno().get(this.pacchetto.getVoliRitorno().size() - 1));
 		}
 		
 		
+	}
+	
+	/**
+	 * funzione chiamate da aggiungiVoli per cancellare i voli di andata immessi nel pacchetto ma non ancora a db
+	 * @param volo
+	 */
+	public void eliminaVoloAndata(VoloDTO volo){
+		
+		this.pacchetto.getVoliNuoviAndata().remove(volo);
+		this.voliNuoviAndata.remove(volo);
+		this.pacchetto.getVoliAndata().remove(volo);		
+		
+	}
+	
+	
+	/**
+	 * funzione chiamate da aggiungiVoli per cancellare i voli di andata immessi nel pacchetto ma non ancora a db
+	 * @param volo
+	 */
+	public void eliminaVoloRitorno(VoloDTO volo){
+		
+		this.voliEsistentiRitorno.remove(volo);
+		this.voliNuoviRitorno.remove(volo);
+		this.pacchetto.getVoliRitorno().remove(volo);
+			
 	}
 	
 	public String aggiungiPacchetto() throws ParseException{
@@ -225,45 +258,7 @@ public class PacchettoBean {
 		return "catalogo?faces-redirect=true";
 	}
 	
-	public void eliminaVoloAndata(VoloDTO volo){
-		System.out.println(volo);
-		this.pacchetto.getVoliNuoviAndata().remove(volo);
-		this.voliNuoviAndata.contains(volo);
-		this.pacchetto.getVoliAndata().remove(volo);
-		
-		System.out.println("-------ANDATA---------");
-		for (VoloDTO volo3 : this.pacchetto.getVoliAndata().keySet()) {
-			System.out.println(volo3);
-			volo3.printaDati();
-		}
-		
-		System.out.println("-------NUOVI---------");
-		for (VoloDTO volo3 : this.pacchetto.getVoliNuoviAndata()) {
-			System.out.println(volo3);
-			volo3.printaDati();
-		}
-		
-		System.out.println("-------ESISTENTI---------");
-		for (VoloDTO volo3 : this.voliEsistentiAndata) {
-			volo3.printaDati();
-		}
-		
-	}
-	
-	
-	
-	public void eliminaVoloRitorno(VoloDTO volo){
-		this.voliEsistentiRitorno.remove(volo);
-		this.voliNuoviRitorno.remove(volo);
-		this.pacchetto.getVoliRitorno().remove(volo);
-		
-		
-		System.out.println("-------RITORNO---------");
-		for (VoloDTO volo4 : this.pacchetto.getVoliRitorno()) {
-			volo4.printaDati();
-		}
-		
-	}
+
 
 
 }

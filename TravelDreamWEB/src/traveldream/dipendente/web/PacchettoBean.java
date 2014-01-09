@@ -28,14 +28,19 @@ public class PacchettoBean {
 	
 	private PacchettoDTO pacchetto;
 	
+	//serve per visualizzare i voli esistenti
 	private List<VoloDTO> voli;
 	
+	//serve per l inserimento a db (creare un nuovo volo nella tabella voli)
 	private List<VoloDTO> voliNuoviAndata;
 	
+	//serve per l inserimento a db (creare un nuovo volo nella tabella voli)
 	private List<VoloDTO> voliNuoviRitorno;
 	
+	//serve per l inserimento a db (NON creare un nuovo volo nella tabella voli ma associare e basta)
 	private List<VoloDTO> voliEsistentiAndata;
 	
+	//serve per l inserimento a db (NON creare un nuovo volo nella tabella voli ma associare e basta)
 	private List<VoloDTO> voliEsistentiRitorno;
 	
 	private VoloDTO volo;
@@ -189,6 +194,30 @@ public class PacchettoBean {
 		System.out.println("tastopremuto");
 	}
 	
+	public String aggiungiPacchetto() throws ParseException{
+		
+		this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
+		
+		for (VoloDTO voloNuovoAndata : this.voliNuoviAndata) {
+			voloNuovoAndata = this.voloMng.aggiungiVoloAPacchetto(voloNuovoAndata);
+			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloNuovoAndata, "Andata");
+		}
+		
+		for (VoloDTO voloNuovoRitorno : this.voliNuoviRitorno) {
+			voloNuovoRitorno = this.voloMng.aggiungiVoloAPacchetto(voloNuovoRitorno);
+			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloNuovoRitorno, "Ritorno");
+		}
+		
+		for (VoloDTO voloEsistenteAndata : this.voliEsistentiAndata) {
+			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloEsistenteAndata, "Andata");
+		}
+		
+		for (VoloDTO voloEsistenteRitorno : this.voliEsistentiRitorno) {
+			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloEsistenteRitorno, "Ritorno");
+		}
+		
+		return "catalogo?faces-redirect=true";
+	}
 
 
 }

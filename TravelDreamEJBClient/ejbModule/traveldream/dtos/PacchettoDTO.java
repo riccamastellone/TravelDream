@@ -37,15 +37,13 @@ public class PacchettoDTO {
 	
 	private List<VoloDTO> voliRitorno;
 	
-	private List<VoloDTO> voliNuoviAndata;
-	
 	private List<AttivitaSecondariaDTO> attivitaSecondarie;
 	
 	public PacchettoDTO(){
 		this.voliAndata = new ArrayList<VoloDTO>();
 		this.voliRitorno = new ArrayList<VoloDTO>();
 		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
-		this.voliNuoviAndata = new ArrayList<VoloDTO>();
+
 	}
 
 	public int getId() {
@@ -137,14 +135,6 @@ public class PacchettoDTO {
 		this.voliRitorno = voliRitorno;
 	}
 
-	public List<VoloDTO> getVoliNuoviAndata() {
-		return voliNuoviAndata;
-	}
-
-	public void setVoliNuoviAndata(List<VoloDTO> voliNuoviAndata) {
-		this.voliNuoviAndata = voliNuoviAndata;
-	}
-	
 	
 
 }

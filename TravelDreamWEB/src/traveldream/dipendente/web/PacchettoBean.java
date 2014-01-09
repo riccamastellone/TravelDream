@@ -10,6 +10,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
+import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.PacchettoMng;
@@ -47,6 +48,8 @@ public class PacchettoBean {
 	
 	private String tipoVolo;
 	
+	private HotelDTO hotelDTO;
+	
 	
 	public PacchettoBean() {
 		this.pacchetto = new PacchettoDTO();
@@ -59,6 +62,8 @@ public class PacchettoBean {
 		this.setVoliEsistentiRitorno(new ArrayList<VoloDTO>());
 		this.pacchetto.getVoliAndata().clear();
 		this.pacchetto.getVoliRitorno().clear();
+		this.hotelDTO = new HotelDTO();
+		
 				
 	}
 
@@ -125,6 +130,14 @@ public class PacchettoBean {
 
 	public void setTipoVolo(String tipoVolo) {
 		this.tipoVolo = tipoVolo;
+	}
+	
+	public HotelDTO getHotelDTO() {
+		return hotelDTO;
+	}
+
+	public void setHotelDTO(HotelDTO hotelDTO) {
+		this.hotelDTO = hotelDTO;
 	}
 	
 	
@@ -232,6 +245,7 @@ public class PacchettoBean {
 			
 	}
 	
+	
 	public String aggiungiPacchetto() throws ParseException{
 		
 		//PRIMO STEP: aggiungo le info generali del pacchetto a db e ricavo l id giudto del pacchetto
@@ -263,7 +277,7 @@ public class PacchettoBean {
 		
 		return "catalogo?faces-redirect=true";
 	}
-	
+
 
 
 

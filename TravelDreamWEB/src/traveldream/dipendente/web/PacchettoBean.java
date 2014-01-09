@@ -2,12 +2,14 @@ package traveldream.dipendente.web;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+
+import traveldream.dtos.HotelDTO;
 
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
@@ -46,6 +48,8 @@ public class PacchettoBean {
 	
 	private String tipoVolo;
 	
+	private HotelDTO hotelDTO;
+	
 	
 	public PacchettoBean() {
 		this.pacchetto = new PacchettoDTO();
@@ -58,6 +62,9 @@ public class PacchettoBean {
 		this.setVoliEsistentiRitorno(new ArrayList<VoloDTO>());
 		this.pacchetto.getVoliAndata().clear();
 		this.pacchetto.getVoliRitorno().clear();
+		this.hotelDTO = new HotelDTO();
+		
+				
 	}
 
 	public PacchettoDTO getPacchetto() {
@@ -117,6 +124,24 @@ public class PacchettoBean {
 		this.volo = voloDTO;
 	}
 	
+
+	public String getTipoVolo() {
+		return tipoVolo;
+	}
+
+	public void setTipoVolo(String tipoVolo) {
+		this.tipoVolo = tipoVolo;
+	}
+	
+	public HotelDTO getHotelDTO() {
+		return hotelDTO;
+	}
+
+	public void setHotelDTO(HotelDTO hotelDTO) {
+		this.hotelDTO = hotelDTO;
+	}
+	
+
 	
 	public String goToAggiungiVoli(){
 		//mi serve l id aggiornato per scrivere nella tabella VoloPacchetto senza causare errori
@@ -157,7 +182,7 @@ public class PacchettoBean {
 			//utile per il eliminaVoloRitorno
 			this.voliNuoviRitorno.add(this.pacchetto.getVoliRitorno().get(this.pacchetto.getVoliRitorno().size() - 1));
 		}
-		
+		this.volo = new VoloDTO();
 		//this.pkgMng.aggiungiVoloAPacchetto(pacchetto, volo, tipoVolo);
 		
 		
@@ -221,6 +246,7 @@ public class PacchettoBean {
 			
 	}
 	
+	
 	public String aggiungiPacchetto() throws ParseException{
 		
 		//PRIMO STEP: aggiungo le info generali del pacchetto a db e ricavo l id giudto del pacchetto
@@ -251,14 +277,6 @@ public class PacchettoBean {
 		}
 		
 		return "catalogo?faces-redirect=true";
-	}
-
-	public String getTipoVolo() {
-		return tipoVolo;
-	}
-
-	public void setTipoVolo(String tipoVolo) {
-		this.tipoVolo = tipoVolo;
 	}
 
 

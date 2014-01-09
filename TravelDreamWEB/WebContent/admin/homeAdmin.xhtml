@@ -1,38 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" 
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:ui="http://java.sun.com/jsf/facelets"
->
-<h:head>
-<title>index.xhtml</title>
-</h:head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-<h:body>
-	<h:link outcome="aggiungi" value="Aggiungi nuovo dipendente" /><br /> 
-<table>
- 
-   <ui:repeat var="dipendente" value="#{listaDipendenti.getUtenti()}" varStatus="status">
- 
-	<tr>
+<ui:composition template="template.xhtml">
+
+	<ui:define name="content">
+		<div style="text-align: right; margin-bottom:10px;">
+			<h:link value="Aggiungi nuovo dipendente"
+				outcome="/admin/aggiungi.xhtml" class="btn btn-default" />
+			<h:commandButton action="#{commonBean.logout}"
+				class="btn btn-default" value="Logout" />
+		</div>
 		<h:form>
-  		<h:outputText value="#{dipendente.nome} " />
-  		<h:outputText value="#{dipendente.cognome} "/>
-  		<h:outputText value="#{dipendente.indirizzo} "/>
-  		<h:outputText value="#{dipendente.email} "/>
-  		<h:commandButton value="Edit" action="#{registrazioneBean.goToEdit(dipendente)}" />
-  		<div/>
+			<p:dataTable id="dataTable" var="dipendente"
+				value="#{listaDipendenti.getUtenti()}">
+				<f:facet name="header">  
+            Elenco Dipendenti 
+        </f:facet>
+
+				<p:column sortBy="nome" headerText="Nome">
+					<h:outputText value="#{dipendente.nome}" />
+				</p:column>
+
+				<p:column sortBy="cognome" headerText="Cognome">
+					<h:outputText value="#{dipendente.cognome}" />
+				</p:column>
+
+				<p:column sortBy="indirizzo" headerText="Indirizzo">
+					<h:outputText value="#{dipendente.indirizzo}" />
+				</p:column>
+
+				<p:column sortBy="email" headerText="Email">
+					<h:outputText value="#{dipendente.email}" />
+				</p:column>
+
+				<p:column headerText="" width="100">
+					<div class="btn-group">
+
+						<h:commandLink id="edit" class="btn btn-default" type="button"
+							action="#{registrazioneBean.goToEdit(dipendente)}">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</h:commandLink>
+						<h:commandLink id="canc" class="btn btn-default btn-danger"
+							onclick="return confirm('Confermi di voler eliminare questo volo?');"
+							action="#{voloBean.deleteVolo(volo)}">
+							<span class="glyphicon glyphicon-trash white"></span>
+							<f:ajax execute="canc" render="dataTable" />
+						</h:commandLink>
+					</div>
+				</p:column>
+
+			</p:dataTable>
+
 		</h:form>
-		
-	</tr>
-
-   </ui:repeat>
- 
-</table>
 
 
-</h:body>
+	</ui:define>
+
+</ui:composition>
 
 </html>

@@ -196,22 +196,29 @@ public class PacchettoBean {
 	
 	public String aggiungiPacchetto() throws ParseException{
 		
+		//PRIMO STEP: aggiungo le info generali del pacchetto a db e ricavo l id giudto del pacchetto
 		this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
 		
+		//SECONDO STEP: aggiungo i voli di andata nuovi a db e prendo 
+		//              l id del volo giusto e lo associo a pacchetto
 		for (VoloDTO voloNuovoAndata : this.voliNuoviAndata) {
 			voloNuovoAndata = this.voloMng.aggiungiVoloAPacchetto(voloNuovoAndata);
 			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloNuovoAndata, "Andata");
 		}
 		
+		//TERZO STEP: aggiungo i voli di ritorno nuovi a db e prendo 
+		//            l id del volo giusto e lo associo a pacchetto
 		for (VoloDTO voloNuovoRitorno : this.voliNuoviRitorno) {
 			voloNuovoRitorno = this.voloMng.aggiungiVoloAPacchetto(voloNuovoRitorno);
 			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloNuovoRitorno, "Ritorno");
 		}
 		
+		//QUARTO STEP: associo i voli di andata esistenti al pacchetto 
 		for (VoloDTO voloEsistenteAndata : this.voliEsistentiAndata) {
 			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloEsistenteAndata, "Andata");
 		}
 		
+		//QUINTO STEP: associo i voli di ritorno esistenti al pacchetto
 		for (VoloDTO voloEsistenteRitorno : this.voliEsistentiRitorno) {
 			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloEsistenteRitorno, "Ritorno");
 		}

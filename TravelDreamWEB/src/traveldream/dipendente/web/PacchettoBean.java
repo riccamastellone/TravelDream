@@ -167,7 +167,7 @@ public class PacchettoBean {
 			//utile per il eliminaVoloRitorno
 			this.voliNuoviRitorno.add(this.pacchetto.getVoliRitorno().get(this.pacchetto.getVoliRitorno().size() - 1));
 		}
-		
+		this.volo = new VoloDTO();
 		//this.pkgMng.aggiungiVoloAPacchetto(pacchetto, volo, tipoVolo);
 		
 		

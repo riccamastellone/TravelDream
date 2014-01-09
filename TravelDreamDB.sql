@@ -78,6 +78,7 @@ CREATE TABLE `VoloPacchetto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `volo` int(11) NOT NULL,
   `pacchetto` int(11) NOT NULL,
+  `tipo` varchar(11) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`volo`) REFERENCES `Volo` (`id`),
   FOREIGN KEY (`pacchetto`) REFERENCES `Pacchetto` (`id`)

@@ -124,7 +124,7 @@ public class VoloDTO {
 	}
 	 
 	 public Object clone() {
-	      // non del tutto corretto ...
+
 	    VoloDTO voloDTO = new VoloDTO();
 	    voloDTO.id = this.id;
 	    voloDTO.arrivo = this.arrivo;
@@ -137,7 +137,7 @@ public class VoloDTO {
 	    voloDTO.eliminato = this.eliminato;
 	    return voloDTO;
 	  }
-
 	 
-	
+	 
+	 
 }

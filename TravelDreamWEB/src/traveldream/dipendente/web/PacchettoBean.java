@@ -53,6 +53,12 @@ public class PacchettoBean {
 		this.volo = new VoloDTO();
 		this.voli = new ArrayList<VoloDTO>();
 		this.tipoVolo = "Andata";
+		this.voliNuoviAndata = new ArrayList<VoloDTO>();
+		this.voliNuoviRitorno = new ArrayList<VoloDTO>();
+		this.setVoliEsistentiAndata(new ArrayList<VoloDTO>());
+		this.setVoliEsistentiRitorno(new ArrayList<VoloDTO>());
+		this.pacchetto.getVoliAndata().clear();
+		this.pacchetto.getVoliRitorno().clear();
 				
 	}
 
@@ -121,22 +127,23 @@ public class PacchettoBean {
 		this.tipoVolo = tipoVolo;
 	}
 	
+	
 	public String goToAggiungiVoli(){
 		//mi serve l id aggiornato per scrivere nella tabella VoloPacchetto senza causare errori
 		//this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
 		
 		//serve per precaricare la tabella di AggiungiVoloEsistente
 		this.voli = voloMng.getVoli();
-		this.voliNuoviAndata = new ArrayList<VoloDTO>();
-		this.voliNuoviRitorno = new ArrayList<VoloDTO>();
-		this.setVoliEsistentiAndata(new ArrayList<VoloDTO>());
-		this.setVoliEsistentiRitorno(new ArrayList<VoloDTO>());
-		this.pacchetto.getVoliAndata().clear();
-		this.pacchetto.getVoliRitorno().clear();
+		
 		return "aggiungiVoli?faces-redirect=true";
 	}
 	
-	public String aggiungiVoloNuovoAPacchetto() throws ParseException {
+	/**
+	 * aggiunge volo nuovo a lista voliNuovi distinguendo in andata e ritorno
+	 * @return
+	 * 
+	 */
+	public String aggiungiVoloNuovoAPacchetto() {
 		//mi serve l id aggiornato per scrivere nella tabella VoloPacchetto senza causare errori
 		//this.volo = this.voloMng.aggiungiVoloAPacchetto(volo);
 		System.out.println(pacchetto.getNome());
@@ -146,52 +153,44 @@ public class PacchettoBean {
 		
 		if (this.tipoVolo.equals("Andata")){
 			
-			this.voliNuoviAndata.add((VoloDTO) this.volo.clone());
-			this.pacchetto.getVoliAndata().add((VoloDTO) this.volo.clone());
+			this.pacchetto.getVoliNuoviAndata().add((VoloDTO) this.volo.clone());
+			//serve solamante per mostrare a schermo
+			this.pacchetto.getVoliAndata().put((VoloDTO) this.volo.clone(), "Andata");
 			
 		}
 		else {
 			this.voliNuoviRitorno.add((VoloDTO) this.volo.clone());
+			//serve solamante per mostrare a schermo
 			this.pacchetto.getVoliRitorno().add((VoloDTO) this.volo.clone());
 		}
 		
 		//this.pkgMng.aggiungiVoloAPacchetto(pacchetto, volo, tipoVolo);
 		
-		System.out.println("-------ANDATA---------");
-		for (VoloDTO volo3 : this.pacchetto.getVoliAndata()) {
-			volo3.printaDati();
-		}
-		System.out.println("-------RITORNO---------");
-		for (VoloDTO volo4 : this.pacchetto.getVoliRitorno()) {
-			volo4.printaDati();
-		}
+		
 		
 		return "aggiungiVoli?faces-redirect=true";
 	}
 	
+	/**
+	 * aggiunge volo esistente a lista voliEsistenti distinguendo in andata e ritorno
+	 * @param volo
+	 */
 	public void aggiungiVoloEsistenteAPacchetto(VoloDTO volo) {
 		this.voli.remove(volo);
 		
 		if (this.tipoVolo.equals("Andata")) {
 
 			this.voliEsistentiAndata.add((VoloDTO) volo.clone());
-			this.pacchetto.getVoliAndata().add((VoloDTO) volo.clone());
+			//serve solamante per mostrare a schermo
+			this.pacchetto.getVoliAndata().put((VoloDTO) volo.clone(), "Andata");
 
 		} else {
 			this.voliEsistentiRitorno.add((VoloDTO) volo.clone());
+			//serve solamante per mostrare a schermo
 			this.pacchetto.getVoliRitorno().add((VoloDTO) volo.clone());
 		}
 		
-		System.out.println("-------ANDATA---------");
-		for (VoloDTO volo3 : this.pacchetto.getVoliAndata()) {
-			volo3.printaDati();
-		}
-		System.out.println("-------RITORNO---------");
-		for (VoloDTO volo4 : this.pacchetto.getVoliRitorno()) {
-			volo4.printaDati();
-		}
-		// this.pkgMng.aggiungiVoloAPacchetto(pacchetto, volo, tipoVolo);
-		System.out.println("tastopremuto");
+		
 	}
 	
 	public String aggiungiPacchetto() throws ParseException{
@@ -224,6 +223,46 @@ public class PacchettoBean {
 		}
 		
 		return "catalogo?faces-redirect=true";
+	}
+	
+	public void eliminaVoloAndata(VoloDTO volo){
+		System.out.println(volo);
+		this.pacchetto.getVoliNuoviAndata().remove(volo);
+		this.voliNuoviAndata.contains(volo);
+		this.pacchetto.getVoliAndata().remove(volo);
+		
+		System.out.println("-------ANDATA---------");
+		for (VoloDTO volo3 : this.pacchetto.getVoliAndata().keySet()) {
+			System.out.println(volo3);
+			volo3.printaDati();
+		}
+		
+		System.out.println("-------NUOVI---------");
+		for (VoloDTO volo3 : this.pacchetto.getVoliNuoviAndata()) {
+			System.out.println(volo3);
+			volo3.printaDati();
+		}
+		
+		System.out.println("-------ESISTENTI---------");
+		for (VoloDTO volo3 : this.voliEsistentiAndata) {
+			volo3.printaDati();
+		}
+		
+	}
+	
+	
+	
+	public void eliminaVoloRitorno(VoloDTO volo){
+		this.voliEsistentiRitorno.remove(volo);
+		this.voliNuoviRitorno.remove(volo);
+		this.pacchetto.getVoliRitorno().remove(volo);
+		
+		
+		System.out.println("-------RITORNO---------");
+		for (VoloDTO volo4 : this.pacchetto.getVoliRitorno()) {
+			volo4.printaDati();
+		}
+		
 	}
 
 

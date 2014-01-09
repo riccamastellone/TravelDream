@@ -2,12 +2,15 @@ package traveldream.dtos;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.sun.xml.xsom.impl.scd.Iterators.Map;
 
 public class PacchettoDTO {
 
@@ -33,17 +36,20 @@ public class PacchettoDTO {
 	@NotEmpty
 	private String nome;
 
-	private List<VoloDTO> voliAndata;
+	private HashMap<VoloDTO, String> voliAndata;
 	
 	private List<VoloDTO> voliRitorno;
 	
+	private List<VoloDTO> voliNuoviAndata;
 	
 	private List<AttivitaSecondariaDTO> attivitaSecondarie;
 	
 	public PacchettoDTO(){
-		this.voliAndata = new ArrayList<VoloDTO>();
+		this.setVoliAndata(new HashMap<VoloDTO, String>());
+		
 		this.voliRitorno = new ArrayList<VoloDTO>();
 		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
+		this.voliNuoviAndata = new ArrayList<VoloDTO>();
 	}
 
 	public int getId() {
@@ -119,6 +125,7 @@ public class PacchettoDTO {
 		this.attivitaSecondarie = attivitaSecondarie;
 	}
 
+	/*
 	public List<VoloDTO> getVoliAndata() {
 		return voliAndata;
 	}
@@ -126,13 +133,29 @@ public class PacchettoDTO {
 	public void setVoliAndata(List<VoloDTO> voliAndata) {
 		this.voliAndata = voliAndata;
 	}
-
+    */
 	public List<VoloDTO> getVoliRitorno() {
 		return voliRitorno;
 	}
 
 	public void setVoliRitorno(List<VoloDTO> voliRitorno) {
 		this.voliRitorno = voliRitorno;
+	}
+
+	public List<VoloDTO> getVoliNuoviAndata() {
+		return voliNuoviAndata;
+	}
+
+	public void setVoliNuoviAndata(List<VoloDTO> voliNuoviAndata) {
+		this.voliNuoviAndata = voliNuoviAndata;
+	}
+
+	public HashMap<VoloDTO, String> getVoliAndata() {
+		return voliAndata;
+	}
+
+	public void setVoliAndata(HashMap<VoloDTO, String> voliAndata) {
+		this.voliAndata = voliAndata;
 	}
 	
 	

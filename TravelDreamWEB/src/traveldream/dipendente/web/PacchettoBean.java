@@ -8,8 +8,12 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.expression.impl.ThisExpressionResolver;
+
+import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
+import traveldream.manager.HotelMng;
 import traveldream.manager.PacchettoMng;
 import traveldream.manager.VoloMng;
 
@@ -23,23 +27,54 @@ public class PacchettoBean {
 	@EJB
 	private VoloMng voloMng;
 	
+	@EJB
+	private HotelMng hotelMng;
+	
 	
 	private PacchettoDTO pacchetto;
 	
+	//serve per visualizzare i voli esistenti
 	private List<VoloDTO> voli;
 	
-	private VoloDTO volo;
+	//serve per l inserimento a db (creare un nuovo volo nella tabella voli)
+	private List<VoloDTO> voliNuoviAndata;
+	
+	//serve per l inserimento a db (creare un nuovo volo nella tabella voli)
+	private List<VoloDTO> voliNuoviRitorno;
+	
+	//serve per l inserimento a db (NON creare un nuovo volo nella tabella voli ma associare e basta)
+	private List<VoloDTO> voliEsistentiAndata;
+	
+	//serve per l inserimento a db (NON creare un nuovo volo nella tabella voli ma associare e basta)
+	private List<VoloDTO> voliEsistentiRitorno;
+	
+	private VoloDTO volo;	
 	
 	private String tipoVolo;
+	
+	private HotelDTO hotelDTO;
+	
+	private List<HotelDTO> hotelSalvato;
+	
+	private List<HotelDTO> listaHotelesistenti;
 	
 	
 	public PacchettoBean() {
 		this.pacchetto = new PacchettoDTO();
 		this.volo = new VoloDTO();
 		this.voli = new ArrayList<VoloDTO>();
-		this.tipoVolo = "Andata";
+		this.setTipoVolo("Andata");
+		this.voliNuoviAndata = new ArrayList<VoloDTO>();
+		this.voliNuoviRitorno = new ArrayList<VoloDTO>();
+		this.setVoliEsistentiAndata(new ArrayList<VoloDTO>());
+		this.setVoliEsistentiRitorno(new ArrayList<VoloDTO>());
+		this.pacchetto.getVoliAndata().clear();
+		this.pacchetto.getVoliRitorno().clear();
+		this.hotelDTO = new HotelDTO();
+		this.hotelSalvato = new ArrayList<HotelDTO>();
+		this.listaHotelesistenti = new ArrayList<HotelDTO>();
 		
-		
+				
 	}
 
 	public PacchettoDTO getPacchetto() {
@@ -50,20 +85,39 @@ public class PacchettoBean {
 		this.pacchetto = pacchetto;
 	}
 	
-	
-	public String agiungiNuovoVoloAPacchetto() {
-		return null;
-	}
-	
-	public String goToAggiungiVoli(){
-		//mi serve l id aggiornato per scrivere nella tabella VoloPacchetto senza causare errori
-		this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
-		
-		//serve per precaricare la tabella di AggiungiVoloEsistente
-		this.voli = voloMng.getVoli();
-		return "aggiungiVoli?faces-redirect=true";
+	public List<VoloDTO> getVoliNuoviAndata() {
+		return voliNuoviAndata;
 	}
 
+	public void setVoliNuoviAndata(List<VoloDTO> voliAndata) {
+		this.voliNuoviAndata = voliAndata;
+	}
+
+	public List<VoloDTO> getVoliNuoviRitorno() {
+		return voliNuoviRitorno;
+	}
+
+	public void setVoliNuoviRitorno(List<VoloDTO> voliRitorno) {
+		this.voliNuoviRitorno = voliRitorno;
+	}
+		
+	public List<VoloDTO> getVoliEsistentiAndata() {
+		return voliEsistentiAndata;
+	}
+
+	public void setVoliEsistentiAndata(List<VoloDTO> voliEsistentiAndata) {
+		this.voliEsistentiAndata = voliEsistentiAndata;
+	}
+
+	public List<VoloDTO> getVoliEsistentiRitorno() {
+		return voliEsistentiRitorno;
+	}
+
+	public void setVoliEsistentiRitorno(List<VoloDTO> voliEsistentiRitorno) {
+		this.voliEsistentiRitorno = voliEsistentiRitorno;
+	}
+
+	
 	public List<VoloDTO> getVoli() {
 		return voli;
 	}
@@ -80,6 +134,7 @@ public class PacchettoBean {
 		this.volo = voloDTO;
 	}
 	
+
 	public String getTipoVolo() {
 		return tipoVolo;
 	}
@@ -88,34 +143,268 @@ public class PacchettoBean {
 		this.tipoVolo = tipoVolo;
 	}
 	
-	public String aggiungiVoloNuovoAPacchetto() throws ParseException {
+	public HotelDTO getHotelDTO() {
+		return hotelDTO;
+	}
+
+	public void setHotelDTO(HotelDTO hotelDTO) {
+		this.hotelDTO = hotelDTO;
+	}
+	
+	public List<HotelDTO> getHotelSalvato() {
+		return hotelSalvato;
+	}
+
+	public void setHotelSalvato(List<HotelDTO> hotelSalvato) {
+		this.hotelSalvato = hotelSalvato;
+	}
+	
+	public List<HotelDTO> getListaHotelesistenti() {
+		return listaHotelesistenti;
+	}
+
+	public void setListaHotelesistenti(List<HotelDTO> listaHotelesistenti) {
+		this.listaHotelesistenti = listaHotelesistenti;
+	}
+
+
+
+	
+
+	/*PARTE GESTIONE VOLO IN PACCHETTO*/
+	
+	public String goToAggiungiVoli(){
 		//mi serve l id aggiornato per scrivere nella tabella VoloPacchetto senza causare errori
-		this.volo = this.voloMng.aggiungiVoloAPacchetto(volo);
+		//this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
+		
+		//serve per precaricare la tabella di AggiungiVoloEsistente
+		this.voli = voloMng.getVoli();
+		
+		return "aggiungiVoli?faces-redirect=true";
+	}
+	
+	/**
+	 * aggiunge volo nuovo a lista voliNuovi distinguendo in andata e ritorno
+	 * @return
+	 * 
+	 */
+	public String aggiungiVoloNuovoAPacchetto() {
+		//mi serve l id aggiornato per scrivere nella tabella VoloPacchetto senza causare errori
+		//this.volo = this.voloMng.aggiungiVoloAPacchetto(volo);
 		System.out.println(pacchetto.getNome());
 		System.out.println(pacchetto.getId());
 		System.out.println(volo.getId());
 		//controllo il tipo e scelgo di aggiungere il volo all opportuna arraylist
 		
 		if (this.tipoVolo.equals("Andata")){
-			this.pacchetto.getVoliAndata().add(volo);
+			
+			
+			//serve solamante per mostrare a schermo
+			this.pacchetto.getVoliAndata().add((VoloDTO) this.volo.clone());
+			//utile per il eliminaVoloAndata
+			this.voliNuoviAndata.add(this.pacchetto.getVoliAndata().get(this.pacchetto.getVoliAndata().size() - 1));
+			
 		}
 		else {
-			this.pacchetto.getVoliRitorno().add(volo);
+			
+			//serve solamante per mostrare a schermo
+			this.pacchetto.getVoliRitorno().add((VoloDTO) this.volo.clone());
+			//utile per il eliminaVoloRitorno
+			this.voliNuoviRitorno.add(this.pacchetto.getVoliRitorno().get(this.pacchetto.getVoliRitorno().size() - 1));
 		}
+		this.volo = new VoloDTO();
+		//this.pkgMng.aggiungiVoloAPacchetto(pacchetto, volo, tipoVolo);
 		
-		this.pkgMng.aggiungiVoloAPacchetto(pacchetto, volo, tipoVolo);
 		
 		
 		return "aggiungiVoli?faces-redirect=true";
 	}
 	
-	public void aggiungiVoloEsistenteAPacchetto(VoloDTO volo){
+	/**
+	 * aggiunge volo esistente a lista voliEsistenti distinguendo in andata e ritorno
+	 * @param volo
+	 */
+	public void aggiungiVoloEsistenteAPacchetto(VoloDTO volo, int tipo) {
 		this.voli.remove(volo);
-		this.pkgMng.aggiungiVoloAPacchetto(pacchetto, volo, tipoVolo);
-		System.out.println("tastopremuto");
+
+		if (tipo == 1) {
+
+			
+			//serve solamante per mostrare a schermo
+			this.pacchetto.getVoliAndata().add((VoloDTO) volo.clone());
+			//utile per il eliminaVoloAndata
+			this.voliEsistentiAndata.add(this.pacchetto.getVoliAndata().get(this.pacchetto.getVoliAndata().size() - 1));
+
+		} else {
+			//serve solamante per mostrare a schermo
+			this.pacchetto.getVoliRitorno().add((VoloDTO) volo.clone());
+			//utile per il eliminaVoloRitorno
+			this.voliEsistentiRitorno.add(this.pacchetto.getVoliRitorno().get(this.pacchetto.getVoliRitorno().size() - 1));
+		}
+		
+		
+	}
+	
+	/**
+	 * funzione chiamate da aggiungiVoli per cancellare i voli di andata immessi nel pacchetto ma non ancora a db
+	 * @param volo
+	 */
+	public void eliminaVoloAndata(VoloDTO volo){
+		if (this.voliEsistentiAndata.contains(volo)){
+			this.voli.add(volo);
+			this.voliEsistentiAndata.remove(volo);
+		}
+		//this.voliEsistentiAndata.remove(volo);
+		this.voliNuoviAndata.remove(volo);
+		this.pacchetto.getVoliAndata().remove(volo);		
+		
 	}
 	
 	
+	/**
+	 * funzione chiamate da aggiungiVoli per cancellare i voli di andata immessi nel pacchetto ma non ancora a db
+	 * @param volo
+	 */
+	public void eliminaVoloRitorno(VoloDTO volo){
+		if (this.voliEsistentiRitorno.contains(volo)){
+			this.voli.add(volo);
+			this.voliEsistentiRitorno.remove(volo);
+		}
+		//this.voliEsistentiRitorno.remove(volo);
+		this.voliNuoviRitorno.remove(volo);
+		this.pacchetto.getVoliRitorno().remove(volo);
+			
+	}
+	
+	
+	
+	/*PARTE GESTIONE HOTEL IN PACCHETTO*/
+	
+	/**
+	 * 
+	 * visualizza lista hotel esistenti giusta
+	 * @return
+	 */
+	public String goToAggiungiHotelEsistente(){
+				
+		//serve per precaricare la tabella di AggiungiHotelEsistente
+		this.listaHotelesistenti = this.hotelMng.getAllHotel();
+		this.listaHotelesistenti.remove(this.hotelSalvato);
+		return "aggiungiHotelEsistente?faces-redirect=true";
+	}
+	
+	/**
+	 * ripristina i campi da inserire
+	 * @return
+	 */
+	public String goToAggiungiNuovoHotel(){
+		this.hotelDTO = new HotelDTO();
+		return "aggiungiNuovoHotel?faces-redirect=true";
+	}
+	
+	/**
+	 * crea un nuovo oggetto hoteldto e lo assegna come hotel da salvarevisualizza l hotel selezionato
+	 * @return
+	 */
+	public String aggiungiNuovoHotelAPacchetto(){
+		//ricordarsi di aggiungere elimnato!!!!
+		this.hotelSalvato.add((HotelDTO) this.hotelDTO.clone());
+		return "aggiungiHotel?faces-redirect=true";
+	}
+	
+	/**
+	 * assegna l hotel esistente scelto come quello da associare al pacchetto
+	 * @param hotel
+	 * @return
+	 */
+	public String aggiungiHotelesistenteAPacchetto(HotelDTO hotel){
+		//ricordarsi di aggiungere elimnato!!!!
+	
+		this.hotelSalvato.clear();
+		this.hotelSalvato.add((HotelDTO) hotel.clone());
+		
+		return "aggiungiHotel?faces-redirect=true";
+	}
+	
+	/**
+	 * toglie l hotel da salvare
+	 * @param hotel
+	 */
+	public void eliminaHotel(HotelDTO hotel) {
+		
+		this.hotelSalvato.clear();
+	}
+	
+	/**
+	 * step finale in cui salva le info a db
+	 * @return
+	 * @throws ParseException
+	 */
+	public String aggiungiPacchetto() throws ParseException{
+		
+		//PRIMO STEP: aggiungo le info generali del pacchetto a db e ricavo l id giudto del pacchetto
+		this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
+		
+		//SECONDO STEP: aggiungo i voli di andata nuovi a db e prendo 
+		//              l id del volo giusto e lo associo a pacchetto
+		for (VoloDTO voloNuovoAndata : this.voliNuoviAndata) {
+			voloNuovoAndata = this.voloMng.aggiungiVoloAPacchetto(voloNuovoAndata);
+			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloNuovoAndata, "Andata");
+		}
+		
+		//TERZO STEP: aggiungo i voli di ritorno nuovi a db e prendo 
+		//            l id del volo giusto e lo associo a pacchetto
+		for (VoloDTO voloNuovoRitorno : this.voliNuoviRitorno) {
+			voloNuovoRitorno = this.voloMng.aggiungiVoloAPacchetto(voloNuovoRitorno);
+			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloNuovoRitorno, "Ritorno");
+		}
+		
+		//QUARTO STEP: associo i voli di andata esistenti al pacchetto 
+		for (VoloDTO voloEsistenteAndata : this.voliEsistentiAndata) {
+			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloEsistenteAndata, "Andata");
+		}
+		
+		//QUINTO STEP: associo i voli di ritorno esistenti al pacchetto
+		for (VoloDTO voloEsistenteRitorno : this.voliEsistentiRitorno) {
+			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloEsistenteRitorno, "Ritorno");
+		}
+		
+		//SESTO STEP: verifico se un hotel e nuovo oppure esistente(id !=0), se nuovo lo inserisco a db
+		//e poi lo associo al pacchetto, se esistente mi limito ad associarlo
+		//verificare se in un db vuoto l id parte da 0
+		if ( this.hotelSalvato.get(0).getId() == 0){
+			HotelDTO hotelDaSalvare = this.hotelMng.aggiungiHotelAPacchetto(this.hotelSalvato.get(0));
+			this.pkgMng.aggiungiHotelAPacchetto(pacchetto, hotelDaSalvare);
+		}
+		else {
+			this.pkgMng.aggiungiHotelAPacchetto(pacchetto, this.hotelSalvato.get(0));
+		}
+		
+		this.reInitProcesso();
+		
+		return "catalogo?faces-redirect=true";
+	}
+	
+	/**
+	 * reinizializzail processo d creazione del pacchetto
+	 */
+	private void reInitProcesso() {
+		this.pacchetto = new PacchettoDTO();
+		this.volo = new VoloDTO();
+		this.voli = new ArrayList<VoloDTO>();
+		this.setTipoVolo("Andata");
+		this.voliNuoviAndata = new ArrayList<VoloDTO>();
+		this.voliNuoviRitorno = new ArrayList<VoloDTO>();
+		this.setVoliEsistentiAndata(new ArrayList<VoloDTO>());
+		this.setVoliEsistentiRitorno(new ArrayList<VoloDTO>());
+		this.pacchetto.getVoliAndata().clear();
+		this.pacchetto.getVoliRitorno().clear();
+		this.hotelDTO = new HotelDTO();
+		this.hotelSalvato = new ArrayList<HotelDTO>();
+		this.listaHotelesistenti = new ArrayList<HotelDTO>();
+	}
+
+
 
 
 }

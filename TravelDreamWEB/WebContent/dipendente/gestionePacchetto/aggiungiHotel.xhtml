@@ -10,23 +10,28 @@
 <ui:composition template="../template.xhtml">
 
 	<ui:define name="content">
+		<div>
+			<h:form>
+				<h:commandButton value="Aggiungi Nuovo Hotel" class="btn btn-default"
+					action="#{pacchettoBean.goToAggiungiNuovoHotel()}" />
+			</h:form>
+			
+			<h:form>
+				<h:commandButton value="Aggiungi Hotel Esistente" class="btn btn-default"
+					action="#{pacchettoBean.goToAggiungiHotelEsistente()}" />
+			</h:form>
+			
+		</div>
 
+		<div>
+			<h:form>
 
-
-		<h:link outcome="aggiungi" class="btn btn-default pull-right"
-			value="Aggiungi nuovo hotel" />
-		<br />
-		<br />
-		<h:form>
-
-			<p:dataTable id="dataTable" var="hotel"
-				value="#{hotelBean.getAllHotel()}">
+			<p:dataTable id="dataTable" var="hotel" value="#{pacchettoBean.hotelSalvato}">
 				<f:facet name="header">  
-            Elenco Alberghi 
+            Hotel Scelto 
         </f:facet>
 
-				<p:column sortBy="nome" headerText="Nome">
-
+				<p:column sortBy="nome" headerText="Nome" filterBy="#{hotel.nome}" >
 					<h:outputText value="#{hotel.nome}" />
 				</p:column>
 
@@ -46,30 +51,28 @@
 					<h:outputText value="#{hotel.disponibilita}" />
 				</p:column>
 
-
-				<p:column headerText="" width="100">
-					<div class="btn-group">
-
-						<h:commandLink id="edit" class="btn btn-default" type="button"
-							action="#{hotelBean.goToEdit(hotel)}">
-							<span class="glyphicon glyphicon-pencil"></span>
-						</h:commandLink>
-						<h:commandLink id="canc" class="btn btn-default btn-danger"
-							onclick="return confirm('Confermi di voler eliminare questo hotel?');"
-							action="#{hotelBean.deleteHotel(hotel)}">
-							<span class="glyphicon glyphicon-trash white"></span>
-							<f:ajax execute="canc" render="dataTable" />
-						</h:commandLink>
-					</div>
+				<p:column>
+					<h:commandLink id="elimina" value="Elimina"
+							class="btn btn-danger white"
+							action="#{pacchettoBean.eliminaHotel(volo)}">
+							<f:ajax execute="elimina" render="dataTable" />
+					</h:commandLink>	
 				</p:column>
+				
 
 			</p:dataTable>
 
 		</h:form>
+		<h:form>
+			<h:commandButton value="Avanti" class="btn btn-default"
+					action="#{pacchettoBean.aggiungiPacchetto()}" />
+		</h:form>
+		</div>
 		<script>
+		jQuery.noConflict();
 			$(function() {
 				$('.active').removeClass('active');
-				$('.nav li:nth-child(3)').addClass('active');
+				$('.nav li:nth-child(4)').addClass('active');
 			});
 		</script>
 	</ui:define>

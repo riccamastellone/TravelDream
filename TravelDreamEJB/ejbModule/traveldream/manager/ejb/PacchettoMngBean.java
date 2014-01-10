@@ -16,6 +16,7 @@ import model.Hotel;
 import model.Pacchetto;
 import model.Volo;
 import model.VoloPacchetto;
+import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.PacchettoMng;
@@ -102,6 +103,25 @@ public class PacchettoMngBean implements PacchettoMng {
 		List<Pacchetto> pacchetti = em.createNamedQuery("Pacchetto.selectMax", Pacchetto.class).getResultList();
 		return pacchetti.get(0);
 	}
+
+	@Override
+	public void aggiungiHotelAPacchetto(PacchettoDTO pacchetto, HotelDTO hotel) {
+		// TODO Auto-generated method stub
+		Hotel hotelNuovo = this.getHotelById(hotel);
+		
+		Pacchetto pacchettoDaAggiornare = this.findPacchetto(pacchetto.getId());
+		pacchettoDaAggiornare.setHotel(hotelNuovo);
+		
+		em.merge(pacchettoDaAggiornare);
+				
+	}
+	
+	private Hotel getHotelById(HotelDTO hotel){
+		
+		List<Hotel> hotels = em.createNamedQuery("Hotel.getVoloById", Hotel.class).setParameter("id", hotel.getId()).getResultList();
+		return hotels.get(0);
+	}
+	
  
 
 }

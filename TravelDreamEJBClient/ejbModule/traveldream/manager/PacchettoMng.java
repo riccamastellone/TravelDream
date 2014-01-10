@@ -1,5 +1,6 @@
 package traveldream.manager;
 
+import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
 
@@ -19,5 +20,7 @@ public interface PacchettoMng {
 	 * @param tipo
 	 */
 	public void aggiungiVoloAPacchetto(PacchettoDTO pacchetto, VoloDTO volo, String tipo);
+	
+	public void aggiungiHotelAPacchetto(PacchettoDTO pacchetto, HotelDTO hotel);
 
 }

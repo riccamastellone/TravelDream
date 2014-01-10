@@ -1,9 +1,6 @@
 package traveldream.dtos;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.validation.constraints.*;
@@ -123,5 +120,21 @@ public class VoloDTO {
 			System.out.println(this.getPartenza());			
 	}
 	 
-	
+	 public Object clone() {
+
+	    VoloDTO voloDTO = new VoloDTO();
+	    voloDTO.id = this.id;
+	    voloDTO.arrivo = this.arrivo;
+	    voloDTO.partenza = this.partenza;
+	    voloDTO.cittaArrivo = this.cittaArrivo;
+	    voloDTO.cittaPartenza = this.cittaPartenza;
+	    voloDTO.costo = this.costo;
+	    voloDTO.disponibilita = this.disponibilita;
+	    voloDTO.nomeCompagnia = this.nomeCompagnia;
+	    voloDTO.eliminato = this.eliminato;
+	    return voloDTO;
+	  }
+	 
+	 
+	 
 }

@@ -22,59 +22,65 @@
         		</f:facet>
 
 
-				<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">					
-						<h:outputText value="#{volo.nomeCompagnia}" />					
+				<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+					<h:outputText value="#{volo.nomeCompagnia}" />
 				</p:column>
 
 				<p:column sortBy="cittaPartenza" headerText="Città di partenza">
-						<h:outputText value="#{volo.cittaPartenza}" />
+					<h:outputText value="#{volo.cittaPartenza}" />
 				</p:column>
 
 				<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-						<h:outputText value="#{volo.cittaArrivo}" />
+					<h:outputText value="#{volo.cittaArrivo}" />
 				</p:column>
 
 				<p:column sortBy="partenza" headerText="Data di Partenza">
-						<h:outputText value="#{volo.partenza}" >
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm"/>
-						</h:outputText>							
+					<h:outputText value="#{volo.partenza}">
+						<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+					</h:outputText>
 				</p:column>
 
 				<p:column sortBy="arrivo" headerText="Data di arrivo">
-						<h:outputText value="#{volo.arrivo}" >
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm"/>
-						</h:outputText>	
+					<h:outputText value="#{volo.arrivo}">
+						<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+					</h:outputText>
 				</p:column>
 
-				<p:column sortBy="disponibilita" headerText="Posti disponibili">					
-						<h:outputText value="#{volo.disponibilita}" />
-						
-						 							
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+					<h:outputText value="#{volo.disponibilita}" />
+
+
 				</p:column>
 
 				<p:column sortBy="costo" headerText="Prezzo">
-						<h:outputText value="#{volo.costo} €" />
+					<h:outputText value="#{volo.costo} €" />
 				</p:column>
 
-			
-				<p:column >
-					<p:selectOneRadio value="#{pacchettoBean.tipoVolo}">  
-           				 <f:selectItem itemLabel="Andata" itemValue="Andata" />  
-            			 <f:selectItem itemLabel="Ritorno" itemValue="Ritorno" />  
-        			</p:selectOneRadio>
-				</p:column>
-				
-				<p:column >
-					<h:commandLink id="aggiungi" value="Salva" class="btn btn-primary" action="#{pacchettoBean.aggiungiVoloEsistenteAPacchetto(volo)}" >
-						<f:ajax execute="aggiungi" render="dataTable" />
+				<p:column>
+					<h:commandLink id="aggiungiAndata" value="Andata" class="btn btn-default"
+						action="#{pacchettoBean.aggiungiVoloEsistenteAPacchetto(volo,1)}">
+						<f:ajax execute="aggiungiAndata" render="dataTable" />
+					</h:commandLink>
+					<h:commandLink id="aggiungiRitorno" value="Ritorno" class="btn btn-default"
+						action="#{pacchettoBean.aggiungiVoloEsistenteAPacchetto(volo,2)}">
+						<f:ajax execute="aggiungiRitorno" render="dataTable" />
 					</h:commandLink>
 				</p:column>
-				
+
 
 			</p:dataTable>
+			
+			<h:link outcome="aggiungiVoli"
+				class="btn btn-default pull-right" value="Conferma" />
 
 		</h:form>
-
+		<script>
+		jQuery.noConflict();
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(4)').addClass('active');
+			});
+		</script>
 
 	</ui:define>
 

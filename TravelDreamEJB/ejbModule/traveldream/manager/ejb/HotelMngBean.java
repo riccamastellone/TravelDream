@@ -1,5 +1,6 @@
 package traveldream.manager.ejb;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +64,7 @@ public class HotelMngBean implements HotelMng{
 		hdto.setPathtoImage(h.getImmagine());
 		hdto.setDisponibilita(h.getDisponibilita());
 		hdto.setDescrizione(h.getDescrizione());
+		hdto.setId(h.getId());
 		return hdto;
 		
 	}
@@ -96,6 +98,23 @@ public class HotelMngBean implements HotelMng{
 		Hotel hotelDaCancellare = this.findHotel(hotel.getId());
 		hotelDaCancellare.setEliminato(1);
 		em.merge(hotelDaCancellare);		
+	}
+
+
+
+	@Override
+	public HotelDTO aggiungiHotelAPacchetto(HotelDTO hotel) throws ParseException {
+		// TODO Auto-generated method stub
+		salvaHotel(hotel);
+		Hotel hotelDaRitornare = this.getLastHotel(); 
+		hotel.setId(hotelDaRitornare.getId());
+		return hotel;
+	}
+	
+	private Hotel getLastHotel() {
+
+		List<Hotel> hotel = em.createNamedQuery("Hotel.selectMax", Hotel.class).getResultList();
+		return hotel.get(0);
 	}
 
 }

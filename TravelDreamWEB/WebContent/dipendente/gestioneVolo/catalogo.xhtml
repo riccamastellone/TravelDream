@@ -21,7 +21,7 @@
 			<p:growl id="messages" showDetail="true" />
 
 			<p:dataTable id="dataTable" var="volo" value="#{voloBean.getVoli()}"
-				editable="true">
+				editable="true" sortMode="multiple">
 				<f:facet name="header">  
             Elenco Voli 
         </f:facet>
@@ -31,7 +31,7 @@
 				<p:ajax event="rowEditCancel" listener="#{voloBean.onDelete}"
 					update=":form:messages" />
 
-				<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+				<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea" filteredValue = "#{volo.nomeCompagnia}">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{volo.nomeCompagnia}" />

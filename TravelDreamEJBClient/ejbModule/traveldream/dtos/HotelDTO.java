@@ -92,6 +92,21 @@ public class HotelDTO {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	 public Object clone() {
+
+		    HotelDTO HotelDTO = new HotelDTO();
+		    HotelDTO.id = this.id;
+		    HotelDTO.nome = this.nome;
+		    HotelDTO.luogo = this.luogo;
+		    HotelDTO.costoGiornaliero = this.costoGiornaliero;
+		    HotelDTO.pathtoImage = this.pathtoImage;
+		    HotelDTO.stelle = this.stelle;
+		    HotelDTO.disponibilita = this.disponibilita;
+		    HotelDTO.descrizione = this.descrizione;
+		    //HotelDTO.eliminato = this.eliminato;
+		    return HotelDTO;
+		  }
 
 	
 }

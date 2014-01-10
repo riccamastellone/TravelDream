@@ -1,5 +1,6 @@
 package traveldream.manager.ejb;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import model.Hotel;
+import model.Volo;
 import traveldream.dtos.HotelDTO;
+import traveldream.dtos.VoloDTO;
 import traveldream.manager.HotelMng;
 
 /**
@@ -63,6 +66,7 @@ public class HotelMngBean implements HotelMng{
 		hdto.setPathtoImage(h.getImmagine());
 		hdto.setDisponibilita(h.getDisponibilita());
 		hdto.setDescrizione(h.getDescrizione());
+		hdto.setId(h.getId());
 		return hdto;
 		
 	}
@@ -86,6 +90,23 @@ public class HotelMngBean implements HotelMng{
 	
 	private Hotel findHotel(int id) {
 		return em.find(Hotel.class, id);
+	}
+
+
+
+	@Override
+	public HotelDTO aggiungiHotelAPacchetto(HotelDTO hotel) throws ParseException {
+		// TODO Auto-generated method stub
+		salvaHotel(hotel);
+		Hotel hotelDaRitornare = this.getLastHotel(); 
+		hotel.setId(hotelDaRitornare.getId());
+		return hotel;
+	}
+	
+	private Hotel getLastHotel() {
+
+		List<Hotel> hotel = em.createNamedQuery("Hotel.selectMax", Hotel.class).getResultList();
+		return hotel.get(0);
 	}
 
 }

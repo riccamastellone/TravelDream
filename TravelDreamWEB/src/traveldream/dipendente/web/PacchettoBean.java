@@ -8,11 +8,12 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.expression.impl.ThisExpressionResolver;
 
 import traveldream.dtos.HotelDTO;
-
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
+import traveldream.manager.HotelMng;
 import traveldream.manager.PacchettoMng;
 import traveldream.manager.VoloMng;
 
@@ -25,6 +26,9 @@ public class PacchettoBean {
 	
 	@EJB
 	private VoloMng voloMng;
+	
+	@EJB
+	private HotelMng hotelMng;
 	
 	
 	private PacchettoDTO pacchetto;
@@ -50,6 +54,10 @@ public class PacchettoBean {
 	
 	private HotelDTO hotelDTO;
 	
+	private List<HotelDTO> hotelSalvato;
+	
+	private List<HotelDTO> listaHotelesistenti;
+	
 	
 	public PacchettoBean() {
 		this.pacchetto = new PacchettoDTO();
@@ -63,6 +71,8 @@ public class PacchettoBean {
 		this.pacchetto.getVoliAndata().clear();
 		this.pacchetto.getVoliRitorno().clear();
 		this.hotelDTO = new HotelDTO();
+		this.hotelSalvato = new ArrayList<HotelDTO>();
+		this.listaHotelesistenti = new ArrayList<HotelDTO>();
 		
 				
 	}
@@ -141,7 +151,27 @@ public class PacchettoBean {
 		this.hotelDTO = hotelDTO;
 	}
 	
+	public List<HotelDTO> getHotelSalvato() {
+		return hotelSalvato;
+	}
 
+	public void setHotelSalvato(List<HotelDTO> hotelSalvato) {
+		this.hotelSalvato = hotelSalvato;
+	}
+	
+	public List<HotelDTO> getListaHotelesistenti() {
+		return listaHotelesistenti;
+	}
+
+	public void setListaHotelesistenti(List<HotelDTO> listaHotelesistenti) {
+		this.listaHotelesistenti = listaHotelesistenti;
+	}
+
+
+
+	
+
+	/*PARTE GESTIONE VOLO IN PACCHETTO*/
 	
 	public String goToAggiungiVoli(){
 		//mi serve l id aggiornato per scrivere nella tabella VoloPacchetto senza causare errori
@@ -247,6 +277,69 @@ public class PacchettoBean {
 	}
 	
 	
+	
+	/*PARTE GESTIONE HOTEL IN PACCHETTO*/
+	
+	/**
+	 * 
+	 * visualizza lista hotel esistenti giusta
+	 * @return
+	 */
+	public String goToAggiungiHotelEsistente(){
+				
+		//serve per precaricare la tabella di AggiungiHotelEsistente
+		this.listaHotelesistenti = this.hotelMng.getAllHotel();
+		this.listaHotelesistenti.remove(this.hotelSalvato);
+		return "aggiungiHotelEsistente?faces-redirect=true";
+	}
+	
+	/**
+	 * ripristina i campi da inserire
+	 * @return
+	 */
+	public String goToAggiungiNuovoHotel(){
+		this.hotelDTO = new HotelDTO();
+		return "aggiungiNuovoHotel?faces-redirect=true";
+	}
+	
+	/**
+	 * crea un nuovo oggetto hoteldto e lo assegna come hotel da salvarevisualizza l hotel selezionato
+	 * @return
+	 */
+	public String aggiungiNuovoHotelAPacchetto(){
+		//ricordarsi di aggiungere elimnato!!!!
+		this.hotelSalvato.add((HotelDTO) this.hotelDTO.clone());
+		return "aggiungiHotel?faces-redirect=true";
+	}
+	
+	/**
+	 * assegna l hotel esistente scelto come quello da associare al pacchetto
+	 * @param hotel
+	 * @return
+	 */
+	public String aggiungiHotelesistenteAPacchetto(HotelDTO hotel){
+		//ricordarsi di aggiungere elimnato!!!!
+	
+		this.hotelSalvato.clear();
+		this.hotelSalvato.add((HotelDTO) hotel.clone());
+		
+		return "aggiungiHotel?faces-redirect=true";
+	}
+	
+	/**
+	 * toglie l hotel da salvare
+	 * @param hotel
+	 */
+	public void eliminaHotel(HotelDTO hotel) {
+		
+		this.hotelSalvato.clear();
+	}
+	
+	/**
+	 * step finale in cui salva le info a db
+	 * @return
+	 * @throws ParseException
+	 */
 	public String aggiungiPacchetto() throws ParseException{
 		
 		//PRIMO STEP: aggiungo le info generali del pacchetto a db e ricavo l id giudto del pacchetto
@@ -276,8 +369,41 @@ public class PacchettoBean {
 			this.pkgMng.aggiungiVoloAPacchetto(pacchetto, voloEsistenteRitorno, "Ritorno");
 		}
 		
+		//SESTO STEP: verifico se un hotel e nuovo oppure esistente(id !=0), se nuovo lo inserisco a db
+		//e poi lo associo al pacchetto, se esistente mi limito ad associarlo
+		//verificare se in un db vuoto l id parte da 0
+		if ( this.hotelSalvato.get(0).getId() == 0){
+			HotelDTO hotelDaSalvare = this.hotelMng.aggiungiHotelAPacchetto(this.hotelSalvato.get(0));
+			this.pkgMng.aggiungiHotelAPacchetto(pacchetto, hotelDaSalvare);
+		}
+		else {
+			this.pkgMng.aggiungiHotelAPacchetto(pacchetto, this.hotelSalvato.get(0));
+		}
+		
+		this.reInitProcesso();
+		
 		return "catalogo?faces-redirect=true";
 	}
+	
+	/**
+	 * reinizializzail processo d creazione del pacchetto
+	 */
+	private void reInitProcesso() {
+		this.pacchetto = new PacchettoDTO();
+		this.volo = new VoloDTO();
+		this.voli = new ArrayList<VoloDTO>();
+		this.setTipoVolo("Andata");
+		this.voliNuoviAndata = new ArrayList<VoloDTO>();
+		this.voliNuoviRitorno = new ArrayList<VoloDTO>();
+		this.setVoliEsistentiAndata(new ArrayList<VoloDTO>());
+		this.setVoliEsistentiRitorno(new ArrayList<VoloDTO>());
+		this.pacchetto.getVoliAndata().clear();
+		this.pacchetto.getVoliRitorno().clear();
+		this.hotelDTO = new HotelDTO();
+		this.hotelSalvato = new ArrayList<HotelDTO>();
+		this.listaHotelesistenti = new ArrayList<HotelDTO>();
+	}
+
 
 
 

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../template.xhtml">
+
+	<ui:define name="content">
+	
+
+		<div>
+			<h:form>
+
+			<p:dataTable id="dataTable" var="hotel" value="#{pacchettoBean.listaHotelesistenti}">
+				<f:facet name="header">  
+            Elenco Hotel 
+        </f:facet>
+
+				<p:column sortBy="nome" headerText="Nome" filterBy="#{hotel.nome}" >
+					<h:outputText value="#{hotel.nome}" />
+				</p:column>
+
+				<p:column sortBy="stelle" headerText="Stelle">
+					<h:outputText value="#{hotel.stelle}" />
+				</p:column>
+
+				<p:column sortBy="costoGiornaliero" headerText="Costo giornaliero">
+					<h:outputText value="#{hotel.costoGiornaliero} €" />
+				</p:column>
+
+				<p:column sortBy="luogo" headerText="Luogo">
+					<h:outputText value="#{hotel.luogo}" />
+				</p:column>
+
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+					<h:outputText value="#{hotel.disponibilita}" />
+				</p:column>
+
+				<p:column>
+					<h:commandLink id="scegli" value="Scegli"
+							class="btn btn-danger white"
+							action="#{pacchettoBean.aggiungiHotelesistenteAPacchetto(hotel)}">
+					</h:commandLink>	
+				</p:column>
+				
+
+			</p:dataTable>
+
+		</h:form>
+		</div>
+		<script>
+		jQuery.noConflict();
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(4)').addClass('active');
+			});
+		</script>
+	</ui:define>
+
+</ui:composition>
+
+
+</html>

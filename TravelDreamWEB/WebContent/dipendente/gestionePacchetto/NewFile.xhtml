@@ -44,7 +44,7 @@
         <p:column>
         	
 			<p:commandButton id="basic" value="Basic"   type="button" >
-				<p:ajax  actionListener="#{pacchettoBean.mostraInfo}" update=":form:displayAndata" oncomplete="PF('andataDialog').show();" />
+				<p:ajax  listener="#{pacchettoBean.mostraInfo(event,pacchetto)}" update=":form:displayAndata" oncomplete="PF('andataDialog').show();" />
 			</p:commandButton>
 			
 		</p:column>

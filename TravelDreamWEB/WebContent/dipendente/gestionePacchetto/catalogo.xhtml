@@ -44,11 +44,9 @@
         
         <p:column>
         	
-			<h:commandLink id="mostraAndata" value="Mostra"
-							class="btn btn-danger white"
-							action="#{pacchettoBean.mostraInfo(pacchetto)}">
-						<f:ajax  onclick="PF('andataDialog').show()" />
-			</h:commandLink>
+			<p:commandButton id="basic" value="Basic"   type="button" >
+				<p:ajax  listener="#{pacchettoBean.mostraInfo(event,pacchetto)}" update=":form:displayAndata" oncomplete="PF('andataDialog').show();" />
+			</p:commandButton>
 				
 		</p:column>
     </p:dataTable>  

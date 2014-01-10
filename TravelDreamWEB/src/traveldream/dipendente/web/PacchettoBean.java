@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
@@ -429,9 +430,9 @@ public class PacchettoBean {
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
 	}
 	
-	public void mostraInfo(ActionEvent actionEvent) {
+	public void mostraInfo(AjaxBehaviorEvent actionEvent, PacchettoDTO pacchetto) {
 		System.out.println("tasto premuto");
-		this.pacchettoDaVisualizzareDto = (PacchettoDTO) actionEvent.getSource();
+		this.pacchettoDaVisualizzareDto = pacchetto;
 		
 	}
 	

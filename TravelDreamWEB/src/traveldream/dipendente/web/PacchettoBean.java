@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
@@ -58,6 +59,10 @@ public class PacchettoBean {
 	
 	private List<HotelDTO> listaHotelesistenti;
 	
+	private List<PacchettoDTO> pacchetti;
+	
+	private PacchettoDTO pacchettoDaVisualizzareDto;
+	
 	
 	public PacchettoBean() {
 		this.pacchetto = new PacchettoDTO();
@@ -73,7 +78,9 @@ public class PacchettoBean {
 		this.hotelDTO = new HotelDTO();
 		this.hotelSalvato = new ArrayList<HotelDTO>();
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
-		
+		this.pacchetti = new ArrayList<PacchettoDTO>();
+		//pkgMng.getAllPacchetti();
+		this.pacchettoDaVisualizzareDto = new PacchettoDTO();		
 				
 	}
 
@@ -166,7 +173,25 @@ public class PacchettoBean {
 	public void setListaHotelesistenti(List<HotelDTO> listaHotelesistenti) {
 		this.listaHotelesistenti = listaHotelesistenti;
 	}
+	
+	public List<PacchettoDTO> getPacchetti() {
+		if (this.pacchetti.isEmpty()){
+			this.pacchetti = pkgMng.getAllPacchetti();
+		}
+		return pacchetti;
+	}
 
+	public void setPacchetti(List<PacchettoDTO> pacchetti) {
+		this.pacchetti = pacchetti;
+	}
+	
+	public PacchettoDTO getPacchettoDaVisualizzareDto() {
+		return pacchettoDaVisualizzareDto;
+	}
+
+	public void setPacchettoDaVisualizzareDto(PacchettoDTO pacchettoDaVisualizzareDto) {
+		this.pacchettoDaVisualizzareDto = pacchettoDaVisualizzareDto;
+	}
 
 
 	
@@ -403,7 +428,20 @@ public class PacchettoBean {
 		this.hotelSalvato = new ArrayList<HotelDTO>();
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
 	}
+	
+	public void mostraInfo(ActionEvent actionEvent) {
+		System.out.println("tasto premuto");
+		this.pacchettoDaVisualizzareDto = (PacchettoDTO) actionEvent.getSource();
+		
+	}
+	
+	public List<PacchettoDTO> getAllPacchetti(){
+		//return new ArrayList<PacchettoDTO>();
+		System.out.println(pkgMng.getAllPacchetti().toString());
+		return pkgMng.getAllPacchetti();
+	}
 
+	
 
 
 

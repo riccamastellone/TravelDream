@@ -10,7 +10,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.sun.xml.rpc.processor.modeler.j2ee.xml.emptyType;
 
 import model.Hotel;
 import model.Pacchetto;
@@ -120,6 +119,39 @@ public class PacchettoMngBean implements PacchettoMng {
 		
 		List<Hotel> hotels = em.createNamedQuery("Hotel.getVoloById", Hotel.class).setParameter("id", hotel.getId()).getResultList();
 		return hotels.get(0);
+	}
+
+	@Override
+	public List<PacchettoDTO>  getAllPacchetti() {
+		// TODO Auto-generated method stub
+		List<PacchettoDTO> pacchettiDto = new ArrayList<PacchettoDTO>();
+		List<Pacchetto> pacchetti = em.createNamedQuery("Pacchetto.findAll", Pacchetto.class).getResultList();
+		System.out.println("eseguito");
+		
+		for (Pacchetto pacchetto : pacchetti) {
+			
+			PacchettoDTO pacchettoDTO = this.convertToDto(pacchetto);
+			for (VoloPacchetto voloPacchetto : pacchetto.getVoliPacchetto()) {
+				
+				if (voloPacchetto.getTipo().equals("Andata")){
+					pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+				}
+				else {
+					pacchettoDTO.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+				}
+				
+				//pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+				//pacchettiDTO.get
+			}
+			
+			
+			pacchettiDto.add(pacchettoDTO);
+		}
+		
+		
+		
+		return pacchettiDto;
+		
 	}
 	
  

@@ -31,7 +31,7 @@ public class VoloMngBean implements VoloMng  {
 	
 	/* VOLI */
 	
-	private VoloDTO convertVoloToDTO(Volo h) {
+	public static VoloDTO convertVoloToDTO(Volo h) {
 		VoloDTO vl = new VoloDTO();
 		vl.setId(h.getId());
 		vl.setArrivo(h.getArrivo());

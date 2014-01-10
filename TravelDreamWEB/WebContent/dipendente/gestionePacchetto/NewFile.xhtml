@@ -1,21 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<ui:composition template="../template.xhtml">
-
-	<ui:define name="content">
-
-		<h:link outcome="aggiungiInfoGenerali" class="btn btn-default pull-right"
+<h:head>
+	<title>Login</title>
+</h:head>
+<h:body>
+	      
+	<h:link outcome="aggiungiInfoGenerali" class="btn btn-default pull-right"
 			value="Aggiungi nuovo pacchetto" />
 			  	
 	<h:form id="form">  
-  
+
     <p:dataTable var="pacchetto" value="#{pacchettoBean.pacchetti}" id="pacchettiTable" lazy="true">  
   
         <p:column headerText="Nome" sortBy="nome" >  
@@ -44,12 +43,10 @@
         
         <p:column>
         	
-			<h:commandLink id="mostraAndata" value="Mostra"
-							class="btn btn-danger white"
-							action="#{pacchettoBean.mostraInfo(pacchetto)}">
-						<f:ajax  onclick="PF('andataDialog').show()" />
-			</h:commandLink>
-				
+			<p:commandButton id="basic" value="Basic"   type="button" >
+				<p:ajax  actionListener="#{pacchettoBean.mostraInfo}" update=":form:displayAndata" oncomplete="PF('andataDialog').show();" />
+			</p:commandButton>
+			
 		</p:column>
     </p:dataTable>  
 
@@ -106,10 +103,5 @@
 			});
 		</script>
 		
-
-	</ui:define>
-
-</ui:composition>
-
-
+</h:body>
 </html>

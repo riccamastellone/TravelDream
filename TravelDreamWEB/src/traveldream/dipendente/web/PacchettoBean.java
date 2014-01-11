@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
 import traveldream.dtos.HotelDTO;
@@ -441,6 +444,18 @@ public class PacchettoBean {
 		System.out.println(pkgMng.getAllPacchetti().toString());
 		return pkgMng.getAllPacchetti();
 	}
+	
+	 public void onEdit(RowEditEvent event) throws ParseException { 
+	       FacesMessage msg = new FacesMessage("Pacchetto Aggiornato");  
+	       pkgMng.editInfoGenerali((PacchettoDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg);  
+	    } 
+	
+	 public void onDelete(RowEditEvent event) {  
+		   FacesMessage msg = new FacesMessage("Pacchetto Aggiornato");  
+	       pkgMng.editInfoGenerali((PacchettoDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    } 
 
 	
 

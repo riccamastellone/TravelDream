@@ -26,5 +26,7 @@ public interface PacchettoMng {
 	public void aggiungiHotelAPacchetto(PacchettoDTO pacchetto, HotelDTO hotel);
 	
 	public List<PacchettoDTO> getAllPacchetti();
+	
+	public void editInfoGenerali(PacchettoDTO pacchetto);
 
 }

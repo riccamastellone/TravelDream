@@ -16,43 +16,103 @@
 		<br />
 
 		<h:form id="form">
+		
+			<p:growl id="messages" showDetail="true" />
 
 			<p:dataTable var="pacchetto" value="#{pacchettoBean.pacchetti}"
-				id="pacchettiTable" lazy="true">
-
+				id="pacchettiTable"  editable="true">
+				
+				<p:ajax event="rowEdit" listener="#{pacchettoBean.onEdit}"
+					update=":form:messages" />
+				<p:ajax event="rowEditCancel" listener="#{pacchettoBean.onDelete}"
+					update=":form:messages" />
+					
 				<p:column headerText="Nome" sortBy="nome">
-					<h:outputText value="#{pacchetto.nome}" />
+						<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{pacchetto.nome}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{pacchetto.nome}" style="width:100%" />
+								</f:facet>
+						</p:cellEditor>						
 				</p:column>
 
 				<p:column headerText="Localita" sortBy="year">
-					<h:outputText value="#{pacchetto.localita}" />
+					<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{pacchetto.localita}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{pacchetto.localita}" style="width:100%" />
+								</f:facet>
+					</p:cellEditor>	
 				</p:column>
 
 				<p:column headerText="Descrizione">
-					<h:outputText value="#{pacchetto.descrizione}" />
+					<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{pacchetto.descrizione}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{pacchetto.descrizione}" style="width:100%" />
+								</f:facet>
+					</p:cellEditor>	
 				</p:column>
 
 				<p:column headerText="Inizio validità" sortBy="inizioValidita">
-					<h:outputText value="#{pacchetto.inizioValidita}">
-						<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-					</h:outputText>
+					<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{pacchetto.inizioValidita}" >
+										<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+									</h:outputText>
+								</f:facet>
+								<f:facet name="input">
+									<p:calendar value="#{pacchetto.inizioValidita}" pattern="MM/dd/yyyy HH:mm" />
+								</f:facet>
+					</p:cellEditor>							
 				</p:column>
 
 				<p:column headerText="Fine validità" sortBy="fineValidita">
-					<h:outputText value="#{pacchetto.fineValidita}">
-						<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-					</h:outputText>
+					<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{pacchetto.fineValidita}">
+											<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+									</h:outputText>
+								</f:facet>
+								<f:facet name="input">
+									<p:calendar value="#{pacchetto.fineValidita}" pattern="MM/dd/yyyy HH:mm" />
+								</f:facet>
+					</p:cellEditor>	
 				</p:column>
-
+			
 				<p:column>
-
-					<p:commandButton id="basic" value="Voli" type="button">
-						<p:ajax listener="#{pacchettoBean.mostraInfo(event,pacchetto)}"
-							update=":form:displayAndata,:form:displayRitorno"
-							oncomplete="PF('andataDialog').show();" />
-					</p:commandButton>
-
+					
+						<p:cellEditor>	
+							<f:facet name="output">
+									<p:commandButton id="basic" value="Voli" type="button" styleClass="btn white">
+										<p:ajax listener="#{pacchettoBean.mostraInfo(event,pacchetto)}"
+										update=":form:displayAndata,:form:displayRitorno"
+										oncomplete="PF('andataDialog').show();" />
+									</p:commandButton>
+									
+								</f:facet>
+							<f:facet name="input">								
+									<p:commandButton id="basic2" value="Edit" type="button" styleClass="btn-danger">
+										<p:ajax listener="#{pacchettoBean.mostraInfo(event,pacchetto)}"
+										update=":form:displayAndata2,:form:displayRitorno2"
+										oncomplete="PF('andataDialog2').show();" />
+									</p:commandButton>
+							</f:facet>
+						</p:cellEditor>
+								
+						
 				</p:column>
+				
+				<p:column style="width:6%">
+					<p:rowEditor />
+				</p:column>
+				
 			</p:dataTable>
 
 
@@ -94,6 +154,8 @@
 					<p:column sortBy="costo" headerText="Prezzo">
 						<h:outputText value="#{volo.costo} €" />
 					</p:column>
+					
+					
 
 				</p:dataTable>
 
@@ -138,17 +200,119 @@
 
 
 			</p:dialog>
+		
+			
+			<p:dialog header="Voli edit" widgetVar="andataDialog2" resizable="false">
 
+				<p:dataTable id="displayAndata2" var="volo"
+					value="#{pacchettoBean.pacchettoDaVisualizzareDto.voliAndata}">
+					<f:facet name="header"> Andata </f:facet>
+					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+						<h:outputText value="#{volo.nomeCompagnia}" />
+					</p:column>
+
+					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+						<h:outputText value="#{volo.cittaPartenza}" />
+					</p:column>
+
+					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+						<h:outputText value="#{volo.cittaArrivo}" />
+					</p:column>
+
+					<p:column sortBy="partenza" headerText="Data di Partenza">
+						<h:outputText value="#{volo.partenza}">
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="arrivo" headerText="Data di arrivo">
+						<h:outputText value="#{volo.arrivo}">
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{volo.disponibilita}" />
+
+
+					</p:column>
+
+					<p:column sortBy="costo" headerText="Prezzo">
+						<h:outputText value="#{volo.costo} €" />
+					</p:column>
+					
+					<p:column>
+						<h:commandLink id="eliminaAndata" value="Elimina"
+							class="btn btn-danger white"
+							action="#{pacchettoBean.eliminaVoloAndata(volo)}">
+							<f:ajax execute="eliminaAndata" render="displayAndata2" />
+						</h:commandLink>
+					</p:column>
+
+				</p:dataTable>
+
+				<p:dataTable id="displayRitorno2" var="volo_r"
+					value="#{pacchettoBean.pacchettoDaVisualizzareDto.voliRitorno}">
+					<f:facet name="header">Ritorno</f:facet>
+					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+						<h:outputText value="#{volo_r.nomeCompagnia}" />
+					</p:column>
+
+					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+						<h:outputText value="#{volo_r.cittaPartenza}" />
+					</p:column>
+
+					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+						<h:outputText value="#{volo_r.cittaArrivo}" />
+					</p:column>
+
+					<p:column sortBy="partenza" headerText="Data di Partenza">
+						<h:outputText value="#{volo_r.partenza}">
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="arrivo" headerText="Data di arrivo">
+						<h:outputText value="#{volo_r.arrivo}">
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{volo_r.disponibilita}" />
+
+
+					</p:column>
+
+					<p:column sortBy="costo" headerText="Prezzo">
+						<h:outputText value="#{volo_r.costo} €" />
+					</p:column>
+					
+					<p:column>
+						<h:commandLink id="eliminaRitorno" value="Elimina"
+							class="btn btn-danger white"
+							action="#{pacchettoBean.eliminaVoloRitorno(volo_r)}">
+							<f:ajax execute="eliminaRitorno" render="displayRitorno2" />
+						</h:commandLink>
+						
+					</p:column>
+
+				</p:dataTable>
+
+
+			</p:dialog>
+	
 		</h:form>
-
-		<script>
+	<script>
 			jQuery.noConflict();
-			$(function() {
-				$('.active').removeClass('active');
-				$('.nav li:nth-child(4)').addClass('active');
-			});
 		</script>
 
+<script>
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(2)').addClass('active');
+			});
+		</script>
 
 	</ui:define>
 

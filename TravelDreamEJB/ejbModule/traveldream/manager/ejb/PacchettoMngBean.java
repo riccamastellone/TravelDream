@@ -48,6 +48,7 @@ public class PacchettoMngBean implements PacchettoMng {
 		p.setFineValidita(pacchetto.getFineValidita());
 		p.setLocalita(pacchetto.getLocalita());
 		p.setNome(pacchetto.getNome());
+		p.setImmagine(pacchetto.getImmagine());
 		return p;
 	}
 	
@@ -152,6 +153,21 @@ public class PacchettoMngBean implements PacchettoMng {
 		
 		return pacchettiDto;
 		
+	}
+
+	@Override
+	public void editInfoGenerali(PacchettoDTO pacchetto) {
+		// TODO Auto-generated method stub
+		Pacchetto pacchettoDaModificare = this.findPacchetto(pacchetto.getId());
+		pacchettoDaModificare.setDescrizione(pacchetto.getDescrizione());
+		pacchettoDaModificare.setFineValidita(pacchetto.getFineValidita());
+		pacchettoDaModificare.setInizioValidita(pacchetto.getInizioValidita());
+		pacchettoDaModificare.setLocalita(pacchetto.getLocalita());
+		pacchettoDaModificare.setNome(pacchetto.getNome());
+		pacchettoDaModificare.setImmagine(pacchetto.getImmagine());
+		em.merge(pacchettoDaModificare);
+		System.out.println("aggiorno pacchetto");
+						
 	}
 	
  

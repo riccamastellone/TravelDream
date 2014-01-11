@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="template.xhtml">
+
+	<ui:define name="content">
+
+
+		<div>
+			<!--  <h:graphicImage library="images" name="logo.png" /> -->
+			<h1>Bevenuti su TravelDream</h1>
+			<p>Per poter utilizzare questa piattaforma, devi identificarti</p>
+			<p>
+				<h:link outcome="registrazione" value="Registrati" />
+				<br />
+				<h:link outcome="store/home" value="Accedi" />
+			</p>
+		</div>
+
+		<div>
+			<h3>Amministrazione</h3>
+			<p>
+				<h:link outcome="admin/homeAdmin" value="Admin" />
+				<br />
+				<h:link outcome="dipendente/homeDipendente" value="Dipendente" />
+			</p>
+		</div>
+
+		<h:form>
+			<h:commandButton action="#{commonBean.logout}" value="Logout" />
+		</h:form>
+		<h:form>
+			<h:commandButton action="#{registrazioneBean.getGruppoBean()}" value="Gruppo" />
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>
+

@@ -7,34 +7,64 @@
 <ui:composition template="template.xhtml">
 
 	<ui:define name="content">
+		<!-- 100% Width & Height container  -->
+		<div class="login-fullwidith">
 
+			<!-- Login Wrap  -->
+			<div class="login-wrap">
+				<h:form action="j_security_check" method="post">
+					<h:graphicImage library="store" name="images/logo.png"
+						class="login-img" alt="logo" />
+					<br />
+					<div class="login-c1">
+						<div class="cpadding50">
+							<input type="text" name="j_username"
+								class="form-control logpadding" placeholder="Username" /> <br />
+							<input type="password" class="form-control logpadding"
+								name="j_password" placeholder="Password" />
+						</div>
+					</div>
+					<div class="login-c2">
+						<div class="logmargfix">
+							<div class="chpadding50">
+								<div class="alignbottom">
+									<button class="btn-search4" id="btn-signin" type="submit"
+										onclick="return false;">Login</button>
+								</div>
+								<div class="alignbottom2">
+									<div class="checkbox">
+										<label> <input type="checkbox" />Remember
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</h:form>
+				<div class="login-c3">
+					<div class="right">
+						<h:link value="Don't have an account?"
+							outcome="registrazione.xhtml" class="whitelink" />
+					</div>
+				</div>
+			</div>
+			<!-- End of Login Wrap  -->
 
-		<div>
-			<!--  <h:graphicImage library="images" name="logo.png" /> -->
-			<h1>Bevenuti su TravelDream</h1>
-			<p>Per poter utilizzare questa piattaforma, devi identificarti</p>
-			<p>
-				<h:link outcome="registrazione" value="Registrati" />
-				<br />
-				<h:link outcome="store/home" value="Accedi" />
-			</p>
 		</div>
+		<!-- End of Container  -->
 
-		<div>
-			<h3>Amministrazione</h3>
-			<p>
-				<h:link outcome="admin/homeAdmin" value="Admin" />
-				<br />
-				<h:link outcome="dipendente/homeDipendente" value="Dipendente" />
-			</p>
-		</div>
+		<h:outputScript library="store/assets/js"
+			name="initialize-loginpage.js" />
+		<h:outputScript library="store/assets/js" name="jquery.easing.js" />
+		<h:outputScript library="store/plugins/animo" name="animo.js" />
+		<script>
+			function errorMessage() {
+				$('.login-wrap').animo({
+					animation : 'tada'
+				});
+			}
+		</script>
 
-		<h:form>
-			<h:commandButton action="#{commonBean.logout}" value="Logout" />
-		</h:form>
-		<h:form>
-			<h:commandButton action="#{registrazioneBean.getGruppoBean()}" value="Gruppo" />
-		</h:form>
 	</ui:define>
 
 </ui:composition>

@@ -5,9 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
 import traveldream.dtos.HotelDTO;
@@ -58,6 +63,10 @@ public class PacchettoBean {
 	
 	private List<HotelDTO> listaHotelesistenti;
 	
+	private List<PacchettoDTO> pacchetti;
+	
+	private PacchettoDTO pacchettoDaVisualizzareDto;
+	
 	
 	public PacchettoBean() {
 		this.pacchetto = new PacchettoDTO();
@@ -73,7 +82,9 @@ public class PacchettoBean {
 		this.hotelDTO = new HotelDTO();
 		this.hotelSalvato = new ArrayList<HotelDTO>();
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
-		
+		this.pacchetti = new ArrayList<PacchettoDTO>();
+		//pkgMng.getAllPacchetti();
+		this.pacchettoDaVisualizzareDto = new PacchettoDTO();		
 				
 	}
 
@@ -166,7 +177,25 @@ public class PacchettoBean {
 	public void setListaHotelesistenti(List<HotelDTO> listaHotelesistenti) {
 		this.listaHotelesistenti = listaHotelesistenti;
 	}
+	
+	public List<PacchettoDTO> getPacchetti() {
+		if (this.pacchetti.isEmpty()){
+			this.pacchetti = pkgMng.getAllPacchetti();
+		}
+		return pacchetti;
+	}
 
+	public void setPacchetti(List<PacchettoDTO> pacchetti) {
+		this.pacchetti = pacchetti;
+	}
+	
+	public PacchettoDTO getPacchettoDaVisualizzareDto() {
+		return pacchettoDaVisualizzareDto;
+	}
+
+	public void setPacchettoDaVisualizzareDto(PacchettoDTO pacchettoDaVisualizzareDto) {
+		this.pacchettoDaVisualizzareDto = pacchettoDaVisualizzareDto;
+	}
 
 
 	
@@ -403,7 +432,58 @@ public class PacchettoBean {
 		this.hotelSalvato = new ArrayList<HotelDTO>();
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
 	}
+	
+	public void mostraInfo(AjaxBehaviorEvent actionEvent, PacchettoDTO pacchetto) {
+		System.out.println("tasto premuto");
+		this.pacchettoDaVisualizzareDto = pacchetto;
+		
+	}
+	
+	public List<PacchettoDTO> getAllPacchetti(){
+		//return new ArrayList<PacchettoDTO>();
+		System.out.println(pkgMng.getAllPacchetti().toString());
+		return pkgMng.getAllPacchetti();
+	}
+	
+	 public void onEdit(RowEditEvent event) throws ParseException { 
+	       FacesMessage msg = new FacesMessage("Pacchetto Aggiornato");  
+	       pkgMng.editInfoGenerali((PacchettoDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg);  
+	    } 
+	
+	 public void onDelete(RowEditEvent event) {  
+		   FacesMessage msg = new FacesMessage("Pacchetto Aggiornato");  
+	       pkgMng.editInfoGenerali((PacchettoDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    }
+	 
+	 public void eliminaVoloAndataDaPacchetto(AjaxBehaviorEvent action, VoloDTO volo){
+		 if (this.pacchettoDaVisualizzareDto.getVoliAndata().size() == 1){
+			 FacesMessage msg = new FacesMessage("Il pacchetto deve avere almeno un volo di andata");
+			 FacesContext.getCurrentInstance().addMessage(null, msg);
+		 }
+		 else {
+			FacesMessage msg = new FacesMessage("Associazione Eliminata");
+			pkgMng.eliminaVoloDaPacchetto(this.pacchettoDaVisualizzareDto, volo);
+			this.pacchettoDaVisualizzareDto.getVoliAndata().remove(volo);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	 }
+	 
+	 public void eliminaVoloRitornoDaPacchetto(AjaxBehaviorEvent action, VoloDTO volo){
+		 if (this.pacchettoDaVisualizzareDto.getVoliRitorno().size() == 1){
+			 FacesMessage msg = new FacesMessage("Il pacchetto deve avere almeno un volo di ritorno");
+			 FacesContext.getCurrentInstance().addMessage(null, msg);
+		 }
+		 else {
+			FacesMessage msg = new FacesMessage("Associazione Eliminata");
+			pkgMng.eliminaVoloDaPacchetto(this.pacchettoDaVisualizzareDto, volo);
+			this.pacchettoDaVisualizzareDto.getVoliRitorno().remove(volo);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	 }
 
+	
 
 
 

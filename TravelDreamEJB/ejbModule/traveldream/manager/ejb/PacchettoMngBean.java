@@ -10,7 +10,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.sun.xml.rpc.processor.modeler.j2ee.xml.emptyType;
 
 import model.Hotel;
 import model.Pacchetto;
@@ -49,6 +48,7 @@ public class PacchettoMngBean implements PacchettoMng {
 		p.setFineValidita(pacchetto.getFineValidita());
 		p.setLocalita(pacchetto.getLocalita());
 		p.setNome(pacchetto.getNome());
+		p.setImmagine(pacchetto.getImmagine());
 		return p;
 	}
 	
@@ -120,6 +120,71 @@ public class PacchettoMngBean implements PacchettoMng {
 		
 		List<Hotel> hotels = em.createNamedQuery("Hotel.getVoloById", Hotel.class).setParameter("id", hotel.getId()).getResultList();
 		return hotels.get(0);
+	}
+
+	public List<PacchettoDTO>  getAllPacchetti() {
+		// TODO Auto-generated method stub
+		List<PacchettoDTO> pacchettiDto = new ArrayList<PacchettoDTO>();
+		List<Pacchetto> pacchetti = em.createNamedQuery("Pacchetto.findAll", Pacchetto.class).getResultList();
+		System.out.println("eseguito");
+		
+		for (Pacchetto pacchetto : pacchetti) {
+			
+			PacchettoDTO pacchettoDTO = this.convertToDto(pacchetto);
+			for (VoloPacchetto voloPacchetto : pacchetto.getVoliPacchetto()) {
+				
+				if (voloPacchetto.getTipo().equals("Andata")){
+					pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+				}
+				else {
+					pacchettoDTO.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+				}
+				
+				//pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+				//pacchettiDTO.get
+			}
+			
+			
+			pacchettiDto.add(pacchettoDTO);
+		}
+		
+		
+		
+		return pacchettiDto;
+		
+	}
+
+	public void editInfoGenerali(PacchettoDTO pacchetto) {
+		// TODO Auto-generated method stub
+		Pacchetto pacchettoDaModificare = this.findPacchetto(pacchetto.getId());
+		pacchettoDaModificare.setDescrizione(pacchetto.getDescrizione());
+		pacchettoDaModificare.setFineValidita(pacchetto.getFineValidita());
+		pacchettoDaModificare.setInizioValidita(pacchetto.getInizioValidita());
+		pacchettoDaModificare.setLocalita(pacchetto.getLocalita());
+		pacchettoDaModificare.setNome(pacchetto.getNome());
+		pacchettoDaModificare.setImmagine(pacchetto.getImmagine());
+		em.merge(pacchettoDaModificare);
+		System.out.println("aggiorno pacchetto");
+						
+	}
+
+	public void eliminaVoloDaPacchetto(PacchettoDTO pacchettoDTO, VoloDTO volo) {
+		// TODO Auto-generated method stub
+		Volo voloDaDisassociare= this.getVoloById(volo);
+		Pacchetto pacchetto = this.findPacchetto(pacchettoDTO.getId());
+		
+		for (VoloPacchetto voloPacchetto : pacchetto.getVoliPacchetto()) {
+			if (voloPacchetto.getVolo().equals(voloDaDisassociare)){
+				pacchetto.getVoliPacchetto().remove(voloPacchetto);
+				em.remove(voloPacchetto);
+				break;
+			}
+				
+		}
+		
+		em.merge(pacchetto);
+		System.out.println("aggiorno pacchetto");
+		
 	}
 	
  

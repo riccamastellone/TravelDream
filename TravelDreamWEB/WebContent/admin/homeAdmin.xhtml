@@ -44,12 +44,6 @@
 							action="#{registrazioneBean.goToEdit(dipendente)}">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</h:commandLink>
-						<h:commandLink id="canc" class="btn btn-default btn-danger"
-							onclick="return confirm('Confermi di voler eliminare questo volo?');"
-							action="#{voloBean.deleteVolo(volo)}">
-							<span class="glyphicon glyphicon-trash white"></span>
-							<f:ajax execute="canc" render="dataTable" />
-						</h:commandLink>
 					</div>
 				</p:column>
 

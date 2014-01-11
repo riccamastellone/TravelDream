@@ -36,7 +36,7 @@ CREATE TABLE `Hotel` (
   `immagine` varchar(255) DEFAULT NULL,
   `luogo` varchar(255) DEFAULT NULL,
   `descrizione` text DEFAULT NULL,
-  `eliminato` tinyint(1) DEFAULT 0,
+  `eliminato` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -69,7 +69,7 @@ CREATE TABLE `Pacchetto` (
   `fine_validita` date NOT NULL,
   `hotel` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`hotel`) REFERENCES `Hotel` (`id`)
+  FOREIGN KEY (`hotel`) REFERENCES `Hotel` (`id`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

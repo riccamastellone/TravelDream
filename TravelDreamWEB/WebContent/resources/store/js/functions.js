@@ -1,22 +1,4 @@
-
-
-
-
-jQuery(document).ready(function(){
-
-/* GETS 100% HEIGHT FOR FILTERS BG*/
-//var jQuerypgc = jQuery('.pagecontainer').height();
-//jQuery('.filters').css({'height':jQuerypgc+'px'});
-
-
-
-});
-
-// ########################
-// BACK TO TOP FUNCTION
-// ########################
-
-
+// Funzioni per il backtotop
 jQuery(document).ready(function(){
 "use strict";
 	

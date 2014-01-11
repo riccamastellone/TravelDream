@@ -5,9 +5,9 @@ jQuery(function() {
 	
 	// Submit form
 	jQuery('.btn-search').click(function(){
-		console.log(tpj("#myTabContent .active form").serialize());
+		alert("Vuoi cercare " + tpj("#myTabContent .active form").serialize());
 		return false;
-	})
+	});
 });
 
 

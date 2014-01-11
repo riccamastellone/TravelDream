@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head />
+<h:body>
+	<ui:composition>
+		<div class="navbar-wrapper2 navbar-fixed-top">
+			<div class="container">
+				<div class="navbar mtnav">
+
+					<div class="container offset-3">
+						<!-- Navigation-->
+						<div class="navbar-header">
+							<button data-target=".navbar-collapse" data-toggle="collapse"
+								class="navbar-toggle" type="button">
+								<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+									class="icon-bar"></span>
+							</button>
+							<h:link class="navbar-brand" outcome="home.xhtml">
+							<h:graphicImage library="store" name="images/logo.png" alt="Travel Agency Logo" class="logo" />
+							</h:link>
+						</div>
+						<div class="navbar-collapse collapse">
+							<ul class="nav navbar-nav navbar-right">
+								<li class="active"><h:link outcome="home.xhtml" value="Home" /></li>
+								<li><a href="index.html">Packages</a></li>
+								<li><a href="#">Hotels</a></li>
+								<li><a href="#">Flights</a></li>
+								<li><a href="#">Last minute</a></li>
+								<li><a href="#">Contacts</a></li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</ui:composition>
+</h:body>
+</html>

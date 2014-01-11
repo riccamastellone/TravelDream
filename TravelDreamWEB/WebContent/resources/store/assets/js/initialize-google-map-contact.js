@@ -68,7 +68,7 @@
 		];
 
 		
-		var myLatlng = new google.maps.LatLng(36.5068, -4.8825);
+		var myLatlng = new google.maps.LatLng(45.4739927, 9.19480569999996);
 
 
 	  // Create a new StyledMapType object, passing it the array of styles,
@@ -126,6 +126,3 @@
 			  'callback=initialize';
 		  document.body.appendChild(script);
 		  
-		  google.maps.event.trigger(map, 'resize');
-
-	

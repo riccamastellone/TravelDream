@@ -4,24 +4,104 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<ui:composition template="template.xhtml">
+<ui:composition template="../template.xhtml">
+
+
+	<ui:define name="head_add">
+		<h:outputStylesheet library="store" name="css/fullscreen.css" />
+		<h:outputStylesheet library="store" name="rs-plugin/css/settings.css" />
+		<h:outputStylesheet library="store" name="assets/css/jquery-ui.css" />
+
+	</ui:define>
+
 
 	<ui:define name="content">
-		<div class="jumbotron">
-			<h1>Contatta TravelDreal</h1>
-			<p>Non esitare a contattarci per qualunque dubbio, suggerimento o richiesta.<br />
-			Puoi venirci a trovare presso il nostro ufficio in Via Turati 7 a Milano (MI), telefonicamente
-			al +39 02 5694332 oppure via email all'indirizzo info@traveldream.it</p>
-			<p>
-				<a class="btn btn-primary btn-lg" role="button" href="mailto:riccardo.mastellone@mail.polimi.it">Scrivici</a>
-			</p>
+
+
+		<ui:include src="header.xhtml" />
+
+		<div id="dajy" class="mtslide sliderbg fixed cstyle11">
+			<div id="map-canvas2"></div>
 		</div>
-		<script>
-		$(function() {
-			$('.active').removeClass('active');
-				$('.nav li:nth-child(3)').addClass('active');
-			});
-		</script>
+
+
+
+
+		<!-- WRAP -->
+		<div class="wrap cstyle03">
+
+			<div class="container mt-200 z-index100">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="bs-example bs-example-tabs cstyle04">
+							<h:form action="#">
+								<div class="tab-content">
+
+									<div class="col-md-4">
+
+										<span class="opensans size24 slim">Contact</span> <input
+											type="text" placeholder="Name"
+											class="form-control logpadding margtop10" /> <input
+											type="text" placeholder="Phone"
+											class="form-control logpadding margtop20" /> <input
+											type="text" placeholder="E-mail"
+											class="form-control logpadding margtop20" />
+									</div>
+									<div class="col-md-4">
+										<textarea rows="9" class="form-control margtop10"></textarea>
+									</div>
+									<div class="col-md-4 opensans grey">
+										Address:<br /> <span class="dark"> Stephen J. Jessen<br />
+											2 Queen Anne Street<br /> London, W1G 9LQ<br />
+										</span> <br /> Phone<br />
+										<p class="opensans size30 green xslim">1-866-599-6674</p>
+										Email<br /> <a href="mailto:office@company.com"
+											class="orange">office@company.com</a>
+									</div>
+								</div>
+
+								<div class="searchbg3">
+									<button type="submit" class="btn-search right mr20">Send
+										Email</button>
+
+								</div>
+							</h:form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="lastminutecontact lcfix">
+				<div class="container lmc">
+					<h:graphicImage library="store" name="#{frontendBean.getStarsImage(4)}" alt="" /><br /> LAST MINUTE: <b>Barcelona</b>
+					- 2 nights - Flight+4* Hotel, Dep 27h Aug from $209/person<br />
+					<form action="details.html">
+						<button class="btn iosbtn" type="submit">Select</button>
+					</form>
+				</div>
+			</div>
+
+			<ui:include src="footer.xhtml" />
+
+		</div>
+		<script>$(function() {$('.active').removeClass('active');$('.nav li:nth-child(6)').addClass('active');});</script>
+		<h:outputScript library="store" name="assets/js/js-index.js" />
+		
+		<h:outputScript library="store" name="assets/js/functions.js" />
+		<h:outputScript library="store" name="assets/js/jquery-ui.js" />
+		<h:outputScript library="store" name="assets/js/jquery.easing.js" />
+		<h:outputScript library="store" name="assets/js/jquery.nicescroll.min.js" />
+		<h:outputScript library="store" name="assets/js/helper-plugins/jquery.touchSwipe.min.js" />
+		<h:outputScript library="store" name="assets/js/jquery.carouFredSel-6.2.1-packed.js" />
+		<h:outputScript library="store" name="assets/js/helper-plugins/jquery.mousewheel.min.js" />
+		<h:outputScript library="store" name="assets/js/helper-plugins/jquery.transit.min.js" />
+		<h:outputScript library="store" name="assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js" />
+		<h:outputScript library="store" name="assets/js/initialize-google-map-contact.js" />
+		<h:outputScript library="store" name="assets/js/jquery.customSelect.js" />
+		
 	</ui:define>
 
 </ui:composition>

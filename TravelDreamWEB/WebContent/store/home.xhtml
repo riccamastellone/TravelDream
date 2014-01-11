@@ -8,17 +8,17 @@
 
 
 	<ui:define name="head_add">
-	<h:outputStylesheet library="store" name="css/fullscreen.css" />
-	<h:outputStylesheet library="store" name="rs-plugin/css/settings.css" />
-	<h:outputStylesheet library="store" name="assets/css/jquery-ui.css" />
-	
+		<h:outputStylesheet library="store" name="css/fullscreen.css" />
+		<h:outputStylesheet library="store" name="rs-plugin/css/settings.css" />
+		<h:outputStylesheet library="store" name="assets/css/jquery-ui.css" />
+
 	</ui:define>
-	
+
 
 	<ui:define name="content">
 
-		
-	<ui:include src="header.xhtml" />
+
+		<ui:include src="header.xhtml" />
 
 		<div id="dajy" class="fullscreen-container mtslide sliderbg fixed">
 			<div class="fullscreenbanner">
@@ -26,50 +26,47 @@
 
 					<!-- FADE -->
 					<li data-transition="fade" data-slotamount="1"
-						data-masterspeed="300"><h:graphicImage library="store" name="images/slider/mykonos.jpg"
-						alt="" />
+						data-masterspeed="300"><h:graphicImage library="store"
+							name="images/slider/mykonos.jpg" alt="" />
 						<div class="tp-caption scrolleffect sft" data-x="center"
 							data-y="120" data-speed="1000" data-start="800"
 							data-easing="easeOutExpo">
 							<div class="sboxpurple textcenter">
-								<span class="lato size28 slim caps white">Greece</span><br />
-								<br />
+								<span class="lato size28 slim caps white">Greece</span><br /> <br />
 								<br /> <span class="lato size100 slim caps white">Mykonos</span><br />
-								<span class="lato size20 normal caps white">from</span><br />
-								<br /> <span class="lato size48 slim uppercase yellow">€790</span><br />
+								<span class="lato size20 normal caps white">from</span><br /> <br />
+								<span class="lato size48 slim uppercase yellow">€790</span><br />
 							</div>
 						</div></li>
 
 					<!-- FADE -->
 					<li data-transition="fade" data-slotamount="1"
-						data-masterspeed="300"><h:graphicImage library="store" name="images/slider/shanghai.jpg"
-						alt="" />
+						data-masterspeed="300"><h:graphicImage library="store"
+							name="images/slider/shanghai.jpg" alt="" />
 						<div class="tp-caption scrolleffect sft" data-x="center"
 							data-y="120" data-speed="1000" data-start="800"
 							data-easing="easeOutExpo">
 							<div class="sboxpurple textcenter">
-								<span class="lato size28 slim caps white">China</span><br />
-								<br />
+								<span class="lato size28 slim caps white">China</span><br /> <br />
 								<br /> <span class="lato size100 slim caps white">Shanghai</span><br />
-								<span class="lato size20 normal caps white">from</span><br />
-								<br /> <span class="lato size48 slim uppercase yellow">€1420</span><br />
+								<span class="lato size20 normal caps white">from</span><br /> <br />
+								<span class="lato size48 slim uppercase yellow">€1420</span><br />
 							</div>
 						</div></li>
 
 					<!-- FADE -->
 					<li data-transition="fade" data-slotamount="1"
-						data-masterspeed="300"><h:graphicImage library="store" name="images/slider/firenze.jpg"
-						alt="" />
+						data-masterspeed="300"><h:graphicImage library="store"
+							name="images/slider/firenze.jpg" alt="" />
 						<div class="tp-caption scrolleffect sft" data-x="center"
 							data-y="120" data-speed="1000" data-start="800"
 							data-easing="easeOutExpo">
 							<div class="sboxpurple textcenter">
 
-								<span class="lato size28 slim caps white">Italy</span><br />
-								<br />
+								<span class="lato size28 slim caps white">Italy</span><br /> <br />
 								<br /> <span class="lato size100 slim caps white">Florence</span><br />
-								<span class="lato size20 normal caps white">from</span><br />
-								<br /> <span class="lato size48 slim uppercase yellow">€490</span><br />
+								<span class="lato size20 normal caps white">from</span><br /> <br />
+								<span class="lato size48 slim uppercase yellow">€490</span><br />
 							</div>
 						</div></li>
 
@@ -155,13 +152,13 @@
 						<div class="bs-example bs-example-tabs cstyle04">
 
 							<ul class="nav nav-tabs" id="myTab">
-							<li onclick="mySelectUpdate()" class="active"><a
+								<li onclick="mySelectUpdate()" class="active"><a
 									data-toggle="tab" href="#vacations"><span class="suitcase"></span>&nbsp;Package</a></li>
-								<li onclick="mySelectUpdate()"><a
-									data-toggle="tab" href="#air"><span class="flight"></span>&nbsp;Flight</a></li>
+								<li onclick="mySelectUpdate()"><a data-toggle="tab"
+									href="#air"><span class="flight"></span>&nbsp;Flight</a></li>
 								<li onclick="mySelectUpdate()" class=""><a
 									data-toggle="tab" href="#hotel"><span class="hotel"></span>&nbsp;Hotel</a></li>
-								
+
 							</ul>
 
 							<div class="tab-content" id="myTabContent">
@@ -222,7 +219,7 @@
 										<div class="w50percentlast">
 											<div class="wh90percent textleft right">
 												<span class="opensans size13"><b>Child</b></span> <select
-													class="form-control mySelectBoxClass" >
+													class="form-control mySelectBoxClass">
 													<option>0</option>
 													<option selected="selected">1</option>
 													<option>2</option>
@@ -239,30 +236,30 @@
 
 								<div id="hotel" class="tab-pane fade">
 
-									<span class="opensans size18">Where do you want to go?</span> <input
-										type="text" class="form-control" placeholder="Greece" />
+									<span class="opensans size18">Where do you want to go?</span>
+									<input type="text" class="form-control" placeholder="Greece" />
 
-										<br />
+									<br />
 
-										<div class="w50percent">
-											<div class="wh90percent textleft">
-												<span class="opensans size13"><b>Check in date</b></span> <input
-													type="text" class="form-control mySelectCalendar"
-													id="datepicker" placeholder="mm/dd/yyyy" />
-											</div>
+									<div class="w50percent">
+										<div class="wh90percent textleft">
+											<span class="opensans size13"><b>Check in date</b></span> <input
+												type="text" class="form-control mySelectCalendar"
+												id="datepicker" placeholder="mm/dd/yyyy" />
 										</div>
+									</div>
 
-										<div class="w50percentlast">
-											<div class="wh90percent textleft right">
-												<span class="opensans size13"><b>Check in date</b></span> <input
-													type="text" class="form-control mySelectCalendar"
-													id="datepicker2" placeholder="mm/dd/yyyy" />
-											</div>
+									<div class="w50percentlast">
+										<div class="wh90percent textleft right">
+											<span class="opensans size13"><b>Check in date</b></span> <input
+												type="text" class="form-control mySelectCalendar"
+												id="datepicker2" placeholder="mm/dd/yyyy" />
 										</div>
+									</div>
 
-										<div class="clearfix"></div>
+									<div class="clearfix"></div>
 
-										<div class="room1 margtop15">
+									<div class="room1 margtop15">
 										<div class="w50percent">
 											<div class="wh90percent textleft">
 												<span class="opensans size13"><b>Adult</b></span> <select
@@ -279,7 +276,7 @@
 										<div class="w50percentlast">
 											<div class="wh90percent textleft right">
 												<span class="opensans size13"><b>Child</b></span> <select
-													class="form-control mySelectBoxClass" >
+													class="form-control mySelectBoxClass">
 													<option>0</option>
 													<option selected="selected">1</option>
 													<option>2</option>
@@ -294,7 +291,7 @@
 								</div>
 								<!--End of 2nd tab -->
 
-								
+
 
 								<div id="vacations" class="tab-pane fade">
 
@@ -352,7 +349,7 @@
 										<div class="w50percentlast">
 											<div class="wh90percent textleft right">
 												<span class="opensans size13"><b>Child</b></span> <select
-													class="form-control mySelectBoxClass" >
+													class="form-control mySelectBoxClass">
 													<option>0</option>
 													<option selected="selected">1</option>
 													<option>2</option>
@@ -365,7 +362,7 @@
 									</div>
 
 
-									
+
 
 								</div>
 								<!--End of 4th tab -->
@@ -384,12 +381,13 @@
 							<div class="fwi one">
 								<h:graphicImage library="store" name="images/rome.jpg" alt="" />
 								<div class="mhover none">
-									<span class="icon"><a href="list2.html"><h:graphicImage library="store" name="images/spacer.png" alt="" /></a></span>
+									<span class="icon"><a href="list2.html"><h:graphicImage
+												library="store" name="images/spacer.png" alt="" /></a></span>
 								</div>
 							</div>
 							<div class="ctitle">
-								Rome<a href="list2.html"><h:graphicImage library="store" name="images/spacer.png" alt="" /></a>
-								<span>€59.99</span>
+								Rome<a href="list2.html"><h:graphicImage library="store"
+										name="images/spacer.png" alt="" /></a> <span>€59.99</span>
 							</div>
 						</div>
 					</div>
@@ -398,12 +396,13 @@
 							<div class="fwi one">
 								<h:graphicImage library="store" name="images/surfer.jpg" alt="" />
 								<div class="mhover none">
-									<span class="icon"><a href="list2.html"><h:graphicImage library="store" name="images/spacer.png" alt="" /></a></span>
+									<span class="icon"><a href="list2.html"><h:graphicImage
+												library="store" name="images/spacer.png" alt="" /></a></span>
 								</div>
 							</div>
 							<div class="ctitle">
-								Cote d'azur<a href="list2.html"><h:graphicImage library="store" name="images/spacer.png"
-									alt="" /></a> <span>€59.99</span>
+								Cote d'azur<a href="list2.html"><h:graphicImage
+										library="store" name="images/spacer.png" alt="" /></a> <span>€59.99</span>
 							</div>
 						</div>
 					</div>
@@ -413,10 +412,11 @@
 
 			<div class="lastminute">
 				<div class="container lmc">
-					<h:graphicImage library="store" name="images/rating-4.png" alt="" /><br /> LAST MINUTE: <b>Barcelona</b>
-					- 2 nights - Flight+4* Hotel, Dep 27h Aug from €209/person<br />
+					<h:graphicImage library="store" name="images/rating-4.png" alt="" />
+					<br /> LAST MINUTE: <b>Barcelona</b> - 2 nights - Flight+4* Hotel,
+					Dep 27h Aug from €209/person<br />
 					<form action="details.html">
-						<button class="btn iosbtn" type="submit">Read more</button>
+						<button class="btn iosbtn" type="submit">SELECT</button>
 					</form>
 				</div>
 			</div>
@@ -426,7 +426,8 @@
 
 				<div class="row anim2">
 					<div class="col-md-3">
-						<h2>Last Minute<br />Deals
+						<h2>
+							Last Minute<br />Deals
 						</h2>
 						<br /> Start your search with a look at the best rates on our
 						site.
@@ -438,42 +439,48 @@
 						<div class="wrapper">
 							<div class="list_carousel">
 								<ul id="foo">
-									<li><a href="list4.html"><h:graphicImage library="store" name="images/thumb-hawaii.jpg" alt="" /></a>
+									<li><a href="list4.html"><h:graphicImage
+												library="store" name="images/thumb-hawaii.jpg" alt="" /></a>
 										<div class="m1">
 											<h6 class="lh1 dark">
 												<b>Visit the Hawaii Beaches</b>
 											</h6>
 											<h6 class="lh1 green">Starting from 560€/person</h6>
 										</div></li>
-									<li><a href="list4.html"><h:graphicImage library="store" name="images/thumb-santorini.jpg" alt="" /></a>
+									<li><a href="list4.html"><h:graphicImage
+												library="store" name="images/thumb-santorini.jpg" alt="" /></a>
 										<div class="m1">
 											<h6 class="lh1 dark">
 												<b>Santorini - Greece</b>
 											</h6>
 											<h6 class="lh1 green">Starting from 560€/person</h6>
 										</div></li>
-									<li><a href="list4.html"><h:graphicImage library="store" name="images/thumb-dubai.jpg" alt="" /></a>
+									<li><a href="list4.html"><h:graphicImage
+												library="store" name="images/thumb-dubai.jpg" alt="" /></a>
 										<div class="m1">
 											<h6 class="lh1 dark">
 												<b>Dubai</b>
 											</h6>
 											<h6 class="lh1 green">Starting from 560€/person</h6>
 										</div></li>
-									<li><a href="list4.html"><h:graphicImage library="store" name="images/thumb-hawaii.jpg" alt="" /></a>
+									<li><a href="list4.html"><h:graphicImage
+												library="store" name="images/thumb-hawaii.jpg" alt="" /></a>
 										<div class="m1">
 											<h6 class="lh1 dark">
 												<b>Visit the Hawaii Beaches</b>
 											</h6>
 											<h6 class="lh1 green">Starting from 560€/person</h6>
 										</div></li>
-									<li><a href="list4.html"><h:graphicImage library="store" name="images/thumb-santorini.jpg" alt="" /></a>
+									<li><a href="list4.html"><h:graphicImage
+												library="store" name="images/thumb-santorini.jpg" alt="" /></a>
 										<div class="m1">
 											<h6 class="lh1 dark">
 												<b>Santorini - Greece</b>
 											</h6>
 											<h6 class="lh1 green">Starting from 560€/person</h6>
 										</div></li>
-									<li><a href="list4.html"><h:graphicImage library="store" name="images/thumb-dubai.jpg" alt="" /></a>
+									<li><a href="list4.html"><h:graphicImage
+												library="store" name="images/thumb-dubai.jpg" alt="" /></a>
 										<div class="m1">
 											<h6 class="lh1 dark">
 												<b>Dubai</b>
@@ -482,8 +489,10 @@
 										</div></li>
 								</ul>
 								<div class="clearfix"></div>
-								<a id="prev_btn" class="prev" href="#"><h:graphicImage library="store" name="images/spacer.png" alt="" /></a> <a id="next_btn" class="next"
-									href="#"><h:graphicImage library="store" name="images/spacer.png" alt="" /></a>
+								<a id="prev_btn" class="prev" href="#"><h:graphicImage
+										library="store" name="images/spacer.png" alt="" /></a> <a
+									id="next_btn" class="next" href="#"><h:graphicImage
+										library="store" name="images/spacer.png" alt="" /></a>
 							</div>
 						</div>
 
@@ -493,70 +502,78 @@
 
 				<hr class="featurette-divider2" />
 
-					<div class="row anim3">
-						<div class="col-md-3">
-							<h2>
-								Featured<br />Offers
-							</h2>
-							<br /> Start your search with a look at the best rates on our
-							site.
-						</div>
-						<div class="col-md-9">
+				<div class="row anim3">
+					<div class="col-md-3">
+						<h2>
+							Featured<br />Offers
+						</h2>
+						<br /> Start your search with a look at the best rates on our
+						site.
+					</div>
+					<div class="col-md-9">
 
-							<!-- Carousel -->
-							<div class="wrapper">
-								<div class="list_carousel">
-									<ul id="foo2">
-										<li><a href="list4.html"><h:graphicImage library="store" name="images/thumb-africa.jpg" alt="" /></a>
-											<div class="m1">
-												<h6 class="lh1 dark">
-													<b>South Africa Adventures</b>
-												</h6>
-												<h6 class="lh1 green">Starting from 560€/person</h6>
-											</div></li>
-										<li><a href="list4.html"><h:graphicImage library="store" name="images/thumb-egipt.jpg" alt="" /></a>
-											<div class="m1">
-												<h6 class="lh1 dark">
-													<b>Egipt</b>
-												</h6>
-												<h6 class="lh1 green">Starting from 560€/person</h6>
-											</div></li>
-										<li><a href="list4.html"><h:graphicImage library="store" name="images/thumb-machupicchu.jpg" alt="" /></a>
-											<div class="m1">
-												<h6 class="lh1 dark">
-													<b>Machu Picchu</b>
-												</h6>
-												<h6 class="lh1 green">Starting from 560€/person</h6>
-											</div></li>
-										<li><a href="list4.html"><h:graphicImage library="store" name="images/thumb-africa.jpg" alt="" /></a>
-											<div class="m1">
-												<h6 class="lh1 dark">
-													<b>South Africa Adventures</b>
-												</h6>
-												<h6 class="lh1 green">Starting from 560€/person</h6>
-											</div></li>
-										<li><a href="list4.html"><h:graphicImage library="store" name="images/thumb-egipt.jpg" alt="" /></a>
-											<div class="m1">
-												<h6 class="lh1 dark">
-													<b>Egipt</b>
-												</h6>
-												<h6 class="lh1 green">Starting from 560€/person</h6>
-											</div></li>
-										<li><a href="list4.html"><h:graphicImage library="store" name="images/thumb-machupicchu.jpg" alt="" /></a>
-											<div class="m1">
-												<h6 class="lh1 dark">
-													<b>Machu Picchu</b>
-												</h6>
-												<h6 class="lh1 green">Starting from 560€/person</h6>
-											</div></li>
-									</ul>
-									<div class="clearfix"></div>
-									<a id="prev_btn2" class="prev" href="#"><h:graphicImage library="store" name="images/spacer.png" alt="" /></a> <a id="next_btn2"
-										class="next" href="#"><h:graphicImage library="store" name="images/spacer.png" alt="" /></a>
-								</div>
+						<!-- Carousel -->
+						<div class="wrapper">
+							<div class="list_carousel">
+								<ul id="foo2">
+									<li><a href="list4.html"><h:graphicImage
+												library="store" name="images/thumb-africa.jpg" alt="" /></a>
+										<div class="m1">
+											<h6 class="lh1 dark">
+												<b>South Africa Adventures</b>
+											</h6>
+											<h6 class="lh1 green">Starting from 560€/person</h6>
+										</div></li>
+									<li><a href="list4.html"><h:graphicImage
+												library="store" name="images/thumb-egipt.jpg" alt="" /></a>
+										<div class="m1">
+											<h6 class="lh1 dark">
+												<b>Egipt</b>
+											</h6>
+											<h6 class="lh1 green">Starting from 560€/person</h6>
+										</div></li>
+									<li><a href="list4.html"><h:graphicImage
+												library="store" name="images/thumb-machupicchu.jpg" alt="" /></a>
+										<div class="m1">
+											<h6 class="lh1 dark">
+												<b>Machu Picchu</b>
+											</h6>
+											<h6 class="lh1 green">Starting from 560€/person</h6>
+										</div></li>
+									<li><a href="list4.html"><h:graphicImage
+												library="store" name="images/thumb-africa.jpg" alt="" /></a>
+										<div class="m1">
+											<h6 class="lh1 dark">
+												<b>South Africa Adventures</b>
+											</h6>
+											<h6 class="lh1 green">Starting from 560€/person</h6>
+										</div></li>
+									<li><a href="list4.html"><h:graphicImage
+												library="store" name="images/thumb-egipt.jpg" alt="" /></a>
+										<div class="m1">
+											<h6 class="lh1 dark">
+												<b>Egipt</b>
+											</h6>
+											<h6 class="lh1 green">Starting from 560€/person</h6>
+										</div></li>
+									<li><a href="list4.html"><h:graphicImage
+												library="store" name="images/thumb-machupicchu.jpg" alt="" /></a>
+										<div class="m1">
+											<h6 class="lh1 dark">
+												<b>Machu Picchu</b>
+											</h6>
+											<h6 class="lh1 green">Starting from 560€/person</h6>
+										</div></li>
+								</ul>
+								<div class="clearfix"></div>
+								<a id="prev_btn2" class="prev" href="#"><h:graphicImage
+										library="store" name="images/spacer.png" alt="" /></a> <a
+									id="next_btn2" class="next" href="#"><h:graphicImage
+										library="store" name="images/spacer.png" alt="" /></a>
 							</div>
 						</div>
 					</div>
+				</div>
 			</div>
 			<!-- END OF WRAP -->
 
@@ -573,19 +590,27 @@
 
 
 		<h:outputScript library="store" name="assets/js/js-index.js" />
-		
+
 		<h:outputScript library="store" name="assets/js/functions.js" />
 		<h:outputScript library="store" name="assets/js/jquery-ui.js" />
 		<h:outputScript library="store" name="assets/js/jquery.easing.js" />
-		<h:outputScript library="store" name="rs-plugin/js/jquery.themepunch.revolution.min.js" />
-		<h:outputScript library="store" name="assets/js/jquery.nicescroll.min.js" />
-		<h:outputScript library="store" name="assets/js/jquery.carouFredSel-6.2.1-packed.js" />
-		<h:outputScript library="store" name="assets/js/helper-plugins/jquery.touchSwipe.min.js" />
-		<h:outputScript library="store" name="assets/js/helper-plugins/jquery.mousewheel.min.js" />
-		<h:outputScript library="store" name="assets/js/helper-plugins/jquery.transit.min.js" />
-		<h:outputScript library="store" name="assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js" />
-		<h:outputScript library="store" name="assets/js/jquery.customSelect.js" />
-		
+		<h:outputScript library="store"
+			name="rs-plugin/js/jquery.themepunch.revolution.min.js" />
+		<h:outputScript library="store"
+			name="assets/js/jquery.nicescroll.min.js" />
+		<h:outputScript library="store"
+			name="assets/js/jquery.carouFredSel-6.2.1-packed.js" />
+		<h:outputScript library="store"
+			name="assets/js/helper-plugins/jquery.touchSwipe.min.js" />
+		<h:outputScript library="store"
+			name="assets/js/helper-plugins/jquery.mousewheel.min.js" />
+		<h:outputScript library="store"
+			name="assets/js/helper-plugins/jquery.transit.min.js" />
+		<h:outputScript library="store"
+			name="assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js" />
+		<h:outputScript library="store"
+			name="assets/js/jquery.customSelect.js" />
+
 	</ui:define>
 
 </ui:composition>

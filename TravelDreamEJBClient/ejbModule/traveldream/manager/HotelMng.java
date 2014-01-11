@@ -17,5 +17,7 @@ public interface HotelMng {
 	public void deleteHotel(HotelDTO hotel);
 
 	public HotelDTO aggiungiHotelAPacchetto(HotelDTO hotel) throws ParseException;
+	
+	public ArrayList<String> getCitta();
 
 }

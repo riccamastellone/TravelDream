@@ -11,11 +11,8 @@ import traveldream.dtos.HotelDTO;
 
 @NamedQueries({ 
 	@NamedQuery(name = Hotel.FIND_ALL, query = "SELECT h FROM Hotel h WHERE h.eliminato != 1"),
-	
 	@NamedQuery(name="Hotel.selectMax", query="SELECT h FROM Hotel h Where h.id = (SELECT max(h.id) FROM Hotel h)"),
-	
-	@NamedQuery(name="Hotel.getVoloById", query="SELECT h FROM Hotel h Where h.id = :id"),
-	
+	@NamedQuery(name="Hotel.getVoloById", query="SELECT h FROM Hotel h Where h.id = :id")
 })
 
 public class Hotel implements Serializable {

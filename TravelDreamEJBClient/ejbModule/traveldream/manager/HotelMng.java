@@ -18,6 +18,5 @@ public interface HotelMng {
 
 	public HotelDTO aggiungiHotelAPacchetto(HotelDTO hotel) throws ParseException;
 	
-	public ArrayList<String> getCitta();
 
 }

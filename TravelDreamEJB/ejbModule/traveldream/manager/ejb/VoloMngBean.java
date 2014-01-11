@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import model.Hotel;
 import model.Pacchetto;
 import model.Volo;
 import traveldream.dtos.VoloDTO;
@@ -108,6 +109,32 @@ public class VoloMngBean implements VoloMng {
 		List<Volo> voli = em.createNamedQuery("Volo.selectMax", Volo.class)
 				.getResultList();
 		return voli.get(0);
+	}
+
+	public ArrayList<String> getCittaArrivo() {
+		List<Volo> myList;
+		ArrayList<String> volo = new ArrayList<String>();
+		myList = em.createNamedQuery("Volo.findAll", Volo.class)
+				.getResultList();
+		for (Volo h : myList) {
+			if (!volo.contains("\"" + h.getCittaArrivo() + "\"")) {
+				volo.add("\"" + h.getCittaArrivo() + "\"");
+			}
+		}
+		return volo;
+	}
+
+	public ArrayList<String> getCittaPartenza() {
+		List<Volo> myList;
+		ArrayList<String> volo = new ArrayList<String>();
+		myList = em.createNamedQuery("Volo.findAll", Volo.class)
+				.getResultList();
+		for (Volo h : myList) {
+			if (!volo.contains("\"" + h.getCittaPartenza() + "\"")) {
+				volo.add("\"" + h.getCittaPartenza() + "\"");
+			}
+		}
+		return volo;
 	}
 
 }

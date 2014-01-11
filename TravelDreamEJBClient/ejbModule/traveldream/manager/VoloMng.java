@@ -42,5 +42,8 @@ public interface VoloMng {
 	 */
 	public VoloDTO aggiungiVoloAPacchetto(VoloDTO volo) throws ParseException;
 	
+	public ArrayList<String> getCittaArrivo();
+	public ArrayList<String> getCittaPartenza(); 
+	
 
 }

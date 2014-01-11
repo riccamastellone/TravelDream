@@ -10,7 +10,7 @@
 	<ui:define name="head_add">
 		<h:outputStylesheet library="store" name="css/fullscreen.css" />
 		<h:outputStylesheet library="store" name="rs-plugin/css/settings.css" />
-		<h:outputStylesheet library="store" name="assets/css/jquery-ui.css" />
+		<h:outputStylesheet library="admin" name="css/jquery-ui.css" />
 
 	</ui:define>
 
@@ -82,6 +82,16 @@
 			tpj.noConflict();
 
 			tpj(document).ready(function() {
+				  
+				
+				tpj( "input[name=depCity]" ).autocomplete({
+				    source: #{frontendBean.depCities}
+				   });
+				
+				tpj( "input[name=arrCity]" ).autocomplete({
+				    source: #{frontendBean.arrCities}
+				   });
+				
 
 				if (tpj.fn.cssOriginal != undefined)
 					tpj.fn.css = tpj.fn.cssOriginal;
@@ -162,13 +172,87 @@
 							</ul>
 
 							<div class="tab-content" id="myTabContent">
-								<div id="air" class="tab-pane fade active in">
+							
+							<!--  TAB PACCHETTI -->
+								<div id="vacations" class="tab-pane fade active in">
 
 									<div class="w50percent">
 										<div class="wh90percent textleft">
 											<span class="opensans size13"><b>Flying from</b></span> <input
 												type="text" class="form-control"
-												placeholder="City or airport" />
+												placeholder="City or airport" name="depCity"/>
+										</div>
+									</div>
+									
+
+									<div class="w50percentlast">
+										<div class="wh90percent textleft right">
+											<span class="opensans size13"><b>To</b></span> <input
+												type="text" class="form-control"
+												placeholder="City or airport" name="arrCity"/>
+										</div>
+									</div>
+
+									<div class="clearfix"></div>
+									<br />
+
+									<div class="w50percent">
+										<div class="wh90percent textleft">
+											<span class="opensans size13"><b>Check in date</b></span> <input
+												type="text" class="form-control mySelectCalendar"
+												id="datepicker7" placeholder="mm/dd/yyyy" />
+										</div>
+									</div>
+
+									<div class="w50percentlast">
+										<div class="wh90percent textleft right">
+											<span class="opensans size13"><b>Check in date</b></span> <input
+												type="text" class="form-control mySelectCalendar"
+												id="datepicker8" placeholder="mm/dd/yyyy" />
+										</div>
+									</div>
+
+									<div class="clearfix"></div>
+
+									<div class="room1 margtop15">
+										<div class="w50percent">
+											<div class="wh90percent textleft">
+												<span class="opensans size13"><b>Adult</b></span> <select
+													class="form-control mySelectBoxClass">
+													<option>1</option>
+													<option selected="selected">2</option>
+													<option>3</option>
+													<option>4</option>
+													<option>5</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="w50percentlast">
+											<div class="wh90percent textleft right">
+												<span class="opensans size13"><b>Child</b></span> <select
+													class="form-control mySelectBoxClass">
+													<option>0</option>
+													<option selected="selected">1</option>
+													<option>2</option>
+													<option>3</option>
+													<option>4</option>
+													<option>5</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--End PACCEHTTI -->
+								
+								<!--  TAB VOLI -->
+								<div id="air" class="tab-pane fade">
+
+									<div class="w50percent">
+										<div class="wh90percent textleft">
+											<span class="opensans size13"><b>Flying from</b></span> <input
+												type="text" class="form-control"
+												placeholder="City or airport" name="depCity"/>
 										</div>
 									</div>
 
@@ -176,7 +260,7 @@
 										<div class="wh90percent textleft right">
 											<span class="opensans size13"><b>To</b></span> <input
 												type="text" class="form-control"
-												placeholder="City or airport" />
+												placeholder="City or airport" name="arrCity"/>
 										</div>
 									</div>
 
@@ -233,11 +317,13 @@
 
 								</div>
 								<!--End of 1st tab -->
-
+								
+								<!-- TAB HOTEL -->
 								<div id="hotel" class="tab-pane fade">
 
 									<span class="opensans size18">Where do you want to go?</span>
-									<input type="text" class="form-control" placeholder="Greece" />
+									<input type="text" class="form-control" placeholder="Greece"/>
+									
 
 									<br />
 
@@ -292,80 +378,7 @@
 								<!--End of 2nd tab -->
 
 
-
-								<div id="vacations" class="tab-pane fade">
-
-									<div class="w50percent">
-										<div class="wh90percent textleft">
-											<span class="opensans size13"><b>Flying from</b></span> <input
-												type="text" class="form-control"
-												placeholder="City or airport" />
-										</div>
-									</div>
-
-									<div class="w50percentlast">
-										<div class="wh90percent textleft right">
-											<span class="opensans size13"><b>To</b></span> <input
-												type="text" class="form-control"
-												placeholder="City or airport" />
-										</div>
-									</div>
-
-									<div class="clearfix"></div>
-									<br />
-
-									<div class="w50percent">
-										<div class="wh90percent textleft">
-											<span class="opensans size13"><b>Check in date</b></span> <input
-												type="text" class="form-control mySelectCalendar"
-												id="datepicker7" placeholder="mm/dd/yyyy" />
-										</div>
-									</div>
-
-									<div class="w50percentlast">
-										<div class="wh90percent textleft right">
-											<span class="opensans size13"><b>Check in date</b></span> <input
-												type="text" class="form-control mySelectCalendar"
-												id="datepicker8" placeholder="mm/dd/yyyy" />
-										</div>
-									</div>
-
-									<div class="clearfix"></div>
-
-									<div class="room1 margtop15">
-										<div class="w50percent">
-											<div class="wh90percent textleft">
-												<span class="opensans size13"><b>Adult</b></span> <select
-													class="form-control mySelectBoxClass">
-													<option>1</option>
-													<option selected="selected">2</option>
-													<option>3</option>
-													<option>4</option>
-													<option>5</option>
-												</select>
-											</div>
-										</div>
-
-										<div class="w50percentlast">
-											<div class="wh90percent textleft right">
-												<span class="opensans size13"><b>Child</b></span> <select
-													class="form-control mySelectBoxClass">
-													<option>0</option>
-													<option selected="selected">1</option>
-													<option>2</option>
-													<option>3</option>
-													<option>4</option>
-													<option>5</option>
-												</select>
-											</div>
-										</div>
-									</div>
-
-
-
-
-								</div>
-								<!--End of 4th tab -->
+								
 							</div>
 
 							<div class="searchbg">

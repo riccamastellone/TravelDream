@@ -118,15 +118,6 @@ public class HotelMngBean implements HotelMng{
 	}
 	
 	
-	public ArrayList<String> getCitta() {
-		List<Hotel> myList;
-		ArrayList<String> citta = new ArrayList<String>(); 
-		myList = em.createNamedQuery(Hotel.FIND_ALL, Hotel.class).getResultList();
-		for (Hotel h : myList)
-		    {
-			 citta.add(h.getLuogo());
-		    }
-		return citta;
-	}
+
 
 }

@@ -5,7 +5,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pf="http://xmlns.jcp.org/jsf/passthrough">
 
 <ui:composition template="../template.xhtml">
 
@@ -103,6 +104,12 @@
 										update=":form:displayAndata2,:form:displayRitorno2"
 										oncomplete="PF('andataDialog2').show();" />
 									</p:commandButton>
+									
+									<p:commandButton id="basic3" value="Add" type="button" styleClass="btn-danger">
+										<p:ajax listener="#{pacchettoBean.goToAddVoloNuovo(event,pacchetto)}"
+										update=":form:form2:addVoloNuovoForm"
+										oncomplete="PF('addVoloNuovo').show();" />
+									</p:commandButton>
 							</f:facet>
 						</p:cellEditor>
 								
@@ -116,7 +123,7 @@
 			</p:dataTable>
 
 
-			<p:dialog header="Voli" widgetVar="andataDialog" resizable="false">
+			<p:dialog header="Voli" widgetVar="andataDialog" resizable="false" >
 
 				<p:dataTable id="displayAndata" var="volo"
 					value="#{pacchettoBean.pacchettoDaVisualizzareDto.voliAndata}">
@@ -301,6 +308,70 @@
 
 
 			</p:dialog>
+			
+			<p:dialog header="Aggiungi Volo Nuovo" widgetVar="addVoloNuovo" resizable="false"  >
+			
+			
+			<h:form id="form2" >
+			<p:panel id="addVoloNuovoForm">
+			<div class="form-group">
+				<label>Citta Partenza:</label>
+				<h:inputText pf:placeholder="Inserisci la città di partenza"
+					class="form-control" placeholder="Inserisci la città di partenza"
+					value="#{pacchettoBean.volo.cittaPartenza}" />
+			</div>
+
+			<div class="form-group">
+				<label>Citta Arrivo:</label>
+				<h:inputText pf:placeholder="Inserisci la città di arrivo"
+					class="form-control" value="#{pacchettoBean.volo.cittaArrivo}" />
+			</div>
+
+			<div class="form-group">
+				<label>Nome Compagnia:</label>
+				<h:inputText pf:placeholder="Inserisci il nome della compagnia"
+					class="form-control" value="#{pacchettoBean.volo.nomeCompagnia}" />
+			</div>
+
+			<div class="form-group">
+				<label>Data partenza :</label> <br />
+				<p:calendar value="#{pacchettoBean.volo.partenza}"
+					pattern="MM/dd/yyyy HH:mm" />
+			</div>
+
+			<div class="form-group">
+				<label>Data arrivo:</label> <br />
+				<p:calendar value="#{pacchettoBean.volo.arrivo}"
+					pattern="MM/dd/yyyy HH:mm" />
+			</div>
+
+			<div class="form-group">
+				<label>Disponibilità:</label>
+				<h:inputText
+					pf:placeholder="Inserisci il numero di posti disponibili"
+					class="form-control" value="#{pacchettoBean.volo.disponibilita}" />
+			</div>
+
+			<div class="form-group">
+				<label>Costo:</label>
+				<h:inputText pf:placeholder="Inserisci il costo" class="form-control"
+					value="#{pacchettoBean.volo.costo}" />
+			</div>
+
+			<p:selectOneRadio value="#{pacchettoBean.tipoVolo}">
+				<f:selectItem itemValue="Andata" itemLabel="Andata" />
+				<f:selectItem itemValue="Ritorno" itemLabel="Ritorno" />
+			</p:selectOneRadio>
+
+			<p:commandButton value="Aggiungi" styleClass="btn btn-default"
+				action="#{pacchettoBean.addVoloNuovo()}" oncomplete="PF('addVoloNuovo').hide();"/>
+			
+		</p:panel>	
+		</h:form>
+		
+		</p:dialog>	
+			
+
 	
 		</h:form>
 	<script>

@@ -15,6 +15,8 @@ import javax.faces.event.AjaxBehaviorEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
+import com.sun.accessibility.internal.resources.accessibility;
+
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
@@ -431,11 +433,13 @@ public class PacchettoBean {
 		this.hotelDTO = new HotelDTO();
 		this.hotelSalvato = new ArrayList<HotelDTO>();
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
+		this.pacchetti = new ArrayList<PacchettoDTO>();
+		this.pacchettoDaVisualizzareDto = new PacchettoDTO();	
 	}
 	
 	public void mostraInfo(AjaxBehaviorEvent actionEvent, PacchettoDTO pacchetto) {
 		System.out.println("tasto premuto");
-		this.pacchettoDaVisualizzareDto = pacchetto;
+		this.pacchettoDaVisualizzareDto = pkgMng.getPacchettoAggiornato(pacchetto);
 		
 	}
 	
@@ -481,6 +485,22 @@ public class PacchettoBean {
 			this.pacchettoDaVisualizzareDto.getVoliRitorno().remove(volo);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
+	 }
+	 
+	 public void goToAddVoloNuovo(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
+		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.volo = new VoloDTO();
+		 System.out.println(this.volo.getNomeCompagnia());
+		 this.tipoVolo = "Andata";
+	 }
+	 
+	 public void addVoloNuovo() throws ParseException{
+		 System.out.println(this.volo.getNomeCompagnia());		
+		 this.volo = this.voloMng.aggiungiVoloAPacchetto(this.volo);	
+		 pkgMng.aggiungiVoloAPacchetto(this.pacchettoDaVisualizzareDto, this.volo, this.tipoVolo);
+		 this.volo = new VoloDTO();
+		 this.tipoVolo = "Andata";
+		 
 	 }
 
 	

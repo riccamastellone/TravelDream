@@ -169,6 +169,26 @@ public class PacchettoMngBean implements PacchettoMng {
 		System.out.println("aggiorno pacchetto");
 						
 	}
+
+	@Override
+	public void eliminaVoloDaPacchetto(PacchettoDTO pacchettoDTO, VoloDTO volo) {
+		// TODO Auto-generated method stub
+		Volo voloDaDisassociare= this.getVoloById(volo);
+		Pacchetto pacchetto = this.findPacchetto(pacchettoDTO.getId());
+		
+		for (VoloPacchetto voloPacchetto : pacchetto.getVoliPacchetto()) {
+			if (voloPacchetto.getVolo().equals(voloDaDisassociare)){
+				pacchetto.getVoliPacchetto().remove(voloPacchetto);
+				em.remove(voloPacchetto);
+				break;
+			}
+				
+		}
+		
+		em.merge(pacchetto);
+		System.out.println("aggiorno pacchetto");
+		
+	}
 	
  
 

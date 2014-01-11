@@ -455,7 +455,33 @@ public class PacchettoBean {
 		   FacesMessage msg = new FacesMessage("Pacchetto Aggiornato");  
 	       pkgMng.editInfoGenerali((PacchettoDTO) event.getObject());
 	       FacesContext.getCurrentInstance().addMessage(null, msg); 
-	    } 
+	    }
+	 
+	 public void eliminaVoloAndataDaPacchetto(AjaxBehaviorEvent action, VoloDTO volo){
+		 if (this.pacchettoDaVisualizzareDto.getVoliAndata().size() == 1){
+			 FacesMessage msg = new FacesMessage("Il pacchetto deve avere almeno un volo di andata");
+			 FacesContext.getCurrentInstance().addMessage(null, msg);
+		 }
+		 else {
+			FacesMessage msg = new FacesMessage("Associazione Eliminata");
+			pkgMng.eliminaVoloDaPacchetto(this.pacchettoDaVisualizzareDto, volo);
+			this.pacchettoDaVisualizzareDto.getVoliAndata().remove(volo);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	 }
+	 
+	 public void eliminaVoloRitornoDaPacchetto(AjaxBehaviorEvent action, VoloDTO volo){
+		 if (this.pacchettoDaVisualizzareDto.getVoliRitorno().size() == 1){
+			 FacesMessage msg = new FacesMessage("Il pacchetto deve avere almeno un volo di ritorno");
+			 FacesContext.getCurrentInstance().addMessage(null, msg);
+		 }
+		 else {
+			FacesMessage msg = new FacesMessage("Associazione Eliminata");
+			pkgMng.eliminaVoloDaPacchetto(this.pacchettoDaVisualizzareDto, volo);
+			this.pacchettoDaVisualizzareDto.getVoliRitorno().remove(volo);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	 }
 
 	
 

@@ -29,4 +29,6 @@ public interface PacchettoMng {
 	
 	public void editInfoGenerali(PacchettoDTO pacchetto);
 
+	public void eliminaVoloDaPacchetto(PacchettoDTO pacchettoDTO, VoloDTO volo);
+	
 }

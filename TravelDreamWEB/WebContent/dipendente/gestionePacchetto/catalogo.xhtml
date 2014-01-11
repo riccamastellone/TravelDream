@@ -203,7 +203,7 @@
 		
 			
 			<p:dialog header="Voli edit" widgetVar="andataDialog2" resizable="false">
-
+		
 				<p:dataTable id="displayAndata2" var="volo"
 					value="#{pacchettoBean.pacchettoDaVisualizzareDto.voliAndata}">
 					<f:facet name="header"> Andata </f:facet>
@@ -244,7 +244,7 @@
 					<p:column>
 						<h:commandLink id="eliminaAndata" value="Elimina"
 							class="btn btn-danger white"
-							action="#{pacchettoBean.eliminaVoloAndata(volo)}">
+							action="#{pacchettoBean.eliminaVoloAndataDaPacchetto(action,volo)}">
 							<f:ajax execute="eliminaAndata" render="displayAndata2" />
 						</h:commandLink>
 					</p:column>
@@ -291,7 +291,7 @@
 					<p:column>
 						<h:commandLink id="eliminaRitorno" value="Elimina"
 							class="btn btn-danger white"
-							action="#{pacchettoBean.eliminaVoloRitorno(volo_r)}">
+							action="#{pacchettoBean.eliminaVoloRitornoDaPacchetto(action, volo_r)}">
 							<f:ajax execute="eliminaRitorno" render="displayRitorno2" />
 						</h:commandLink>
 						

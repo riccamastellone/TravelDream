@@ -4,17 +4,66 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:head>
-	<title>TravelDream</title>
-</h:head>
-<h:body>
-	<h1>Accedi su TravelDream</h1>
-		<form method="post" action="j_security_check">
-			Username: <input type="text" name="j_username" />
-			Password: <input
-				type="password" name="j_password" /> 
-				<input type="submit" value="Login" />
-				<input type="reset" value="Reset" />
-		</form>
-</h:body>
+<ui:composition template="template.xhtml">
+
+	<ui:define name="content">
+		<!-- 100% Width & Height container  -->
+		<div class="login-fullwidith">
+
+			<!-- Login Wrap  -->
+			<div class="login-wrap">
+				<h:graphicImage library="store" name="images/logo.png"
+					class="login-img" alt="logo" />
+				<br />
+				<div class="login-c1">
+					<div class="cpadding50">
+						<input type="text" class="form-control logpadding"
+							placeholder="Username" /> <br /> <input type="text"
+							class="form-control logpadding" placeholder="Password" />
+					</div>
+				</div>
+				<div class="login-c2">
+					<div class="logmargfix">
+						<div class="chpadding50">
+							<div class="alignbottom">
+								<button class="btn-search4" type="submit"
+									onclick="errorMessage()">Entra</button>
+							</div>
+							<div class="alignbottom2">
+								<div class="checkbox">
+									<label> <input type="checkbox" />Ricordati
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="login-c3">
+					<div class="right">
+						<a href="#" class="whitelink">Non sei registrato?</a>
+					</div>
+				</div>
+			</div>
+			<!-- End of Login Wrap  -->
+
+		</div>
+		<!-- End of Container  -->
+
+		<h:outputScript library="store/assets/js"
+			name="initialize-loginpage.js" />
+		<h:outputScript library="store/assets/js" name="jquery.easing.js" />
+		<h:outputScript library="store/plugins/animo" name="animo.js" />
+		<script>
+			function errorMessage() {
+				$('.login-wrap').animo({
+					animation : 'tada'
+				});
+			}
+		</script>
+
+	</ui:define>
+
+</ui:composition>
+
 </html>
+

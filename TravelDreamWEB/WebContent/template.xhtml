@@ -1,28 +1,43 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-
 <h:head>
-	<title>TravelDream</title>
-	<h:outputStylesheet library="css" name="bootstrap.min.css" />
-	<h:outputStylesheet library="css" name="main.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Travel Dream Store</title>
+
+	<h:outputStylesheet library="dist/css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="store" name="assets/css/custom.css" />
+	<h:outputStylesheet library="store"
+		name="plugins/animo/animateanimo.css" />
+
+
+	<!--[if lt IE 9]>
+	  <script src="resources/store/assets/js/html5shiv.js"></script>
+	  <script src="resources/store/assets/js/respond.min.js"></script>
+	<![endif]-->
+
+
+	<link
+		href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic'
+		rel='stylesheet' type='text/css' />
+
+	<h:outputStylesheet library="store/assets/css" name="font-awesome.css" />
+
+	<h:outputScript library="store/assets/js" name="jquery.v2.0.3.js" />
+
+
+
+
 </h:head>
 <h:body>
-	<div id="content">
-		<ui:insert name="content">
-		</ui:insert>
-	</div>
-	<footer>
-	<p>
-		&copy; 2013<br />
-		<a href="mailto:riccardo.mastellone@mail.polimi.it">Riccardo
-			Mastellone</a> | <a href="mailto:seba0691@gmail.com">Sebastiano
-			Mariani</a> | <a href="mailto:sara.marchesini@gmail.com">Sara
-			Marchesini</a>
-	</p>
-	</footer>
 
+	<ui:insert name="content">
+	</ui:insert>
+
+	<h:outputScript library="dist/js" name="bootstrap.min.js" />
 </h:body>
 </html>

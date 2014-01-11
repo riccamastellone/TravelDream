@@ -1,9 +1,13 @@
-//------------------------------
-//Picker
-//------------------------------
 
 jQuery(function() {
+	// Picker per la data
 	jQuery( "#datepicker,#datepicker2,#datepicker3,#datepicker4,#datepicker5,#datepicker6,#datepicker7,#datepicker8" ).datepicker();
+	
+	// Submit form
+	jQuery('.btn-search').click(function(){
+		console.log(tpj("#myTabContent .active form").serialize());
+		return false;
+	})
 });
 
 

@@ -90,40 +90,6 @@ jQuery(document).ready(function(jQuery){
 });
 
 
-
-//------------------------------
-//Add rooms
-//------------------------------
-		function addroom2(){
-			jQuery('.room2').addClass('block');
-			jQuery('.room2').removeClass('none');
-			jQuery('.addroom1').removeClass('block');
-			jQuery('.addroom1').addClass('none');
-			
-		}
-		function removeroom2(){
-			jQuery('.room2').addClass('none');
-			jQuery('.room2').removeClass('block');
-			
-			jQuery('.addroom1').removeClass('none');
-			jQuery('.addroom1').addClass('block');
-		}
-		function addroom3(){
-			jQuery('.room3').addClass('block');
-			jQuery('.room3').removeClass('none');
-			
-			jQuery('.addroom2').removeClass('block');
-			jQuery('.addroom2').addClass('none');
-		}
-		function removeroom3(){
-			jQuery('.room3').addClass('none');
-			jQuery('.room3').removeClass('block');
-			
-			jQuery('.addroom2').removeClass('none');
-			jQuery('.addroom2').addClass('block');			
-		}
-	
-
 	
 	
 	

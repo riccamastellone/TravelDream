@@ -85,7 +85,6 @@ public class PacchettoBean {
 		this.hotelSalvato = new ArrayList<HotelDTO>();
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
 		this.pacchetti = new ArrayList<PacchettoDTO>();
-		//pkgMng.getAllPacchetti();
 		this.pacchettoDaVisualizzareDto = new PacchettoDTO();		
 				
 	}

@@ -14,7 +14,7 @@
 
 		<h:link outcome="aggiungiInfoGenerali"
 			class="btn btn-default pull-right" value="Aggiungi nuovo pacchetto" />
-		<br />
+		<br /><br />
 
 		<h:form id="form">
 		
@@ -65,11 +65,11 @@
 					<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{pacchetto.inizioValidita}" >
-										<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+										<f:convertDateTime type="date" pattern="MM:dd:yyy" />
 									</h:outputText>
 								</f:facet>
 								<f:facet name="input">
-									<p:calendar value="#{pacchetto.inizioValidita}" pattern="MM/dd/yyyy HH:mm" />
+									<p:calendar value="#{pacchetto.inizioValidita}" pattern="MM/dd/yyyy" />
 								</f:facet>
 					</p:cellEditor>							
 				</p:column>
@@ -78,11 +78,11 @@
 					<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{pacchetto.fineValidita}">
-											<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+											<f:convertDateTime type="date" pattern="MM:dd:yyy" />
 									</h:outputText>
 								</f:facet>
 								<f:facet name="input">
-									<p:calendar value="#{pacchetto.fineValidita}" pattern="MM/dd/yyyy HH:mm" />
+									<p:calendar value="#{pacchetto.fineValidita}" pattern="MM/dd/yyyy" />
 								</f:facet>
 					</p:cellEditor>	
 				</p:column>
@@ -550,25 +550,9 @@
             <h:outputText value="Costo Giornaliero:" />  
             <h:outputText value="#{pacchettoBean.pacchettoDaVisualizzareDto.hotel.costoGiornaliero}" style="font-weight:bold"/>
               
-             
-            
        		 </h:panelGrid>  
-			
-			
 			</p:dialog>
-			
-			
-		
-					
-	
 		</h:form>
-	
-	
-	
-	
-	
-	
-	
 	<script>
 			jQuery.noConflict();
 		</script>
@@ -576,7 +560,7 @@
 <script>
 			$(function() {
 				$('.active').removeClass('active');
-				$('.nav li:nth-child(2)').addClass('active');
+				$('.nav li:nth-child(4)').addClass('active');
 			});
 		</script>
 

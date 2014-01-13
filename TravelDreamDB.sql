@@ -83,6 +83,7 @@ CREATE TABLE `VoloPacchetto` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`volo`) REFERENCES `Volo` (`id`),
   FOREIGN KEY (`pacchetto`) REFERENCES `Pacchetto` (`id`)
+  ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

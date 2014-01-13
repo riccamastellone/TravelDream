@@ -39,7 +39,7 @@ $(document).ready(function($) {
 				j_password : $('input[name=j_password]').val()
 			},
 			success : function(data, textStatus, xhr) {
-				if(data=='<?xml version=\'1.0\' encoding=\'UTF-8\' ?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml">\nerror\n</html>') {
+				if(data=='<?xml version=\'1.0\' encoding=\'UTF-8\' ?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml">error</html>') {
 					errorMessage();
 				} else {
 					window.location = "store/";

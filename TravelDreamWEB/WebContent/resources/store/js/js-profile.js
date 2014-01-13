@@ -1,16 +1,15 @@
-//------------------------------
-//Picker
-//------------------------------
+// Datepicker
 jQuery(function() {
 	jQuery( "#datepicker,#datepicker2,#datepicker3,#datepicker4,#datepicker5,#datepicker6,#datepicker7,#datepicker8" ).datepicker();
 });
 
-//------------------------------
-//Load Animo
-//------------------------------
-	function errorMessage(){
-		$('.loginbox').animo( { animation: 'tada' } );
-	}
+// Selezione menu 
+jQuery(function() {
+	jQuery( "body" ).addClass("thebg");
+	$('.navbar .active').removeClass('active');
+	$('.nav li:nth-child(6)').addClass('active');
+});
+
 	
 //------------------------------
 //Custom Select

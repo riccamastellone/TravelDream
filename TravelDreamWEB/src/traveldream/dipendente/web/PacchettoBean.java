@@ -180,10 +180,11 @@ public class PacchettoBean {
 	}
 	
 	public List<PacchettoDTO> getPacchetti() {
-		if (this.pacchetti.isEmpty()){
-			this.pacchetti = pkgMng.getAllPacchetti();
+		if (this.pacchetti.isEmpty()) {
+			 this.pacchetti = pkgMng.getAllPacchetti();
 		}
-		return pacchetti;
+			return this.pacchetti;
+		
 	}
 
 	public void setPacchetti(List<PacchettoDTO> pacchetti) {
@@ -348,7 +349,7 @@ public class PacchettoBean {
 	 * @return
 	 */
 	public String aggiungiHotelesistenteAPacchetto(HotelDTO hotel){
-		//ricordarsi di aggiungere elimnato!!!!
+		
 	
 		this.hotelSalvato.clear();
 		this.hotelSalvato.add((HotelDTO) hotel.clone());
@@ -438,8 +439,19 @@ public class PacchettoBean {
 	
 	public void mostraInfo(AjaxBehaviorEvent actionEvent, PacchettoDTO pacchetto) {
 		System.out.println("tasto premuto");
-		this.pacchettoDaVisualizzareDto = pkgMng.getPacchettoAggiornato(pacchetto);
-		
+		//perche non va??
+		this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
+		System.out.println("ANDATA");
+		System.out.println(this.pacchettoDaVisualizzareDto.getHotel().getDescrizione());
+		/*
+		for (VoloDTO volo : this.pacchettoDaVisualizzareDto.getVoliAndata()) {
+			System.out.println(volo.getNomeCompagnia());
+		}
+		System.out.println("RITORNO");
+		for (VoloDTO volo : this.pacchettoDaVisualizzareDto.getVoliRitorno()) {
+			System.out.println(volo.getNomeCompagnia());
+		}
+		*/
 	}
 	
 	public List<PacchettoDTO> getAllPacchetti(){
@@ -493,17 +505,37 @@ public class PacchettoBean {
 		 this.tipoVolo = "Andata";
 	 }
 	 
+	 public void goToAddVoloEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
+		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.voli = voloMng.getVoli();
+	 }
+	 
+	
 	 public void addVoloNuovo() throws ParseException{
 		 System.out.println(this.volo.getNomeCompagnia());		
 		 this.volo = this.voloMng.aggiungiVoloAPacchetto(this.volo);	
 		 pkgMng.aggiungiVoloAPacchetto(this.pacchettoDaVisualizzareDto, this.volo, this.tipoVolo);
+		
 		 this.volo = new VoloDTO();
 		 this.tipoVolo = "Andata";
 		 
 	 }
+	 
+	 public void aggiungiVoloEsistenteAPacchettoEsistente(VoloDTO volo, int tipo) {
+			this.voli.remove(volo);
 
-	
+			if (tipo == 1) {				
+				//serve solamante per mostrare a schermo
+				this.pacchettoDaVisualizzareDto.getVoliAndata().add((VoloDTO) volo.clone());
+				pkgMng.aggiungiVoloAPacchetto(this.pacchettoDaVisualizzareDto, volo, "Andata");
 
-
+			} else {
+				//serve solamante per mostrare a schermo
+				this.pacchettoDaVisualizzareDto.getVoliRitorno().add((VoloDTO) volo.clone());
+				pkgMng.aggiungiVoloAPacchetto(this.pacchettoDaVisualizzareDto, volo, "Ritorno");
+			}
+			
+			
+		}
 
 }

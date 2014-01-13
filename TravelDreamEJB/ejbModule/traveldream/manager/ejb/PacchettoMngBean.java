@@ -193,10 +193,11 @@ public class PacchettoMngBean implements PacchettoMng {
 	@Override
 	public PacchettoDTO getPacchettoAggiornato(PacchettoDTO pacchetto) {
 		// TODO Auto-generated method stub
+		System.out.println("chiamato");
 		Pacchetto pacchettoAggiornato = this.findPacchetto(pacchetto.getId());
 		PacchettoDTO nuovoPacchetto = this.convertToDto(pacchettoAggiornato);
 		for (VoloPacchetto voloPacchetto : pacchettoAggiornato.getVoliPacchetto()) {
-			
+			System.out.println(pacchettoAggiornato.getVoliPacchetto().size());
 			if (voloPacchetto.getTipo().equals("Andata")){
 				nuovoPacchetto.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
 			}
@@ -206,7 +207,7 @@ public class PacchettoMngBean implements PacchettoMng {
 			
 			
 		}
-		
+		nuovoPacchetto.setHotel(HotelMngBean.HotelToDTO(pacchettoAggiornato.getHotel()));
 		return nuovoPacchetto;
 	}
 	

@@ -57,7 +57,7 @@ public class HotelMngBean implements HotelMng{
 		return myDTOlist;
 	}
 
-	private HotelDTO HotelToDTO(Hotel h) {
+	public static HotelDTO HotelToDTO(Hotel h) {
 		HotelDTO hdto = new HotelDTO();
 		hdto.setCostoGiornaliero(h.getCostoGiornaliero());
 		hdto.setLuogo(h.getLuogo());

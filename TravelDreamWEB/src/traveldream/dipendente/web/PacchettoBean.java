@@ -537,5 +537,21 @@ public class PacchettoBean {
 			
 			
 		}
+	 
+	 public void goToAddHotelNuovo(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
+		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.hotelDTO = new HotelDTO();
+		
+	 }
+	 
+	 public void aggiungiNuovoHotelAPacchettoEsistente() throws ParseException{
+		 //ricordarsi di aggiungere elimnato!!!!
+		 System.out.println(" aggiungiNuovoHotelAPacchettoEsistente");
+		 //HotelDTO hotelDaSalvare = this.hotelMng.aggiungiHotelAPacchetto(this.hotelDTO);
+		 //this.pkgMng.aggiungiHotelAPacchetto(pacchetto, hotelDaSalvare);
+		 //this.hotelDTO = new HotelDTO();
+		 
+		}
+		
 
 }

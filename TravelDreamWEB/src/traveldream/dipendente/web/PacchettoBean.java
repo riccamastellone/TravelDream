@@ -547,9 +547,9 @@ public class PacchettoBean {
 	 public void aggiungiNuovoHotelAPacchettoEsistente() throws ParseException{
 		 //ricordarsi di aggiungere elimnato!!!!
 		 System.out.println(" aggiungiNuovoHotelAPacchettoEsistente");
-		 //HotelDTO hotelDaSalvare = this.hotelMng.aggiungiHotelAPacchetto(this.hotelDTO);
-		 //this.pkgMng.aggiungiHotelAPacchetto(pacchetto, hotelDaSalvare);
-		 //this.hotelDTO = new HotelDTO();
+		 HotelDTO hotelDaSalvare = this.hotelMng.aggiungiHotelAPacchetto(this.hotelDTO);
+		 this.pkgMng.aggiungiHotelAPacchetto(pacchetto, hotelDaSalvare);
+		 this.hotelDTO = new HotelDTO();
 		 
 		}
 		

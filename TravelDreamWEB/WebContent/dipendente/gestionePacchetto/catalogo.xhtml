@@ -135,7 +135,7 @@
 							<f:facet name="input">								
 									<p:commandButton id="basicEditHotelNuovo" value="Add Nuovo" type="button" styleClass="btn white">
 										<p:ajax listener="#{pacchettoBean.goToAddHotelNuovo(event,pacchetto)}"
-										update=":form:addHotelForm:addHotelNuovoForm"
+										update=":form:form4:addHotelNuovoForm"
 										oncomplete="PF('editHotelNuovoDialog').show();" />
 									</p:commandButton>
 									
@@ -218,7 +218,7 @@
 		
 		<p:dialog header="Cambia Hotel Nuovo" widgetVar="editHotelNuovoDialog" resizable="false" >
 			 
-				<h:form id="addHotelForm" >
+				<h:form id="form4" >
 			
 					<p:panel id="addHotelNuovoForm">
 					
@@ -271,7 +271,7 @@
 
 			<p:commandButton value="Aggiungi" styleClass="btn btn-default"
 				action="#{pacchettoBean.aggiungiNuovoHotelAPacchettoEsistente()}" oncomplete="PF('editHotelNuovoDialog').hide();"
-				/>
+				process="@this,form4"/>
 					
 			</p:panel>
 					

@@ -2285,7 +2285,8 @@ position:absolute;
 .cpadding50{padding:20px;}
 .chpadding50{padding:0 20px;}
 
-
+.register .login-c1 {height:auto !important}
+.register .login-c2{height:470px!important;}
 @media (min-width:400px){
 
 	.login-wrap{width:372px;height:380px;}
@@ -2296,13 +2297,14 @@ position:absolute;
 	.login-c1{	height:195px!important;	}
 	.login-c2{height:231px!important;}
 	.login-c3{ margin-top:281px!important; }
+	.register .login-c2{height:530px!important;}
 	.alignbottom{right:50px!important;}
 	.alignbottom2{left:50px!important;}
 	
 }
 
 img.login-img{margin-left:5px; margin-bottom:5px; width:110px;}
-
+.ui-inputfield {box-shadow:none !important;padding: 6px 0px 6px 12px !important;}
 .login-c1{
 width:94%;
 height:147px;

@@ -10,11 +10,19 @@ $(document).ready(function($) {
 			'width' : $gfwidth + 'px',
 			'height' : $gfheight + 'px'
 		});
-
-		$('.login-wrap').css({
-			'margin-left' : $gfwidth / 2 - $loginw / 2 + 'px',
-			'margin-top' : $gfheight / 2 - $loginh / 2 + 'px'
-		});
+		
+		if($('.register').size()>0) {
+			$('.login-wrap').css({
+				'margin-left' : $gfwidth / 2 - $loginw / 2 + 'px',
+				'margin-top' : '10px'
+			});
+		} else {
+			$('.login-wrap').css({
+				'margin-left' : $gfwidth / 2 - $loginw / 2 + 'px',
+				'margin-top' : $gfheight / 2 - $loginh / 2 + 'px'
+			});
+		}
+		
 
 	}
 	onBgresize();

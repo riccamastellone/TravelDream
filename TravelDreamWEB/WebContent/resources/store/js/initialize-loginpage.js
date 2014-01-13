@@ -14,7 +14,7 @@ $(document).ready(function($) {
 		if($('.register').size()>0) {
 			$('.login-wrap').css({
 				'margin-left' : $gfwidth / 2 - $loginw / 2 + 'px',
-				'margin-top' : '10px'
+				'margin-top' : $gfheight / 2 - ($('.login-c2').height()+120) / 2 + 'px'
 			});
 		} else {
 			$('.login-wrap').css({

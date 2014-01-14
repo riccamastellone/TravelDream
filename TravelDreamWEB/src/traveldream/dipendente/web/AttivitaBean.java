@@ -1,25 +1,23 @@
 package traveldream.dipendente.web;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
-import org.primefaces.event.FileUploadEvent;
 
 import com.sun.el.parser.ParseException;
 
 import traveldream.dtos.AttivitaSecondariaDTO;
-import traveldream.dtos.HotelDTO;
-import traveldream.dtos.VoloDTO;
 import traveldream.manager.AttivitaMng;;
 
 @ManagedBean(name = "attivitaBean")
 @SessionScoped
-public class AttivitaBean {
+public class AttivitaBean implements Serializable {
+
+	private static final long serialVersionUID = -259217230585957009L;
 
 	@EJB
 	private AttivitaMng attivitaMng;

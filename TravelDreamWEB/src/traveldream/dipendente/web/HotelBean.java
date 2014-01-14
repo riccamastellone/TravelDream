@@ -2,33 +2,31 @@
 package traveldream.dipendente.web;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import com.sun.el.parser.ParseException;
 
 import traveldream.dtos.HotelDTO;
-import traveldream.dtos.VoloDTO;
 import traveldream.manager.HotelMng;
 
 @ManagedBean(name = "hotelBean")
 @SessionScoped
-public class HotelBean {
+public class HotelBean implements Serializable{
+
+	private static final long serialVersionUID = -3072123322577207286L;
 
 	@EJB
 	private HotelMng hotelMng;

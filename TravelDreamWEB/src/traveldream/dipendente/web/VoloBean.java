@@ -1,6 +1,7 @@
 package traveldream.dipendente.web;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.text.ParseException;
 
 import javax.ejb.EJB;
@@ -16,7 +17,9 @@ import traveldream.manager.VoloMng;
 
 @ManagedBean(name = "voloBean")
 @SessionScoped
-public class VoloBean {
+public class VoloBean implements Serializable {
+
+	private static final long serialVersionUID = -8696840750297110996L;
 
 	@EJB
 	private VoloMng voloMng;

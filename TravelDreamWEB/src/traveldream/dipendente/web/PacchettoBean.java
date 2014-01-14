@@ -1,5 +1,6 @@
 package traveldream.dipendente.web;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +10,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.primefaces.event.RowEditEvent;
-import org.primefaces.expression.impl.ThisExpressionResolver;
-
-import com.sun.accessibility.internal.resources.accessibility;
 
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
@@ -26,7 +23,9 @@ import traveldream.manager.VoloMng;
 
 @ManagedBean(name = "pacchettoBean")
 @SessionScoped
-public class PacchettoBean {
+public class PacchettoBean implements Serializable {
+
+	private static final long serialVersionUID = 1592347875820256991L;
 
 	@EJB
 	private PacchettoMng pkgMng;

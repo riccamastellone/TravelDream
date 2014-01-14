@@ -147,6 +147,11 @@ public class PacchettoMngBean implements PacchettoMng {
 		return pacchettiDto;
 	}
 	
+	/**
+	 * Dovrà accettare come parametro il numero di persone per cui deve controllare per ogni pacchetto
+	 * se c'è un hotel, un volo andata e un volo ritorno con quella disponibilita
+	 * @return
+	 */
 	public List<PacchettoDTO> getPacchettiVendibili() {
 		List<Pacchetto> pacchetti = em.createNamedQuery("Pacchetto.findAll", Pacchetto.class).getResultList();
 		//@TODO da fare

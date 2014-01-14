@@ -89,6 +89,7 @@ public class PacchettoBean {
 				
 	}
 
+
 	public PacchettoDTO getPacchetto() {
 		return pacchetto;
 	}

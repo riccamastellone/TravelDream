@@ -386,6 +386,33 @@
 
 						</div>
 					</div>
+
+					<ui:repeat var="pacchetti1" value="#{pacchettoBean.pacchetti}"
+						size="2">
+						<div class="col-md-4">
+							<div class="shadow cstyle05">
+								<div class="fwi one">
+								<h:graphicImage value="/up/#{pacchetti1.immagine}"/>
+									<div class="mhover none">
+										<span class="icon">
+											<a href="javascript:alert('seba culo')">
+												<h:graphicImage library="store" name="images/spacer.png" alt="" />
+											</a>
+										</span>
+									</div>
+								</div>
+								<div class="ctitle">
+									#{pacchetti1.nome}
+									<a href="#">
+											<h:graphicImage library="store" name="images/spacer.png" alt="" />
+										</a>
+										<span>#{frontendBean.getTotalePacchetto(pacchetti1)} €</span>
+								</div>
+							</div>
+						</div>
+					</ui:repeat>
+<!--  
+
 					<div class="col-md-4">
 						<div class="shadow cstyle05">
 							<div class="fwi one">
@@ -415,7 +442,7 @@
 										library="store" name="images/spacer.png" alt="" /></a> <span>€59.99</span>
 							</div>
 						</div>
-					</div>
+					</div>-->
 				</div>
 			</div>
 

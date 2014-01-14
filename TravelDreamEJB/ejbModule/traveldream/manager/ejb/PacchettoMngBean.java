@@ -144,7 +144,7 @@ public class PacchettoMngBean implements PacchettoMng {
 				//pacchettiDTO.get
 			}
 			
-			
+			pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
 			pacchettiDto.add(pacchettoDTO);
 		}
 		

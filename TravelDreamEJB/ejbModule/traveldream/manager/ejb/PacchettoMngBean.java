@@ -204,8 +204,6 @@ public class PacchettoMngBean implements PacchettoMng {
 			else {
 				nuovoPacchetto.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
 			}
-			
-			
 		}
 		nuovoPacchetto.setHotel(HotelMngBean.HotelToDTO(pacchettoAggiornato.getHotel()));
 		return nuovoPacchetto;

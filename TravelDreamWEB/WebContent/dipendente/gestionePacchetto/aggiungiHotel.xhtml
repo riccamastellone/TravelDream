@@ -10,66 +10,73 @@
 <ui:composition template="../template.xhtml">
 
 	<ui:define name="content">
-		<div>
-			<h:form>
-				<h:commandButton value="Aggiungi Nuovo Hotel" class="btn btn-default"
+		<div style="text-align: right; margin-bottom: 10px">
+			<h:form style="display:inline-block">
+				<h:commandButton value="Aggiungi Nuovo Hotel"
+					class="btn btn-default"
 					action="#{pacchettoBean.goToAggiungiNuovoHotel()}" />
 			</h:form>
-			
-			<h:form>
-				<h:commandButton value="Aggiungi Hotel Esistente" class="btn btn-default"
+
+			<h:form style="display:inline-block">
+				<h:commandButton value="Aggiungi Hotel Esistente"
+					class="btn btn-default"
 					action="#{pacchettoBean.goToAggiungiHotelEsistente()}" />
 			</h:form>
-			
+
 		</div>
 
 		<div>
 			<h:form>
 
-			<p:dataTable id="dataTable" var="hotel" value="#{pacchettoBean.hotelSalvato}">
-				<f:facet name="header">  
+				<p:dataTable id="dataTable" var="hotel"
+					value="#{pacchettoBean.hotelSalvato}">
+					<f:facet name="header">  
             Hotel Scelto 
         </f:facet>
 
-				<p:column sortBy="nome" headerText="Nome" filterBy="#{hotel.nome}" >
-					<h:outputText value="#{hotel.nome}" />
-				</p:column>
+					<p:column sortBy="nome" headerText="Nome" filterBy="#{hotel.nome}">
+						<h:outputText value="#{hotel.nome}" />
+					</p:column>
 
-				<p:column sortBy="stelle" headerText="Stelle">
-					<h:outputText value="#{hotel.stelle}" />
-				</p:column>
+					<p:column sortBy="stelle" headerText="Stelle">
+						<h:outputText value="#{hotel.stelle}" />
+					</p:column>
 
-				<p:column sortBy="costoGiornaliero" headerText="Costo giornaliero">
-					<h:outputText value="#{hotel.costoGiornaliero} €" />
-				</p:column>
+					<p:column sortBy="costoGiornaliero" headerText="Costo giornaliero">
+						<h:outputText value="#{hotel.costoGiornaliero} €" />
+					</p:column>
 
-				<p:column sortBy="luogo" headerText="Luogo">
-					<h:outputText value="#{hotel.luogo}" />
-				</p:column>
+					<p:column sortBy="luogo" headerText="Luogo">
+						<h:outputText value="#{hotel.luogo}" />
+					</p:column>
 
-				<p:column sortBy="disponibilita" headerText="Posti disponibili">
-					<h:outputText value="#{hotel.disponibilita}" />
-				</p:column>
+					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{hotel.disponibilita}" />
+					</p:column>
 
-				<p:column>
-					<h:commandLink id="elimina" value="Elimina"
+					<p:column>
+						<h:commandLink id="elimina" value="Elimina"
 							class="btn btn-danger white"
 							action="#{pacchettoBean.eliminaHotel(volo)}">
 							<f:ajax execute="elimina" render="dataTable" />
-					</h:commandLink>	
-				</p:column>
-				
+						</h:commandLink>
+					</p:column>
 
-			</p:dataTable>
 
-		</h:form>
-		<h:form>
-			<h:commandButton value="Avanti" class="btn btn-default"
-					action="#{pacchettoBean.aggiungiPacchetto()}" />
-		</h:form>
+				</p:dataTable>
+
+			</h:form>
+			<div style="text-align: right; margin-top:10px;">
+				<h:link outcome="aggiungiVoli" class="btn btn-default"
+					value="Indietro" />
+				<h:form style="display:inline">
+					<h:commandButton value="Avanti" class="btn btn-primary"
+						action="#{pacchettoBean.aggiungiPacchetto()}" />
+				</h:form>
+			</div>
 		</div>
 		<script>
-		jQuery.noConflict();
+			jQuery.noConflict();
 			$(function() {
 				$('.active').removeClass('active');
 				$('.nav li:nth-child(4)').addClass('active');

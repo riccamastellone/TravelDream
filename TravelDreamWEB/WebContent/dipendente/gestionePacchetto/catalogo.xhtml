@@ -34,7 +34,7 @@
 									<h:outputText value="#{pacchetto.nome}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{pacchetto.nome}" style="width:100%" />
+									<p:inputText value="#{pacchetto.nome}" />
 								</f:facet>
 						</p:cellEditor>						
 				</p:column>
@@ -45,7 +45,7 @@
 									<h:outputText value="#{pacchetto.localita}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{pacchetto.localita}" style="width:100%" />
+									<p:inputText value="#{pacchetto.localita}" />
 								</f:facet>
 					</p:cellEditor>	
 				</p:column>
@@ -56,7 +56,7 @@
 									<h:outputText value="#{pacchetto.descrizione}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{pacchetto.descrizione}" style="width:100%" />
+									<h:inputTextarea value="#{pacchetto.descrizione}" />
 								</f:facet>
 					</p:cellEditor>	
 				</p:column>
@@ -91,7 +91,7 @@
 					
 						<p:cellEditor>	
 							<f:facet name="output">
-									<p:commandButton id="basic" value="Voli" type="button" styleClass="btn white">
+									<p:commandButton id="basic" value="Voli" type="button" styleClass="btn">
 										<p:ajax listener="#{pacchettoBean.mostraInfo(event,pacchetto)}"
 										update=":form:displayAndata,:form:displayRitorno"
 										oncomplete="PF('andataDialog').show();" />
@@ -99,19 +99,19 @@
 									
 								</f:facet>
 							<f:facet name="input">								
-									<p:commandButton id="basic2" value="Edit" type="button" styleClass="btn-danger">
+									<p:commandButton id="basic2" value="Modifica" type="button" styleClass="btn-danger">
 										<p:ajax listener="#{pacchettoBean.mostraInfo(event,pacchetto)}"
 										update=":form:displayAndata2,:form:displayRitorno2"
 										oncomplete="PF('andataDialog2').show();" />
 									</p:commandButton>
 									
-									<p:commandButton id="basic3" value="Add" type="button" styleClass="btn-danger">
+									<p:commandButton id="basic3" value="Aggiungi" type="button" styleClass="btn-danger">
 										<p:ajax listener="#{pacchettoBean.goToAddVoloNuovo(event,pacchetto)}"
 										update=":form:form2:addVoloNuovoForm"
 										oncomplete="PF('addVoloNuovo').show();" />
 									</p:commandButton>
 									
-									<p:commandButton id="basic4" value="Add esi" type="button" styleClass="btn-danger">
+									<p:commandButton id="basic4" value="Aggiungi Esistente" type="button" styleClass="btn-danger">
 										<p:ajax listener="#{pacchettoBean.goToAddVoloEsistente(event,pacchetto)}"
 										update=":form:form3:dataTableAddVoloEsistente"
 										oncomplete="PF('addVoloEsistente').show();" />
@@ -125,7 +125,7 @@
 					
 						<p:cellEditor>	
 							<f:facet name="output">
-									<p:commandButton id="basicHotel" value="Hotel" type="button" styleClass="btn white">
+									<p:commandButton id="basicHotel" value="Hotel" type="button" styleClass="btn">
 										<p:ajax listener="#{pacchettoBean.mostraInfo(event,pacchetto)}"
 										update=":form:displayHotel"
 										oncomplete="PF('hotelDialog').show();" />

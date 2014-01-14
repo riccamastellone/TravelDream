@@ -33,6 +33,7 @@ public class HotelBean {
 
 	public String aggiungiHotel() throws ParseException {
 		hotelMng.salvaHotel(hotel);
+		this.hotel = new HotelDTO();
 		refreshHotels();
 		return "catalogo?faces-redirect=true";
 
@@ -77,6 +78,11 @@ public class HotelBean {
 
 	public void setHotel(HotelDTO hotel) {
 		this.hotel = hotel;
+	}
+	
+	public void deleteHotel(HotelDTO hotel){
+		this.hotelMng.deleteHotel(hotel);
+		this.allHotel.remove(hotel);
 	}
 	
 

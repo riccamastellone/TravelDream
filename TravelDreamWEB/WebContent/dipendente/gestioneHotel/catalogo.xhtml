@@ -53,8 +53,8 @@
 							<span class="glyphicon glyphicon-pencil"></span>
 						</h:commandLink>
 						<h:commandLink id="canc" class="btn btn-default btn-danger"
-							onclick="return confirm('Confermi di voler eliminare questo volo?');"
-							action="#{voloBean.deleteVolo(volo)}">
+							onclick="return confirm('Confermi di voler eliminare questo hotel?');"
+							action="#{hotelBean.deleteHotel(hotel)}">
 							<span class="glyphicon glyphicon-trash white"></span>
 							<f:ajax execute="canc" render="dataTable" />
 						</h:commandLink>

@@ -9,13 +9,13 @@ import traveldream.dtos.HotelDTO;
 @Entity
 @Table(name = "Hotel")
 @NamedQueries({ 
-	@NamedQuery(name = Hotel.FIND_ALL, query = "SELECT h FROM Hotel h"),
+	@NamedQuery(name = Hotel.FIND_ALL, query = "SELECT h FROM Hotel h WHERE h.eliminato != 1"),
 	
 	@NamedQuery(name="Hotel.selectMax", query="SELECT h FROM Hotel h Where h.id = (SELECT max(h.id) FROM Hotel h)"),
 	
 	@NamedQuery(name="Hotel.getVoloById", query="SELECT h FROM Hotel h Where h.id = :id"),
 	
-	@NamedQuery(name="Hotel.getHotelCompatibiliPacchetto", query="SELECT h FROM Hotel h Where h.luogo = :luogo"),
+	@NamedQuery(name="Hotel.getHotelCompatibiliPacchetto", query="SELECT h FROM Hotel h Where h.luogo = :luogo AND h.eliminato != 1"),
 	
 })
 public class Hotel implements Serializable {
@@ -40,6 +40,8 @@ public class Hotel implements Serializable {
 	private String descrizione;
 
 	private int stelle;
+	
+	private int eliminato;
 
 	public Hotel() {
 		super();
@@ -118,6 +120,14 @@ public class Hotel implements Serializable {
 
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
+	}
+
+	public int getEliminato() {
+		return eliminato;
+	}
+
+	public void setEliminato(int eliminato) {
+		this.eliminato = eliminato;
 	}
 
 }

@@ -126,4 +126,15 @@ public class HotelMngBean implements HotelMng{
 		
 	}
 
+
+
+	@Override
+	public void deleteHotel(HotelDTO hotel) {
+		// TODO Auto-generated method stub
+		Hotel hotelDaCancellare = this.findHotel(hotel.getId());
+		hotelDaCancellare.setEliminato(1);
+		em.merge(hotelDaCancellare);	
+		
+	}
+
 }

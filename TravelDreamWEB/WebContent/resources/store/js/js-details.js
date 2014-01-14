@@ -1,33 +1,4 @@
-//------------------------------
-//Picker
-//------------------------------
-jQuery(function() {
-	jQuery( "#datepicker,#datepicker2,#datepicker3,#datepicker4,#datepicker5,#datepicker6,#datepicker7,#datepicker8" ).datepicker();
-});
 
-
-
-//------------------------------
-//Custom select
-//------------------------------
-jQuery(document).ready(function(){
-	jQuery('.mySelectBoxClass').customSelect();
-
-	/* -OR- set a custom class name for the stylable element */
-	//jQuery('.mySelectBoxClass').customSelect({customClass:'mySelectBoxClass'});
-});
-
-function mySelectUpdate(){
-	setTimeout(function (){
-		$('.mySelectBoxClass').trigger('update');
-	}, 200);
-}
-
-$(window).resize(function() {
-	mySelectUpdate();
-});
-		
-		
 		
 //------------------------------
 //Animations for this page
@@ -44,31 +15,6 @@ $(document).ready(function(){
 
 	$('.itemscontainer').css({'opacity':0});
 	$('.itemscontainer').animate({'opacity':1},{ duration: 1000, queue: false });			
-});
-
-
-//------------------------------
-//Counter
-//------------------------------
-jQuery(function($) {
-	$('.countprice').countTo({
-		from: 5,
-		to: 36,
-		speed: 1000,
-		refreshInterval: 50,
-		onComplete: function(value) {
-			console.debug(this);
-		}
-	});
-	$('.counthotel').countTo({
-		from: 1,
-		to: 53,
-		speed: 2000,
-		refreshInterval: 50,
-		onComplete: function(value) {
-			console.debug(this);
-		}
-	});			
 });
 
 

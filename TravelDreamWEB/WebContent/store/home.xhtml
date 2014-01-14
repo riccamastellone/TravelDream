@@ -391,20 +391,22 @@
 							<div class="shadow cstyle05">
 								<div class="fwi one">
 								
-								<p:graphicImage value="#{frontendBean.generateImage(pacchettoBean.pacchetti[0].immagine, 360,261)}"/>
+								<p:graphicImage value="#{frontendBean.generateImage(pacchettoBean.pacchetti[0].immagine, 720,522)}"/>
 									<div class="mhover none">
 										<span class="icon">
-											<a href="javascript:alert('seba culo')">
-												<h:graphicImage library="store" name="images/spacer.png" alt="" />
-											</a>
+										<h:link outcome="/store/details.xhtml">
+											<f:param name="id" value="#{pacchettoBean.pacchetti[0].id}" />
+											<h:graphicImage library="store" name="images/spacer.png" />
+										</h:link>
 										</span>
 									</div>
 								</div>
 								<div class="ctitle">
 									#{pacchettoBean.pacchetti[0].nome}
-									<a href="#">
-											<h:graphicImage library="store" name="images/spacer.png" alt="" />
-										</a>
+									<h:link outcome="/store/details.xhtml">
+											<f:param name="id" value="#{pacchettoBean.pacchetti[0].id}" />
+											<h:graphicImage library="store" name="images/spacer.png" />
+										</h:link>
 										<span>#{frontendBean.getTotalePacchetto(pacchettoBean.pacchetti[0])} €</span>
 								</div>
 							</div>
@@ -414,56 +416,27 @@
 							<div class="shadow cstyle05">
 								<div class="fwi one">
 								
-								<p:graphicImage value="#{frontendBean.generateImage(pacchettoBean.pacchetti[1].immagine, 360,261)}"/>
+								<p:graphicImage value="#{frontendBean.generateImage(pacchettoBean.pacchetti[1].immagine, 720,522)}"/>
 									<div class="mhover none">
 										<span class="icon">
-											<a href="javascript:alert('seba culo')">
-												<h:graphicImage library="store" name="images/spacer.png" alt="" />
-											</a>
+											<h:link outcome="/store/details.xhtml">
+											<f:param name="id" value="#{pacchettoBean.pacchetti[1].id}" />
+											<h:graphicImage library="store" name="images/spacer.png" />
+										</h:link>
 										</span>
 									</div>
 								</div>
 								<div class="ctitle">
 									#{pacchettoBean.pacchetti[1].nome}
-									<a href="#">
-											<h:graphicImage library="store" name="images/spacer.png" alt="" />
-										</a>
+									<h:link outcome="/store/details.xhtml">
+											<f:param name="id" value="#{pacchettoBean.pacchetti[1].id}" />
+											<h:graphicImage library="store" name="images/spacer.png" />
+										</h:link>
 										<span>#{frontendBean.getTotalePacchetto(pacchettoBean.pacchetti[1])} €</span>
 								</div>
 							</div>
 						</div>
-<!--  
 
-					<div class="col-md-4">
-						<div class="shadow cstyle05">
-							<div class="fwi one">
-								<h:graphicImage library="store" name="images/rome.jpg" alt="" />
-								<div class="mhover none">
-									<span class="icon"><a href="list2.html"><h:graphicImage
-												library="store" name="images/spacer.png" alt="" /></a></span>
-								</div>
-							</div>
-							<div class="ctitle">
-								Rome<a href="list2.html"><h:graphicImage library="store"
-										name="images/spacer.png" alt="" /></a> <span>€59.99</span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="shadow cstyle05">
-							<div class="fwi one">
-								<h:graphicImage library="store" name="images/surfer.jpg" alt="" />
-								<div class="mhover none">
-									<span class="icon"><a href="list2.html"><h:graphicImage
-												library="store" name="images/spacer.png" alt="" /></a></span>
-								</div>
-							</div>
-							<div class="ctitle">
-								Cote d'azur<a href="list2.html"><h:graphicImage
-										library="store" name="images/spacer.png" alt="" /></a> <span>€59.99</span>
-							</div>
-						</div>
-					</div>-->
 				</div>
 			</div>
 
@@ -498,9 +471,11 @@
 							<div class="list_carousel">
 								<ul id="foo">
 									<li>
-										<a href="#">
+										<h:link outcome="/store/details.xhtml">
+											<f:param name="id" value="#{pacchettoBean.pacchetti[2].id}" />
 										<p:graphicImage value="#{frontendBean.generateImage(pacchettoBean.pacchetti[2].immagine, 255, 179)}"/>
-										</a>
+										</h:link>
+										
 										<div class="m1">
 											<h6 class="lh1 dark">
 												<b>#{pacchettoBean.pacchetti[2].nome}</b>
@@ -509,9 +484,10 @@
 										</div>
 									</li>
 									<li>
-										<a href="#">
-											<p:graphicImage value="#{frontendBean.generateImage(pacchettoBean.pacchetti[3].immagine, 255, 179)}" />
-										</a>
+										<h:link outcome="/store/details.xhtml">
+											<f:param name="id" value="#{pacchettoBean.pacchetti[3].id}" />
+										<p:graphicImage value="#{frontendBean.generateImage(pacchettoBean.pacchetti[3].immagine, 255, 179)}"/>
+										</h:link>
 										<div class="m1">
 											<h6 class="lh1 dark">
 												<b>#{pacchettoBean.pacchetti[3].nome}</b>
@@ -520,9 +496,10 @@
 										</div>
 									</li>
 									<li>
-										<a href="#">
-											<p:graphicImage value="#{frontendBean.generateImage(pacchettoBean.pacchetti[4].immagine, 255, 179)}" />
-										</a>
+										<h:link outcome="/store/details.xhtml">
+											<f:param name="id" value="#{pacchettoBean.pacchetti[4].id}" />
+										<p:graphicImage value="#{frontendBean.generateImage(pacchettoBean.pacchetti[4].immagine, 255, 179)}"/>
+										</h:link>
 										<div class="m1">
 											<h6 class="lh1 dark">
 												<b>#{pacchettoBean.pacchetti[4].nome}</b>
@@ -531,14 +508,15 @@
 										</div>
 									</li>
 									<li>
-										<a href="#">
-											<p:graphicImage value="#{frontendBean.generateImage(pacchettoBean.pacchetti[4].immagine, 255, 179)}" />
-										</a>
+										<h:link outcome="/store/details.xhtml">
+											<f:param name="id" value="#{pacchettoBean.pacchetti[2].id}" />
+										<p:graphicImage value="#{frontendBean.generateImage(pacchettoBean.pacchetti[2].immagine, 255, 179)}"/>
+										</h:link>
 										<div class="m1">
 											<h6 class="lh1 dark">
-												<b>#{pacchettoBean.pacchetti[4].nome}</b>
+												<b>#{pacchettoBean.pacchetti[2].nome}</b>
 											</h6>
-											<h6 class="lh1 green">Starting from #{frontendBean.getTotalePacchetto(pacchettoBean.pacchetti[4])}€/person</h6>
+											<h6 class="lh1 green">Starting from #{frontendBean.getTotalePacchetto(pacchettoBean.pacchetti[2])}€/person</h6>
 										</div>
 									</li>
 								</ul>

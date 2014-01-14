@@ -40,6 +40,8 @@ public class FrontendBean implements Serializable {
 	@EJB
 	private VoloMng voloMng;
 	
+	
+	
 	private ArrayList<PacchettoDTO> lastMinute;
 
 	private ArrayList<PacchettoDTO> topDeals;
@@ -48,6 +50,10 @@ public class FrontendBean implements Serializable {
 	private ArrayList<String> depCities;
 
 	private ArrayList<String> arrCities;
+	
+	private int idPacchetto;
+	
+	private PacchettoDTO pacchetto;
 
 	public ArrayList<PacchettoDTO> getLastMinute() {
 		return lastMinute;
@@ -148,20 +154,28 @@ public class FrontendBean implements Serializable {
 	}
 
 	
-
+	/**
+	 * Generiamo in run time l'immagine della dimensione che ci serve
+	 * @param imgName
+	 * @param width
+	 * @param height
+	 * @return
+	 * @throws IOException
+	 */
 	public StreamedContent generateImage(String imgName, int width, int height) throws IOException {
 		File img = new File("/var/uploads/up/" + imgName);
 		System.out.println(img);
 		BufferedImage image = ImageIO.read(img);
 		int x = 0;
-		int y = 0;		
+		int y = 0;	
+		
 
 		if(image.getWidth() > image.getHeight()) {
-			image = Scalr.resize(image, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT,(int)(height*1.3));
+			image = Scalr.resize(image, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT,(int)(height*1.45));
 			x = (image.getWidth()-width)/2;
 			if(x<0) x=0;
 		} else {
-			image = Scalr.resize(image, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH,(int)(width*1.3));
+			image = Scalr.resize(image, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH,(int)(width*1.45));
 			y = (image.getHeight()-height)/2;
 			if(y<0) y=0;
 		}
@@ -171,5 +185,37 @@ public class FrontendBean implements Serializable {
         ImageIO.write(image, "jpg", os);
         return new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()), "image/png"); 
 	}
+
+	public int getIdPacchetto() {
+		return idPacchetto;
+	}
+	
+	/**
+	 * Quando Pretty Faces chiama questo metodo per settare l'id,
+	 * carichiamo anche il pacchetto corrispondente
+	 * @param idPacchetto
+	 */
+	public void setIdPacchetto(int idPacchetto) {
+		this.idPacchetto = idPacchetto;
+		pacchetto = pkgMng.findPacchettoDTO(this.idPacchetto);
+		
+	}
+
+	public PacchettoDTO getPacchetto() {
+		return pacchetto;
+	}
+
+	public void setPacchetto(PacchettoDTO pacchetto) {
+		this.pacchetto = pacchetto;
+	}
+	
+	/**
+	 * A volte è più carino avere qualche <br /> nel testo
+	 * @param s
+	 * @return
+	 */
+	public static String nl2br(String s) {
+		  return s.replaceAll("\n","<br/>");
+		}
 
 }

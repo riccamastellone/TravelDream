@@ -52,6 +52,10 @@ public class PacchettoMngBean implements PacchettoMng {
 	private Pacchetto findPacchetto(int id) {
 		return em.find(Pacchetto.class, id);
 	}
+	
+	public PacchettoDTO findPacchettoDTO(int id) {
+		return convertToDto(this.findPacchetto(id));
+	}
 
 	@Override
 	public PacchettoDTO salvaInfoGenerali(PacchettoDTO pacchetto) {

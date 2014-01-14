@@ -7,5 +7,10 @@
 		<pattern value="/login" />
 		<view-id value="/home.xhtml" />
 	</url-mapping>
+	
+	<url-mapping id="dettaglio">
+		<pattern value="/store/details/#{id : frontendBean.idPacchetto}" />
+		<view-id value="/store/details.xhtml" />
+	</url-mapping>
 
 </pretty-config>

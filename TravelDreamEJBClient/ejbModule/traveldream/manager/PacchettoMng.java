@@ -34,4 +34,6 @@ public interface PacchettoMng {
 	public PacchettoDTO getPacchettoAggiornato(PacchettoDTO pacchetto);
 	
 	public List<PacchettoDTO> getPacchettiVendibili();
+	
+	public PacchettoDTO findPacchettoDTO(int id);
 }

@@ -1,12 +1,21 @@
 package store.web;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.imageio.ImageIO;
+
+import org.imgscalr.Scalr;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
@@ -37,8 +46,6 @@ public class FrontendBean {
 
 	private ArrayList<String> arrCities;
 
-	private String test;
-
 	public ArrayList<PacchettoDTO> getLastMinute() {
 		return lastMinute;
 	}
@@ -59,13 +66,6 @@ public class FrontendBean {
 		return "images/rating-" + stars + ".png";
 	}
 
-	public String getTest() {
-		return test;
-	}
-
-	public void setTest(String test) {
-		this.test = test;
-	}
 
 	public ArrayList<String> getArrCities() {
 		if(arrCities == null) {
@@ -142,6 +142,31 @@ public class FrontendBean {
 
 		//return 12;
 		return totalePacchetto;
+	}
+
+	
+
+	public StreamedContent generateImage(String imgName, int width, int height) throws IOException {
+		File img = new File("/var/uploads/up/" + imgName);
+		System.out.println(img);
+		BufferedImage image = ImageIO.read(img);
+		int x = 0;
+		int y = 0;		
+
+		if(image.getWidth() > image.getHeight()) {
+			image = Scalr.resize(image, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT,(int)(height*1.3));
+			x = (image.getWidth()-width)/2;
+			if(x<0) x=0;
+		} else {
+			image = Scalr.resize(image, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH,(int)(width*1.3));
+			y = (image.getHeight()-height)/2;
+			if(y<0) y=0;
+		}
+		image = Scalr.crop(image, x, y, width, height);
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();  
+        ImageIO.write(image, "jpg", os);
+        return new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()), "image/png"); 
 	}
 
 }

@@ -55,5 +55,8 @@
   <welcome-file-list> 
     <welcome-file>home.xhtml</welcome-file>
   </welcome-file-list>
-
+<mime-mapping>
+        <extension>jpg</extension>
+        <mime-type>image/jpeg</mime-type>
+    </mime-mapping>
 </web-app>

@@ -1,7 +1,11 @@
 package traveldream.dipendente.web;
 
+import java.sql.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -9,13 +13,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.primefaces.event.RowEditEvent;
-import org.primefaces.expression.impl.ThisExpressionResolver;
-
-import com.sun.accessibility.internal.resources.accessibility;
 
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
@@ -85,7 +85,8 @@ public class PacchettoBean {
 		this.hotelSalvato = new ArrayList<HotelDTO>();
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
 		this.pacchetti = new ArrayList<PacchettoDTO>();
-		this.pacchettoDaVisualizzareDto = new PacchettoDTO();		
+		this.pacchettoDaVisualizzareDto = new PacchettoDTO();
+	
 				
 	}
 
@@ -180,10 +181,12 @@ public class PacchettoBean {
 	}
 	
 	public List<PacchettoDTO> getPacchetti() {
+		if (this.pacchetti.isEmpty()){
+			  this.pacchetti = pkgMng.getAllPacchetti();
+		}
 		
-			return  this.pacchetti = pkgMng.getAllPacchetti();
-		
-		
+		return this.pacchetti;
+			
 	}
 
 	public void setPacchetti(List<PacchettoDTO> pacchetti) {
@@ -208,7 +211,7 @@ public class PacchettoBean {
 		//this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
 		
 		//serve per precaricare la tabella di AggiungiVoloEsistente
-		this.voli = voloMng.getVoli();
+		this.voli = voloMng.getVoliDisponibili();
 		
 		return "aggiungiVoli?faces-redirect=true";
 	}
@@ -466,11 +469,10 @@ public class PacchettoBean {
 	       FacesContext.getCurrentInstance().addMessage(null, msg);  
 	    } 
 	
-	 public void onDelete(RowEditEvent event) {  
-		   FacesMessage msg = new FacesMessage("Pacchetto Eliminato");  
-	       pkgMng.deletePacchetto((PacchettoDTO) event.getObject());
-	       FacesContext.getCurrentInstance().addMessage(null, msg); 
-	    }
+	public void deletePacchetto(PacchettoDTO pacchetto){
+		pkgMng.deletePacchetto(pacchetto);
+		this.pacchetti.remove(pacchetto);
+	}
 	 
 	 public void eliminaVoloAndataDaPacchetto(AjaxBehaviorEvent action, VoloDTO volo){
 		 if (this.pacchettoDaVisualizzareDto.getVoliAndata().size() == 1){
@@ -507,7 +509,7 @@ public class PacchettoBean {
 	 
 	 public void goToAddVoloEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
 		 this.pacchettoDaVisualizzareDto = pacchetto;
-		 this.voli = voloMng.getVoli();
+		 this.voli = voloMng.getVoliDisponibili();
 	 }
 	 
 	

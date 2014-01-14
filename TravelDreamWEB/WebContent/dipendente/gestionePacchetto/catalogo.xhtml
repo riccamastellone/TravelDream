@@ -25,8 +25,7 @@
 				
 				<p:ajax event="rowEdit" listener="#{pacchettoBean.onEdit}"
 					update=":form:messages, :form:pacchettiTable" />
-				<p:ajax event="rowEditCancel" listener="#{pacchettoBean.onDelete}"
-					update=":form:messages" />
+				
 					
 				<p:column headerText="Nome" sortBy="nome">
 						<p:cellEditor>
@@ -153,8 +152,18 @@
 				</p:column>
 				
 				<p:column style="width:6%">
+					<h:commandLink id="canc" class="btn btn-default btn-danger"
+							onclick="return confirm('Confermi di voler eliminare questo pacchetto?');"
+							action="#{pacchettoBean.deletePacchetto(pacchetto)}">
+							<span class="glyphicon glyphicon-trash white"></span>
+							<f:ajax execute="canc" render="pacchettiTable" />
+						</h:commandLink>
+				</p:column>
+				
+				<p:column style="width:6%">
 					<p:rowEditor />
 				</p:column>
+				
 				
 			</p:dataTable>
 

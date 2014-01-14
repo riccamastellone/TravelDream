@@ -52,7 +52,7 @@ public class VoloMngBean implements VoloMng {
 	}
 
 	@Override
-	public ArrayList<VoloDTO> getVoli() {
+	public List<VoloDTO> getVoli() {
 		// TODO Auto-generated method stub
 		ArrayList<VoloDTO> voliDTO = new ArrayList<VoloDTO>();
 
@@ -74,6 +74,8 @@ public class VoloMngBean implements VoloMng {
 
 	@Override
 	public void aggiornaVolo(VoloDTO volo) throws ParseException {
+		
+		volo.printaDati();
 		Volo voloDaModificare = this.findVolo(volo.getId());
 		voloDaModificare.setArrivo(volo.getArrivo());
 		voloDaModificare.setCittaArrivo(volo.getCittaArrivo());
@@ -82,8 +84,9 @@ public class VoloMngBean implements VoloMng {
 		voloDaModificare.setDisponibilita(volo.getDisponibilita());
 		voloDaModificare.setNomeCompagnia(volo.getNomeCompagnia());
 		voloDaModificare.setPartenza(volo.getPartenza());
-
 		em.merge(voloDaModificare);
+		
+		
 
 	}
 
@@ -109,6 +112,22 @@ public class VoloMngBean implements VoloMng {
 		List<Volo> voli = em.createNamedQuery("Volo.selectMax", Volo.class)
 				.getResultList();
 		return voli.get(0);
+	}
+
+	@Override
+	public ArrayList<VoloDTO> getVoliDisponibili() {
+		// TODO Auto-generated method stub
+		ArrayList<VoloDTO> voliDTO = new ArrayList<VoloDTO>();
+
+		// query dichiarate nell entita UtenteGruppo
+		List<Volo> voli = em.createNamedQuery("Volo.getVoliDisponibili", Volo.class).getResultList();
+	
+		for (Volo volo : voli) {
+
+			voliDTO.add(this.convertVoloToDTO(volo));
+		}
+		return voliDTO;
+		
 	}
 
 }

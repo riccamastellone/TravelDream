@@ -117,7 +117,9 @@ public class VoloDTO {
 			System.out.println(this.getCosto());
 			System.out.println(this.getDisponibilita());
 			System.out.println(this.getArrivo());
-			System.out.println(this.getPartenza());			
+			System.out.println(this.getPartenza());	
+			System.out.println(this.getId());
+			System.out.println(this.getNomeCompagnia());
 	}
 	 
 	 public Object clone() {

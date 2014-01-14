@@ -2,6 +2,7 @@ package traveldream.manager;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.VoloDTO;
@@ -19,7 +20,7 @@ public interface VoloMng {
 	 * restituisce tutti i voli disponibili (flag eliminato != 1
 	 * @return
 	 */
-	public ArrayList<VoloDTO> getVoli();
+	public List<VoloDTO> getVoli();
 	
 	/**
 	 *aggiorna un volo gia esistente ( volo stand alone)  
@@ -41,6 +42,8 @@ public interface VoloMng {
 	 * @throws ParseException
 	 */
 	public VoloDTO aggiungiVoloAPacchetto(VoloDTO volo) throws ParseException;
+	
+	public ArrayList<VoloDTO> getVoliDisponibili();
 	
 
 }

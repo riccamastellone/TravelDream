@@ -10,16 +10,16 @@
 <ui:composition template="../template.xhtml">
 
 	<ui:define name="content">
-		<div style="text-align:right">
-			<h:link outcome="aggiungiNuovoVolo"
-				class="btn btn-default" value="Aggiungi nuovo volo" />
-
-			<h:link outcome="aggiungiVoloEsistente"
-				class="btn btn-default" value="Aggiungi volo esistente" />
+		<div style="text-align: right">
+			<h:link outcome="aggiungiNuovoVolo" class="btn btn-default"
+				value="Aggiungi nuovo volo" />
+			&nbsp;
+			<h:link outcome="aggiungiVoloEsistente" class="btn btn-default"
+				value="Aggiungi volo esistente" />
 		</div>
 		<br />
 
-		<div style="margin-bottom:20px;">
+		<div style="margin-bottom: 20px;">
 			<h:form>
 
 
@@ -78,7 +78,7 @@
 			</h:form>
 		</div>
 
-		<div style="margin-botton:15px;">
+		<div style="margin-botton: 15px;">
 			<h:form>
 
 
@@ -129,7 +129,7 @@
 							action="#{pacchettoBean.eliminaVoloRitorno(volo)}">
 							<f:ajax execute="eliminaRitorno" render="dataTableRitorno" />
 						</h:commandLink>
-						
+
 					</p:column>
 
 
@@ -140,12 +140,18 @@
 		</div>
 
 
-		<div>
-			<h:link outcome="aggiungiHotel"
-				class="btn btn-default pull-right" value="Avanti" />
+		<div style="margin-top: 20px; text-align: right;">
+			<h:link outcome="aggiungiInfoGenerali" class="btn btn-default"
+				value="Indietro" />
+			&nbsp;
+			
+			<h:form>
+			<h:commandLink action="#{pacchettoBean.checkConsistenzaVoli()}" class="btn btn-primary"
+				value="Avanti" />
+			</h:form>
 		</div>
 		<script>
-		jQuery.noConflict();
+			jQuery.noConflict();
 			$(function() {
 				$('.active').removeClass('active');
 				$('.nav li:nth-child(4)').addClass('active');

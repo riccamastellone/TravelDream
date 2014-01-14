@@ -54,7 +54,7 @@ public class HotelMngBean implements HotelMng{
 		return myDTOlist;
 	}
 
-	private HotelDTO HotelToDTO(Hotel h) {
+	public static HotelDTO HotelToDTO(Hotel h) {
 		HotelDTO hdto = new HotelDTO();
 		hdto.setId(h.getId());
 		hdto.setCostoGiornaliero(h.getCostoGiornaliero());
@@ -116,5 +116,24 @@ public class HotelMngBean implements HotelMng{
 		List<Hotel> hotel = em.createNamedQuery("Hotel.selectMax", Hotel.class).getResultList();
 		return hotel.get(0);
 	}
+
+
+
+	@Override
+	public ArrayList<HotelDTO> getAllHotelCompatibili(String luogo) {
+		// TODO Auto-generated method stub
+		
+		List<Hotel> myList;
+		ArrayList <HotelDTO> myDTOlist = new ArrayList <HotelDTO> ();
+		myList = em.createNamedQuery("Hotel.getHotelCompatibiliPacchetto", Hotel.class).setParameter("luogo", luogo).getResultList();
+		for (Hotel h : myList)
+		    {
+			 myDTOlist.add(this.HotelToDTO(h));
+		    }
+		return myDTOlist;
+		
+	}
+
+
 
 }

@@ -16,6 +16,8 @@ import traveldream.dtos.HotelDTO;
 	
 	@NamedQuery(name="Hotel.getVoloById", query="SELECT h FROM Hotel h Where h.id = :id"),
 	
+	@NamedQuery(name="Hotel.getHotelCompatibiliPacchetto", query="SELECT h FROM Hotel h Where h.luogo = :luogo AND h.eliminato != 1"),
+	
 })
 
 public class Hotel implements Serializable {

@@ -36,7 +36,11 @@ CREATE TABLE `Hotel` (
   `immagine` varchar(255) DEFAULT NULL,
   `luogo` varchar(255) DEFAULT NULL,
   `descrizione` text DEFAULT NULL,
+<<<<<<< HEAD
   `eliminato` tinyint(1) DEFAULT 0,
+=======
+  `eliminato` tinyint(1) NOT NULL DEFAULT '0',
+>>>>>>> dev-pacchetto
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -67,9 +71,14 @@ CREATE TABLE `Pacchetto` (
   `descrizione` text NOT NULL,
   `inizio_validita` date NOT NULL,
   `fine_validita` date NOT NULL,
+<<<<<<< HEAD
   `hotel` int(11) DEFAULT NULL,
+=======
+  `hotel` int(11) NOT NULL,
+  `eliminato` tinyint(1) NOT NULL DEFAULT '0',
+>>>>>>> dev-pacchetto
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`hotel`) REFERENCES `Hotel` (`id`)
+  FOREIGN KEY (`hotel`) REFERENCES `Hotel` (`id`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -81,8 +90,10 @@ CREATE TABLE `VoloPacchetto` (
   `pacchetto` int(11) NOT NULL,
   `tipo` varchar(11) NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`volo`) REFERENCES `Volo` (`id`),
+  FOREIGN KEY (`volo`) REFERENCES `Volo` (`id`)
+  ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (`pacchetto`) REFERENCES `Pacchetto` (`id`)
+  ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -97,6 +108,7 @@ CREATE TABLE `Prenotazione` (
   `volo_ritorno` int(11) NOT NULL,
   `hotel` int(11) NOT NULL,
   `data_creazione` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `eliminato` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   FOREIGN KEY (`utente`) REFERENCES `Utente` (`email`),
   FOREIGN KEY (`volo_andata`) REFERENCES `Volo` (`id`),

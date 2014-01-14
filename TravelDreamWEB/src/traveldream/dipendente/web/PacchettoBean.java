@@ -5,10 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.expression.impl.ThisExpressionResolver;
+
+import com.sun.accessibility.internal.resources.accessibility;
 
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
@@ -58,6 +65,10 @@ public class PacchettoBean {
 	
 	private List<HotelDTO> listaHotelesistenti;
 	
+	private List<PacchettoDTO> pacchetti;
+	
+	private PacchettoDTO pacchettoDaVisualizzareDto;
+	
 	
 	public PacchettoBean() {
 		this.pacchetto = new PacchettoDTO();
@@ -73,7 +84,8 @@ public class PacchettoBean {
 		this.hotelDTO = new HotelDTO();
 		this.hotelSalvato = new ArrayList<HotelDTO>();
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
-		
+		this.pacchetti = new ArrayList<PacchettoDTO>();
+		this.pacchettoDaVisualizzareDto = new PacchettoDTO();		
 				
 	}
 
@@ -166,7 +178,25 @@ public class PacchettoBean {
 	public void setListaHotelesistenti(List<HotelDTO> listaHotelesistenti) {
 		this.listaHotelesistenti = listaHotelesistenti;
 	}
+	
+	public List<PacchettoDTO> getPacchetti() {
+		
+			return  this.pacchetti = pkgMng.getAllPacchetti();
+		
+		
+	}
 
+	public void setPacchetti(List<PacchettoDTO> pacchetti) {
+		this.pacchetti = pacchetti;
+	}
+	
+	public PacchettoDTO getPacchettoDaVisualizzareDto() {
+		return pacchettoDaVisualizzareDto;
+	}
+
+	public void setPacchettoDaVisualizzareDto(PacchettoDTO pacchettoDaVisualizzareDto) {
+		this.pacchettoDaVisualizzareDto = pacchettoDaVisualizzareDto;
+	}
 
 
 	
@@ -288,7 +318,7 @@ public class PacchettoBean {
 	public String goToAggiungiHotelEsistente(){
 				
 		//serve per precaricare la tabella di AggiungiHotelEsistente
-		this.listaHotelesistenti = this.hotelMng.getAllHotel();
+		this.listaHotelesistenti = this.hotelMng.getAllHotelCompatibili(this.pacchetto.getLocalita());
 		this.listaHotelesistenti.remove(this.hotelSalvato);
 		return "aggiungiHotelEsistente?faces-redirect=true";
 	}
@@ -299,6 +329,7 @@ public class PacchettoBean {
 	 */
 	public String goToAggiungiNuovoHotel(){
 		this.hotelDTO = new HotelDTO();
+		this.hotelDTO.setLuogo(this.pacchetto.getLocalita());
 		return "aggiungiNuovoHotel?faces-redirect=true";
 	}
 	
@@ -318,7 +349,7 @@ public class PacchettoBean {
 	 * @return
 	 */
 	public String aggiungiHotelesistenteAPacchetto(HotelDTO hotel){
-		//ricordarsi di aggiungere elimnato!!!!
+		
 	
 		this.hotelSalvato.clear();
 		this.hotelSalvato.add((HotelDTO) hotel.clone());
@@ -340,7 +371,7 @@ public class PacchettoBean {
 	 * @return
 	 * @throws ParseException
 	 */
-	public String aggiungiPacchetto() throws ParseException{
+	private void aggiungiPacchetto() throws ParseException{
 		
 		//PRIMO STEP: aggiungo le info generali del pacchetto a db e ricavo l id giudto del pacchetto
 		this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
@@ -382,7 +413,7 @@ public class PacchettoBean {
 		
 		this.reInitProcesso();
 		
-		return "catalogo?faces-redirect=true";
+		
 	}
 	
 	/**
@@ -402,9 +433,170 @@ public class PacchettoBean {
 		this.hotelDTO = new HotelDTO();
 		this.hotelSalvato = new ArrayList<HotelDTO>();
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
+		this.pacchetti = new ArrayList<PacchettoDTO>();
+		this.pacchettoDaVisualizzareDto = new PacchettoDTO();	
 	}
+	
+	public void mostraInfo(AjaxBehaviorEvent actionEvent, PacchettoDTO pacchetto) {
+		System.out.println("tasto premuto");
+		//perche non va??
+		this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
+		System.out.println("ANDATA");
+		System.out.println(this.pacchettoDaVisualizzareDto.getHotel().getDescrizione());
+		/*
+		for (VoloDTO volo : this.pacchettoDaVisualizzareDto.getVoliAndata()) {
+			System.out.println(volo.getNomeCompagnia());
+		}
+		System.out.println("RITORNO");
+		for (VoloDTO volo : this.pacchettoDaVisualizzareDto.getVoliRitorno()) {
+			System.out.println(volo.getNomeCompagnia());
+		}
+		*/
+	}
+	
+	public List<PacchettoDTO> getAllPacchetti(){
+		//return new ArrayList<PacchettoDTO>();
+		System.out.println(pkgMng.getAllPacchetti().toString());
+		return pkgMng.getAllPacchetti();
+	}
+	
+	 public void onEdit(RowEditEvent event) throws ParseException { 
+	       FacesMessage msg = new FacesMessage("Pacchetto Aggiornato");  
+	       pkgMng.editInfoGenerali((PacchettoDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg);  
+	    } 
+	
+	 public void onDelete(RowEditEvent event) {  
+		   FacesMessage msg = new FacesMessage("Pacchetto Eliminato");  
+	       pkgMng.deletePacchetto((PacchettoDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    }
+	 
+	 public void eliminaVoloAndataDaPacchetto(AjaxBehaviorEvent action, VoloDTO volo){
+		 if (this.pacchettoDaVisualizzareDto.getVoliAndata().size() == 1){
+			 FacesMessage msg = new FacesMessage("Il pacchetto deve avere almeno un volo di andata");
+			 FacesContext.getCurrentInstance().addMessage(null, msg);
+		 }
+		 else {
+			FacesMessage msg = new FacesMessage("Associazione Eliminata");
+			pkgMng.eliminaVoloDaPacchetto(this.pacchettoDaVisualizzareDto, volo);
+			this.pacchettoDaVisualizzareDto.getVoliAndata().remove(volo);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	 }
+	 
+	 public void eliminaVoloRitornoDaPacchetto(AjaxBehaviorEvent action, VoloDTO volo){
+		 if (this.pacchettoDaVisualizzareDto.getVoliRitorno().size() == 1){
+			 FacesMessage msg = new FacesMessage("Il pacchetto deve avere almeno un volo di ritorno");
+			 FacesContext.getCurrentInstance().addMessage(null, msg);
+		 }
+		 else {
+			FacesMessage msg = new FacesMessage("Associazione Eliminata");
+			pkgMng.eliminaVoloDaPacchetto(this.pacchettoDaVisualizzareDto, volo);
+			this.pacchettoDaVisualizzareDto.getVoliRitorno().remove(volo);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	 }
+	 
+	 public void goToAddVoloNuovo(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
+		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.volo = new VoloDTO();
+		 System.out.println(this.volo.getNomeCompagnia());
+		 this.tipoVolo = "Andata";
+	 }
+	 
+	 public void goToAddVoloEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
+		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.voli = voloMng.getVoli();
+	 }
+	 
+	
+	 public void addVoloNuovo() throws ParseException{
+		 System.out.println(this.volo.getNomeCompagnia());		
+		 this.volo = this.voloMng.aggiungiVoloAPacchetto(this.volo);	
+		 pkgMng.aggiungiVoloAPacchetto(this.pacchettoDaVisualizzareDto, this.volo, this.tipoVolo);
+		
+		 this.volo = new VoloDTO();
+		 this.tipoVolo = "Andata";
+		 
+	 }
+	 
+	 public void aggiungiVoloEsistenteAPacchettoEsistente(VoloDTO volo, int tipo) {
+			this.voli.remove(volo);
 
+			if (tipo == 1) {				
+				//serve solamante per mostrare a schermo
+				this.pacchettoDaVisualizzareDto.getVoliAndata().add((VoloDTO) volo.clone());
+				pkgMng.aggiungiVoloAPacchetto(this.pacchettoDaVisualizzareDto, volo, "Andata");
 
-
+			} else {
+				//serve solamante per mostrare a schermo
+				this.pacchettoDaVisualizzareDto.getVoliRitorno().add((VoloDTO) volo.clone());
+				pkgMng.aggiungiVoloAPacchetto(this.pacchettoDaVisualizzareDto, volo, "Ritorno");
+			}
+			
+			
+		}
+	 
+	 public void goToAddHotelNuovo(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
+		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.hotelDTO = new HotelDTO();
+		
+	 }
+	 
+	 public void aggiungiNuovoHotelAPacchettoEsistente() throws ParseException{
+		 //ricordarsi di aggiungere elimnato!!!!
+		 System.out.println(" aggiungiNuovoHotelAPacchettoEsistente");
+		 HotelDTO hotelDaSalvare = this.hotelMng.aggiungiHotelAPacchetto(this.hotelDTO);
+		 this.pkgMng.aggiungiHotelAPacchetto(this.pacchettoDaVisualizzareDto, hotelDaSalvare);
+		 this.hotelDTO = new HotelDTO();
+		 System.out.println(this.hotelDTO.getNome());
+		 
+		}
+	 
+	 public void goToAddHotelEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
+		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.listaHotelesistenti = hotelMng.getAllHotelCompatibili(this.pacchettoDaVisualizzareDto.getLocalita());
+	 }
+	 
+	 
+	 public void aggiungiHotelesistenteAPacchettoEsistente(HotelDTO hotel){
+			
+			this.pkgMng.aggiungiHotelAPacchetto(this.pacchettoDaVisualizzareDto, hotel);
+			this.pacchettoDaVisualizzareDto.setHotel(hotel);
+			System.out.println("OK");
+		}
+		
+	 
+	 /**
+	  * controlla che si abbia inserito almeno un volo di andata e uno di ritorno
+	  * nel paccheto
+	  * @return
+	  */
+	 public String checkConsistenzaVoli(){
+		 if ( this.pacchetto.getVoliAndata().size()<1 || this.pacchetto.getVoliRitorno().size()<1 ){
+			 return "aggiungiVoli?faces-redirect=true";
+		 }
+		 else {
+			return "aggiungiHotel?faces-redirect=true";
+		}
+	 }
+	 
+	 /**
+	  * controllo che ci cia almeno un hotel
+	  * @return
+	  * @throws ParseException
+	  */
+	 public String checkConsistenzaHotel() throws ParseException{
+		 if ( this.hotelSalvato.isEmpty() ){
+			 return "aggiungiHotel?faces-redirect=true";
+		 }
+		 
+		 else {
+			//aggiungi pacchetto andra messo dopo quando ci saranno attivita secondarie
+			 aggiungiPacchetto();
+			 return  "catalogo?faces-redirect=true";
+		}
+	 }
 
 }

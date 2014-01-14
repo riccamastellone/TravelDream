@@ -27,9 +27,9 @@
         </f:facet>
 
 				<p:ajax event="rowEdit" listener="#{voloBean.onEdit}"
-					update=":form:messages" />
+					update=":form:messages,:form:dataTable" />
 				<p:ajax event="rowEditCancel" listener="#{voloBean.onDelete}"
-					update=":form:messages" />
+					update=":form:messages,:form:dataTable" />
 
 				<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea" filteredValue = "#{volo.nomeCompagnia}">
 					<p:cellEditor>

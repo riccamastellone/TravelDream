@@ -51,9 +51,9 @@ public class VoloBean {
 
 
 	public ArrayList<VoloDTO> getVoli() {
-		if (this.voli == null) {
+		
 			this.voli = voloMng.getVoli();
-		}
+		
 		return this.voli;
 	}
 
@@ -68,6 +68,7 @@ public class VoloBean {
 
 	public void deleteVolo(VoloDTO volo) {
 		voloMng.deleteVolo(volo);
+		this.voli.remove(volo);
 	}
 	
 	public String indietro() {

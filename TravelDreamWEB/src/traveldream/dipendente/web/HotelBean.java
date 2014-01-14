@@ -43,6 +43,7 @@ public class HotelBean {
 		this.setHotel(new HotelDTO());
 	}
 
+
 	private void refreshHotels() {
 		this.allHotel = hotelMng.getAllHotel();
 	}
@@ -162,7 +163,7 @@ public class HotelBean {
 		return "catalogo?faces-redirect=true";
 
 	}
-	
+
 	public String indietro() {
 		this.hotel = new HotelDTO();
 		return "catalogo?faces-redirect=true";
@@ -170,7 +171,9 @@ public class HotelBean {
 
 	public void deleteHotel(HotelDTO hotel) {
 		hotelMng.deleteHotel(hotel);
+		this.allHotel.remove(hotel);
 
 	}
+
 
 }

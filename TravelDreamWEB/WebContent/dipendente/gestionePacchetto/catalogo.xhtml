@@ -26,7 +26,7 @@
 				<p:ajax event="rowEdit" listener="#{pacchettoBean.onEdit}"
 					update=":form:messages, :form:pacchettiTable" />
 				<p:ajax event="rowEditCancel" listener="#{pacchettoBean.onDelete}"
-					update=":form:messages, :form:pacchettiTable" />
+					update=":form:messages" />
 					
 				<p:column headerText="Nome" sortBy="nome">
 						<p:cellEditor>

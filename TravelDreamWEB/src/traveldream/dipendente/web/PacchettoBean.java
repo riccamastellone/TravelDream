@@ -180,10 +180,9 @@ public class PacchettoBean {
 	}
 	
 	public List<PacchettoDTO> getPacchetti() {
-		if (this.pacchetti.isEmpty()) {
-			 this.pacchetti = pkgMng.getAllPacchetti();
-		}
-			return this.pacchetti;
+		
+			return  this.pacchetti = pkgMng.getAllPacchetti();
+		
 		
 	}
 
@@ -468,8 +467,8 @@ public class PacchettoBean {
 	    } 
 	
 	 public void onDelete(RowEditEvent event) {  
-		   FacesMessage msg = new FacesMessage("Pacchetto Aggiornato");  
-	       pkgMng.editInfoGenerali((PacchettoDTO) event.getObject());
+		   FacesMessage msg = new FacesMessage("Pacchetto Eliminato");  
+	       pkgMng.deletePacchetto((PacchettoDTO) event.getObject());
 	       FacesContext.getCurrentInstance().addMessage(null, msg); 
 	    }
 	 

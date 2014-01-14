@@ -210,6 +210,15 @@ public class PacchettoMngBean implements PacchettoMng {
 		nuovoPacchetto.setHotel(HotelMngBean.HotelToDTO(pacchettoAggiornato.getHotel()));
 		return nuovoPacchetto;
 	}
+
+	@Override
+	public void deletePacchetto(PacchettoDTO pacchetto) {
+		// TODO Auto-generated method stub
+		Pacchetto pacchettoDaCancellare = this.findPacchetto(pacchetto.getId());
+		pacchettoDaCancellare.setEliminato(1);
+		em.merge(pacchettoDaCancellare);
+		
+	}
 	
  
 

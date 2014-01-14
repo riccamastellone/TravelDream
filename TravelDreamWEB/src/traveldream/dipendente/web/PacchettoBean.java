@@ -372,7 +372,7 @@ public class PacchettoBean {
 	 * @return
 	 * @throws ParseException
 	 */
-	public String aggiungiPacchetto() throws ParseException{
+	private void aggiungiPacchetto() throws ParseException{
 		
 		//PRIMO STEP: aggiungo le info generali del pacchetto a db e ricavo l id giudto del pacchetto
 		this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
@@ -414,7 +414,7 @@ public class PacchettoBean {
 		
 		this.reInitProcesso();
 		
-		return "catalogo?faces-redirect=true";
+		
 	}
 	
 	/**
@@ -568,5 +568,36 @@ public class PacchettoBean {
 			System.out.println("OK");
 		}
 		
+	 
+	 /**
+	  * controlla che si abbia inserito almeno un volo di andata e uno di ritorno
+	  * nel paccheto
+	  * @return
+	  */
+	 public String checkConsistenzaVoli(){
+		 if ( this.pacchetto.getVoliAndata().size()<1 || this.pacchetto.getVoliRitorno().size()<1 ){
+			 return "aggiungiVoli?faces-redirect=true";
+		 }
+		 else {
+			return "aggiungiHotel?faces-redirect=true";
+		}
+	 }
+	 
+	 /**
+	  * controllo che ci cia almeno un hotel
+	  * @return
+	  * @throws ParseException
+	  */
+	 public String checkConsistenzaHotel() throws ParseException{
+		 if ( this.hotelSalvato.isEmpty() ){
+			 return "aggiungiHotel?faces-redirect=true";
+		 }
+		 
+		 else {
+			//aggiungi pacchetto andra messo dopo quando ci saranno attivita secondarie
+			 aggiungiPacchetto();
+			 return  "catalogo?faces-redirect=true";
+		}
+	 }
 
 }

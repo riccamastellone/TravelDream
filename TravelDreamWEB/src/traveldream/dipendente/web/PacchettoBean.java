@@ -330,6 +330,7 @@ public class PacchettoBean {
 	 */
 	public String goToAggiungiNuovoHotel(){
 		this.hotelDTO = new HotelDTO();
+		this.hotelDTO.setLuogo(this.pacchetto.getLocalita());
 		return "aggiungiNuovoHotel?faces-redirect=true";
 	}
 	

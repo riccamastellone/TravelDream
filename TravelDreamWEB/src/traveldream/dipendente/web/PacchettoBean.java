@@ -564,6 +564,7 @@ public class PacchettoBean {
 			
 			this.pkgMng.aggiungiHotelAPacchetto(this.pacchettoDaVisualizzareDto, hotel);
 			this.pacchettoDaVisualizzareDto.setHotel(hotel);
+			System.out.println("OK");
 		}
 		
 

@@ -141,8 +141,8 @@
 									
 									<p:commandButton id="basicEditHotelEsistente" value="Add Esistente" type="button" styleClass="btn white">
 										<p:ajax listener="#{pacchettoBean.goToAddHotelEsistente(event,pacchetto)}"
-										
-										oncomplete="PF('addHotelEsistenteDialog').show();" />
+										update=":form:form5:addHotelEsistente"
+										oncomplete="PF('editHotelEsistenteDialog').show();" />
 									</p:commandButton>
 									
 									
@@ -221,12 +221,11 @@
 		
 		</p:dialog>
 		
-		<p:dialog header="Aggiungi Hotel Esistente" widgetVar="addHotelEsistenteDialog" resizable="false"  >
-					
-				<h:form id="form5" >
-							
-					
-				<p:dataTable id="addHotelEsistente" var="hotel" value="#{pacchettoBean.listaHotelesistenti}">
+		<p:dialog header="Cambia Hotel Esistente" widgetVar="editHotelEsistenteDialog" resizable="false" >
+			 
+		<h:form id="form5" >
+		
+		<p:dataTable id="addHotelEsistente" var="hotel" value="#{pacchettoBean.listaHotelesistenti}">
 					<f:facet name="header">  
             		Elenco Hotel 
        				 </f:facet>
@@ -252,20 +251,20 @@
 				</p:column>
 
 				<p:column>
-					<p:commandButton id="scegli" value="Scegli"
-							styleClass="btn btn-danger white"
-							action="#{pacchettoBean.aggiungiHotelesistenteAPacchettoEsistente(hotel)}"
-							oncomlete="PF('addHotelEsistenteDialog').hide();" 
-							process="form5, @this"/>
+					<h:commandLink id="aggiungi" value="Scegli" class="btn btn-default"
+						action="#{pacchettoBean.aggiungiHotelesistenteAPacchettoEsistente(hotel)}" onclick="PF('editHotelEsistenteDialog').hide();">
+						<p:ajax execute="aggiungi" render="addHotelEsistente" />
+					</h:commandLink>
 						
 				</p:column>
 				
 
 				</p:dataTable>	
-										
-				</h:form>
-	
-		</p:dialog>	
+			
+								
+		</h:form>
+		</p:dialog>
+		
 		
 		
 		<p:dialog header="Cambia Hotel Nuovo" widgetVar="editHotelNuovoDialog" resizable="false" >

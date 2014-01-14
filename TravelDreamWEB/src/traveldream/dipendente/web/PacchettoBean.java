@@ -319,7 +319,7 @@ public class PacchettoBean {
 	public String goToAggiungiHotelEsistente(){
 				
 		//serve per precaricare la tabella di AggiungiHotelEsistente
-		this.listaHotelesistenti = this.hotelMng.getAllHotel();
+		this.listaHotelesistenti = this.hotelMng.getAllHotelCompatibili(this.pacchetto.getLocalita());
 		this.listaHotelesistenti.remove(this.hotelSalvato);
 		return "aggiungiHotelEsistente?faces-redirect=true";
 	}
@@ -556,7 +556,7 @@ public class PacchettoBean {
 	 
 	 public void goToAddHotelEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
 		 this.pacchettoDaVisualizzareDto = pacchetto;
-		 this.listaHotelesistenti = hotelMng.getAllHotel();
+		 this.listaHotelesistenti = hotelMng.getAllHotelCompatibili(this.pacchettoDaVisualizzareDto.getLocalita());
 	 }
 	 
 	 

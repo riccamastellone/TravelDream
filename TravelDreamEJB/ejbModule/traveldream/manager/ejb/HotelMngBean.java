@@ -109,4 +109,21 @@ public class HotelMngBean implements HotelMng{
 		return hotel.get(0);
 	}
 
+
+
+	@Override
+	public ArrayList<HotelDTO> getAllHotelCompatibili(String luogo) {
+		// TODO Auto-generated method stub
+		
+		List<Hotel> myList;
+		ArrayList <HotelDTO> myDTOlist = new ArrayList <HotelDTO> ();
+		myList = em.createNamedQuery("Hotel.getHotelCompatibiliPacchetto", Hotel.class).setParameter("luogo", luogo).getResultList();
+		for (Hotel h : myList)
+		    {
+			 myDTOlist.add(this.HotelToDTO(h));
+		    }
+		return myDTOlist;
+		
+	}
+
 }

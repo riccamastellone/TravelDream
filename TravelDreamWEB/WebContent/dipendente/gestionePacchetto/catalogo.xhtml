@@ -139,6 +139,12 @@
 										oncomplete="PF('editHotelNuovoDialog').show();" />
 									</p:commandButton>
 									
+									<p:commandButton id="basicEditHotelEsistente" value="Add Esistente" type="button" styleClass="btn white">
+										<p:ajax listener="#{pacchettoBean.goToAddHotelEsistente(event,pacchetto)}"
+										
+										oncomplete="PF('addHotelEsistenteDialog').show();" />
+									</p:commandButton>
+									
 									
 							</f:facet>
 						</p:cellEditor>
@@ -213,6 +219,52 @@
 		</p:panel>	
 		</h:form>
 		
+		</p:dialog>
+		
+		<p:dialog header="Aggiungi Hotel Esistente" widgetVar="addHotelEsistenteDialog" resizable="false"  >
+					
+				<h:form id="form5" >
+							
+					
+				<p:dataTable id="addHotelEsistente" var="hotel" value="#{pacchettoBean.listaHotelesistenti}">
+					<f:facet name="header">  
+            		Elenco Hotel 
+       				 </f:facet>
+
+				<p:column sortBy="nome" headerText="Nome" filterBy="#{hotel.nome}" >
+					<h:outputText value="#{hotel.nome}" />
+				</p:column>
+
+				<p:column sortBy="stelle" headerText="Stelle">
+					<h:outputText value="#{hotel.stelle}" />
+				</p:column>
+
+				<p:column sortBy="costoGiornaliero" headerText="Costo giornaliero">
+					<h:outputText value="#{hotel.costoGiornaliero} €" />
+				</p:column>
+
+				<p:column sortBy="luogo" headerText="Luogo">
+					<h:outputText value="#{hotel.luogo}" />
+				</p:column>
+
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+					<h:outputText value="#{hotel.disponibilita}" />
+				</p:column>
+
+				<p:column>
+					<p:commandButton id="scegli" value="Scegli"
+							styleClass="btn btn-danger white"
+							action="#{pacchettoBean.aggiungiHotelesistenteAPacchettoEsistente(hotel)}"
+							oncomlete="PF('addHotelEsistenteDialog').hide();" 
+							process="form5, @this"/>
+						
+				</p:column>
+				
+
+				</p:dataTable>	
+										
+				</h:form>
+	
 		</p:dialog>	
 		
 		
@@ -552,7 +604,16 @@
               
        		 </h:panelGrid>  
 			</p:dialog>
+			
+			
+			
+			
 		</h:form>
+		
+		
+		
+		
+		
 	<script>
 			jQuery.noConflict();
 		</script>

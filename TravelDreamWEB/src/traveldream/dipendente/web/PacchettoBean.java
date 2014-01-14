@@ -553,6 +553,18 @@ public class PacchettoBean {
 		 System.out.println(this.hotelDTO.getNome());
 		 
 		}
+	 
+	 public void goToAddHotelEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
+		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.listaHotelesistenti = hotelMng.getAllHotel();
+	 }
+	 
+	 
+	 public void aggiungiHotelesistenteAPacchettoEsistente(HotelDTO hotel){
+			
+			this.pkgMng.aggiungiHotelAPacchetto(this.pacchettoDaVisualizzareDto, hotel);
+			this.pacchettoDaVisualizzareDto.setHotel(hotel);
+		}
 		
 
 }

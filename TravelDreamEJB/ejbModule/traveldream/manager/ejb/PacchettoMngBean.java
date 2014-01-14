@@ -1,6 +1,5 @@
 package traveldream.manager.ejb;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,6 @@ import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 
 import model.Hotel;
 import model.Pacchetto;
@@ -26,7 +24,6 @@ import traveldream.manager.PacchettoMng;
 @Stateless
 public class PacchettoMngBean implements PacchettoMng {
 
-	
 	@PersistenceContext
 	private EntityManager em;
 
@@ -39,8 +36,8 @@ public class PacchettoMngBean implements PacchettoMng {
 	public PacchettoMngBean() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	private PacchettoDTO convertToDto(Pacchetto pacchetto){
+
+	private PacchettoDTO convertToDto(Pacchetto pacchetto) {
 		PacchettoDTO p = new PacchettoDTO();
 		p.setId(pacchetto.getId());
 		p.setDescrizione(pacchetto.getDescrizione());
@@ -51,18 +48,19 @@ public class PacchettoMngBean implements PacchettoMng {
 		p.setImmagine(pacchetto.getImmagine());
 		return p;
 	}
-	
+
 	private Pacchetto findPacchetto(int id) {
 		return em.find(Pacchetto.class, id);
 	}
 
 	@Override
 	public PacchettoDTO salvaInfoGenerali(PacchettoDTO pacchetto) {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
 		Pacchetto pacchettoDaSalvare = new Pacchetto(pacchetto);
 		em.persist(pacchettoDaSalvare);
-		
-		//serve per fornire l'id el acchetto al client per poi aggiungere i voli
+
+		// serve per fornire l'id el acchetto al client per poi aggiungere i
+		// voli
 		pacchettoDaSalvare = this.getLastPacchetto();
 		PacchettoDTO pacchettoNuovo = convertToDto(pacchettoDaSalvare);
 		System.out.println("salvo info generali");
@@ -72,30 +70,33 @@ public class PacchettoMngBean implements PacchettoMng {
 	@Override
 	public void aggiungiVoloAPacchetto(PacchettoDTO pacchetto, VoloDTO volo, String tipo) {
 		// TODO Auto-generated method stub
-		Volo voloNuovo = this.getVoloById(volo); 
-		
+		Volo voloNuovo = this.getVoloById(volo);
+
 		Pacchetto pacchettoDaAggiornare = this.findPacchetto(pacchetto.getId());
 		System.out.println(pacchettoDaAggiornare.getNome());
-		
+
 		VoloPacchetto voloPacchetto = new VoloPacchetto(pacchettoDaAggiornare, voloNuovo, tipo);
-		
+
 		em.persist(voloPacchetto);
 	}
-    
+
 	/**
-	 * serve per prender il volo appena salvato con l'id aggiornato
-	 * non riuscirei a passarlo al client se no
+	 * serve per prender il volo appena salvato con l'id aggiornato non
+	 * riuscirei a passarlo al client se no
+	 * 
 	 * @param volo
 	 * @return
 	 */
-	private Volo getVoloById(VoloDTO volo){
-		
+	private Volo getVoloById(VoloDTO volo) {
+
 		List<Volo> voli = em.createNamedQuery("Volo.getVoloById", Volo.class).setParameter("id", volo.getId()).getResultList();
 		return voli.get(0);
 	}
-	
+
 	/**
-	 * serve per prendere l ultimo pacchetto e per passarlo al client con l id aggiornato
+	 * serve per prendere l ultimo pacchetto e per passarlo al client con l id
+	 * aggiornato
+	 * 
 	 * @return
 	 */
 	private Pacchetto getLastPacchetto() {
@@ -108,50 +109,55 @@ public class PacchettoMngBean implements PacchettoMng {
 	public void aggiungiHotelAPacchetto(PacchettoDTO pacchetto, HotelDTO hotel) {
 		// TODO Auto-generated method stub
 		Hotel hotelNuovo = this.getHotelById(hotel);
-		
+
 		Pacchetto pacchettoDaAggiornare = this.findPacchetto(pacchetto.getId());
 		pacchettoDaAggiornare.setHotel(hotelNuovo);
-		
+
 		em.merge(pacchettoDaAggiornare);
-				
+
 	}
-	
-	private Hotel getHotelById(HotelDTO hotel){
-		
+
+	private Hotel getHotelById(HotelDTO hotel) {
+
 		List<Hotel> hotels = em.createNamedQuery("Hotel.getVoloById", Hotel.class).setParameter("id", hotel.getId()).getResultList();
 		return hotels.get(0);
 	}
 
-	public List<PacchettoDTO>  getAllPacchetti() {
-		// TODO Auto-generated method stub
+
+	private List<PacchettoDTO> buildPacchetti(List<Pacchetto> pacchetti) {
 		List<PacchettoDTO> pacchettiDto = new ArrayList<PacchettoDTO>();
-		List<Pacchetto> pacchetti = em.createNamedQuery("Pacchetto.findAll", Pacchetto.class).getResultList();
-		System.out.println("eseguito");
-		
 		for (Pacchetto pacchetto : pacchetti) {
-			
+
 			PacchettoDTO pacchettoDTO = this.convertToDto(pacchetto);
 			for (VoloPacchetto voloPacchetto : pacchetto.getVoliPacchetto()) {
-				
-				if (voloPacchetto.getTipo().equals("Andata")){
+
+				if (voloPacchetto.getTipo().equals("Andata")) {
 					pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
-				}
-				else {
+				} else {
 					pacchettoDTO.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
 				}
-				
-				//pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
-				//pacchettiDTO.get
+
+				// pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+				// pacchettiDTO.get
 			}
-			
+
 			pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
 			pacchettiDto.add(pacchettoDTO);
 		}
-		
-		
-		
 		return pacchettiDto;
+	}
+	
+	public List<PacchettoDTO> getPacchettiVendibili() {
+		List<Pacchetto> pacchetti = em.createNamedQuery("Pacchetto.findAll", Pacchetto.class).getResultList();
+		//@TODO da fare
+		return this.buildPacchetti(pacchetti);
+	}
+
+	public List<PacchettoDTO> getAllPacchetti() {
 		
+		List<Pacchetto> pacchetti = em.createNamedQuery("Pacchetto.findAll", Pacchetto.class).getResultList();
+		return this.buildPacchetti(pacchetti);
+
 	}
 
 	public void editInfoGenerali(PacchettoDTO pacchetto) {
@@ -165,26 +171,26 @@ public class PacchettoMngBean implements PacchettoMng {
 		pacchettoDaModificare.setImmagine(pacchetto.getImmagine());
 		em.merge(pacchettoDaModificare);
 		System.out.println("aggiorno pacchetto");
-						
+
 	}
 
 	public void eliminaVoloDaPacchetto(PacchettoDTO pacchettoDTO, VoloDTO volo) {
 		// TODO Auto-generated method stub
-		Volo voloDaDisassociare= this.getVoloById(volo);
+		Volo voloDaDisassociare = this.getVoloById(volo);
 		Pacchetto pacchetto = this.findPacchetto(pacchettoDTO.getId());
-		
+
 		for (VoloPacchetto voloPacchetto : pacchetto.getVoliPacchetto()) {
-			if (voloPacchetto.getVolo().equals(voloDaDisassociare)){
+			if (voloPacchetto.getVolo().equals(voloDaDisassociare)) {
 				pacchetto.getVoliPacchetto().remove(voloPacchetto);
 				em.remove(voloPacchetto);
 				break;
 			}
-				
+
 		}
-		
+
 		em.merge(pacchetto);
 		System.out.println("aggiorno pacchetto");
-		
+
 	}
 
 	@Override
@@ -195,17 +201,14 @@ public class PacchettoMngBean implements PacchettoMng {
 		PacchettoDTO nuovoPacchetto = this.convertToDto(pacchettoAggiornato);
 		for (VoloPacchetto voloPacchetto : pacchettoAggiornato.getVoliPacchetto()) {
 			System.out.println(pacchettoAggiornato.getVoliPacchetto().size());
-			if (voloPacchetto.getTipo().equals("Andata")){
+			if (voloPacchetto.getTipo().equals("Andata")) {
 				nuovoPacchetto.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
-			}
-			else {
+			} else {
 				nuovoPacchetto.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
 			}
 		}
 		nuovoPacchetto.setHotel(HotelMngBean.HotelToDTO(pacchettoAggiornato.getHotel()));
 		return nuovoPacchetto;
 	}
-	
- 
 
 }

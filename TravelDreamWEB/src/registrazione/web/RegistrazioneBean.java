@@ -1,6 +1,8 @@
 package registrazione.web;
 
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -8,14 +10,17 @@ import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+
 import traveldream.dtos.UtenteDTO;
 import traveldream.manager.UtenteMrg;
 
 
 @ManagedBean(name="registrazioneBean")
 @SessionScoped
-public class RegistrazioneBean {
-	
+public class RegistrazioneBean implements Serializable {
+
+	private static final long serialVersionUID = -8695101190385504696L;
+
 	private UtenteDTO user;
 	
 	private String vecchiaEmail;

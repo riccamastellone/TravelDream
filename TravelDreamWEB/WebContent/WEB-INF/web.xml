@@ -59,4 +59,8 @@
         <extension>jpg</extension>
         <mime-type>image/jpeg</mime-type>
     </mime-mapping>
+    <context-param>
+  <param-name>com.ocpsoft.pretty.DEVELOPMENT</param-name>
+  <param-value>true</param-value>
+</context-param>
 </web-app>

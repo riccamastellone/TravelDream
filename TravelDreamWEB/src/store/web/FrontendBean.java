@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -26,7 +27,9 @@ import traveldream.manager.VoloMng;
 
 @ManagedBean(name = "frontendBean")
 @SessionScoped
-public class FrontendBean {
+public class FrontendBean implements Serializable {
+
+	private static final long serialVersionUID = 2502108454094834379L;
 
 	@EJB
 	private PacchettoMng pkgMng;

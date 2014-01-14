@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.UploadedFile;
 
 import com.sun.el.parser.ParseException;
@@ -41,6 +42,7 @@ public class HotelBean {
 
 	public HotelBean() {
 		this.setHotel(new HotelDTO());
+		this.allHotel = new ArrayList<HotelDTO>();
 	}
 
 
@@ -49,7 +51,7 @@ public class HotelBean {
 	}
 
 	public ArrayList<HotelDTO> getAllHotel() {
-		if (this.allHotel == null) {
+		if (this.allHotel.isEmpty()) {
 			refreshHotels();
 		}
 		return this.allHotel;
@@ -174,6 +176,13 @@ public class HotelBean {
 		this.allHotel.remove(hotel);
 
 	}
+	
+	 public void onEdit(RowEditEvent event) throws ParseException { 
+	       FacesMessage msg = new FacesMessage("Hotel Aggiornato");  
+	       hotelMng.aggiornaHotel((HotelDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg);  
+	    } 
+	
 
 
 }

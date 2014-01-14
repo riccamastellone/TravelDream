@@ -56,9 +56,9 @@ public class VoloBean {
 		return "catalogo?faces-redirect=true";
 	}
 	
-	 public void onEdit(RowEditEvent event, VoloDTO volo) throws ParseException { 
+	 public void onEdit(RowEditEvent event) throws ParseException { 
 	       FacesMessage msg = new FacesMessage("Volo Aggiornato");  
-	       voloMng.aggiornaVolo(volo);
+	       voloMng.aggiornaVolo((VoloDTO) event.getObject());
 	       FacesContext.getCurrentInstance().addMessage(null, msg);  
 	    } 
 	

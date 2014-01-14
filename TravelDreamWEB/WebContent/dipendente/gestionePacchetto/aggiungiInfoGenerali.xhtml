@@ -27,21 +27,28 @@
 
 			<div class="form-group">
 				<label>Descrizione:</label>
-				<h:inputText p:placeholder="Inserisci la descrizione"
+				<h:inputTextarea p:placeholder="Inserisci la descrizione"
 					class="form-control" value="#{pacchettoBean.pacchetto.descrizione}" />
 			</div>
 
-			<div class="form-group">
-				<label>Data Inizio Validità:</label>
-				<pf:calendar value="#{pacchettoBean.pacchetto.inizioValidita}"
-					pattern="MM/dd/yyyy HH:mm" />
+			
+		<div class="row">
+		<div class="col-md-4">
+		<div class="form-group">
+				<label>Data Inizio Validità:</label><br />
+				<pf:calendar  mode="inline" value="#{pacchettoBean.pacchetto.inizioValidita}"
+					pattern="MM/dd/yyyy" />
 			</div>
-
-			<div class="form-group">
-				<label>Data Fine Validità:</label>
-				<pf:calendar value="#{pacchettoBean.pacchetto.fineValidita}"
-					pattern="MM/dd/yyyy HH:mm" />
+		</div>
+		<div class="col-md-4">
+		<div class="form-group">
+				<label>Data Fine Validità:</label><br />
+				<pf:calendar  mode="inline" value="#{pacchettoBean.pacchetto.fineValidita}"
+					pattern="MM/dd/yyyy" onchange="alert('1');"/>
 			</div>
+		</div>
+		</div>
+			
 
 			<h:commandLink value="Avanti" class="btn btn-default"
 				action="#{pacchettoBean.goToAggiungiVoli()}" />

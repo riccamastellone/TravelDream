@@ -4,4 +4,5 @@
 <glassfish-web-app>
     <context-root>/</context-root>
     <property name="alternatedocroot_1" value="from=/up/* dir=/var/uploads/"/>
+    <parameter-encoding default-charset="UTF-8"/>
 </glassfish-web-app>

@@ -31,4 +31,5 @@ public interface PacchettoMng {
 
 	public void eliminaVoloDaPacchetto(PacchettoDTO pacchettoDTO, VoloDTO volo);
 	
+	public PacchettoDTO getPacchettoAggiornato(PacchettoDTO pacchetto);
 }

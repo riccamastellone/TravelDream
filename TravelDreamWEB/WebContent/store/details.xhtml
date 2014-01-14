@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="../template.xhtml">
+
+
+	<ui:define name="head_add">
+		<h:outputStylesheet library="store" name="css/fullscreen.css" />
+		<h:outputStylesheet library="store" name="rs-plugin/css/settings.css" />
+		<h:outputStylesheet library="store" name="css/jquery-ui.css" />
+
+	</ui:define>
+
+
+	<ui:define name="content">
+
+
+		<ui:include src="header.xhtml" />
+
+		<div id="dajy" class="mtslide sliderbg fixed cstyle11">
+			<div id="map-canvas2"></div>
+		</div>
+
+
+
+
+		<!-- WRAP -->
+		<div class="wrap cstyle03">
+
+			<div class="container mt-200 z-index100">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="bs-example bs-example-tabs cstyle04">
+							<h:form action="#">
+								<div class="tab-content">
+
+									<div class="col-md-4">
+
+										<span class="opensans size24 slim">Contact</span> <input
+											type="text" placeholder="Name"
+											class="form-control logpadding margtop10" /> <input
+											type="text" placeholder="Phone"
+											class="form-control logpadding margtop20" /> <input
+											type="text" placeholder="E-mail"
+											class="form-control logpadding margtop20" />
+									</div>
+									<div class="col-md-4">
+										<textarea rows="9" class="form-control margtop10"></textarea>
+									</div>
+									<div class="col-md-4 opensans grey">
+										Address:<br /> <span class="dark"> TravelDream Srls<br />
+											Via Filippo Turati 7<br />20121 Milano<br />
+										</span> <br /> Phone<br />
+										<p class="opensans size30 green xslim"> 800-5996674</p>
+										Email<br /> <a href="mailto:office@company.com"
+											class="orange">hello@traveldream.com</a>
+									</div>
+								</div>
+
+								<div class="searchbg3">
+									<button type="submit" class="btn-search right mr20">Send
+										Email</button>
+
+								</div>
+							</h:form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="lastminutecontact lcfix">
+				<div class="container lmc">
+					<h:graphicImage library="store" name="#{frontendBean.getStarsImage(4)}" alt="" /><br /> LAST MINUTE: <b>Barcelona</b>
+					- 2 nights - Flight+4* Hotel, Dep 27h Aug from $209/person<br />
+					<form action="details.html">
+						<button class="btn iosbtn" type="submit">Select</button>
+					</form>
+				</div>
+			</div>
+
+			<ui:include src="footer.xhtml" />
+
+		</div>
+		<script>$(function() {$('.active').removeClass('active');$('.nav li:nth-child(6)').addClass('active');});</script>
+		<h:outputScript library="store" name="js/js-index.js" />
+		
+		<h:outputScript library="store" name="js/functions.js" />
+		<h:outputScript library="store" name="js/jquery-ui.js" />
+		<h:outputScript library="store" name="js/jquery.easing.js" />
+		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
+		<h:outputScript library="store" name="js/helper-plugins/jquery.touchSwipe.min.js" />
+		<h:outputScript library="store" name="js/jquery.carouFredSel-6.2.1-packed.js" />
+		<h:outputScript library="store" name="js/helper-plugins/jquery.mousewheel.min.js" />
+		<h:outputScript library="store" name="js/helper-plugins/jquery.transit.min.js" />
+		<h:outputScript library="store" name="js/helper-plugins/jquery.ba-throttle-debounce.min.js" />
+		<h:outputScript library="store" name="js/initialize-google-map-contact.js" />
+		<h:outputScript library="store" name="js/jquery.customSelect.js" />
+		
+	</ui:define>
+
+</ui:composition>
+
+</html>

@@ -190,6 +190,8 @@ public class PacchettoMngBean implements PacchettoMng {
 		
 	}
 
+	
+	
 	@Override
 	public PacchettoDTO getPacchettoAggiornato(PacchettoDTO pacchetto) {
 		// TODO Auto-generated method stub

@@ -548,8 +548,9 @@ public class PacchettoBean {
 		 //ricordarsi di aggiungere elimnato!!!!
 		 System.out.println(" aggiungiNuovoHotelAPacchettoEsistente");
 		 HotelDTO hotelDaSalvare = this.hotelMng.aggiungiHotelAPacchetto(this.hotelDTO);
-		 this.pkgMng.aggiungiHotelAPacchetto(pacchetto, hotelDaSalvare);
+		 this.pkgMng.aggiungiHotelAPacchetto(this.pacchettoDaVisualizzareDto, hotelDaSalvare);
 		 this.hotelDTO = new HotelDTO();
+		 System.out.println(this.hotelDTO.getNome());
 		 
 		}
 		

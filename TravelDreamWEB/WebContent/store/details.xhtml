@@ -18,200 +18,349 @@
 
 		<ui:include src="header.xhtml" />
 
-		
-			<div class="container breadcrub">
-		<div>
-			<a class="homebtn left" href="#"></a>
-			<div class="left">
-				<ul class="bcrumbs">
-					<li>/</li>
-					<li><a href="#">Packages</a></li>
-					<li>/</li>
-					<li><a href="#" class="active">#{frontendBean.pacchetto.nome}</a></li>
-				</ul>
+
+		<div class="container breadcrub">
+			<div>
+				<a class="homebtn left" href="#"></a>
+				<div class="left">
+					<ul class="bcrumbs">
+						<li>/</li>
+						<li><a href="#">Packages</a></li>
+						<li>/</li>
+						<li><a href="#" class="active">#{frontendBean.pacchetto.nome}</a></li>
+					</ul>
+				</div>
+				<a class="backbtn right" href="#"></a>
 			</div>
-			<a class="backbtn right" href="#"></a>
+			<div class="clearfix"></div>
+			<div class="brlines"></div>
 		</div>
-		<div class="clearfix"></div>
-		<div class="brlines"></div>
-	</div>
-	
+
 		<div class="container">
-		<div class="container pagecontainer offset-0">
+			<div class="container pagecontainer offset-0">
 
-			<!-- Immagine Pacchetto -->
-			<div class="col-md-8 immagine-pacchetto">
-				<p:graphicImage cache="false" value="#{frontendBean.generateImage(frontendBean.pacchetto.immagine, 759,500)}"/>
-			</div><!--  759,427 -->
-
-			<!-- RIGHT INFO -->
-			<div class="col-md-4 detailsright offset-0">
-				<div class="padding20">
-					<h3 class="lh1">#{frontendBean.pacchetto.nome}</h3>
-					<h:graphicImage library="store" name="#{frontendBean.getStarsImage(4)}" alt="" />
+				<!-- Immagine Pacchetto -->
+				<div class="col-md-8 immagine-pacchetto">
+					<p:graphicImage cache="false"
+						value="#{frontendBean.generateImage(frontendBean.pacchetto.immagine, 759,500)}" />
 				</div>
-				
-				<div class="line3"></div>
+				<!--  759,427 -->
 
-				<div style="color: #999; padding: 20px;">
-					<h:outputText value="#{frontendBean.nl2br(frontendBean.pacchetto.descrizione)}" escape="false" />
+				<!-- RIGHT INFO -->
+				<div class="col-md-4 detailsright offset-0">
+					<div class="padding20">
+						<h3 class="lh1">#{frontendBean.pacchetto.nome}</h3>
+						<h:graphicImage library="store"
+							name="#{frontendBean.getStarsImage(4)}" alt="" />
+					</div>
+
+					<div class="line3"></div>
+
+					<div style="color: #999; padding: 20px;">
+						<h:outputText
+							value="#{frontendBean.nl2br(frontendBean.pacchetto.descrizione)}"
+							escape="false" />
+					</div>
+					<div class="line3"></div>
+
+					<div class="clearfix"></div>
+					<br />
+
+					<div class="padding20">
+						<a href="#" class="sharebtn margtop5">Send to friend</a> <a
+							href="#" class="add2fav margtop5">Add to whish list</a>
+						<button data-toggle="modal" data-target="#preBookModal"
+							class="booknow margtop20 btnmarg">Book now</button>
+					</div>
 				</div>
-				<div class="line3"></div>
+				<!-- END OF RIGHT INFO -->
 
-				<div class="clearfix"></div>
-				<br />
+			</div>
+			<!-- END OF container-->
 
-				<div class="padding20">
-					<a href="#" class="sharebtn margtop5">Send to friend</a> 
-					<a href="#" class="add2fav margtop5">Add to whish list</a> 
-					<a href="#" class="booknow margtop20 btnmarg">Book now</a>
+			<div class="container mt25 offset-0">
+
+				<div class="col-md-8 pagecontainer2 offset-0">
+					<div class="cstyle10"></div>
+
+					<ul class="nav nav-tabs" id="myTab">
+						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
+							href="#summary"><span class="summary"></span><span
+								class="hidetext">Summary</span>&nbsp;</a></li>
+						<li onclick="mySelectUpdate()" class="active"><a
+							data-toggle="tab" href="#flights"><span class="rates"></span><span
+								class="hidetext">Flights</span>&nbsp;</a></li>
+
+						<li onclick="loadScript()" class=""><a data-toggle="tab"
+							href="#maps"><span class="maps"></span><span class="hidetext">Maps</span>&nbsp;</a></li>
+						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
+							href="#thingstodo"><span class="thingstodo"></span><span
+								class="hidetext">Things to do</span>&nbsp;</a></li>
+
+					</ul>
+					<div class="tab-content4">
+						<!-- TAB 1 -->
+						<div id="summary" class="tab-pane fade ">
+							<p class="hpadding20">Lorem ipsum dolor sit amet, consectetur
+								adipiscing elit. Nullam auctor aliquam felis, sit amet tempus
+								nibh ullamcorper nec. Maecenas suscipit dolor at blandit congue.
+								Sed adipiscing, odio feugiat pellentesque tincidunt, est leo
+								vestibulum erat, ac pharetra massa justo ac lorem.</p>
+							<div class="line4"></div>
+						</div>
+
+
+						<!-- TAB 2 -->
+						<div id="flights" class="tab-pane fade active in">
+							<div class="hpadding20">
+								<p class="dark">Available Flights</p>
+							</div>
+						</div>
+
+						<!-- TAB 4 -->
+						<div id="maps" class="tab-pane fade">
+							<div class="hpadding20">
+								<div id="map-canvas"></div>
+							</div>
+						</div>
+
+
+						<!-- TAB 6 -->
+						<div id="thingstodo" class="tab-pane fade">
+
+							<p class="hpadding20 opensans size16 dark bold">Attractions
+								travelers recommend</p>
+
+							<div class="line2"></div>
+
+
+							<div class="padding20">
+
+								<div class="offset-0">
+									<div class="col-md-8 mediafix1">
+										<span class="opensans dark size16 margtop1 margtop-5">Marathonissi
+											(Turtle Island), Laganas</span><br /> <span class="green">“Beautiful”</span>
+										08/27/2013<br />
+										<p class="margtop10">Lorem ipsum dolor sit amet,
+											consectetur adipiscing elit. Nam velit augue, placerat quis
+											est eget, cursus dictum felis. Morbi non dui vitae nisl
+											pharetra placerat.</p>
+										<div class="clearfix"></div>
+									</div>
+									<div class="col-md-4 center bordertype4">
+
+										<br />
+										<button class="bookbtn mt1">More</button>
+										<br /> <br />
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="line2"></div>
+
+							<div class="padding20">
+
+								<div class="offset-0">
+									<div class="col-md-8 mediafix1">
+										<span class="opensans dark size16 margtop1 margtop-5">Navagio
+											Beach (Shipwreck Beach)</span><br /> <span class="green">“like
+											being on a tropical island”</span> 08/27/2013<br />
+										<p class="margtop10">Lorem ipsum dolor sit amet,
+											consectetur adipiscing elit. Nam velit augue, placerat quis
+											est eget, cursus dictum felis. Morbi non dui vitae nisl
+											pharetra placerat.</p>
+										<div class="clearfix"></div>
+									</div>
+									<div class="col-md-4 center bordertype4">
+										<br />
+										<button class="bookbtn mt1">More</button>
+										<br /> <br />
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="line2"></div>
+
+
+
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+
+
+					<div class="pagecontainer2 needassistancebox">
+						<div class="cpadding1">
+							<span class="icon-help"></span>
+							<h3 class="opensans">Need Assistance?</h3>
+							<p class="size14 grey">We are available 24/7 to help you
+								build your dream travel</p>
+							<p class="opensans size30 green xslim">(+39) 800-5996674</p>
+						</div>
+					</div>
+					<br />
+
+
 				</div>
 			</div>
-			<!-- END OF RIGHT INFO -->
+
+
 
 		</div>
-		<!-- END OF container-->
-
-		<div class="container mt25 offset-0">
-
-			<div class="col-md-8 pagecontainer2 offset-0">
-				<div class="cstyle10"></div>
-
-				<ul class="nav nav-tabs" id="myTab">
-					<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
-						href="#summary"><span class="summary"></span><span
-							class="hidetext">Summary</span>&nbsp;</a></li>
-					<li onclick="mySelectUpdate()" class="active"><a
-						data-toggle="tab" href="#flights"><span class="rates"></span><span
-							class="hidetext">Flights</span>&nbsp;</a></li>
-				
-					<li onclick="loadScript()" class=""><a data-toggle="tab"
-						href="#maps"><span class="maps"></span><span class="hidetext">Maps</span>&nbsp;</a></li>
-					<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
-						href="#thingstodo"><span class="thingstodo"></span><span
-							class="hidetext">Things to do</span>&nbsp;</a></li>
-
-				</ul>
-				<div class="tab-content4">
-					<!-- TAB 1 -->
-					<div id="summary" class="tab-pane fade ">
-						<p class="hpadding20">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nullam auctor aliquam felis, sit amet tempus
-							nibh ullamcorper nec. Maecenas suscipit dolor at blandit congue.
-							Sed adipiscing, odio feugiat pellentesque tincidunt, est leo
-							vestibulum erat, ac pharetra massa justo ac lorem.</p>
-						<div class="line4"></div>
-					</div>
-					
-					
-					<!-- TAB 2 -->
-					<div id="flights" class="tab-pane fade active in">
-						<div class="hpadding20">
-							<p class="dark">Available Flights</p>
-						</div>
-					</div>
-					
-					<!-- TAB 4 -->
-					<div id="maps" class="tab-pane fade">
-						<div class="hpadding20">
-							<div id="map-canvas"></div>
-						</div>
-					</div>
-
-
-					<!-- TAB 6 -->
-					<div id="thingstodo" class="tab-pane fade">
-
-						<p class="hpadding20 opensans size16 dark bold">Attractions
-							travelers recommend</p>
-
-						<div class="line2"></div>
-
-
-						<div class="padding20">
-							
-							<div class="offset-0">
-								<div class="col-md-8 mediafix1">
-									<span class="opensans dark size16 margtop1 margtop-5">Marathonissi
-										(Turtle Island), Laganas</span><br /> <span class="green">“Beautiful”</span>
-									08/27/2013<br />
-									<p class="margtop10">Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit. Nam velit augue, placerat quis
-										est eget, cursus dictum felis. Morbi non dui vitae nisl
-										pharetra placerat.</p>
-									<div class="clearfix"></div>
-								</div>
-								<div class="col-md-4 center bordertype4">
-								
-									<br />
-									<button class="bookbtn mt1">More</button>
-									<br />
-									<br />
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="line2"></div>
-
-						<div class="padding20">
-	
-							<div class="offset-0">
-								<div class="col-md-8 mediafix1">
-									<span class="opensans dark size16 margtop1 margtop-5">Navagio
-										Beach (Shipwreck Beach)</span><br /> <span class="green">“like
-										being on a tropical island”</span> 08/27/2013<br />
-									<p class="margtop10">Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit. Nam velit augue, placerat quis
-										est eget, cursus dictum felis. Morbi non dui vitae nisl
-										pharetra placerat.</p>
-									<div class="clearfix"></div>
-								</div>
-								<div class="col-md-4 center bordertype4">
-									<br />
-									<button class="bookbtn mt1">More</button>
-									<br />
-									<br />
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="line2"></div>
-
-
-
-
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4">
-
-
-				<div class="pagecontainer2 needassistancebox">
-					<div class="cpadding1">
-						<span class="icon-help"></span>
-						<h3 class="opensans">Need Assistance?</h3>
-						<p class="size14 grey">We are available 24/7 to
-							help you build your dream travel</p>
-						<p class="opensans size30 green xslim">(+39) 800-5996674</p>
-					</div>
-				</div>
-				<br />
-
-
-			</div>
-		</div>
-
-
-
-	</div>
 
 		<ui:include src="footer.xhtml" />
 		<h:outputScript library="store" name="js/functions.js" />
 		<h:outputScript library="store" name="js/js-details.js" />
 		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
+
+
+
+		<div class="modal fade" id="preBookModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<p class="opensans size16 dark bold">Select Outbound Flight</p>
+						<p class="margtop10">Please select the outbound flight you
+							prefer. You'll be able to see the total package cost at the end</p>
+						<div class="line2"></div>
+
+						<table class="table table-hover" id="outboundFlight">
+							<thead>
+								<tr>
+									<th>Airline</th>
+									<th>Departure</th>
+									<th>Arrival</th>
+									<th>Price</th>
+									<td class="hidden">ID</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Mark</td>
+									<td>Otto</td>
+									<td>@mdo</td>
+									<td class="hidden">11</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Jacob</td>
+									<td>Thornton</td>
+									<td>@fat</td>
+									<td class="hidden">12</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Larry</td>
+									<td>the Bird</td>
+									<td>@twitter</td>
+									<td class="hidden">13</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="bookbtn" id="cancelBtn">Cancel</button>
+						<button type="button" class="bookbtn" id="selectInbound">Continue</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		
+		<div class="modal fade" id="inboundModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<p class="opensans size16 dark bold">Select Inbound Flight</p>
+						<p class="margtop10">Please select the inbound flight you
+							prefer. You'll be able to see the total package cost at the end</p>
+						<div class="line2"></div>
+
+						<table class="table table-hover" id="inboundFlight">
+							<thead>
+								<tr>
+									<th>Airline</th>
+									<th>Departure</th>
+									<th>Arrival</th>
+									<th>Price</th>
+									<td class="hidden">ID</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Mark</td>
+									<td>Otto</td>
+									<td>@mdo</td>
+									<td class="hidden">11</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Jacob</td>
+									<td>Thornton</td>
+									<td>@fat</td>
+									<td class="hidden">12</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Larry</td>
+									<td>the Bird</td>
+									<td>@twitter</td>
+									<td class="hidden">13</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="bookbtn" id="cancelBtn">Cancel</button>
+						<button type="button" class="bookbtn" id="viewTotal">Select</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+		<script>
+			jQuery(document).ready(function() {
+				var idOutbound = 0;
+				var idInbound = 0;
+				jQuery('#outboundFlight tbody tr').click(function() {
+					jQuery('#outboundFlight tr').removeClass('success');
+					jQuery(this).addClass('success');
+					idOutbound = jQuery(this).find('td:last').html();
+				})
+				jQuery('#inboundFlight tbody tr').click(function() {
+					jQuery('#inboundFlight tr').removeClass('success');
+					jQuery(this).addClass('success');
+					idInbound = jQuery(this).find('td:last').html();
+				})
+				jQuery('#selectInbound').click(function() {
+					if(idOutbound != 0) {
+						jQuery('#preBookModal').modal('hide');
+						jQuery('#inboundModal').modal('show');
+					} else {
+						alert('You have to select an outbound flight first!')
+					}
+					
+				})
+				
+				jQuery('#viewTotal').click(function() {
+					console.log(idOutbound);
+					console.log(idInbound);
+				})
+				jQuery('#cancelBtn').click(function() {
+					// @TODO cancellare valori e chiudere modali
+				})
+				
+			});
+		</script>
 	</ui:define>
 
 </ui:composition>

@@ -31,6 +31,12 @@ public class AttivitaSecondariaPacchetto implements Serializable {
 
 	public AttivitaSecondariaPacchetto() {
 	}
+	
+	public AttivitaSecondariaPacchetto(Pacchetto pacchetto, AttivitaSecondaria attivitaSecondaria) {
+		
+		this.pacchettoBean = pacchetto;		
+		this.attivitaSecondariaBean = attivitaSecondaria;
+	}
 
 	public int getId() {
 		return this.id;

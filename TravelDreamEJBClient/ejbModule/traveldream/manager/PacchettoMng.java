@@ -2,6 +2,7 @@ package traveldream.manager;
 
 import java.util.List;
 
+import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
@@ -24,6 +25,8 @@ public interface PacchettoMng {
 	public void aggiungiVoloAPacchetto(PacchettoDTO pacchetto, VoloDTO volo, String tipo);
 	
 	public void aggiungiHotelAPacchetto(PacchettoDTO pacchetto, HotelDTO hotel);
+	
+	public void aggiungiAttivitaAPacchetto(PacchettoDTO pacchetto, AttivitaSecondariaDTO attivita);
 	
 	public List<PacchettoDTO> getAllPacchetti();
 	

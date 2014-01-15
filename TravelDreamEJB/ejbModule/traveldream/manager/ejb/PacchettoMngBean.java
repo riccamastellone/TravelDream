@@ -10,11 +10,13 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-
+import model.AttivitaSecondaria;
+import model.AttivitaSecondariaPacchetto;
 import model.Hotel;
 import model.Pacchetto;
 import model.Volo;
 import model.VoloPacchetto;
+import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
@@ -218,6 +220,23 @@ public class PacchettoMngBean implements PacchettoMng {
 		pacchettoDaCancellare.setEliminato(1);
 		em.merge(pacchettoDaCancellare);
 		
+	}
+	
+	private AttivitaSecondaria getAttivitaById(AttivitaSecondariaDTO attivita) {
+
+		List<AttivitaSecondaria> attivitaSecondarie = em.createNamedQuery("AttivitaSecondaria.getVoloById", AttivitaSecondaria.class).setParameter("id", attivita.getId()).getResultList();
+		return attivitaSecondarie.get(0);
+	}
+
+	@Override
+	public void aggiungiAttivitaAPacchetto(PacchettoDTO pacchetto, AttivitaSecondariaDTO attivita) {
+		// TODO Auto-generated method stub
+		AttivitaSecondaria attivitaNuova = this.getAttivitaById(attivita);
+		Pacchetto pacchettoDaAggiornare = this.findPacchetto(pacchetto.getId());
+		System.out.println(pacchettoDaAggiornare.getNome());
+		AttivitaSecondariaPacchetto attivitaPacchetto = new AttivitaSecondariaPacchetto(pacchettoDaAggiornare, attivitaNuova);
+		em.persist(attivitaPacchetto);
+			
 	}
 	
  

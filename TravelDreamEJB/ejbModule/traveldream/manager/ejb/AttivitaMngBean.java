@@ -1,5 +1,6 @@
 package traveldream.manager.ejb;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import model.AttivitaSecondaria;
+import model.Hotel;
 import traveldream.dtos.AttivitaSecondariaDTO;
+import traveldream.dtos.PacchettoDTO;
 import traveldream.manager.AttivitaMng;
 
 @Stateless
@@ -70,6 +73,21 @@ public class AttivitaMngBean implements AttivitaMng {
 		AttivitaSecondaria attivitaDC = this.findAttivita(attivita.getId());
 		attivitaDC.setEliminato(1);
 		em.merge(attivitaDC);
+	}
+	
+	private AttivitaSecondaria getLastAttivita() {
+
+		List<AttivitaSecondaria> attivita = em.createNamedQuery("AttivitaSecondaria.selectMax", AttivitaSecondaria.class).getResultList();
+		return attivita.get(0);
+	}
+
+	@Override
+	public AttivitaSecondariaDTO aggiungiAttivitaAPacchetto(AttivitaSecondariaDTO attivita) throws ParseException {
+		// TODO Auto-generated method stub
+		salvaAttivita(attivita);
+		AttivitaSecondaria attivitaDaRitornare = this.getLastAttivita();
+		attivita.setId(attivitaDaRitornare.getId());
+		return attivita;
 	}
 
 }

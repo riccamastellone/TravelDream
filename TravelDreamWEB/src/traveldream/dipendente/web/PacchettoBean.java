@@ -17,9 +17,11 @@ import javax.faces.event.AjaxBehaviorEvent;
 
 import org.primefaces.event.RowEditEvent;
 
+import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
+import traveldream.manager.AttivitaMng;
 import traveldream.manager.HotelMng;
 import traveldream.manager.PacchettoMng;
 import traveldream.manager.VoloMng;
@@ -36,6 +38,9 @@ public class PacchettoBean {
 	
 	@EJB
 	private HotelMng hotelMng;
+	
+	@EJB
+	private AttivitaMng attivitalMng;
 	
 	
 	private PacchettoDTO pacchetto;
@@ -69,6 +74,10 @@ public class PacchettoBean {
 	
 	private PacchettoDTO pacchettoDaVisualizzareDto;
 	
+	private List<AttivitaSecondariaDTO> attivitaSecondarie;
+	
+	private AttivitaSecondariaDTO attivitaDaSalvare;
+	
 	
 	public PacchettoBean() {
 		this.pacchetto = new PacchettoDTO();
@@ -86,7 +95,8 @@ public class PacchettoBean {
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
 		this.pacchetti = new ArrayList<PacchettoDTO>();
 		this.pacchettoDaVisualizzareDto = new PacchettoDTO();
-	
+		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
+		this.attivitaDaSalvare = new AttivitaSecondariaDTO();
 				
 	}
 
@@ -199,6 +209,22 @@ public class PacchettoBean {
 
 	public void setPacchettoDaVisualizzareDto(PacchettoDTO pacchettoDaVisualizzareDto) {
 		this.pacchettoDaVisualizzareDto = pacchettoDaVisualizzareDto;
+	}
+	
+	public List<AttivitaSecondariaDTO> getAttivitaSecondarie() {
+		return attivitaSecondarie;
+	}
+
+	public void setAttivitaSecondarie(List<AttivitaSecondariaDTO> attivitaSecondarie) {
+		this.attivitaSecondarie = attivitaSecondarie;
+	}
+
+	public AttivitaSecondariaDTO getAttivitaDaSalvare() {
+		return attivitaDaSalvare;
+	}
+
+	public void setAttivitaDaSalvare(AttivitaSecondariaDTO attivitaDaSalvare) {
+		this.attivitaDaSalvare = attivitaDaSalvare;
 	}
 
 
@@ -369,6 +395,28 @@ public class PacchettoBean {
 		this.hotelSalvato.clear();
 	}
 	
+	/*PARTE GESTIONE ATTIVITA IN PACCHETTO*/
+	
+	
+	public String goToAggiungiNuovaAttivita(){
+		this.attivitaDaSalvare = new AttivitaSecondariaDTO();
+		this.attivitaDaSalvare.setLocalita(this.pacchetto.getLocalita());
+		return "aggiungiNuovaAttivita?faces-redirect=true";
+	}
+	
+	/**
+	 * toglie l attivita da salvare
+	 * @param hotel
+	 */
+	public void eliminaAttivita(AttivitaSecondariaDTO attivita) {		
+		this.attivitaSecondarie.remove(attivita);
+	}
+	
+	public String aggiungiNuovaAttivitaAPacchetto(){
+		this.attivitaSecondarie.add((AttivitaSecondariaDTO) this.attivitaDaSalvare.clone());
+		return "aggiungiAttivita?faces-redirect=true";
+	}
+	
 	/**
 	 * step finale in cui salva le info a db
 	 * @return
@@ -405,7 +453,6 @@ public class PacchettoBean {
 		
 		//SESTO STEP: verifico se un hotel e nuovo oppure esistente(id !=0), se nuovo lo inserisco a db
 		//e poi lo associo al pacchetto, se esistente mi limito ad associarlo
-		//verificare se in un db vuoto l id parte da 0
 		if ( this.hotelSalvato.get(0).getId() == 0){
 			HotelDTO hotelDaSalvare = this.hotelMng.aggiungiHotelAPacchetto(this.hotelSalvato.get(0));
 			this.pkgMng.aggiungiHotelAPacchetto(pacchetto, hotelDaSalvare);
@@ -414,6 +461,19 @@ public class PacchettoBean {
 			this.pkgMng.aggiungiHotelAPacchetto(pacchetto, this.hotelSalvato.get(0));
 		}
 		
+		// SESTO STEP: verifico se un attivita e nuova oppure esistente(id !=0), se
+		// nuova la inserisco a db
+		// e poi lo associo al pacchetto, se esistente mi limito ad associarla
+		for (AttivitaSecondariaDTO attivitaSecondaria : this.attivitaSecondarie) {
+			if (attivitaSecondaria.getId() == 0) {
+				attivitaSecondaria = this.attivitalMng.aggiungiAttivitaAPacchetto(attivitaSecondaria);
+				this.pkgMng.aggiungiAttivitaAPacchetto(pacchetto, attivitaSecondaria);
+			}			
+			else {
+				this.pkgMng.aggiungiAttivitaAPacchetto(pacchetto, attivitaSecondaria);
+			}
+		}
+
 		this.reInitProcesso();
 		
 		
@@ -437,7 +497,9 @@ public class PacchettoBean {
 		this.hotelSalvato = new ArrayList<HotelDTO>();
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
 		this.pacchetti = new ArrayList<PacchettoDTO>();
-		this.pacchettoDaVisualizzareDto = new PacchettoDTO();	
+		this.pacchettoDaVisualizzareDto = new PacchettoDTO();
+		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
+		this.attivitaDaSalvare = new AttivitaSecondariaDTO();	
 	}
 	
 	public void mostraInfo(AjaxBehaviorEvent actionEvent, PacchettoDTO pacchetto) {
@@ -595,10 +657,21 @@ public class PacchettoBean {
 		 }
 		 
 		 else {
+			 return "aggiungiAttivita?faces-redirect=true";
+		}
+	 }
+	 
+	 public String checkConsistenzaAttivita() throws ParseException{
+		 if ( this.attivitaSecondarie.isEmpty() ){
+			 return "aggiungiAttivita?faces-redirect=true";
+		 }
+		 
+		 else {
 			//aggiungi pacchetto andra messo dopo quando ci saranno attivita secondarie
 			 aggiungiPacchetto();
 			 return  "catalogo?faces-redirect=true";
 		}
 	 }
+
 
 }

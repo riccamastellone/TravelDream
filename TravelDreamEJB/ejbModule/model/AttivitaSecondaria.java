@@ -15,7 +15,15 @@ import java.util.List;
  */
 @Entity
 @Table(name= "AttivitaSecondaria")
-@NamedQuery(name="AttivitaSecondaria.findAll", query="SELECT a FROM AttivitaSecondaria a WHERE a.eliminato != 1")
+@NamedQueries({ 
+
+	@NamedQuery(name="AttivitaSecondaria.findAll", query="SELECT a FROM AttivitaSecondaria a WHERE a.eliminato != 1"),
+	
+	@NamedQuery(name="AttivitaSecondaria.selectMax", query="SELECT a FROM AttivitaSecondaria a Where a.id = (SELECT max(a.id) FROM AttivitaSecondaria a)"),
+	
+	@NamedQuery(name="AttivitaSecondaria.getVoloById", query="SELECT a FROM AttivitaSecondaria a Where a.id = :id")
+
+})
 public class AttivitaSecondaria implements Serializable {
 	private static final long serialVersionUID = 1L;
 

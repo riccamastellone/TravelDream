@@ -69,7 +69,7 @@
 					<div class="padding20">
 						<a href="#" class="sharebtn margtop5">Send to friend</a> <a
 							href="#" class="add2fav margtop5">Add to whish list</a>
-						<button data-toggle="modal" data-target="#preBookModal"
+						<button data-toggle="modal" data-target="#peopleModal"
 							class="booknow margtop20 btnmarg">Book now</button>
 					</div>
 				</div>
@@ -215,6 +215,35 @@
 		<h:outputScript library="store" name="js/js-details.js" />
 		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
 
+		<div class="modal fade" id="peopleModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<p class="opensans size16 dark bold">Select how many people
+							are travelling</p>
+						<div class="line2"></div>
+						<div class="col-md-6">
+							<p>People:</p>
+						</div>
+						<div class="col-md-6">
+							<select class="form-control" name="people">
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="bookbtn cancelBtn">Cancel</button>
+						<button type="button" class="bookbtn" id="selectOutbound">Continue</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 		<div class="modal fade" id="preBookModal">
@@ -240,38 +269,46 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>1</td>
-									<td>Mark</td>
-									<td>Otto</td>
-									<td>@mdo</td>
+									<td>Alitalia</td>
+									<td>Milan<br />26/03 15:10
+									</td>
+									<td>London<br />26/03 17:10
+									</td>
+									<td>112 €</td>
 									<td class="hidden">11</td>
 								</tr>
 								<tr>
-									<td>2</td>
-									<td>Jacob</td>
-									<td>Thornton</td>
-									<td>@fat</td>
+									<td>British Airways</td>
+									<td>Milan<br />26/03 15:10
+									</td>
+									<td>London<br />26/03 17:10
+									</td>
+									<td>112 €</td>
 									<td class="hidden">12</td>
 								</tr>
 								<tr>
-									<td>3</td>
-									<td>Larry</td>
-									<td>the Bird</td>
-									<td>@twitter</td>
+									<td>British Airways</td>
+									<td>Milan<br />26/03 20:10
+									</td>
+									<td>London<br />26/03 22:00
+									</td>
+									<td>112 €</td>
 									<td class="hidden">13</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="bookbtn" id="cancelBtn">Cancel</button>
+						<button type="button" class="bookbtn cancelBtn">Cancel</button>
+						<button type="button" class="bookbtn backBtn"
+							data-hash="peopleModal">Back</button>
 						<button type="button" class="bookbtn" id="selectInbound">Continue</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		
+
+
 		<div class="modal fade" id="inboundModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -295,70 +332,116 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>1</td>
-									<td>Mark</td>
-									<td>Otto</td>
-									<td>@mdo</td>
+									<td>British Airways</td>
+									<td>Milan<br />29/03 15:10
+									</td>
+									<td>London<br />29/03 17:10
+									</td>
+									<td>112 €</td>
 									<td class="hidden">11</td>
 								</tr>
 								<tr>
-									<td>2</td>
-									<td>Jacob</td>
-									<td>Thornton</td>
-									<td>@fat</td>
+									<td>British Airways</td>
+									<td>Milan<br />30/03 15:10
+									</td>
+									<td>London<br />30/03 17:10
+									</td>
+									<td>112 €</td>
 									<td class="hidden">12</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>Larry</td>
-									<td>the Bird</td>
-									<td>@twitter</td>
-									<td class="hidden">13</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="bookbtn" id="cancelBtn">Cancel</button>
-						<button type="button" class="bookbtn" id="viewTotal">Select</button>
+						<button type="button" class="bookbtn cancelBtn">Cancel</button>
+						<button type="button" class="bookbtn backBtn"
+							data-hash="preBookModal">Back</button>
+						<button type="button" class="bookbtn" id="viewTotal">Continue</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
+
+		<div class="modal fade" id="reviewModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<p class="opensans size16 dark bold">Review your package</p>
+						<div class="line2"></div>
+
+						<p class="bold">Peaple</p>
+						<p class="bold">Chosen flights</p>
+						<p class="bold">Hotel</p>
+						<p class="bold">Cost per person</p>
+						<p class="bold">Total cost</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="bookbtn cancelBtn">Cancel</button>
+						<button type="button" class="bookbtn backBtn"
+							data-hash="inboundModal">Back</button>
+						<button type="button" class="bookbtn" id="viewTotal">Purchase</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 		<script>
+			function Pacchetto(persone) {
+				this.persone = persone;
+				this.idOutbound = 0;
+				this.idInbound = 0;
+			}
 			jQuery(document).ready(function() {
-				var idOutbound = 0;
-				var idInbound = 0;
+
+				jQuery('#selectOutbound').click(function() {
+					var persone = jQuery("#peopleModal select").val();
+					pacchetto = new Pacchetto(persone);
+					jQuery('.modal').modal('hide');
+					jQuery('#preBookModal').modal('show');
+
+				})
+
 				jQuery('#outboundFlight tbody tr').click(function() {
 					jQuery('#outboundFlight tr').removeClass('success');
 					jQuery(this).addClass('success');
-					idOutbound = jQuery(this).find('td:last').html();
+					pacchetto.idOutbound = jQuery(this).find('td:last').html();
 				})
 				jQuery('#inboundFlight tbody tr').click(function() {
 					jQuery('#inboundFlight tr').removeClass('success');
 					jQuery(this).addClass('success');
-					idInbound = jQuery(this).find('td:last').html();
+					pacchetto.idInbound = jQuery(this).find('td:last').html();
 				})
 				jQuery('#selectInbound').click(function() {
-					if(idOutbound != 0) {
+					if (pacchetto.idOutbound != 0) {
 						jQuery('#preBookModal').modal('hide');
 						jQuery('#inboundModal').modal('show');
 					} else {
 						alert('You have to select an outbound flight first!')
 					}
-					
+
 				})
-				
+
 				jQuery('#viewTotal').click(function() {
-					console.log(idOutbound);
-					console.log(idInbound);
+					if (pacchetto.idInbound != 0) {
+						jQuery('.modal').modal('hide');
+						jQuery('#reviewModal').modal('show');
+					} else {
+						alert('You have to select an inbound flight first!')
+					}
 				})
-				jQuery('#cancelBtn').click(function() {
-					// @TODO cancellare valori e chiudere modali
+				jQuery('.cancelBtn').click(function() {
+					pacchetto.idOutbound = 0;
+					pacchetto.idInbound = 0;
 				})
-				
+				jQuery('.backBtn').click(function() {
+					jQuery('.modal').modal('hide');
+					jQuery('#' + jQuery(this).attr('data-hash')).modal('show');
+				})
+
 			});
 		</script>
 	</ui:define>

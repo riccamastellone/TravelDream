@@ -26,7 +26,7 @@ public class AttivitaMngBean implements AttivitaMng {
 	private EJBContext context;
 
 
-	private AttivitaSecondariaDTO AttivitaToDTO(AttivitaSecondaria a) {
+	protected static AttivitaSecondariaDTO AttivitaToDTO(AttivitaSecondaria a) {
 		AttivitaSecondariaDTO as = new AttivitaSecondariaDTO();
 		as.setNome(a.getNome());
 		as.setCosto(a.getCosto());

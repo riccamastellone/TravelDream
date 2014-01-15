@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://richfaces.org/rich">
+
+<ui:composition template="../template.xhtml">
+
+	<ui:define name="content">
+
+		<br></br>
+		<h:form>
+
+			<div class="form-group">
+				<label>Nome:</label>
+				<h:inputText class="form-control"
+					p:placeholder="Inserisci il nome dell'attivita"
+					value="#{pacchettoBean.attivitaDaSalvare.nome}" />
+			</div>
+
+			<div class="form-group">
+				<label>Costo:</label>
+				<h:inputText p:placeholder="Inserisci il costo"
+					class="form-control" value="#{pacchettoBean.attivitaDaSalvare.costo}" />
+			</div>
+
+			<div class="form-group">
+				<label>Posti disponibili :</label>
+				<h:inputText
+					p:placeholder="Inserisci il numero di posti disponibili"
+					class="form-control" value="#{pacchettoBean.attivitaDaSalvare.disponibilita}" />
+			</div>
+
+			<div class="form-group">
+				<label>Luogo:</label>
+				<h:inputText p:placeholder="Inserisci la località dell'attivita"
+					class="form-control" value="#{pacchettoBean.attivitaDaSalvare.localita}" disabled="true"/>
+			</div>
+
+
+			<div class="form-group">
+				<label>Descrizione:</label>
+				<h:inputTextarea class="form-control"
+					p:placeholder="Inserisci una descrzione"
+					value="#{pacchettoBean.attivitaDaSalvare.descrizione}" />
+			</div>
+
+			<h:commandButton value="Aggiungi" class="btn btn-default"
+				action="#{pacchettoBean.aggiungiNuovaAttivitaAPacchetto()}" />
+		</h:form>
+
+		<script>
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(5)').addClass('active');
+			});
+		</script>
+
+	</ui:define>
+
+</ui:composition>
+
+
+</html>

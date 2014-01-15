@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../template.xhtml">
+
+	<ui:define name="content">
+		
+		<div style="text-align: right; margin-bottom: 10px">
+			<h:form style="display:inline-block">
+				<h:commandButton value="Aggiungi Nuova Attivita"
+					class="btn btn-default"
+					action="#{pacchettoBean.goToAggiungiNuovaAttivita()}" />
+			</h:form>
+		</div>
+		
+		<br />
+		<br />
+		<h:form id="form">
+		
+
+			<p:dataTable id="dataTable" var="attivita" value="#{pacchettoBean.attivitaSecondarie}" lazy="true">
+				<f:facet name="header">  
+            Elenco Attivita Secondarie 
+        </f:facet>
+        
+				<p:column sortBy="nome" headerText="Nome">
+						<h:outputText value="#{attivita.nome}" />
+				</p:column>
+
+
+				<p:column sortBy="costoGiornaliero" headerText="Costo">
+						<h:outputText value="#{attivita.costo} €" />
+				</p:column>
+
+				<p:column sortBy="luogo" headerText="Luogo">
+						<h:outputText value="#{attivita.localita}" />
+				</p:column>
+				
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{attivita.disponibilita}" />
+				</p:column>	
+					
+				<p:column>
+						<h:commandLink id="eliminaRitorno" value="Elimina"
+							class="btn btn-danger white"
+							action="#{pacchettoBean.eliminaAttivita(attivita)}">
+							<f:ajax execute="eliminaRitorno" render="dataTable" />
+						</h:commandLink>
+				</p:column>
+				
+			</p:dataTable>
+
+		</h:form>
+		
+		<div style="text-align: right; margin-top:10px;">
+				<h:link outcome="aggiungiHotel" class="btn btn-default"
+					value="Indietro" />
+				<h:form style="display:inline">
+					<h:commandLink action="#{pacchettoBean.checkConsistenzaAttivita()}" class="btn btn-primary"
+				value="Avanti" />
+				</h:form>
+			</div>
+		<script>
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(5)').addClass('active');
+			});
+		</script>
+	</ui:define>
+
+</ui:composition>
+
+
+</html>

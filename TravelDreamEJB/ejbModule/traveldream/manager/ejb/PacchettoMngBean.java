@@ -134,6 +134,8 @@ public class PacchettoMngBean implements PacchettoMng {
 		for (Pacchetto pacchetto : pacchetti) {
 			
 			PacchettoDTO pacchettoDTO = this.convertToDto(pacchetto);
+			
+			//ricavo tutti i voli e li distinguo tra andata e ritorno
 			for (VoloPacchetto voloPacchetto : pacchetto.getVoliPacchetto()) {
 				
 				if (voloPacchetto.getTipo().equals("Andata")){
@@ -143,18 +145,19 @@ public class PacchettoMngBean implements PacchettoMng {
 					pacchettoDTO.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
 				}
 				
-				//pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
-				//pacchettiDTO.get
 			}
 			
+			//ricavo l hotel
 			pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
+			
+			for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : pacchetto.getAttivitaSecondariePacchetto()) {
+				pacchettoDTO.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+			}
+			
 			pacchettiDto.add(pacchettoDTO);
 		}
 		
-		
-		
-		return pacchettiDto;
-		
+		return pacchettiDto;	
 	}
 
 	@Override
@@ -223,7 +226,6 @@ public class PacchettoMngBean implements PacchettoMng {
 	}
 	
 	private AttivitaSecondaria getAttivitaById(AttivitaSecondariaDTO attivita) {
-
 		List<AttivitaSecondaria> attivitaSecondarie = em.createNamedQuery("AttivitaSecondaria.getVoloById", AttivitaSecondaria.class).setParameter("id", attivita.getId()).getResultList();
 		return attivitaSecondarie.get(0);
 	}

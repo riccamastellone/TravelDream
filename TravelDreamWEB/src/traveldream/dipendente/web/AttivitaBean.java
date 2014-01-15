@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.RowEditEvent;
 
 import com.sun.el.parser.ParseException;
 
@@ -51,23 +52,10 @@ public class AttivitaBean {
 		return this.allAttivita;
 	}
 	
-	
-	public String goToEdit(AttivitaSecondariaDTO attivita){
-		this.attivita = attivita;
-		return "edita?faces-redirect=true";
-
-	}
-	
-	public String aggiornaAttivita() throws ParseException {
-		AttivitaSecondariaDTO attivitaDTO = this.attivita;
-		this.attivita = new AttivitaSecondariaDTO();
-		attivitaMng.aggiornaAttivita(attivitaDTO);
-		refreshAttivita();
-		return "catalogo?faces-redirect=true";
-	}
 
 	public void deleteAttivita(AttivitaSecondariaDTO attivita) {
 		attivitaMng.deleteAttivita(attivita);
+		this.allAttivita.remove(attivita);
 	}
 
 
@@ -79,5 +67,11 @@ public class AttivitaBean {
 	public void setAttivita(AttivitaSecondariaDTO attivita) {
 		this.attivita = attivita;
 	}
+	
+	public void onEdit(RowEditEvent event) throws ParseException { 
+	       FacesMessage msg = new FacesMessage("Attivita Aggiornato");  
+	       attivitaMng.aggiornaAttivita((AttivitaSecondariaDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg);  
+	    } 
 
 }

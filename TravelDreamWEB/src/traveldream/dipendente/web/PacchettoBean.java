@@ -508,6 +508,7 @@ public class PacchettoBean {
 		this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
 		System.out.println("ANDATA");
 		System.out.println(this.pacchettoDaVisualizzareDto.getHotel().getDescrizione());
+		
 		/*
 		for (VoloDTO volo : this.pacchettoDaVisualizzareDto.getVoliAndata()) {
 			System.out.println(volo.getNomeCompagnia());
@@ -670,6 +671,19 @@ public class PacchettoBean {
 			//aggiungi pacchetto andra messo dopo quando ci saranno attivita secondarie
 			 aggiungiPacchetto();
 			 return  "catalogo?faces-redirect=true";
+		}
+	 }
+	 
+	 public void eliminaAttivitaDaPacchetto(AjaxBehaviorEvent action, AttivitaSecondariaDTO attivita){
+		 if (this.pacchettoDaVisualizzareDto.getAttivitaSecondarie().size() == 1){
+			 FacesMessage msg = new FacesMessage("Il pacchetto deve avere almeno un attivita");
+			 FacesContext.getCurrentInstance().addMessage(null, msg);
+		 }
+		 else {
+			FacesMessage msg = new FacesMessage("Associazione Eliminata");
+			pkgMng.eliminaAttivitaDaPacchetto(this.pacchettoDaVisualizzareDto, attivita);
+			this.pacchettoDaVisualizzareDto.getAttivitaSecondarie().remove(attivita);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	 }
 

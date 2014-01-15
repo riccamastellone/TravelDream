@@ -149,7 +149,7 @@ public class PacchettoMngBean implements PacchettoMng {
 			
 			//ricavo l hotel
 			pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
-			
+			//ricavo la lista delle attivita secondarie asociate al paccchetto
 			for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : pacchetto.getAttivitaSecondariePacchetto()) {
 				pacchettoDTO.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
 			}
@@ -213,6 +213,10 @@ public class PacchettoMngBean implements PacchettoMng {
 			}
 		}
 		nuovoPacchetto.setHotel(HotelMngBean.HotelToDTO(pacchettoAggiornato.getHotel()));
+		
+		for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : pacchettoAggiornato.getAttivitaSecondariePacchetto()) {
+			nuovoPacchetto.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+		}
 		return nuovoPacchetto;
 	}
 
@@ -239,6 +243,26 @@ public class PacchettoMngBean implements PacchettoMng {
 		AttivitaSecondariaPacchetto attivitaPacchetto = new AttivitaSecondariaPacchetto(pacchettoDaAggiornare, attivitaNuova);
 		em.persist(attivitaPacchetto);
 			
+	}
+
+	@Override
+	public void eliminaAttivitaDaPacchetto(PacchettoDTO pacchettoDTO, AttivitaSecondariaDTO attivita) {
+		// TODO Auto-generated method stub
+		AttivitaSecondaria attivitaDaDissociare= this.getAttivitaById(attivita);
+		Pacchetto pacchetto = this.findPacchetto(pacchettoDTO.getId());
+		
+		for (AttivitaSecondariaPacchetto attivitaPacchetto : pacchetto.getAttivitaSecondariePacchetto()) {
+			if (attivitaPacchetto.getAttivitaSecondariaBean().equals(attivitaDaDissociare)){
+				pacchetto.getAttivitaSecondariePacchetto().remove(attivitaPacchetto);
+				em.remove(attivitaPacchetto);
+				break;
+			}
+				
+		}
+		
+		em.merge(pacchetto);
+		System.out.println("aggiorno pacchetto");
+		
 	}
 	
  

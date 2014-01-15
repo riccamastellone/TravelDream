@@ -147,8 +147,24 @@
 									
 							</f:facet>
 						</p:cellEditor>
-								
-						
+				</p:column>
+				<p:column>
+					<p:cellEditor>	
+							<f:facet name="output">
+									<p:commandButton id="basicAttivita" value="Attivita" type="button" styleClass="btn">
+										<p:ajax listener="#{pacchettoBean.mostraInfo(event,pacchetto)}"
+										update=":form:dataTableAttivita"
+										oncomplete="PF('attivitaDialog').show();" />
+									</p:commandButton>
+							</f:facet>
+							<f:facet name="input">	
+								<p:commandButton id="basicAttivita2" value="Modifica" type="button" styleClass="btn">
+										<p:ajax listener="#{pacchettoBean.mostraInfo(event,pacchetto)}"
+										update=":form:dataTableAttivita2"
+										oncomplete="PF('attivitaDialog2').show();" />
+									</p:commandButton>
+							</f:facet>
+					</p:cellEditor>
 				</p:column>
 				
 				<p:column style="width:6%">
@@ -613,7 +629,65 @@
               
        		 </h:panelGrid>  
 			</p:dialog>
+			 
+			<p:dialog header="Attivita Secondarie" widgetVar="attivitaDialog" resizable="false" >
 			
+				<p:dataTable id="dataTableAttivita" var="attivita" value="#{pacchettoBean.pacchettoDaVisualizzareDto.attivitaSecondarie}" lazy="true">
+				<f:facet name="header">  
+                Elenco Attivita Secondarie 
+       		    </f:facet>
+				<p:column sortBy="nome" headerText="Nome">
+							<h:outputText value="#{attivita.nome}" />
+				</p:column>
+
+				<p:column sortBy="costoGiornaliero" headerText="Costo">
+						<h:outputText value="#{attivita.costo} €" />				
+				</p:column>
+
+				<p:column sortBy="luogo" headerText="Luogo">
+						<h:outputText value="#{attivita.localita}" />
+				</p:column>
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{attivita.disponibilita}" />				
+				</p:column>
+
+
+			</p:dataTable>
+			
+			</p:dialog>
+			
+			
+			<p:dialog header="Attivita Secondarie edit" widgetVar="attivitaDialog2" resizable="false" >
+			
+				<p:dataTable id="dataTableAttivita2" var="attivita" value="#{pacchettoBean.pacchettoDaVisualizzareDto.attivitaSecondarie}" lazy="true">
+				<f:facet name="header">  
+                Elenco Attivita Secondarie 
+       		    </f:facet>
+				<p:column sortBy="nome" headerText="Nome">
+							<h:outputText value="#{attivita.nome}" />
+				</p:column>
+
+				<p:column sortBy="costoGiornaliero" headerText="Costo">
+						<h:outputText value="#{attivita.costo} €" />				
+				</p:column>
+
+				<p:column sortBy="luogo" headerText="Luogo">
+						<h:outputText value="#{attivita.localita}" />
+				</p:column>
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{attivita.disponibilita}" />				
+				</p:column>
+				
+				<p:column>
+						<h:commandLink id="eliminaAttivita" value="Elimina"
+							class="btn btn-danger white"
+							action="#{pacchettoBean.eliminaAttivitaDaPacchetto(action,attivita)}">
+							<f:ajax execute="eliminaAttivita" render="dataTableAttivita2" />
+						</h:commandLink>
+					</p:column>
+			</p:dataTable>
+			
+			</p:dialog>
 			
 			
 			

@@ -2,7 +2,7 @@
 package traveldream.dipendente.web;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,14 +17,14 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.primefaces.event.FileUploadEvent;
+
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.UploadedFile;
 
 import com.sun.el.parser.ParseException;
 
 import traveldream.dtos.HotelDTO;
-import traveldream.dtos.VoloDTO;
+
 import traveldream.manager.HotelMng;
 
 @ManagedBean(name = "hotelBean")
@@ -161,6 +161,7 @@ public class HotelBean {
 		}
 
 		hotelMng.salvaHotel(hotel);
+		this.hotel = new HotelDTO();
 		refreshHotels();
 		return "catalogo?faces-redirect=true";
 

@@ -47,6 +47,7 @@ public class VoloBean {
 		
 		voloMng.salvaVolo(volo);
 		this.voli = new ArrayList<VoloDTO>();
+		this.volo = new VoloDTO();
 		return "catalogo?faces-redirect=true";
 
 	}

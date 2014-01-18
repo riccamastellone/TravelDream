@@ -536,10 +536,11 @@ public class PacchettoBean {
 		System.out.println("ANDATA");
 		System.out.println(this.pacchettoDaVisualizzareDto.getHotel().getDescrizione());
 		
-		/*
-		for (VoloDTO volo : this.pacchettoDaVisualizzareDto.getVoliAndata()) {
-			System.out.println(volo.getNomeCompagnia());
+		
+		for (AttivitaSecondariaDTO volo : this.pacchettoDaVisualizzareDto.getAttivitaSecondarie()) {
+			System.out.println(volo.getLocalita());
 		}
+		/*
 		System.out.println("RITORNO");
 		for (VoloDTO volo : this.pacchettoDaVisualizzareDto.getVoliRitorno()) {
 			System.out.println(volo.getNomeCompagnia());

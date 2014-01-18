@@ -55,6 +55,7 @@ public class PacchettoMngBean implements PacchettoMng {
 	}
 	
 	private Pacchetto findPacchetto(int id) {
+		em.getEntityManagerFactory().getCache().evictAll();
 		return em.find(Pacchetto.class, id);
 	}
 

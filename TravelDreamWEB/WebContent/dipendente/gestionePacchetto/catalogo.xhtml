@@ -630,7 +630,7 @@
        		 </h:panelGrid>  
 			</p:dialog>
 			 
-			<p:dialog header="Attivita Secondarie" widgetVar="attivitaDialog" resizable="false" >
+			<p:dialog header="Attivita Secondarie" widgetVar="attivitaDialog" resizable="false" lazy="true">
 			
 				<p:dataTable id="dataTableAttivita" var="attivita" value="#{pacchettoBean.pacchettoDaVisualizzareDto.attivitaSecondarie}" lazy="true">
 				<f:facet name="header">  
@@ -688,15 +688,9 @@
 			</p:dataTable>
 			
 			</p:dialog>
-			
-			
-			
+	
 		</h:form>
-		
-		
-		
-		
-		
+	
 	<script>
 			jQuery.noConflict();
 		</script>

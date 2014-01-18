@@ -720,6 +720,31 @@ public class PacchettoBean {
 		 this.attivitaDaSalvare.setLocalita(pacchetto.getLocalita());
 		
 	 }
+	 
+	 public void aggiungiAttivitaEsistenteAPacchettoEsistente(AttivitaSecondariaDTO attivita) {
+			this.attivitaSecondarieEsistentiCompatibili.remove(attivita);
+			this.pacchettoDaVisualizzareDto.getAttivitaSecondarie().add((AttivitaSecondariaDTO) attivita.clone());
+			pkgMng.aggiungiAttivitaAPacchetto(this.pacchettoDaVisualizzareDto, attivita);			
+			
+		}
+	 
+	 public void goToAddAttivitaEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
+		
+		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.attivitaSecondarieEsistentiCompatibili = attivitalMng.getAttivitaCompatibiliPacchetto(pacchetto);
+		 
+		 //non visualizo le attivita gia appartenenti al pacchetto
+		 for (AttivitaSecondariaDTO attivita : this.pacchettoDaVisualizzareDto.getAttivitaSecondarie()) {
+			 for (AttivitaSecondariaDTO attivitaEsistente : this.attivitaSecondarieEsistentiCompatibili) {
+				if (attivita.equals(attivitaEsistente)) {
+					this.attivitaSecondarieEsistentiCompatibili.remove(attivitaEsistente);
+				}
+			}
+			
+		 }
+		 
+	 }
+	 
 
 	 
 	 

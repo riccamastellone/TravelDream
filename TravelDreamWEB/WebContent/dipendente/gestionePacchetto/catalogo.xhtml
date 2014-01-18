@@ -169,6 +169,13 @@
 										update=":form:formAttivita:addAttivitaNuovaForm"
 										oncomplete="PF('editAttivitaNuovaDialog').show();" />
 									</p:commandButton>
+									
+									<p:commandButton id="basicEditAttivitaEsistente" value="Aggiungi Esistente" type="button" styleClass="btn-danger">
+										<p:ajax listener="#{pacchettoBean.goToAddAttivitaEsistente(event,pacchetto)}"
+										update=":form:formAttivitaEsistente:dataTableAddAttivitaEsistente"
+										oncomplete="PF('addAttivitaEsistente').show();" />
+									</p:commandButton>
+									
 							</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -743,6 +750,42 @@
 					
 		</h:form>
 		</p:dialog>
+		
+		<p:dialog header="Aggiungi Attivita Esistente" widgetVar="addAttivitaEsistente" resizable="false"  >
+		
+			<h:form id="formAttivitaEsistente" >
+			<p:dataTable id="dataTableAddAttivitaEsistente" var="attivita" value="#{pacchettoBean.attivitaSecondarieEsistentiCompatibili}" lazy="true">
+				<f:facet name="header">  
+                Elenco Attivita Secondarie 
+       		    </f:facet>
+				<p:column sortBy="nome" headerText="Nome">
+							<h:outputText value="#{attivita.nome}" />
+				</p:column>
+
+				<p:column sortBy="costoGiornaliero" headerText="Costo">
+						<h:outputText value="#{attivita.costo} €" />				
+				</p:column>
+
+				<p:column sortBy="luogo" headerText="Luogo">
+						<h:outputText value="#{attivita.localita}" />
+				</p:column>
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{attivita.disponibilita}" />				
+				</p:column>
+
+				<p:column>
+					<h:commandLink id="aggiungiAttivita" value="Aggiungi" class="btn btn-default"
+						action="#{pacchettoBean.aggiungiAttivitaEsistenteAPacchettoEsistente(attivita)}">
+						<f:ajax execute="aggiungiAttivita" render="dataTableAddAttivitaEsistente" />
+					</h:commandLink>
+					
+				</p:column>
+
+			</p:dataTable>
+			
+			</h:form>
+			
+			</p:dialog>
 			
 	
 		</h:form>

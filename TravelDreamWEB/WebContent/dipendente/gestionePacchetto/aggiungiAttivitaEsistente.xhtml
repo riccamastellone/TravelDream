@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../template.xhtml">
+
+	<ui:define name="content">
+
+
+		<h:form id="form">
+
+
+				<p:dataTable id="dataTable" var="attivita" value="#{pacchettoBean.attivitaSecondarieEsistentiCompatibili}" lazy="true">
+				<f:facet name="header">  
+                Elenco Attivita Secondarie 
+       		    </f:facet>
+				<p:column sortBy="nome" headerText="Nome">
+							<h:outputText value="#{attivita.nome}" />
+				</p:column>
+
+				<p:column sortBy="costoGiornaliero" headerText="Costo">
+						<h:outputText value="#{attivita.costo} €" />				
+				</p:column>
+
+				<p:column sortBy="luogo" headerText="Luogo">
+						<h:outputText value="#{attivita.localita}" />
+				</p:column>
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{attivita.disponibilita}" />				
+				</p:column>
+				
+				<p:column>
+					<h:commandLink id="aggiungi" value="Aggiungi" class="btn btn-default"
+						action="#{pacchettoBean.aggiungiAttivitaEsistenteAPacchetto(attivita)}">
+						<f:ajax execute="aggiungi" render="dataTable" />
+					</h:commandLink>
+					
+				</p:column>
+
+
+			</p:dataTable>
+			
+			<h:link outcome="aggiungiAttivita"
+				class="btn btn-default pull-right" value="Conferma" />
+
+		</h:form>
+		<script>
+		jQuery.noConflict();
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(4)').addClass('active');
+			});
+		</script>
+
+	</ui:define>
+
+
+</ui:composition>
+</html>

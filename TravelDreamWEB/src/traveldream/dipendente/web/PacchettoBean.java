@@ -76,6 +76,8 @@ public class PacchettoBean {
 	
 	private List<AttivitaSecondariaDTO> attivitaSecondarie;
 	
+	private List<AttivitaSecondariaDTO> attivitaSecondarieEsistentiCompatibili;
+	
 	private AttivitaSecondariaDTO attivitaDaSalvare;
 	
 	
@@ -95,6 +97,7 @@ public class PacchettoBean {
 		this.listaHotelesistenti = new ArrayList<HotelDTO>();
 		this.pacchetti = new ArrayList<PacchettoDTO>();
 		this.pacchettoDaVisualizzareDto = new PacchettoDTO();
+		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
 		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
 		this.attivitaDaSalvare = new AttivitaSecondariaDTO();
 				
@@ -226,6 +229,16 @@ public class PacchettoBean {
 	public void setAttivitaDaSalvare(AttivitaSecondariaDTO attivitaDaSalvare) {
 		this.attivitaDaSalvare = attivitaDaSalvare;
 	}
+	
+	public List<AttivitaSecondariaDTO> getAttivitaSecondarieEsistentiCompatibili() {
+		return attivitaSecondarieEsistentiCompatibili;
+	}
+
+	public void setAttivitaSecondarieEsistentiCompatibili(
+			List<AttivitaSecondariaDTO> attivitaSecondarieEsistentiCompatibili) {
+		this.attivitaSecondarieEsistentiCompatibili = attivitaSecondarieEsistentiCompatibili;
+	}
+	
 
 
 	
@@ -410,12 +423,26 @@ public class PacchettoBean {
 	 */
 	public void eliminaAttivita(AttivitaSecondariaDTO attivita) {		
 		this.attivitaSecondarie.remove(attivita);
+		
+		//se e un attivita esistente la riaggiungo ala lista delle possibili scelte
+		if (attivita.getId() != 0){
+			this.attivitaSecondarieEsistentiCompatibili.add(attivita);
+		}
 	}
 	
 	public String aggiungiNuovaAttivitaAPacchetto(){
 		this.attivitaSecondarie.add((AttivitaSecondariaDTO) this.attivitaDaSalvare.clone());
 		return "aggiungiAttivita?faces-redirect=true";
 	}
+	
+	 
+	public void aggiungiAttivitaEsistenteAPacchetto(AttivitaSecondariaDTO attivita) {
+		this.attivitaSecondarieEsistentiCompatibili.remove(attivita);
+		// serve solamante per mostrare a schermo
+		this.attivitaSecondarie.add(attivita);
+		
+	}
+
 	
 	/**
 	 * step finale in cui salva le info a db
@@ -658,7 +685,7 @@ public class PacchettoBean {
 		 }
 		 
 		 else {
-			 this.attivitaSecondarie = attivitalMng.getAttivitaCompatibiliPacchetto();
+			 this.attivitaSecondarieEsistentiCompatibili = attivitalMng.getAttivitaCompatibiliPacchetto(this.pacchetto);
 			 return "aggiungiAttivita?faces-redirect=true";
 		}
 	 }
@@ -687,16 +714,8 @@ public class PacchettoBean {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	 }
-	 
-	public void aggiungiAttivitaEsistenteAPacchetto(AttivitaSecondariaDTO attivita) {
-		this.voli.remove(volo);
-		// serve solamante per mostrare a schermo
-		this.pacchetto.getVoliAndata().add((VoloDTO) volo.clone());
-		// utile per il eliminaVoloAndata
-		this.voliEsistentiAndata.add(this.pacchetto.getVoliAndata().get(
-				this.pacchetto.getVoliAndata().size() - 1));
-	}
-			
+
+		
 
 
 }

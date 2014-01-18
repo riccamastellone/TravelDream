@@ -163,6 +163,12 @@
 										update=":form:dataTableAttivita2"
 										oncomplete="PF('attivitaDialog2').show();" />
 									</p:commandButton>
+									
+									<p:commandButton id="basicEditAttivitaNuovo" value="Add Nuova" type="button" styleClass="btn white">
+										<p:ajax listener="#{pacchettoBean.goToAddAttivitaNuova(event,pacchetto)}"
+										update=":form:formAttivita:addAttivitaNuovaForm"
+										oncomplete="PF('editAttivitaNuovaDialog').show();" />
+									</p:commandButton>
 							</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -335,7 +341,7 @@
 			<div class="form-group">
 				<label>Luogo:</label>
 				<h:inputText p:placeholder="Inserisci l'ubicazione dell'albergo"
-					class="form-control" value="#{pacchettoBean.hotelDTO.luogo}" />
+					class="form-control" value="#{pacchettoBean.hotelDTO.luogo}" disable="true"/>
 			</div>
 
 
@@ -688,6 +694,56 @@
 			</p:dataTable>
 			
 			</p:dialog>
+			
+			<p:dialog header="Aggiungi Attività Nuova" widgetVar="editAttivitaNuovaDialog" resizable="false" >
+			 
+				<h:form id="formAttivita" >
+			
+					<p:panel id="addAttivitaNuovaForm">
+					
+					<div class="form-group">
+				<label>Nome:</label>
+				<h:inputText class="form-control"
+					p:placeholder="Inserisci il nome dell'attivita"
+					value="#{pacchettoBean.attivitaDaSalvare.nome}" />
+			</div>
+
+			<div class="form-group">
+				<label>Costo:</label>
+				<h:inputText p:placeholder="Inserisci il costo"
+					class="form-control" value="#{pacchettoBean.attivitaDaSalvare.costo}" />
+			</div>
+
+			<div class="form-group">
+				<label>Posti disponibili :</label>
+				<h:inputText
+					p:placeholder="Inserisci il numero di posti disponibili"
+					class="form-control" value="#{pacchettoBean.attivitaDaSalvare.disponibilita}" />
+			</div>
+
+			<div class="form-group">
+				<label>Luogo:</label>
+				<h:inputText p:placeholder="Inserisci la località dell'attivita"
+					class="form-control" value="#{pacchettoBean.attivitaDaSalvare.localita}" disabled="true"/>
+			</div>
+
+
+			<div class="form-group">
+				<label>Descrizione:</label>
+				<h:inputTextarea class="form-control"
+					p:placeholder="Inserisci una descrzione"
+					value="#{pacchettoBean.attivitaDaSalvare.descrizione}" />
+			</div>
+
+			<p:commandButton value="Aggiungi" styleClass="btn btn-default"
+				action="#{pacchettoBean.aggiungiNuovaAttivitaAPacchettoEsistente()}" oncomplete="PF('editAttivitaNuovaDialog').hide();"
+				process="@this,formAttivita"/>
+					
+			</p:panel>
+					
+		</h:form>
+		</p:dialog>
+			
 	
 		</h:form>
 	

@@ -530,22 +530,9 @@ public class PacchettoBean {
 	}
 	
 	public void mostraInfo(AjaxBehaviorEvent actionEvent, PacchettoDTO pacchetto) {
-		System.out.println("tasto premuto");
-		//perche non va??
+		
 		this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
-		System.out.println("ANDATA");
-		System.out.println(this.pacchettoDaVisualizzareDto.getHotel().getDescrizione());
 		
-		
-		for (AttivitaSecondariaDTO volo : this.pacchettoDaVisualizzareDto.getAttivitaSecondarie()) {
-			System.out.println(volo.getLocalita());
-		}
-		/*
-		System.out.println("RITORNO");
-		for (VoloDTO volo : this.pacchettoDaVisualizzareDto.getVoliRitorno()) {
-			System.out.println(volo.getNomeCompagnia());
-		}
-		*/
 	}
 	
 	public List<PacchettoDTO> getAllPacchetti(){
@@ -634,6 +621,7 @@ public class PacchettoBean {
 	 public void goToAddHotelNuovo(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
 		 this.pacchettoDaVisualizzareDto = pacchetto;
 		 this.hotelDTO = new HotelDTO();
+		 this.hotelDTO.setLuogo(pacchetto.getLocalita());
 		
 	 }
 	 
@@ -715,7 +703,26 @@ public class PacchettoBean {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	 }
+	 
+	 public void aggiungiNuovaAttivitaAPacchettoEsistente() throws ParseException{
+	
+		 System.out.println(" aggiungiNuovaAttivitaAPacchettoEsistente");
+		 AttivitaSecondariaDTO attivitaDaSalvare = this.attivitalMng.aggiungiAttivitaAPacchetto(this.attivitaDaSalvare);
+		 this.pkgMng.aggiungiAttivitaAPacchetto(this.pacchettoDaVisualizzareDto, attivitaDaSalvare);
+		 this.attivitaDaSalvare = new AttivitaSecondariaDTO();
+		 
+		 
+		}
+	 
+	 public void goToAddAttivitaNuova(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
+		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.attivitaDaSalvare = new AttivitaSecondariaDTO();
+		 this.attivitaDaSalvare.setLocalita(pacchetto.getLocalita());
+		
+	 }
 
+	 
+	 
 		
 
 

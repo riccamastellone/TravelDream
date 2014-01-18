@@ -1,5 +1,6 @@
 package traveldream.manager;
 
+import java.util.List;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -17,6 +18,8 @@ public interface AttivitaMng {
 	public void deleteAttivita(AttivitaSecondariaDTO attivita);
 	
 	public AttivitaSecondariaDTO aggiungiAttivitaAPacchetto(AttivitaSecondariaDTO attivita) throws ParseException;
+	
+	public List<AttivitaSecondariaDTO> getAttivitaCompatibiliPacchetto();
 	
 	
 

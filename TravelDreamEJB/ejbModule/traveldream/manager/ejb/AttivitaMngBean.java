@@ -12,8 +12,10 @@ import javax.persistence.PersistenceContext;
 
 import model.AttivitaSecondaria;
 import model.Hotel;
+import model.Volo;
 import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.PacchettoDTO;
+import traveldream.dtos.VoloDTO;
 import traveldream.manager.AttivitaMng;
 
 @Stateless
@@ -88,6 +90,20 @@ public class AttivitaMngBean implements AttivitaMng {
 		AttivitaSecondaria attivitaDaRitornare = this.getLastAttivita();
 		attivita.setId(attivitaDaRitornare.getId());
 		return attivita;
+	}
+
+	@Override
+	public List<AttivitaSecondariaDTO> getAttivitaCompatibiliPacchetto() {
+		// TODO Auto-generated method stub
+		List<AttivitaSecondariaDTO> attivitaDTO = new ArrayList<AttivitaSecondariaDTO>();
+		List<AttivitaSecondaria> listaAttivita = em.createNamedQuery("AttivitaSecondaria.getAttivitaCompatibiliPacchetto", AttivitaSecondaria.class).getResultList();
+	
+		for (AttivitaSecondaria attivita : listaAttivita) {
+
+			attivitaDTO.add(this.AttivitaToDTO(attivita));
+		}
+		return attivitaDTO;
+	
 	}
 
 }

@@ -658,6 +658,7 @@ public class PacchettoBean {
 		 }
 		 
 		 else {
+			 this.attivitaSecondarie = attivitalMng.getAttivitaCompatibiliPacchetto();
 			 return "aggiungiAttivita?faces-redirect=true";
 		}
 	 }
@@ -686,6 +687,16 @@ public class PacchettoBean {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	 }
+	 
+	public void aggiungiAttivitaEsistenteAPacchetto(AttivitaSecondariaDTO attivita) {
+		this.voli.remove(volo);
+		// serve solamante per mostrare a schermo
+		this.pacchetto.getVoliAndata().add((VoloDTO) volo.clone());
+		// utile per il eliminaVoloAndata
+		this.voliEsistentiAndata.add(this.pacchetto.getVoliAndata().get(
+				this.pacchetto.getVoliAndata().size() - 1));
+	}
+			
 
 
 }

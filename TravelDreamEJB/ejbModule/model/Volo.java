@@ -24,7 +24,7 @@ import java.util.List;
 	
 	@NamedQuery(name="Volo.selectMax", query="SELECT v FROM Volo v Where v.id = (SELECT max(v.id) FROM Volo v)"),
 	
-	@NamedQuery(name="Volo.getVoliDisponibili", query="SELECT v FROM Volo v Where v.eliminato != 1 AND v.disponibilita > 0")
+	@NamedQuery(name="Volo.getVoliDisponibiliECompatibili", query="SELECT v FROM Volo v Where v.eliminato != 1 AND v.disponibilita > 0 AND v.partenza >= :partenza And v.arrivo <= :arrivo")
 })
 
 public class Volo implements Serializable {

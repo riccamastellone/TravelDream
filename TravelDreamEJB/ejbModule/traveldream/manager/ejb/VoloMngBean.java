@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 
 import model.Pacchetto;
 import model.Volo;
+import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.VoloMng;
 
@@ -115,12 +116,12 @@ public class VoloMngBean implements VoloMng {
 	}
 
 	@Override
-	public ArrayList<VoloDTO> getVoliDisponibili() {
+	public ArrayList<VoloDTO> getVoliDisponibiliECompatibili(PacchettoDTO pacchetto) {
 		// TODO Auto-generated method stub
 		ArrayList<VoloDTO> voliDTO = new ArrayList<VoloDTO>();
 
 		// query dichiarate nell entita UtenteGruppo
-		List<Volo> voli = em.createNamedQuery("Volo.getVoliDisponibili", Volo.class).getResultList();
+		List<Volo> voli = em.createNamedQuery("Volo.getVoliDisponibiliECompatibili", Volo.class).setParameter("partenza", pacchetto.getInizioValidita()).setParameter("arrivo", pacchetto.getFineValidita()).getResultList();
 	
 		for (Volo volo : voli) {
 

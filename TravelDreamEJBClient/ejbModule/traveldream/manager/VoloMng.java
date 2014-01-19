@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import traveldream.dtos.HotelDTO;
+import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
 
 public interface VoloMng {
@@ -43,7 +44,7 @@ public interface VoloMng {
 	 */
 	public VoloDTO aggiungiVoloAPacchetto(VoloDTO volo) throws ParseException;
 	
-	public ArrayList<VoloDTO> getVoliDisponibili();
+	public ArrayList<VoloDTO> getVoliDisponibiliECompatibili(PacchettoDTO pacchetto);
 	
 
 }

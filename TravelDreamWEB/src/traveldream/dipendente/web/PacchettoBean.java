@@ -1,13 +1,9 @@
 package traveldream.dipendente.web;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -250,7 +246,7 @@ public class PacchettoBean {
 		//this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
 		
 		//serve per precaricare la tabella di AggiungiVoloEsistente
-		this.voli = voloMng.getVoliDisponibili();
+		this.voli = voloMng.getVoliDisponibiliECompatibili(this.pacchetto);
 		
 		return "aggiungiVoli?faces-redirect=true";
 	}
@@ -587,7 +583,7 @@ public class PacchettoBean {
 	 
 	 public void goToAddVoloEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
 		 this.pacchettoDaVisualizzareDto = pacchetto;
-		 this.voli = voloMng.getVoliDisponibili();
+		 this.voli = voloMng.getVoliDisponibiliECompatibili(this.pacchettoDaVisualizzareDto);
 	 }
 	 
 	

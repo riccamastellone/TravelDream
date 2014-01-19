@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../template.xhtml">
+
+
+	<ui:define name="head_add">
+		<h:outputStylesheet library="store" name="css/jquery-ui.css" />
+	</ui:define>
+
+
+	<ui:define name="content">
+
+
+		<ui:include src="header.xhtml" />
+
+
+		<div class="container breadcrub">
+			<div>
+				<a class="homebtn left" href="#"></a>
+				<div class="left">
+					<ul class="bcrumbs">
+						<li>/</li>
+						<li><a href="#">Packages</a></li>
+						<li>/</li>
+						<li><a href="#" class="active">Book</a></li>
+					</ul>
+				</div>
+				<a class="backbtn right" href="#"></a>
+			</div>
+			<div class="clearfix"></div>
+			<div class="brlines"></div>
+		</div>
+
+		<div class="container">
+			<div class="container pagecontainer2 offset-0">
+				<div class="hpadding50c">
+					<p class="lato size30 slim">Book your vacation!</p>
+					<p class="aboutarrow"></p>
+				</div>
+				<div class="line3"></div>
+
+				<div class="hpadding50c">
+
+					<p class="lato size22 slim textcenter">Fill in some info of
+						yours and we'll take care of everything!</p>
+					<br />
+					<div class="line3"></div>
+					<div class="clearfix"></div>
+
+
+				</div>
+
+			</div>
+			<!-- END OF container-->
+
+
+		</div>
+
+		<ui:include src="footer.xhtml" />
+		<h:outputScript library="store" name="js/functions.js" />
+		<h:outputScript library="store" name="js/js-details.js" />
+		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

@@ -39,9 +39,7 @@ public class FrontendBean implements Serializable {
 
 	@EJB
 	private VoloMng voloMng;
-	
-	
-	
+
 	private ArrayList<PacchettoDTO> lastMinute;
 
 	private ArrayList<PacchettoDTO> topDeals;
@@ -50,11 +48,11 @@ public class FrontendBean implements Serializable {
 	private ArrayList<String> depCities;
 
 	private ArrayList<String> arrCities;
-	
-	private int idPacchetto;
-	
-	private PacchettoDTO pacchetto;
 
+	private int idPacchetto;
+
+	private PacchettoDTO pacchetto;
+	
 	public ArrayList<PacchettoDTO> getLastMinute() {
 		return lastMinute;
 	}
@@ -75,9 +73,8 @@ public class FrontendBean implements Serializable {
 		return "images/rating-" + stars + ".png";
 	}
 
-
 	public ArrayList<String> getArrCities() {
-		if(arrCities == null) {
+		if (arrCities == null) {
 			arrCities = voloMng.getCittaArrivo();
 		}
 		return arrCities;
@@ -88,7 +85,7 @@ public class FrontendBean implements Serializable {
 	}
 
 	public ArrayList<String> getDepCities() {
-		if(depCities == null) {
+		if (depCities == null) {
 			depCities = voloMng.getCittaPartenza();
 		}
 		return depCities;
@@ -97,65 +94,65 @@ public class FrontendBean implements Serializable {
 	public void setDepCities(ArrayList<String> depCities) {
 		this.depCities = depCities;
 	}
-	
+
 	/**
-	 * Calcoliamo il totale di un pacchetto prendendo il volo di andata e di ritorno più economici,
-	 * calcola i giorni di differenza e con questi calcola il totale dell'hotel
-	 * (Da pensare una cosa migliore)
+	 * Calcoliamo il totale di un pacchetto prendendo il volo di andata e di
+	 * ritorno pi�� economici, calcola i giorni di differenza e con questi
+	 * calcola il totale dell'hotel (Da pensare una cosa migliore)
+	 * 
 	 * @param pacchetto
 	 * @return
 	 */
 	public float getTotalePacchetto(PacchettoDTO pacchetto) {
-		
-		
+
 		// per calcolare il costo del pacchetto consideriamo i voli
 		// meno costosi
 		float voloAndataCosto = 0;
 		Date dataAndata = new Date();
-		for(VoloDTO volo : pacchetto.getVoliAndata()) {
+		for (VoloDTO volo : pacchetto.getVoliAndata()) {
 			// primo ciclo
-			if(voloAndataCosto == 0) {
+			if (voloAndataCosto == 0) {
 				voloAndataCosto = volo.getCosto();
 				dataAndata = volo.getArrivo();
 			}
-			if(voloAndataCosto > volo.getCosto()) {
+			if (voloAndataCosto > volo.getCosto()) {
 				voloAndataCosto = volo.getCosto();
 				dataAndata = volo.getArrivo();
 			}
 		}
-		
+
 		float voloRitornoCosto = 0;
 		Date dataRitorno = new Date();
-		for(VoloDTO volo : pacchetto.getVoliRitorno()) {
+		for (VoloDTO volo : pacchetto.getVoliRitorno()) {
 			// primo ciclo
-			if(voloRitornoCosto == 0) {
+			if (voloRitornoCosto == 0) {
 				voloRitornoCosto = volo.getCosto();
 				dataRitorno = volo.getPartenza();
 			}
-			if(voloRitornoCosto > volo.getCosto()) {
+			if (voloRitornoCosto > volo.getCosto()) {
 				voloRitornoCosto = volo.getCosto();
 				dataRitorno = volo.getPartenza();
 			}
 		}
-		
+
 		long diff = Math.abs(dataRitorno.getTime() - dataAndata.getTime());
 		int diffDays = (int) Math.ceil((diff + 12 * 60 * 60 * 1000) / (24 * 60 * 60 * 1000));
-		
+
 		System.out.println("Giorni di differenza: " + diffDays);
-		
+
 		HotelDTO hotel = pacchetto.getHotel();
 		System.out.println(hotel);
 		float hotelCosto = hotel.getCostoGiornaliero() * diffDays;
-		
+
 		float totalePacchetto = hotelCosto + voloAndataCosto + voloRitornoCosto;
 
-		//return 12;
+		// return 12;
 		return totalePacchetto;
 	}
 
-	
 	/**
 	 * Generiamo in run time l'immagine della dimensione che ci serve
+	 * 
 	 * @param imgName
 	 * @param width
 	 * @param height
@@ -167,38 +164,40 @@ public class FrontendBean implements Serializable {
 		System.out.println(img);
 		BufferedImage image = ImageIO.read(img);
 		int x = 0;
-		int y = 0;	
-		
+		int y = 0;
 
-		if(image.getWidth() > image.getHeight()) {
-			image = Scalr.resize(image, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT,(int)(height*1.45));
-			x = (image.getWidth()-width)/2;
-			if(x<0) x=0;
+		if (image.getWidth() > image.getHeight()) {
+			image = Scalr.resize(image, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, (int) (height * 1.45));
+			x = (image.getWidth() - width) / 2;
+			if (x < 0)
+				x = 0;
 		} else {
-			image = Scalr.resize(image, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH,(int)(width*1.45));
-			y = (image.getHeight()-height)/2;
-			if(y<0) y=0;
+			image = Scalr.resize(image, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH, (int) (width * 1.45));
+			y = (image.getHeight() - height) / 2;
+			if (y < 0)
+				y = 0;
 		}
 		image = Scalr.crop(image, x, y, width, height);
 
-        ByteArrayOutputStream os = new ByteArrayOutputStream();  
-        ImageIO.write(image, "jpg", os);
-        return new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()), "image/png"); 
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		ImageIO.write(image, "jpg", os);
+		return new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()), "image/png");
 	}
 
 	public int getIdPacchetto() {
 		return idPacchetto;
 	}
-	
+
 	/**
-	 * Quando Pretty Faces chiama questo metodo per settare l'id,
-	 * carichiamo anche il pacchetto corrispondente
+	 * Quando Pretty Faces chiama questo metodo per settare l'id, carichiamo
+	 * anche il pacchetto corrispondente
+	 * 
 	 * @param idPacchetto
 	 */
 	public void setIdPacchetto(int idPacchetto) {
 		this.idPacchetto = idPacchetto;
 		pacchetto = pkgMng.findPacchettoDTO(this.idPacchetto);
-		
+
 	}
 
 	public PacchettoDTO getPacchetto() {
@@ -208,14 +207,17 @@ public class FrontendBean implements Serializable {
 	public void setPacchetto(PacchettoDTO pacchetto) {
 		this.pacchetto = pacchetto;
 	}
-	
+
 	/**
-	 * A volte è più carino avere qualche <br /> nel testo
+	 * A volte e' piu' carino avere qualche <br />
+	 * nel testo
+	 * 
 	 * @param s
 	 * @return
 	 */
 	public static String nl2br(String s) {
-		  return s.replaceAll("\n","<br/>");
-		}
+		return s.replaceAll("\n", "<br/>");
+	}
+	
 
 }

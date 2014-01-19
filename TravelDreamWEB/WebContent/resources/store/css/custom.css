@@ -1660,7 +1660,7 @@ background:url("#{resource['store:images/slider/couple.png']}") no-repeat;
 
 
 
-.filtertip {height:100px; background:#72bf66; padding:0px; color:#fff; position:relative; text-align:center; line-height:10px; font-family:'Open Sans'}
+.filtertip {height:76px; background:#72bf66; padding:0px; color:#fff; position:relative; text-align:center; line-height:10px; font-family:'Open Sans'}
 .filtertip a{color:#fff;}
 .tip-arrow{width:33px; height:9px; background:url("#{resource['store:images/tip-arrow.png']}"); position:absolute; bottom:-9px; left:50%; margin-left:-15px;}
 

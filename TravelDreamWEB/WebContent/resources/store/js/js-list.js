@@ -10,8 +10,9 @@ jQuery(function() {
 //Counter
 //------------------------------
 
-jQuery(function(jQuery) {
-	jQuery('.countprice').countTo({
+jQuery(function($) {
+	jQuery( "body" ).addClass("thebg");
+	$('.countprice').countTo({
 		from: 5,
 		to: 36,
 		speed: 1000,
@@ -20,7 +21,7 @@ jQuery(function(jQuery) {
 			console.debug(this);
 		}
 	});
-	jQuery('.counthotel').countTo({
+	$('.counthotel').countTo({
 		from: 1,
 		to: 53,
 		speed: 2000,
@@ -45,11 +46,11 @@ jQuery(document).ready(function(){
 
 function mySelectUpdate(){
 	setTimeout(function (){
-		jQuery('.mySelectBoxClass').trigger('update');
+		$('.mySelectBoxClass').trigger('update');
 	}, 200);
 }
 
-jQuery(window).resize(function() {
+$(window).resize(function() {
 	mySelectUpdate();
 });
 
@@ -96,32 +97,32 @@ jQuery(document).ready(function() {
 //Add rooms
 //------------------------------
 function addroom2(){
-	jQuery('.room2').addClass('block');
-	jQuery('.room2').removeClass('none');
-	jQuery('.addroom1').removeClass('block');
-	jQuery('.addroom1').addClass('none');
+	$('.room2').addClass('block');
+	$('.room2').removeClass('none');
+	$('.addroom1').removeClass('block');
+	$('.addroom1').addClass('none');
 	
 }
 function removeroom2(){
-	jQuery('.room2').addClass('none');
-	jQuery('.room2').removeClass('block');
+	$('.room2').addClass('none');
+	$('.room2').removeClass('block');
 	
-	jQuery('.addroom1').removeClass('none');
-	jQuery('.addroom1').addClass('block');
+	$('.addroom1').removeClass('none');
+	$('.addroom1').addClass('block');
 }
 function addroom3(){
-	jQuery('.room3').addClass('block');
-	jQuery('.room3').removeClass('none');
+	$('.room3').addClass('block');
+	$('.room3').removeClass('none');
 	
-	jQuery('.addroom2').removeClass('block');
-	jQuery('.addroom2').addClass('none');
+	$('.addroom2').removeClass('block');
+	$('.addroom2').addClass('none');
 }
 function removeroom3(){
-	jQuery('.room3').addClass('none');
-	jQuery('.room3').removeClass('block');
+	$('.room3').addClass('none');
+	$('.room3').removeClass('block');
 	
-	jQuery('.addroom2').removeClass('none');
-	jQuery('.addroom2').addClass('block');			
+	$('.addroom2').removeClass('none');
+	$('.addroom2').addClass('block');			
 }
 
 	
@@ -130,32 +131,32 @@ function removeroom3(){
 //------------------------------
 //slider parallax effect
 //------------------------------
-jQuery(document).ready(function(jQuery){
-var jQueryscrollTop;
-var jQueryheaderheight;
-var jQueryloggedin = false;
+jQuery(document).ready(function($){
+var $scrollTop;
+var $headerheight;
+var $loggedin = false;
 	
-if(jQueryloggedin == false){
-  jQueryheaderheight = jQuery('.navbar-wrapper2').height() - 20;
+if($loggedin == false){
+  $headerheight = $('.navbar-wrapper2').height() - 20;
 } else {
-  jQueryheaderheight = jQuery('.navbar-wrapper2').height() + 100;
+  $headerheight = $('.navbar-wrapper2').height() + 100;
 }
 
 
-jQuery(window).scroll(function(){
-  var jQueryiw = jQuery('body').innerWidth();
-  jQueryscrollTop = jQuery(window).scrollTop();	   
-	  if ( jQueryiw < 992 ) {
+$(window).scroll(function(){
+  var $iw = $('body').innerWidth();
+  $scrollTop = $(window).scrollTop();	   
+	  if ( $iw < 992 ) {
 	 
 	  }
 	  else{
-	   jQuery('.navbar-wrapper2').css({'min-height' : 110-(jQueryscrollTop/2) +'px'});
+	   $('.navbar-wrapper2').css({'min-height' : 110-($scrollTop/2) +'px'});
 	  }
-  jQuery('#dajy').css({'top': ((- jQueryscrollTop / 5)+ jQueryheaderheight)  + 'px' });
-  //jQuery(".sboxpurple").css({'opacity' : 1-(jQueryscrollTop/300)});
-  jQuery(".scrolleffect").css({'top': ((- jQueryscrollTop / 5)+ jQueryheaderheight) + 50  + 'px' });
-  jQuery(".tp-leftarrow").css({'left' : 20-(jQueryscrollTop/2) +'px'});
-  jQuery(".tp-rightarrow").css({'right' : 20-(jQueryscrollTop/2) +'px'});
+  $('#dajy').css({'top': ((- $scrollTop / 5)+ $headerheight)  + 'px' });
+  //$(".sboxpurple").css({'opacity' : 1-($scrollTop/300)});
+  $(".scrolleffect").css({'top': ((- $scrollTop / 5)+ $headerheight) + 50  + 'px' });
+  $(".tp-leftarrow").css({'left' : 20-($scrollTop/2) +'px'});
+  $(".tp-rightarrow").css({'right' : 20-($scrollTop/2) +'px'});
 });
 
 });
@@ -164,18 +165,18 @@ jQuery(window).scroll(function(){
 //------------------------------
 //Animations for this page
 //------------------------------
-jQuery(document).ready(function(){
-	jQuery('.tip-arrow').css({'bottom':1+'px'});
-	jQuery('.tip-arrow').animate({'bottom':-9+'px'},{ duration: 700, queue: false });	
+$(document).ready(function(){
+	$('.tip-arrow').css({'bottom':1+'px'});
+	$('.tip-arrow').animate({'bottom':-9+'px'},{ duration: 700, queue: false });	
 	
-	jQuery('.bookfilters').css({'margin-top':-40+'px'});
-	jQuery('.bookfilters').animate({'margin-top':0+'px'},{ duration: 1000, queue: false });	
+	$('.bookfilters').css({'margin-top':-40+'px'});
+	$('.bookfilters').animate({'margin-top':0+'px'},{ duration: 1000, queue: false });	
 	
-	jQuery('.topsortby').css({'opacity':0});
-	jQuery('.topsortby').animate({'opacity':1},{ duration: 1000, queue: false });	
+	$('.topsortby').css({'opacity':0});
+	$('.topsortby').animate({'opacity':1},{ duration: 1000, queue: false });	
 
-	jQuery('.itemscontainer').css({'opacity':0});
-	jQuery('.itemscontainer').animate({'opacity':1},{ duration: 1000, queue: false });			
+	$('.itemscontainer').css({'opacity':0});
+	$('.itemscontainer').animate({'opacity':1},{ duration: 1000, queue: false });			
 });
 
 
@@ -186,14 +187,14 @@ jQuery(document).ready(function(){
 //Scroll animations
 //------------------------------
 jQuery(window).scroll(function(){            
-	var jQueryiw = jQuery('body').innerWidth();
+	var $iw = $('body').innerWidth();
 	
 	if(jQuery(window).scrollTop() != 0){
 		jQuery('.mtnav').stop().animate({top: '0px'}, 500);
 		jQuery('.logo').stop().animate({width: '100px'}, 100);
 	}       
 	else {
-		 if ( jQueryiw < 992 ) {
+		 if ( $iw < 992 ) {
 		  }
 		  else{
 		   jQuery('.mtnav').stop().animate({top: '30px'}, 500);
@@ -253,123 +254,123 @@ jQuery(window).scroll(function(){
 //------------------------------
 //Change Tabs
 //------------------------------
-jQuery(document).ready(function(){
+$(document).ready(function(){
 
 	function mySelectUpdate(){
 		setTimeout(function (){
-			jQuery('.mySelectBoxClass').trigger('update');
+			$('.mySelectBoxClass').trigger('update');
 		}, 500);
 	}
 	mySelectUpdate();
+
+	$('.hotelstab2').removeClass('none');
 	
-	jQuery('.hotelstab2').removeClass('none');
-	
-	jQuery( "#optionsRadios1" ).click(function() {
-		jQuery('.hotelstab2').removeClass('none');
-		jQuery('.flightstab2').addClass('none');
-		jQuery('.vacationstab2').addClass('none');
-		jQuery('.carstab2').addClass('none');
-		jQuery('.cruisestab2').addClass('none');
-		jQuery('.flighthotelcartab2').addClass('none');	
-		jQuery('.flighthoteltab2').addClass('none');								
-		jQuery('.flightcartab2').addClass('none');								
-		jQuery('.hotelcartab2').addClass('none');								
+	$( "#optionsRadios1" ).click(function() {
+		$('.hotelstab2').removeClass('none');
+		$('.flightstab2').addClass('none');
+		$('.vacationstab2').addClass('none');
+		$('.carstab2').addClass('none');
+		$('.cruisestab2').addClass('none');
+		$('.flighthotelcartab2').addClass('none');	
+		$('.flighthoteltab2').addClass('none');								
+		$('.flightcartab2').addClass('none');								
+		$('.hotelcartab2').addClass('none');								
 		mySelectUpdate();
 	});
-	jQuery( "#optionsRadios2" ).click(function() {
-		jQuery('.hotelstab2').addClass('none');
-		jQuery('.flightstab2').removeClass('none');
-		jQuery('.vacationstab2').addClass('none');
-		jQuery('.carstab2').addClass('none');
-		jQuery('.cruisestab2').addClass('none');
-		jQuery('.flighthotelcartab2').addClass('none');	
-		jQuery('.flighthoteltab2').addClass('none');								
-		jQuery('.flightcartab2').addClass('none');								
-		jQuery('.hotelcartab2').addClass('none');	
+	$( "#optionsRadios2" ).click(function() {
+		$('.hotelstab2').addClass('none');
+		$('.flightstab2').removeClass('none');
+		$('.vacationstab2').addClass('none');
+		$('.carstab2').addClass('none');
+		$('.cruisestab2').addClass('none');
+		$('.flighthotelcartab2').addClass('none');	
+		$('.flighthoteltab2').addClass('none');								
+		$('.flightcartab2').addClass('none');								
+		$('.hotelcartab2').addClass('none');	
 		mySelectUpdate();
 	});						
-	jQuery( "#optionsRadios3" ).click(function() {
-		jQuery('.hotelstab2').addClass('none');
-		jQuery('.flightstab2').addClass('none');
-		jQuery('.vacationstab2').removeClass('none');
-		jQuery('.carstab2').addClass('none');
-		jQuery('.cruisestab2').addClass('none');
-		jQuery('.flighthotelcartab2').addClass('none');	
-		jQuery('.flighthoteltab2').addClass('none');								
-		jQuery('.flightcartab2').addClass('none');								
-		jQuery('.hotelcartab2').addClass('none');									
+	$( "#optionsRadios3" ).click(function() {
+		$('.hotelstab2').addClass('none');
+		$('.flightstab2').addClass('none');
+		$('.vacationstab2').removeClass('none');
+		$('.carstab2').addClass('none');
+		$('.cruisestab2').addClass('none');
+		$('.flighthotelcartab2').addClass('none');	
+		$('.flighthoteltab2').addClass('none');								
+		$('.flightcartab2').addClass('none');								
+		$('.hotelcartab2').addClass('none');									
 		mySelectUpdate();
 	});	
-	jQuery( "#optionsRadios4" ).click(function() {
-		jQuery('.hotelstab2').addClass('none');
-		jQuery('.flightstab2').addClass('none');
-		jQuery('.vacationstab2').addClass('none');
-		jQuery('.carstab2').removeClass('none');
-		jQuery('.cruisestab2').addClass('none');
-		jQuery('.flighthotelcartab2').addClass('none');
-		jQuery('.flighthoteltab2').addClass('none');								
-		jQuery('.flightcartab2').addClass('none');								
-		jQuery('.hotelcartab2').addClass('none');									
+	$( "#optionsRadios4" ).click(function() {
+		$('.hotelstab2').addClass('none');
+		$('.flightstab2').addClass('none');
+		$('.vacationstab2').addClass('none');
+		$('.carstab2').removeClass('none');
+		$('.cruisestab2').addClass('none');
+		$('.flighthotelcartab2').addClass('none');
+		$('.flighthoteltab2').addClass('none');								
+		$('.flightcartab2').addClass('none');								
+		$('.hotelcartab2').addClass('none');									
 		mySelectUpdate();
 	});	
-	jQuery( "#optionsRadios5" ).click(function() {
-		jQuery('.hotelstab2').addClass('none');
-		jQuery('.flightstab2').addClass('none');
-		jQuery('.vacationstab2').addClass('none');
-		jQuery('.carstab2').addClass('none');
-		jQuery('.cruisestab2').removeClass('none');
-		jQuery('.flighthotelcartab2').addClass('none');
-		jQuery('.flighthoteltab2').addClass('none');								
-		jQuery('.flightcartab2').addClass('none');								
-		jQuery('.hotelcartab2').addClass('none');									
+	$( "#optionsRadios5" ).click(function() {
+		$('.hotelstab2').addClass('none');
+		$('.flightstab2').addClass('none');
+		$('.vacationstab2').addClass('none');
+		$('.carstab2').addClass('none');
+		$('.cruisestab2').removeClass('none');
+		$('.flighthotelcartab2').addClass('none');
+		$('.flighthoteltab2').addClass('none');								
+		$('.flightcartab2').addClass('none');								
+		$('.hotelcartab2').addClass('none');									
 		mySelectUpdate();
 	});	
-	jQuery( "#optionsRadios6" ).click(function() {
-		jQuery('.hotelstab2').addClass('none');
-		jQuery('.flightstab2').addClass('none');
-		jQuery('.vacationstab2').addClass('none');
-		jQuery('.carstab2').addClass('none');
-		jQuery('.cruisestab2').addClass('none');
-		jQuery('.flighthotelcartab2').removeClass('none');
-		jQuery('.flighthoteltab2').addClass('none');								
-		jQuery('.flightcartab2').addClass('none');								
-		jQuery('.hotelcartab2').addClass('none');									
+	$( "#optionsRadios6" ).click(function() {
+		$('.hotelstab2').addClass('none');
+		$('.flightstab2').addClass('none');
+		$('.vacationstab2').addClass('none');
+		$('.carstab2').addClass('none');
+		$('.cruisestab2').addClass('none');
+		$('.flighthotelcartab2').removeClass('none');
+		$('.flighthoteltab2').addClass('none');								
+		$('.flightcartab2').addClass('none');								
+		$('.hotelcartab2').addClass('none');									
 		mySelectUpdate();
 	});			
-	jQuery( "#optionsRadios7" ).click(function() {
-		jQuery('.hotelstab2').addClass('none');
-		jQuery('.flightstab2').addClass('none');
-		jQuery('.vacationstab2').addClass('none');
-		jQuery('.carstab2').addClass('none');
-		jQuery('.cruisestab2').addClass('none');
-		jQuery('.flighthotelcartab2').addClass('none');
-		jQuery('.flighthoteltab2').removeClass('none');								
-		jQuery('.flightcartab2').addClass('none');								
-		jQuery('.hotelcartab2').addClass('none');									
+	$( "#optionsRadios7" ).click(function() {
+		$('.hotelstab2').addClass('none');
+		$('.flightstab2').addClass('none');
+		$('.vacationstab2').addClass('none');
+		$('.carstab2').addClass('none');
+		$('.cruisestab2').addClass('none');
+		$('.flighthotelcartab2').addClass('none');
+		$('.flighthoteltab2').removeClass('none');								
+		$('.flightcartab2').addClass('none');								
+		$('.hotelcartab2').addClass('none');									
 		mySelectUpdate();
 	});	
-	jQuery( "#optionsRadios8" ).click(function() {
-		jQuery('.hotelstab2').addClass('none');
-		jQuery('.flightstab2').addClass('none');
-		jQuery('.vacationstab2').addClass('none');
-		jQuery('.carstab2').addClass('none');
-		jQuery('.cruisestab2').addClass('none');
-		jQuery('.flighthotelcartab2').addClass('none');
-		jQuery('.flighthoteltab2').addClass('none');								
-		jQuery('.flightcartab2').removeClass('none');								
-		jQuery('.hotelcartab2').addClass('none');									
+	$( "#optionsRadios8" ).click(function() {
+		$('.hotelstab2').addClass('none');
+		$('.flightstab2').addClass('none');
+		$('.vacationstab2').addClass('none');
+		$('.carstab2').addClass('none');
+		$('.cruisestab2').addClass('none');
+		$('.flighthotelcartab2').addClass('none');
+		$('.flighthoteltab2').addClass('none');								
+		$('.flightcartab2').removeClass('none');								
+		$('.hotelcartab2').addClass('none');									
 		mySelectUpdate();
 	});		
-	jQuery( "#optionsRadios9" ).click(function() {
-		jQuery('.hotelstab2').addClass('none');
-		jQuery('.flightstab2').addClass('none');
-		jQuery('.vacationstab2').addClass('none');
-		jQuery('.carstab2').addClass('none');
-		jQuery('.cruisestab2').addClass('none');
-		jQuery('.flighthotelcartab2').addClass('none');
-		jQuery('.flighthoteltab2').addClass('none');								
-		jQuery('.flightcartab2').addClass('none');								
-		jQuery('.hotelcartab2').removeClass('none');									
+	$( "#optionsRadios9" ).click(function() {
+		$('.hotelstab2').addClass('none');
+		$('.flightstab2').addClass('none');
+		$('.vacationstab2').addClass('none');
+		$('.carstab2').addClass('none');
+		$('.cruisestab2').addClass('none');
+		$('.flighthotelcartab2').addClass('none');
+		$('.flighthoteltab2').addClass('none');								
+		$('.flightcartab2').addClass('none');								
+		$('.hotelcartab2').removeClass('none');									
 		mySelectUpdate();
 	});	
 
@@ -384,44 +385,44 @@ jQuery(document).ready(function(){
 //------------------------------
 // List Hover Animations
 //------------------------------
-jQuery(document).ready(function(jQuery){
+$(document).ready(function($){
 	
 
 
 	function StartAnime2() {
-		var jQuerywlist = jQuery('.listitem').width();
-		var jQueryhlist = jQuery('.listitem').height();
+		var $wlist = $('.listitem2').width();
+		var $hlist = $('.listitem2').height();
 
-		jQuery('.liover').css({
-			"width":100+"%",
-			"height":100+"%",
+		$('.liover').css({
+			"width":10+"%",
+			"height":10+"%",
 			"background-color":"#72bf66",
 			"position":"absolute",
-			"top":0+"px", 
-			"left":jQuerywlist+"px", 
-			"opacity":0.5, 
+			"top":$hlist/2+"px", 
+			"left":$wlist/2+"px", 
+			"opacity":0.0, 
 		});
-		jQuery('.fav-icon').css({
-			"top":jQueryhlist/2-11+"px",
-			"left":-25+"px",
+		$('.fav-icon').css({
+			"top":$hlist/2-11+"px",
+			"left":$wlist+"px",
 		});
-		jQuery('.book-icon').css({
-			"top":jQueryhlist/2-11+"px",
+		$('.book-icon').css({
+			"top":$hlist/2-11+"px",
 			"left":-25+"px",
 		});
 		
-		jQuery( ".listitem" )
+		$( ".listitem2" )
 			.mouseenter(function() {
-				jQuery(this).find('.liover').stop().animate({ "left":10+"%","top":10+"%","width":80+"%","height":80+"%"  });
-				jQuery(this).find('.book-icon').stop().animate({ "left":jQuerywlist/2+18+"px" });
-				jQuery(this).find('.fav-icon').stop().animate({ "left":jQuerywlist/2-42+"px" },{ duration: 1000, queue: false });
+				$(this).find('.liover').stop().animate({ "left":10+"%","top":10+"%","width":80+"%","height":80+"%","opacity":0.5  });
+				$(this).find('.book-icon').stop().animate({ "left":$wlist/2-42+"px" });
+				$(this).find('.fav-icon').stop().animate({ "left":$wlist/2+18+"px" });
 
 
 			})
 			.mouseleave(function() {
-				jQuery(this).find('.liover').stop().animate({ "left":jQuerywlist+"px","top":0+"px","width":100+"%","height":100+"%"  });
-				jQuery(this).find('.book-icon').stop().animate({ "left":-25+"px" },{ duration: 1000, queue: false });
-				jQuery(this).find('.fav-icon').stop().animate({ "left":-25+"px" });
+				$(this).find('.liover').stop().animate({ "left":$wlist/2+"px","top":$hlist/2+"px","width":10+"%","height":10+"%","opacity":0.0  });
+				$(this).find('.book-icon').stop().animate({ "left":-25+"px" });
+				$(this).find('.fav-icon').stop().animate({ "left":$wlist+"px" });
 			
 			});	
 		
@@ -429,16 +430,13 @@ jQuery(document).ready(function(jQuery){
 	
 	StartAnime2();
 	
-	jQuery(window).resize(function() {
+	$(window).resize(function() {
 		StartAnime2();					
 	});
 	
 
 
 });
-
-				
-
 
 
 

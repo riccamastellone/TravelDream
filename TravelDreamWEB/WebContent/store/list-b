@@ -60,12 +60,189 @@
 					<div class="bookfilters hpadding20">
 
 
+						<div class="">
+							<div class="radio">
+								<label> <input checked="checked" type="radio"
+									name="optionsRadios" id="optionsRadios3" value="option3" /> <span
+									class="suitcase-ico"></span> Vacations
+								</label>
+							</div>
+							<div class="radio">
+								<label> <input type="radio" name="optionsRadios"
+									id="optionsRadios1" value="option1" /> <span class="hotel-ico"></span>
+									Hotels
+								</label>
+							</div>
+							<div class="radio">
+								<label> <input type="radio" name="optionsRadios"
+									id="optionsRadios2" value="option2" /> <span
+									class="flight-ico"></span> Flights
+								</label>
+							</div>
+
+						</div>
+
 						<div class="clearfix"></div>
+						<br />
 
-
-						<div class="vacationstab2">
+						<!-- HOTELS TAB -->
+						<div class="hotelstab2 none">
 							<span class="opensans size13">Where do you want to go?</span> <input
 								type="text" class="form-control" placeholder="Greece" />
+
+							<div class="clearfix pbottom15"></div>
+
+							<div class="w50percent">
+								<div class="wh90percent textleft">
+									<span class="opensans size13">Check in date</span> <input
+										type="text" class="form-control mySelectCalendar"
+										id="datepicker" placeholder="mm/dd/yyyy" />
+								</div>
+							</div>
+
+							<div class="w50percentlast">
+								<div class="wh90percent textleft right">
+									<span class="opensans size13">Check in date</span> <input
+										type="text" class="form-control mySelectCalendar"
+										id="datepicker2" placeholder="mm/dd/yyyy" />
+								</div>
+							</div>
+
+							<div class="clearfix pbottom15"></div>
+
+							<div class="room1">
+								<div class="w50percent">
+									<div class="wh90percent textleft">
+										<span class="opensans size13"><b>ROOM 1</b></span><br />
+
+										<div class="addroom1 block">
+											<a onclick="addroom2()" class="grey cpointer">+ Add room</a>
+										</div>
+									</div>
+								</div>
+
+								<div class="w50percentlast">
+									<div class="wh90percent textleft right ohidden">
+										<div class="w50percent">
+											<div class="wh90percent textleft left">
+												<span class="opensans size13">Adult</span> <select
+													class="form-control mySelectBoxClass">
+													<option>1</option>
+													<option selected="selected">2</option>
+													<option>3</option>
+													<option>4</option>
+													<option>5</option>
+												</select>
+											</div>
+										</div>
+										<div class="w50percentlast">
+											<div class="wh90percent textleft right ohidden">
+												<span class="opensans size13">Child</span> <select
+													class="form-control mySelectBoxClass">
+													<option>0</option>
+													<option selected="selected">1</option>
+													<option>2</option>
+													<option>3</option>
+													<option>4</option>
+													<option>5</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="clearfix"></div>
+							<button type="submit" class="btn-search3">Search</button>
+						</div>
+						<!-- END OF HOTELS TAB -->
+
+						<!-- FLIGHTS TAB -->
+						<div class="flightstab2 none">
+							<div class="w50percent">
+								<div class="wh90percent textleft">
+									<span class="opensans size13">Flying from</span> <input
+										type="text" class="form-control" placeholder="City or airport" />
+								</div>
+							</div>
+
+							<div class="w50percentlast">
+								<div class="wh90percent textleft right">
+									<span class="opensans size13">To</span> <input type="text"
+										class="form-control" placeholder="City or airport" />
+								</div>
+							</div>
+
+
+							<div class="clearfix pbottom15"></div>
+
+							<div class="w50percent">
+								<div class="wh90percent textleft">
+									<span class="opensans size13">Departing</span> <input
+										type="text" class="form-control mySelectCalendar"
+										id="datepicker3" placeholder="mm/dd/yyyy" />
+								</div>
+							</div>
+
+							<div class="w50percentlast">
+								<div class="wh90percent textleft right">
+									<span class="opensans size13">Returning</span> <input
+										type="text" class="form-control mySelectCalendar"
+										id="datepicker4" placeholder="mm/dd/yyyy" />
+								</div>
+							</div>
+
+							<div class="clearfix pbottom15"></div>
+
+							<div class="room1">
+								<div class="w50percent">
+									<div class="wh90percent textleft">
+										<span class="opensans size13">Adult</span> <select
+											class="form-control mySelectBoxClass">
+											<option>1</option>
+											<option selected="selected">2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="w50percentlast">
+									<div class="wh90percent textleft right">
+										<span class="opensans size13">Child</span> <select
+											class="form-control mySelectBoxClass">
+											<option>0</option>
+											<option selected="selected">1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<button type="submit" class="btn-search3">Search</button>
+						</div>
+						<!-- END OF FLIGHTS TAB -->
+
+						<!-- VACATIONS TAB -->
+						<div class="vacationstab2 none">
+							<div class="w50percent">
+								<div class="wh90percent textleft">
+									<span class="opensans size13">Flying from</span> <input
+										type="text" class="form-control" placeholder="City or airport" />
+								</div>
+							</div>
+
+							<div class="w50percentlast">
+								<div class="wh90percent textleft right">
+									<span class="opensans size13"><b>To</b></span> <input
+										type="text" class="form-control" placeholder="City or airport" />
+								</div>
+							</div>
 
 							<div class="clearfix pbottom15"></div>
 
@@ -87,7 +264,15 @@
 
 							<div class="clearfix pbottom15"></div>
 
+							<div class="room1">
+								<div class="w50percent">
 									<div class="wh90percent textleft">
+										<span class="opensans size13"><b>ROOM 1</b></span><br />
+									</div>
+								</div>
+
+								<div class="w50percentlast">
+									<div class="wh90percent textleft right">
 										<div class="w50percent">
 											<div class="wh90percent textleft left">
 												<span class="opensans size13">Adult</span> <select
@@ -99,10 +284,24 @@
 													<option>5</option>
 												</select>
 											</div>
+										</div>
+										<div class="w50percentlast">
+											<div class="wh90percent textleft right">
+												<span class="opensans size13">Child</span> <select
+													class="form-control mySelectBoxClass">
+													<option>0</option>
+													<option selected="selected">1</option>
+													<option>2</option>
+													<option>3</option>
+													<option>4</option>
+													<option>5</option>
+												</select>
+											</div>
+										</div>
 									</div>
+								</div>
 							</div>
 							<div class="clearfix"></div>
-							<br />
 							<button type="submit" class="btn-search3">Search</button>
 						</div>
 						<!-- END OF VACATIONS TAB -->
@@ -351,7 +550,7 @@
 		<script type="text/javascript">
 			$('.countPacchetti').countTo({
 				from: 1,
-				to: #{pacchettoBean.pacchetti.size()},
+				to: 53,
 				speed: 2000,
 				refreshInterval: 50
 			});		

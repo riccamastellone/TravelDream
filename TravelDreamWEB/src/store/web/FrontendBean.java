@@ -60,6 +60,10 @@ public class FrontendBean implements Serializable {
 	// viene chiamata piu' volte la funzione.
 	private String tmpImage;
 	
+	public FrontendBean(){
+		this.pacchetto = new PacchettoDTO();
+	}
+	
 	public ArrayList<PacchettoDTO> getLastMinute() {
 		return lastMinute;
 	}

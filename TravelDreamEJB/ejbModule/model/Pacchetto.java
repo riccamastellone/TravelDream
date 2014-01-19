@@ -19,7 +19,7 @@ import java.util.List;
 @Table(name= "Pacchetto")
 @NamedQueries({
 	
-	@NamedQuery(name = "Pacchetto.findAll", query = "SELECT p FROM Pacchetto p"),
+	@NamedQuery(name = "Pacchetto.findAll", query = "SELECT p FROM Pacchetto p Where p.eliminato != 1"),
 	
 	@NamedQuery(name= "Pacchetto.selectMax", query= "SELECT p FROM Pacchetto p WHERE p.id = (SELECT max(p.id) FROM Pacchetto p)")
 	
@@ -50,6 +50,8 @@ public class Pacchetto implements Serializable {
 	private String localita;
 
 	private String nome;
+	
+	private int eliminato;
 
 	@OneToMany(mappedBy = "pacchetto")
 	private List<VoloPacchetto> voliPacchetto;
@@ -178,6 +180,14 @@ public class Pacchetto implements Serializable {
 		attivitaSecondariePacchetto.setPacchettoBean(null);
 
 		return attivitaSecondariePacchetto;
+	}
+
+	public int getEliminato() {
+		return eliminato;
+	}
+
+	public void setEliminato(int eliminato) {
+		this.eliminato = eliminato;
 	}
 	
 	

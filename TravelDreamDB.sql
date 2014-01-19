@@ -67,7 +67,8 @@ CREATE TABLE `Pacchetto` (
   `descrizione` text NOT NULL,
   `inizio_validita` date NOT NULL,
   `fine_validita` date NOT NULL,
-  `hotel` int(11) DEFAULT NULL,
+  `hotel` int(11) NOT NULL,
+  `eliminato` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   FOREIGN KEY (`hotel`) REFERENCES `Hotel` (`id`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -99,6 +100,7 @@ CREATE TABLE `Prenotazione` (
   `volo_ritorno` int(11) NOT NULL,
   `hotel` int(11) NOT NULL,
   `data_creazione` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `eliminato` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   FOREIGN KEY (`utente`) REFERENCES `Utente` (`email`),
   FOREIGN KEY (`volo_andata`) REFERENCES `Volo` (`id`),

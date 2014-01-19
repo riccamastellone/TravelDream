@@ -35,13 +35,13 @@
 			<div class="form-group">
 				<label>Data partenza :</label> <br />
 				<pf:calendar value="#{pacchettoBean.volo.partenza}"
-					pattern="MM/dd/yyyy HH:mm" />
+					pattern="MM/dd/yyyy HH:mm" mindate="#{pacchettoBean.pacchetto.inizioValidita}" maxdate="#{pacchettoBean.pacchetto.fineValidita}" />
 			</div>
 
 			<div class="form-group">
 				<label>Data arrivo:</label> <br />
 				<pf:calendar value="#{pacchettoBean.volo.arrivo}"
-					pattern="MM/dd/yyyy HH:mm" />
+					pattern="MM/dd/yyyy HH:mm" mindate="#{pacchettoBean.pacchetto.inizioValidita}" maxdate="#{pacchettoBean.pacchetto.fineValidita}"/>
 			</div>
 
 			<div class="form-group">

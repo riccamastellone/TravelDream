@@ -87,4 +87,17 @@ public class AttivitaSecondariaDTO {
 		this.nome = nome;
 	}
 	
+	 public Object clone() {
+
+		    AttivitaSecondariaDTO AttivitaSecondariaDTO = new AttivitaSecondariaDTO();
+		    AttivitaSecondariaDTO.id = this.id;
+		    AttivitaSecondariaDTO.nome = this.nome;
+		    AttivitaSecondariaDTO.localita = this.localita;
+		    AttivitaSecondariaDTO.costo = this.costo;
+		    AttivitaSecondariaDTO.disponibilita = this.disponibilita;
+		    AttivitaSecondariaDTO.descrizione = this.descrizione;
+		    AttivitaSecondariaDTO.eliminato = this.eliminato;
+		    return AttivitaSecondariaDTO;
+		  }
+	
 }

@@ -48,7 +48,7 @@
 			<div class="form-group">
 				<label>Luogo:</label>
 				<h:inputText p:placeholder="Inserisci l'ubicazione dell'albergo"
-					class="form-control" value="#{pacchettoBean.hotelDTO.luogo}" />
+					class="form-control" value="#{pacchettoBean.hotelDTO.luogo}" disabled="true" />
 			</div>
 
 
@@ -58,10 +58,6 @@
 					p:placeholder="Inserisci una descrzione"
 					value="#{pacchettoBean.hotelDTO.descrizione}" />
 			</div>
-
-
-
-
 
 			<h:commandButton value="Aggiungi" class="btn btn-default"
 				action="#{pacchettoBean.aggiungiNuovoHotelAPacchetto()}" />

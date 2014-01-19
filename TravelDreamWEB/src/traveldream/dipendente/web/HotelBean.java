@@ -10,11 +10,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.UploadedFile;
 
 import com.sun.el.parser.ParseException;
@@ -39,14 +42,16 @@ public class HotelBean implements Serializable{
 
 	public HotelBean() {
 		this.setHotel(new HotelDTO());
+		this.allHotel = new ArrayList<HotelDTO>();
 	}
+
 
 	private void refreshHotels() {
 		this.allHotel = hotelMng.getAllHotel();
 	}
 
 	public ArrayList<HotelDTO> getAllHotel() {
-		if (this.allHotel == null) {
+		if (this.allHotel.isEmpty()) {
 			refreshHotels();
 		}
 		return this.allHotel;
@@ -156,11 +161,12 @@ public class HotelBean implements Serializable{
 		}
 
 		hotelMng.salvaHotel(hotel);
+		this.hotel = new HotelDTO();
 		refreshHotels();
 		return "catalogo?faces-redirect=true";
 
 	}
-	
+
 	public String indietro() {
 		this.hotel = new HotelDTO();
 		return "catalogo?faces-redirect=true";
@@ -168,7 +174,16 @@ public class HotelBean implements Serializable{
 
 	public void deleteHotel(HotelDTO hotel) {
 		hotelMng.deleteHotel(hotel);
+		this.allHotel.remove(hotel);
 
 	}
+	
+	 public void onEdit(RowEditEvent event) throws ParseException { 
+	       FacesMessage msg = new FacesMessage("Hotel Aggiornato");  
+	       hotelMng.aggiornaHotel((HotelDTO) event.getObject());
+	       FacesContext.getCurrentInstance().addMessage(null, msg);  
+	    } 
+	
+
 
 }

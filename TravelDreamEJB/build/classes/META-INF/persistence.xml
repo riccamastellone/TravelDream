@@ -12,5 +12,12 @@
 		<class>model.AttivitaSecondariaPacchetto</class>
 		<class>model.AttivitaSecondariaPrenotazione</class>
 		<class>model.Prenotazione</class>
+		<properties>
+			<property name="javax.persistence.schema-generation.create-database-schemas" value="true"/>
+			<property name="eclipselink.ddl-generation" value="none"/>
+			<property name="eclipselink.flush-clear.cache" value="Drop"/>
+			<property name="eclipselink.cache.size.default" value="0"/>
+			<property name="eclipselink.query-results-cache" value="false"/>
+		</properties>
 	</persistence-unit>
 </persistence>

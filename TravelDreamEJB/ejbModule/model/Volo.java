@@ -22,7 +22,9 @@ import java.util.List;
 	
 	@NamedQuery(name="Volo.getVoloById", query="SELECT v FROM Volo v Where v.id = :id"),
 	
-	@NamedQuery(name="Volo.selectMax", query="SELECT v FROM Volo v Where v.id = (SELECT max(v.id) FROM Volo v)")
+	@NamedQuery(name="Volo.selectMax", query="SELECT v FROM Volo v Where v.id = (SELECT max(v.id) FROM Volo v)"),
+	
+	@NamedQuery(name="Volo.getVoliDisponibiliECompatibili", query="SELECT v FROM Volo v Where v.eliminato != 1 AND v.disponibilita > 0 AND v.partenza >= :partenza And v.arrivo <= :arrivo")
 })
 
 public class Volo implements Serializable {

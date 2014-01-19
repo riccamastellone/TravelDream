@@ -20,16 +20,15 @@
 
 			<p:growl id="messages" showDetail="true" />
 
-			<p:dataTable id="dataTable" var="volo" value="#{voloBean.getVoli()}"
-				editable="true" sortMode="multiple">
+			<p:dataTable id="dataTable" var="volo" value="#{voloBean.voli}"
+				editable="true" sortMode="single" lazy="true">
 				<f:facet name="header">  
-            Elenco Voli 
-        </f:facet>
+           		 Elenco Voli 
+        		</f:facet>
 
 				<p:ajax event="rowEdit" listener="#{voloBean.onEdit}"
-					update=":form:messages,:form:dataTable" />
-				<p:ajax event="rowEditCancel" listener="#{voloBean.onDelete}"
-					update=":form:messages,:form:dataTable" />
+					update=":form:messages" />
+				
 
 				<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea" filteredValue = "#{volo.nomeCompagnia}">
 					<p:cellEditor>
@@ -112,7 +111,16 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-
+				
+				<p:column style="width:6%">
+					<h:commandLink id="canc" class="btn btn-default btn-danger"
+							onclick="return confirm('Confermi di voler eliminare questo volo?');"
+							action="#{voloBean.deleteVolo(volo)}">
+							<span class="glyphicon glyphicon-trash white"></span>
+							<f:ajax execute="canc" render="dataTable" />
+						</h:commandLink>
+				</p:column>
+				
 				<p:column style="width:6%">
 					<p:rowEditor />
 				</p:column>
@@ -125,12 +133,13 @@
 			jQuery.noConflict();
 		</script>
 
-<script>
+		<script>
 			$(function() {
 				$('.active').removeClass('active');
 				$('.nav li:nth-child(2)').addClass('active');
 			});
 		</script>
+		
 	</ui:define>
 
 

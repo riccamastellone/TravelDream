@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import model.Hotel;
 import model.Pacchetto;
 import model.Volo;
+import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.VoloMng;
 
@@ -30,7 +31,8 @@ public class VoloMngBean implements VoloMng {
 
 	/* VOLI */
 
-	public static VoloDTO convertVoloToDTO(Volo h) {
+	
+	protected static VoloDTO convertVoloToDTO(Volo h) {
 		VoloDTO vl = new VoloDTO();
 		vl.setId(h.getId());
 		vl.setArrivo(h.getArrivo());
@@ -52,7 +54,7 @@ public class VoloMngBean implements VoloMng {
 	}
 
 	@Override
-	public ArrayList<VoloDTO> getVoli() {
+	public List<VoloDTO> getVoli() {
 		// TODO Auto-generated method stub
 		ArrayList<VoloDTO> voliDTO = new ArrayList<VoloDTO>();
 
@@ -74,6 +76,8 @@ public class VoloMngBean implements VoloMng {
 
 	@Override
 	public void aggiornaVolo(VoloDTO volo) throws ParseException {
+		
+		volo.printaDati();
 		Volo voloDaModificare = this.findVolo(volo.getId());
 		voloDaModificare.setArrivo(volo.getArrivo());
 		voloDaModificare.setCittaArrivo(volo.getCittaArrivo());
@@ -82,8 +86,9 @@ public class VoloMngBean implements VoloMng {
 		voloDaModificare.setDisponibilita(volo.getDisponibilita());
 		voloDaModificare.setNomeCompagnia(volo.getNomeCompagnia());
 		voloDaModificare.setPartenza(volo.getPartenza());
-
 		em.merge(voloDaModificare);
+		
+		
 
 	}
 
@@ -111,6 +116,7 @@ public class VoloMngBean implements VoloMng {
 		return voli.get(0);
 	}
 
+
 	public ArrayList<String> getCittaArrivo() {
 		List<Volo> myList;
 		ArrayList<String> volo = new ArrayList<String>();
@@ -135,6 +141,22 @@ public class VoloMngBean implements VoloMng {
 			}
 		}
 		return volo;
+	}
+
+	@Override
+	public ArrayList<VoloDTO> getVoliDisponibiliECompatibili(PacchettoDTO pacchetto) {
+		// TODO Auto-generated method stub
+		ArrayList<VoloDTO> voliDTO = new ArrayList<VoloDTO>();
+
+		// query dichiarate nell entita UtenteGruppo
+		List<Volo> voli = em.createNamedQuery("Volo.getVoliDisponibiliECompatibili", Volo.class).setParameter("partenza", pacchetto.getInizioValidita()).setParameter("arrivo", pacchetto.getFineValidita()).getResultList();
+	
+		for (Volo volo : voli) {
+
+			voliDTO.add(this.convertVoloToDTO(volo));
+		}
+		return voliDTO;
+		
 	}
 
 }

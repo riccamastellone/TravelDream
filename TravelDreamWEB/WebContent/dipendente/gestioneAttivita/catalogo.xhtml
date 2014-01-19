@@ -17,37 +17,66 @@
 			value="Aggiungi nuova attivita secondaria" />
 		<br />
 		<br />
-		<h:form>
+		<h:form id="form">
+		
+			<p:growl id="messages" showDetail="true" />
 
-			<p:dataTable id="dataTable" var="attivita" value="#{attivitaBean.allAttivita}">
+			<p:dataTable id="dataTable" var="attivita" value="#{attivitaBean.allAttivita}" editable="true" lazy="true">
 				<f:facet name="header">  
             Elenco Attivita Secondarie 
         </f:facet>
+        
+        		<p:ajax event="rowEdit" listener="#{attivitaBean.onEdit}"
+					update=":form:messages" />
 
 				<p:column sortBy="nome" headerText="Nome">
-					<h:outputText value="#{attivita.nome}" />
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{attivita.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{attivita.nome}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
 				</p:column>
 
 
 				<p:column sortBy="costoGiornaliero" headerText="Costo">
-					<h:outputText value="#{attivita.costo} €" />
+				 <p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{attivita.costo} €" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{attivita.costo}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
 				</p:column>
 
 				<p:column sortBy="luogo" headerText="Luogo">
-					<h:outputText value="#{attivita.localita}" />
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{attivita.localita}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{attivita.localita}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
 				</p:column>
 				
 				<p:column sortBy="disponibilita" headerText="Posti disponibili">
-					<h:outputText value="#{attivita.disponibilita}" />
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{attivita.disponibilita}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{attivita.disponibilita}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
 				</p:column>
+				
 
 				<p:column headerText="" width="100">
 					<div class="btn-group">
-
-						<h:commandLink id="edit" class="btn btn-default" type="button"
-							action="#{attivitaBean.goToEdit(attivita)}">
-							<span class="glyphicon glyphicon-pencil"></span>
-						</h:commandLink>
 						<h:commandLink id="canc" class="btn btn-default btn-danger"
 							onclick="return confirm('Confermi di voler eliminare questa attivita?');"
 							action="#{attivitaBean.deleteAttivita(attivita)}">
@@ -56,6 +85,12 @@
 						</h:commandLink>
 					</div>
 				</p:column>
+				
+				<p:column style="width:6%">
+					<p:rowEditor />
+				</p:column>
+				
+
 
 			</p:dataTable>
 

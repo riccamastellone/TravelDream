@@ -9,10 +9,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+
+import model.AttivitaSecondaria;
+import model.AttivitaSecondariaPacchetto;
 import model.Hotel;
 import model.Pacchetto;
 import model.Volo;
 import model.VoloPacchetto;
+import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
@@ -50,6 +54,7 @@ public class PacchettoMngBean implements PacchettoMng {
 	}
 
 	private Pacchetto findPacchetto(int id) {
+		em.getEntityManagerFactory().getCache().evictAll();
 		return em.find(Pacchetto.class, id);
 	}
 	
@@ -133,6 +138,8 @@ public class PacchettoMngBean implements PacchettoMng {
 		for (Pacchetto pacchetto : pacchetti) {
 
 			PacchettoDTO pacchettoDTO = this.convertToDto(pacchetto);
+			
+			//ricavo tutti i voli e li distinguo tra andata e ritorno
 			for (VoloPacchetto voloPacchetto : pacchetto.getVoliPacchetto()) {
 
 				if (voloPacchetto.getTipo().equals("Andata")) {
@@ -141,32 +148,26 @@ public class PacchettoMngBean implements PacchettoMng {
 					pacchettoDTO.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
 				}
 
-				// pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
-				// pacchettiDTO.get
+				
 			}
-
+			
+			//ricavo l hotel
 			pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
+			//ricavo la lista delle attivita secondarie asociate al paccchetto
+			for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : pacchetto.getAttivitaSecondariePacchetto()) {
+				pacchettoDTO.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+			}
+			
 			pacchettiDto.add(pacchettoDTO);
 		}
-		return pacchettiDto;
+		
+		return pacchettiDto;	
 	}
 	
-	/**
-	 * Dovrà accettare come parametro il numero di persone per cui deve controllare per ogni pacchetto
-	 * se c'è un hotel, un volo andata e un volo ritorno con quella disponibilita
-	 * @return
-	 */
-	public List<PacchettoDTO> getPacchettiVendibili() {
-		List<Pacchetto> pacchetti = em.createNamedQuery("Pacchetto.findAll", Pacchetto.class).getResultList();
-		//@TODO da fare
-		return this.buildPacchetti(pacchetti);
-	}
-
 	public List<PacchettoDTO> getAllPacchetti() {
 		
 		List<Pacchetto> pacchetti = em.createNamedQuery("Pacchetto.findAll", Pacchetto.class).getResultList();
 		return this.buildPacchetti(pacchetti);
-
 	}
 
 	public void editInfoGenerali(PacchettoDTO pacchetto) {
@@ -202,6 +203,8 @@ public class PacchettoMngBean implements PacchettoMng {
 
 	}
 
+	
+	
 	@Override
 	public PacchettoDTO getPacchettoAggiornato(PacchettoDTO pacchetto) {
 		// TODO Auto-generated method stub
@@ -217,7 +220,57 @@ public class PacchettoMngBean implements PacchettoMng {
 			}
 		}
 		nuovoPacchetto.setHotel(HotelMngBean.HotelToDTO(pacchettoAggiornato.getHotel()));
+		
+		for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : pacchettoAggiornato.getAttivitaSecondariePacchetto()) {
+			nuovoPacchetto.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+		}
 		return nuovoPacchetto;
 	}
+
+	@Override
+	public void deletePacchetto(PacchettoDTO pacchetto) {
+		// TODO Auto-generated method stub
+		Pacchetto pacchettoDaCancellare = this.findPacchetto(pacchetto.getId());
+		pacchettoDaCancellare.setEliminato(1);
+		em.merge(pacchettoDaCancellare);
+		
+	}
+	
+	private AttivitaSecondaria getAttivitaById(AttivitaSecondariaDTO attivita) {
+		List<AttivitaSecondaria> attivitaSecondarie = em.createNamedQuery("AttivitaSecondaria.getVoloById", AttivitaSecondaria.class).setParameter("id", attivita.getId()).getResultList();
+		return attivitaSecondarie.get(0);
+	}
+
+	@Override
+	public void aggiungiAttivitaAPacchetto(PacchettoDTO pacchetto, AttivitaSecondariaDTO attivita) {
+		// TODO Auto-generated method stub
+		AttivitaSecondaria attivitaNuova = this.getAttivitaById(attivita);
+		Pacchetto pacchettoDaAggiornare = this.findPacchetto(pacchetto.getId());
+		System.out.println(pacchettoDaAggiornare.getNome());
+		AttivitaSecondariaPacchetto attivitaPacchetto = new AttivitaSecondariaPacchetto(pacchettoDaAggiornare, attivitaNuova);
+		em.persist(attivitaPacchetto);
+			
+	}
+
+	@Override
+	public void eliminaAttivitaDaPacchetto(PacchettoDTO pacchettoDTO, AttivitaSecondariaDTO attivita) {
+		// TODO Auto-generated method stub
+		AttivitaSecondaria attivitaDaDissociare= this.getAttivitaById(attivita);
+		Pacchetto pacchetto = this.findPacchetto(pacchettoDTO.getId());
+		
+		for (AttivitaSecondariaPacchetto attivitaPacchetto : pacchetto.getAttivitaSecondariePacchetto()) {
+			if (attivitaPacchetto.getAttivitaSecondariaBean().equals(attivitaDaDissociare)){
+				pacchetto.getAttivitaSecondariePacchetto().remove(attivitaPacchetto);
+				em.remove(attivitaPacchetto);
+				break;
+			}
+				
+		}
+		
+		em.merge(pacchetto);
+		System.out.println("aggiorno pacchetto");
+		
+	}
+	
 
 }

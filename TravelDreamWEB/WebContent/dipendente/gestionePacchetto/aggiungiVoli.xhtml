@@ -22,7 +22,6 @@
 		<div style="margin-bottom: 20px;">
 			<h:form>
 
-
 				<p:dataTable id="dataTableAndata" var="volo"
 					value="#{pacchettoBean.pacchetto.voliAndata}">
 					<f:facet name="header">  
@@ -144,8 +143,11 @@
 			<h:link outcome="aggiungiInfoGenerali" class="btn btn-default"
 				value="Indietro" />
 			&nbsp;
-			<h:link outcome="aggiungiHotel" class="btn btn-primary"
+			
+			<h:form>
+			<h:commandLink action="#{pacchettoBean.checkConsistenzaVoli()}" class="btn btn-primary"
 				value="Avanti" />
+			</h:form>
 		</div>
 		<script>
 			jQuery.noConflict();

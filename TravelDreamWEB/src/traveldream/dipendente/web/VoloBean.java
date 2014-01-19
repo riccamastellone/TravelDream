@@ -2,6 +2,7 @@ package traveldream.dipendente.web;
 
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.List;
 import java.text.ParseException;
 
 import javax.ejb.EJB;
@@ -12,6 +13,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
 
+import traveldream.dtos.HotelDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.VoloMng;
 
@@ -26,11 +28,11 @@ public class VoloBean implements Serializable {
 
 	private VoloDTO volo;
 
-	private ArrayList<VoloDTO> voli;
+	private List<VoloDTO> voli;
 
 	public VoloBean() {
 		this.volo = new VoloDTO();
-
+		this.setVoli(new ArrayList<VoloDTO>());
 	}
 
 	public VoloDTO getVolo() {
@@ -47,33 +49,12 @@ public class VoloBean implements Serializable {
 		System.out.println(this.volo);
 		
 		voloMng.salvaVolo(volo);
-		this.voli = voloMng.getVoli();
+		this.voli = new ArrayList<VoloDTO>();
+		this.volo = new VoloDTO();
 		return "catalogo?faces-redirect=true";
 
 	}
 
-
-	public ArrayList<VoloDTO> getVoli() {
-		
-			this.voli = voloMng.getVoli();
-		
-		return this.voli;
-	}
-
-
-	public void editVolo() throws ParseException {
-		VoloDTO voloDTO = this.volo;
-		this.volo = new VoloDTO();
-		voloMng.aggiornaVolo(voloDTO);
-		this.voli = voloMng.getVoli();
-		//return "catalogo?faces-redirect=true";
-	}
-
-	public void deleteVolo(VoloDTO volo) {
-		voloMng.deleteVolo(volo);
-		this.voli.remove(volo);
-	}
-	
 	public String indietro() {
 		this.volo = new VoloDTO();
 		return "catalogo?faces-redirect=true";
@@ -85,10 +66,23 @@ public class VoloBean implements Serializable {
 	       FacesContext.getCurrentInstance().addMessage(null, msg);  
 	    } 
 	
-	 public void onDelete(RowEditEvent event) {  
-	       FacesMessage msg = new FacesMessage("Volo Cancellato");  
-	       voloMng.deleteVolo((VoloDTO) event.getObject());
-	       FacesContext.getCurrentInstance().addMessage(null, msg);  
-	    } 
+
+	public List<VoloDTO> getVoli() {
+		if (this.voli.isEmpty()){
+		   this.voli = voloMng.getVoli();
+		}
+		
+		return this.voli;
+	}
+
+	public void setVoli(List<VoloDTO> voli) {
+		this.voli = voli;
+	} 
+	
+	public void deleteVolo(VoloDTO volo) { 
+		voloMng.deleteVolo(volo);
+		this.voli.remove(volo);	
+
+	}
 
 }

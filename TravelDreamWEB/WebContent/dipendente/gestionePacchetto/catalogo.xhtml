@@ -25,8 +25,7 @@
 				
 				<p:ajax event="rowEdit" listener="#{pacchettoBean.onEdit}"
 					update=":form:messages, :form:pacchettiTable" />
-				<p:ajax event="rowEditCancel" listener="#{pacchettoBean.onDelete}"
-					update=":form:messages, :form:pacchettiTable" />
+				
 					
 				<p:column headerText="Nome" sortBy="nome">
 						<p:cellEditor>
@@ -139,16 +138,61 @@
 										oncomplete="PF('editHotelNuovoDialog').show();" />
 									</p:commandButton>
 									
+									<p:commandButton id="basicEditHotelEsistente" value="Add Esistente" type="button" styleClass="btn white">
+										<p:ajax listener="#{pacchettoBean.goToAddHotelEsistente(event,pacchetto)}"
+										update=":form:form5:addHotelEsistente"
+										oncomplete="PF('editHotelEsistenteDialog').show();" />
+									</p:commandButton>
+									
 									
 							</f:facet>
 						</p:cellEditor>
-								
-						
+				</p:column>
+				<p:column>
+					<p:cellEditor>	
+							<f:facet name="output">
+									<p:commandButton id="basicAttivita" value="Attivita" type="button" styleClass="btn">
+										<p:ajax listener="#{pacchettoBean.mostraInfo(event,pacchetto)}"
+										update=":form:dataTableAttivita"
+										oncomplete="PF('attivitaDialog').show();" />
+									</p:commandButton>
+							</f:facet>
+							<f:facet name="input">	
+								<p:commandButton id="basicAttivita2" value="Modifica" type="button" styleClass="btn">
+										<p:ajax listener="#{pacchettoBean.mostraInfo(event,pacchetto)}"
+										update=":form:dataTableAttivita2"
+										oncomplete="PF('attivitaDialog2').show();" />
+									</p:commandButton>
+									
+									<p:commandButton id="basicEditAttivitaNuovo" value="Add Nuova" type="button" styleClass="btn white">
+										<p:ajax listener="#{pacchettoBean.goToAddAttivitaNuova(event,pacchetto)}"
+										update=":form:formAttivita:addAttivitaNuovaForm"
+										oncomplete="PF('editAttivitaNuovaDialog').show();" />
+									</p:commandButton>
+									
+									<p:commandButton id="basicEditAttivitaEsistente" value="Aggiungi Esistente" type="button" styleClass="btn-danger">
+										<p:ajax listener="#{pacchettoBean.goToAddAttivitaEsistente(event,pacchetto)}"
+										update=":form:formAttivitaEsistente:dataTableAddAttivitaEsistente"
+										oncomplete="PF('addAttivitaEsistente').show();" />
+									</p:commandButton>
+									
+							</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column style="width:6%">
+					<h:commandLink id="canc" class="btn btn-default btn-danger"
+							onclick="return confirm('Confermi di voler eliminare questo pacchetto?');"
+							action="#{pacchettoBean.deletePacchetto(pacchetto)}">
+							<span class="glyphicon glyphicon-trash white"></span>
+							<f:ajax execute="canc" render="pacchettiTable" />
+						</h:commandLink>
 				</p:column>
 				
 				<p:column style="width:6%">
 					<p:rowEditor />
 				</p:column>
+				
 				
 			</p:dataTable>
 
@@ -179,13 +223,13 @@
 			<div class="form-group">
 				<label>Data partenza :</label> <br />
 				<p:calendar value="#{pacchettoBean.volo.partenza}"
-					pattern="MM/dd/yyyy HH:mm" />
+					pattern="MM/dd/yyyy HH:mm" mindate="#{pacchettoBean.pacchettoDaVisualizzareDto.inizioValidita}" maxdate="#{pacchettoBean.pacchettoDaVisualizzareDto.fineValidita}" />
 			</div>
 
 			<div class="form-group">
 				<label>Data arrivo:</label> <br />
 				<p:calendar value="#{pacchettoBean.volo.arrivo}"
-					pattern="MM/dd/yyyy HH:mm" />
+					pattern="MM/dd/yyyy HH:mm" mindate="#{pacchettoBean.pacchettoDaVisualizzareDto.inizioValidita}" maxdate="#{pacchettoBean.pacchettoDaVisualizzareDto.fineValidita}" />
 			</div>
 
 			<div class="form-group">
@@ -213,7 +257,53 @@
 		</p:panel>	
 		</h:form>
 		
-		</p:dialog>	
+		</p:dialog>
+		
+		<p:dialog header="Cambia Hotel Esistente" widgetVar="editHotelEsistenteDialog" resizable="false" >
+			 
+		<h:form id="form5" >
+		
+		<p:dataTable id="addHotelEsistente" var="hotel" value="#{pacchettoBean.listaHotelesistenti}">
+					<f:facet name="header">  
+            		Elenco Hotel 
+       				 </f:facet>
+
+				<p:column sortBy="nome" headerText="Nome" filterBy="#{hotel.nome}" >
+					<h:outputText value="#{hotel.nome}" />
+				</p:column>
+
+				<p:column sortBy="stelle" headerText="Stelle">
+					<h:outputText value="#{hotel.stelle}" />
+				</p:column>
+
+				<p:column sortBy="costoGiornaliero" headerText="Costo giornaliero">
+					<h:outputText value="#{hotel.costoGiornaliero} €" />
+				</p:column>
+
+				<p:column sortBy="luogo" headerText="Luogo">
+					<h:outputText value="#{hotel.luogo}" />
+				</p:column>
+
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+					<h:outputText value="#{hotel.disponibilita}" />
+				</p:column>
+
+				<p:column>
+				
+					<h:commandLink id="aggiungi" value="Scegli" class="btn btn-default"
+						action="#{pacchettoBean.aggiungiHotelesistenteAPacchettoEsistente(hotel)}" onclick="PF('editHotelEsistenteDialog').hide();">
+						<p:ajax execute="aggiungi" render="addHotelEsistente" />
+					</h:commandLink>
+						
+				</p:column>
+				
+
+			</p:dataTable>	
+			
+								
+		</h:form>
+		</p:dialog>
+		
 		
 		
 		<p:dialog header="Cambia Hotel Nuovo" widgetVar="editHotelNuovoDialog" resizable="false" >
@@ -258,7 +348,7 @@
 			<div class="form-group">
 				<label>Luogo:</label>
 				<h:inputText p:placeholder="Inserisci l'ubicazione dell'albergo"
-					class="form-control" value="#{pacchettoBean.hotelDTO.luogo}" />
+					class="form-control" value="#{pacchettoBean.hotelDTO.luogo}" disable="true"/>
 			</div>
 
 
@@ -552,7 +642,154 @@
               
        		 </h:panelGrid>  
 			</p:dialog>
+			 
+			<p:dialog header="Attivita Secondarie" widgetVar="attivitaDialog" resizable="false" lazy="true">
+			
+				<p:dataTable id="dataTableAttivita" var="attivita" value="#{pacchettoBean.pacchettoDaVisualizzareDto.attivitaSecondarie}" lazy="true">
+				<f:facet name="header">  
+                Elenco Attivita Secondarie 
+       		    </f:facet>
+				<p:column sortBy="nome" headerText="Nome">
+							<h:outputText value="#{attivita.nome}" />
+				</p:column>
+
+				<p:column sortBy="costoGiornaliero" headerText="Costo">
+						<h:outputText value="#{attivita.costo} €" />				
+				</p:column>
+
+				<p:column sortBy="luogo" headerText="Luogo">
+						<h:outputText value="#{attivita.localita}" />
+				</p:column>
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{attivita.disponibilita}" />				
+				</p:column>
+
+
+			</p:dataTable>
+			
+			</p:dialog>
+			
+			
+			<p:dialog header="Attivita Secondarie edit" widgetVar="attivitaDialog2" resizable="false" >
+			
+				<p:dataTable id="dataTableAttivita2" var="attivita" value="#{pacchettoBean.pacchettoDaVisualizzareDto.attivitaSecondarie}" lazy="true">
+				<f:facet name="header">  
+                Elenco Attivita Secondarie 
+       		    </f:facet>
+				<p:column sortBy="nome" headerText="Nome">
+							<h:outputText value="#{attivita.nome}" />
+				</p:column>
+
+				<p:column sortBy="costoGiornaliero" headerText="Costo">
+						<h:outputText value="#{attivita.costo} €" />				
+				</p:column>
+
+				<p:column sortBy="luogo" headerText="Luogo">
+						<h:outputText value="#{attivita.localita}" />
+				</p:column>
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{attivita.disponibilita}" />				
+				</p:column>
+				
+				<p:column>
+						<h:commandLink id="eliminaAttivita" value="Elimina"
+							class="btn btn-danger white"
+							action="#{pacchettoBean.eliminaAttivitaDaPacchetto(action,attivita)}">
+							<f:ajax execute="eliminaAttivita" render="dataTableAttivita2" />
+						</h:commandLink>
+					</p:column>
+			</p:dataTable>
+			
+			</p:dialog>
+			
+			<p:dialog header="Aggiungi Attività Nuova" widgetVar="editAttivitaNuovaDialog" resizable="false" >
+			 
+				<h:form id="formAttivita" >
+			
+					<p:panel id="addAttivitaNuovaForm">
+					
+					<div class="form-group">
+				<label>Nome:</label>
+				<h:inputText class="form-control"
+					p:placeholder="Inserisci il nome dell'attivita"
+					value="#{pacchettoBean.attivitaDaSalvare.nome}" />
+			</div>
+
+			<div class="form-group">
+				<label>Costo:</label>
+				<h:inputText p:placeholder="Inserisci il costo"
+					class="form-control" value="#{pacchettoBean.attivitaDaSalvare.costo}" />
+			</div>
+
+			<div class="form-group">
+				<label>Posti disponibili :</label>
+				<h:inputText
+					p:placeholder="Inserisci il numero di posti disponibili"
+					class="form-control" value="#{pacchettoBean.attivitaDaSalvare.disponibilita}" />
+			</div>
+
+			<div class="form-group">
+				<label>Luogo:</label>
+				<h:inputText p:placeholder="Inserisci la località dell'attivita"
+					class="form-control" value="#{pacchettoBean.attivitaDaSalvare.localita}" disabled="true"/>
+			</div>
+
+
+			<div class="form-group">
+				<label>Descrizione:</label>
+				<h:inputTextarea class="form-control"
+					p:placeholder="Inserisci una descrzione"
+					value="#{pacchettoBean.attivitaDaSalvare.descrizione}" />
+			</div>
+
+			<p:commandButton value="Aggiungi" styleClass="btn btn-default"
+				action="#{pacchettoBean.aggiungiNuovaAttivitaAPacchettoEsistente()}" oncomplete="PF('editAttivitaNuovaDialog').hide();"
+				process="@this,formAttivita"/>
+					
+			</p:panel>
+					
 		</h:form>
+		</p:dialog>
+		
+		<p:dialog header="Aggiungi Attivita Esistente" widgetVar="addAttivitaEsistente" resizable="false"  >
+		
+			<h:form id="formAttivitaEsistente" >
+			<p:dataTable id="dataTableAddAttivitaEsistente" var="attivita" value="#{pacchettoBean.attivitaSecondarieEsistentiCompatibili}" lazy="true">
+				<f:facet name="header">  
+                Elenco Attivita Secondarie 
+       		    </f:facet>
+				<p:column sortBy="nome" headerText="Nome">
+							<h:outputText value="#{attivita.nome}" />
+				</p:column>
+
+				<p:column sortBy="costoGiornaliero" headerText="Costo">
+						<h:outputText value="#{attivita.costo} €" />				
+				</p:column>
+
+				<p:column sortBy="luogo" headerText="Luogo">
+						<h:outputText value="#{attivita.localita}" />
+				</p:column>
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{attivita.disponibilita}" />				
+				</p:column>
+
+				<p:column>
+					<h:commandLink id="aggiungiAttivita" value="Aggiungi" class="btn btn-default"
+						action="#{pacchettoBean.aggiungiAttivitaEsistenteAPacchettoEsistente(attivita)}">
+						<f:ajax execute="aggiungiAttivita" render="dataTableAddAttivitaEsistente" />
+					</h:commandLink>
+					
+				</p:column>
+
+			</p:dataTable>
+			
+			</h:form>
+			
+			</p:dialog>
+			
+	
+		</h:form>
+	
 	<script>
 			jQuery.noConflict();
 		</script>

@@ -2,8 +2,10 @@ package traveldream.manager;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import traveldream.dtos.HotelDTO;
+import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
 
 public interface VoloMng {
@@ -19,7 +21,7 @@ public interface VoloMng {
 	 * restituisce tutti i voli disponibili (flag eliminato != 1
 	 * @return
 	 */
-	public ArrayList<VoloDTO> getVoli();
+	public List<VoloDTO> getVoli();
 	
 	/**
 	 *aggiorna un volo gia esistente ( volo stand alone)  
@@ -44,6 +46,13 @@ public interface VoloMng {
 	
 	public ArrayList<String> getCittaArrivo();
 	public ArrayList<String> getCittaPartenza(); 
-	
+
+	/**
+	 * ritorna i voli compatibili con le date del pacchetto, con posti disponibili e che non sono eliminati
+	 * @param pacchetto
+	 * @return
+	 */
+	public ArrayList<VoloDTO> getVoliDisponibiliECompatibili(PacchettoDTO pacchetto);
+
 
 }

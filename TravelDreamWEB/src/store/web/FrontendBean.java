@@ -169,7 +169,7 @@ public class FrontendBean implements Serializable {
 	 * @return
 	 * @throws IOException
 	 */
-	public StreamedContent doGenerateImage(String imgName, int width, int height) throws IOException {
+	private StreamedContent doGenerateImage(String imgName, int width, int height) throws IOException {
 		
 
 

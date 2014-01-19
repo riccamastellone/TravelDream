@@ -101,10 +101,13 @@
 		
 		
 		<p:dialog header="Voli" widgetVar="voliDialog" resizable="false">
-		
+			<h:form>
 				<p:dataTable id="displayAndata" var="volo"
-					value="#{bookBean.listaVoliAndata}">
+					value="#{bookBean.listaVoliAndata}" selection="#{bookBean.voloAndata}">
 					<f:facet name="header"> Andata </f:facet>
+					
+					<p:column selectionMode="single" style="width:2%" />  
+					
 					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
 						<h:outputText value="#{volo.nomeCompagnia}" />
 					</p:column>
@@ -143,8 +146,10 @@
 				</p:dataTable>
 
 				<p:dataTable id="displayRitorno" var="volo_r"
-					value="#{bookBean.listaVoliRitorno}">
+					value="#{bookBean.listaVoliRitorno}" selection="#{bookBean.voloRitorno}">
 					<f:facet name="header">Ritorno</f:facet>
+					 
+					
 					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
 						<h:outputText value="#{volo_r.nomeCompagnia}" />
 					</p:column>
@@ -179,11 +184,18 @@
 						<h:outputText value="#{volo_r.costo} €" />
 					</p:column>
 					
+					<p:column selectionMode="single" style="width:2%" >
+					</p:column>  
+					
+				
 				
 
 				</p:dataTable>
+				
+				<p:commandButton value="Aggiungi" styleClass="btn btn-default"
+				action="#{bookBean.prenota(frontendBean.pacchetto)}"/>
 
-
+			</h:form>
 			</p:dialog>
 
 		<ui:include src="footer.xhtml" />

@@ -10,6 +10,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.expression.impl.ThisExpressionResolver;
+
 import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
@@ -114,6 +116,9 @@ public class BookBean implements Serializable {
 	
 	public void checkDisponibilitaPacchetto(PacchettoDTO pacchetto){
 		
+		//evito che si ricarichi la lista con i risultati vecchi
+		this.listaVoliAndata.clear();
+		this.listaVoliRitorno.clear();
 		//controllo che ci sia l hotel disponibile
 		if ( (pacchetto.getHotel().getDisponibilita() >= this.persone) ){
 			
@@ -150,6 +155,7 @@ public class BookBean implements Serializable {
 				return;
 			}
 			
+			
 			return;
 			
 		}
@@ -159,6 +165,13 @@ public class BookBean implements Serializable {
 		}
 		
 	}
+	
+	public String prenota(PacchettoDTO pacchetto){
+		System.out.println("tastopremuto");
+		System.out.println(this.voloAndata.getCittaArrivo());
+		return "prenotazioneOk?faces-redirect=true";
+	}
+
 
 
 }

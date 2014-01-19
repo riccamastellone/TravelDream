@@ -33,7 +33,7 @@
 			
 			<p:commandButton value="Check Availability" styleClass="btn btn-default"
 						action="#{bookBean.checkDisponibilitaPacchetto(frontendBean.pacchetto)}" 
-						update=":form:displayAndata,:form:displayRitorno"
+						update=":form:prenota:displayAndata,:form:prenota:displayRitorno"
 						oncomplete="PF('voliDialog').show();"
 						/>
 						
@@ -41,9 +41,9 @@
 		
 		
 		<p:dialog header="Voli" widgetVar="voliDialog" resizable="false">
-		
+			<h:form id="prenota">
 				<p:dataTable id="displayAndata" var="volo"
-					value="#{bookBean.listaVoliAndata}">
+					value="#{bookBean.listaVoliAndata}"  selection="#{bookBean.voloAndata}" selectionMode="single" rowKey="#{volo.id}">
 					<f:facet name="header"> Andata  </f:facet>
 					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
 						<h:outputText value="#{volo.nomeCompagnia}" />
@@ -83,7 +83,7 @@
 				</p:dataTable>
 
 				<p:dataTable id="displayRitorno" var="volo_r"
-					value="#{bookBean.listaVoliRitorno}">
+					value="#{bookBean.listaVoliRitorno}" selection="#{bookBean.voloRitorno}" selectionMode="single" rowKey="#{volo_r.id}">
 					<f:facet name="header">Ritorno</f:facet>
 					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
 						<h:outputText value="#{volo_r.nomeCompagnia}" />
@@ -122,8 +122,12 @@
 				
 
 				</p:dataTable>
+				
+				<p:commandButton value="Aggiungi" styleClass="btn btn-default"
+				action="#{bookBean.prenota(frontendBean.pacchetto)}"
+				process="@this,prenota"/>
 
-
+			</h:form>
 			</p:dialog>
 
 </h:form>

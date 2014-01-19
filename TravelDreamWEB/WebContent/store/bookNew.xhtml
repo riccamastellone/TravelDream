@@ -8,7 +8,6 @@
 <h:head>Ciao</h:head>
 
 <h:body>
-	
 		<h:form>		
 		<p:selectOneRadio id="persone" style="margin:0 auto" value="#{bookBean.persone}">
 								<f:selectItem itemLabel="1" itemValue="1" />
@@ -41,7 +40,7 @@
 		
 				<p:dataTable id="displayAndata" var="volo"
 					value="#{bookBean.listaVoliAndata}">
-					<f:facet name="header"> Andata </f:facet>
+					<f:facet name="header"> Andata  </f:facet>
 					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
 						<h:outputText value="#{volo.nomeCompagnia}" />
 					</p:column>

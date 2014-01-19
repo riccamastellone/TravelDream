@@ -97,7 +97,7 @@ public class FrontendBean implements Serializable {
 
 	/**
 	 * Calcoliamo il totale di un pacchetto prendendo il volo di andata e di
-	 * ritorno pi�� economici, calcola i giorni di differenza e con questi
+	 * ritorno pi������ economici, calcola i giorni di differenza e con questi
 	 * calcola il totale dell'hotel (Da pensare una cosa migliore)
 	 * 
 	 * @param pacchetto
@@ -218,6 +218,10 @@ public class FrontendBean implements Serializable {
 	public static String nl2br(String s) {
 		return s.replaceAll("\n", "<br/>");
 	}
+	
+
+	
+	
 	
 
 }

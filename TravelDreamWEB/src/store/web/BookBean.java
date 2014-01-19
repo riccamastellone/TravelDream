@@ -2,12 +2,17 @@ package store.web;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import traveldream.dtos.AttivitaSecondariaDTO;
+import traveldream.dtos.PacchettoDTO;
+import traveldream.dtos.VoloDTO;
 import traveldream.manager.HotelMng;
 import traveldream.manager.PacchettoMng;
 import traveldream.manager.VoloMng;
@@ -32,7 +37,23 @@ public class BookBean implements Serializable {
 	private Date date1;
 	
 	private Date date2;
+	
+	private List<VoloDTO> listaVoliAndata;
+	
+	private List<VoloDTO> listaVoliRitorno;
+	
+	private VoloDTO voloAndata;
+	
+	private VoloDTO voloRitorno;
+	
 
+	public BookBean(){
+		this.voloAndata = new VoloDTO();
+		this.voloRitorno = new VoloDTO();
+		this.listaVoliAndata = new ArrayList<VoloDTO>();
+		this.listaVoliRitorno = new ArrayList<VoloDTO>();
+	}
+	
 	public int getPersone() {
 		return persone;
 	}
@@ -55,6 +76,87 @@ public class BookBean implements Serializable {
 
 	public void setDate2(Date date2) {
 		this.date2 = date2;
+	}
+	
+	public VoloDTO getVoloAndata() {
+		return voloAndata;
+	}
+
+	public void setVoloAndata(VoloDTO voloAndata) {
+		this.voloAndata = voloAndata;
+	}
+
+	public VoloDTO getVoloRitorno() {
+		return voloRitorno;
+	}
+
+	public void setVoloRitorno(VoloDTO voloRitorno) {
+		this.voloRitorno = voloRitorno;
+	}
+	
+	public List<VoloDTO> getListaVoliAndata() {
+		return listaVoliAndata;
+	}
+
+	public void setListaVoliAndata(List<VoloDTO> listaVoliAndata) {
+		this.listaVoliAndata = listaVoliAndata;
+	}
+
+	public List<VoloDTO> getListaVoliRitorno() {
+		return listaVoliRitorno;
+	}
+
+	public void setListaVoliRitorno(List<VoloDTO> listaVoliRitorno) {
+		this.listaVoliRitorno = listaVoliRitorno;
+	}
+	
+	
+	
+	public void checkDisponibilitaPacchetto(PacchettoDTO pacchetto){
+		
+		//controllo che ci sia l hotel disponibile
+		if ( (pacchetto.getHotel().getDisponibilita() >= this.persone) ){
+			
+			//controllo che yutte le attivita scelte siano disponibili
+			for (AttivitaSecondariaDTO attivita : pacchetto.getAttivitaSecondarie()) {
+				if (attivita.getDisponibilita() < this.persone ){
+					return;
+				}
+			}
+			
+			//controllo che i voli di andata siano disponibili per le date scelte
+			for (VoloDTO voloAndata : pacchetto.getVoliAndata()) {
+				//controllo che il volo sia disponibile e che sia nel range di date scelte
+				if ( (voloAndata.getDisponibilita() >= this.persone) && (voloAndata.getPartenza().after(this.date1)) && (voloAndata.getArrivo().before(this.date2))){
+					this.listaVoliAndata.add(voloAndata);
+				}
+			}
+			
+			//se non e presente nemmeno un volo disponibile esco
+			if (this.listaVoliAndata.isEmpty()){
+				return;
+			}
+			
+			//controllo che i voli di ritorno siano disponibili per le date scelte
+			for (VoloDTO voloRitorno : pacchetto.getVoliRitorno()) {
+				//controllo che il volo sia disponibile e che sia nel range di date scelte
+				if ( (voloRitorno.getDisponibilita() >= this.persone) && (voloRitorno.getPartenza().after(this.date1)) && (voloRitorno.getArrivo().before(this.date2))){
+					this.listaVoliRitorno.add(voloRitorno);
+				}
+			}
+			
+			//se non e presente nemmeno un volo disponibile esco
+			if (this.listaVoliRitorno.isEmpty()){
+				return;
+			}
+			
+			return;
+			
+		}
+		
+		else {
+			return;
+		}
 	}
 
 

@@ -19,6 +19,7 @@
 		<ui:include src="header.xhtml" />
 
 
+		<h:form>
 		<div class="container breadcrub">
 			<div>
 				<a class="homebtn left" href="#"></a>
@@ -68,11 +69,11 @@
 							<p class="lato size22 slim">Which dates where you thinking of?</p>
 							<div class="col-md-4 col-md-offset-2">
 								<p:calendar value="#{bookBean.date1}" mode="inline"
-									id="inlineCal1" />
+									id="inlineCal1" mindate="#{frontendBean.pacchetto.inizioValidita}" maxdate="#{frontendBean.pacchetto.fineValidita}"/>
 							</div>
 							<div class="col-md-4 col-md-offset-1">
 								<p:calendar value="#{bookBean.date2}" mode="inline"
-									id="inlineCal2" />
+									id="inlineCal2" mindate="#{frontendBean.pacchetto.inizioValidita}" maxdate="#{frontendBean.pacchetto.fineValidita}"/>
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -80,20 +81,15 @@
 						<br />
 						<div class="line2"></div>
 						<br />
-
-						<div id="disponibilita">
-							<p class="opensans size16 dark bold">Perfect! We have some
-								availability just for you!</p>
-							<p class="opensans size16 dark bold">We are sorry but there
-								is not availability for the combination of people/dates</p>
-
-						</div>
-
-
-
-
+						
+						<p:commandButton value="Check Availability" styleClass="btn btn-default"
+						action="#{bookBean.checkDisponibilitaPacchetto(frontendBean.pacchetto)}" 
+						process="@this"
+						oncomplete="PF('voliDialog').show();"
+						/>
+						
 					</div>
-
+					
 
 				</div>
 
@@ -102,12 +98,101 @@
 
 
 		</div>
+		
+		
+		<p:dialog header="Voli" widgetVar="voliDialog" resizable="false">
+		
+				<p:dataTable id="displayAndata" var="volo"
+					value="#{bookBean.listaVoliAndata}">
+					<f:facet name="header"> Andata </f:facet>
+					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+						<h:outputText value="#{volo.nomeCompagnia}" />
+					</p:column>
+
+					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+						<h:outputText value="#{volo.cittaPartenza}" />
+					</p:column>
+
+					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+						<h:outputText value="#{volo.cittaArrivo}" />
+					</p:column>
+
+					<p:column sortBy="partenza" headerText="Data di Partenza">
+						<h:outputText value="#{volo.partenza}">
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="arrivo" headerText="Data di arrivo">
+						<h:outputText value="#{volo.arrivo}">
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{volo.disponibilita}" />
+
+
+					</p:column>
+
+					<p:column sortBy="costo" headerText="Prezzo">
+						<h:outputText value="#{volo.costo} €" />
+					</p:column>
+					
+					
+				</p:dataTable>
+
+				<p:dataTable id="displayRitorno" var="volo_r"
+					value="#{bookBean.listaVoliRitorno}">
+					<f:facet name="header">Ritorno</f:facet>
+					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+						<h:outputText value="#{volo_r.nomeCompagnia}" />
+					</p:column>
+
+					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+						<h:outputText value="#{volo_r.cittaPartenza}" />
+					</p:column>
+
+					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+						<h:outputText value="#{volo_r.cittaArrivo}" />
+					</p:column>
+
+					<p:column sortBy="partenza" headerText="Data di Partenza">
+						<h:outputText value="#{volo_r.partenza}">
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="arrivo" headerText="Data di arrivo">
+						<h:outputText value="#{volo_r.arrivo}">
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{volo_r.disponibilita}" />
+
+
+					</p:column>
+
+					<p:column sortBy="costo" headerText="Prezzo">
+						<h:outputText value="#{volo_r.costo} €" />
+					</p:column>
+					
+				
+
+				</p:dataTable>
+
+
+			</p:dialog>
 
 		<ui:include src="footer.xhtml" />
 		<h:outputScript library="store" name="js/functions.js" />
 		<h:outputScript library="store" name="js/js-details.js" />
 		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
 
+	</h:form>
+	
 	</ui:define>
 
 </ui:composition>

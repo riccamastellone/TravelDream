@@ -9,7 +9,7 @@
 
 <h:body>
 	
-		<h:form>		
+		<h:form id="form">		
 		<p:selectOneRadio id="persone" style="margin:0 auto" value="#{bookBean.persone}">
 								<f:selectItem itemLabel="1" itemValue="1" />
 								<f:selectItem itemLabel="2" itemValue="2" />
@@ -31,11 +31,12 @@
 			
 			<p:commandButton value="Check Availability" styleClass="btn btn-default"
 						action="#{bookBean.checkDisponibilitaPacchetto(frontendBean.pacchetto)}" 
+						update=":form:displayAndata,:form:displayRitorno"
 						oncomplete="PF('voliDialog').show();"
 						/>
 						
 						
-		</h:form>
+		
 		
 		<p:dialog header="Voli" widgetVar="voliDialog" resizable="false">
 		
@@ -123,6 +124,7 @@
 
 			</p:dialog>
 
+</h:form>
 </h:body>
 
 

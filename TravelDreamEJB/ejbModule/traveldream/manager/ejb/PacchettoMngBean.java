@@ -57,9 +57,30 @@ public class PacchettoMngBean implements PacchettoMng {
 		em.getEntityManagerFactory().getCache().evictAll();
 		return em.find(Pacchetto.class, id);
 	}
-	
+
 	public PacchettoDTO findPacchettoDTO(int id) {
-		return convertToDto(this.findPacchetto(id));
+		Pacchetto pacchetto = this.findPacchetto(id);
+		PacchettoDTO pacchettoDTO = this.convertToDto(pacchetto);
+		for (VoloPacchetto voloPacchetto : pacchetto.getVoliPacchetto()) {
+
+			if (voloPacchetto.getTipo().equals("Andata")) {
+				pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+			} else {
+				pacchettoDTO.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+			}
+
+			
+		}
+		
+		//ricavo l hotel
+		pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
+		//ricavo la lista delle attivita secondarie asociate al paccchetto
+		for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : pacchetto.getAttivitaSecondariePacchetto()) {
+			pacchettoDTO.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+		}
+		
+		return pacchettoDTO;
+		
 	}
 
 	@Override

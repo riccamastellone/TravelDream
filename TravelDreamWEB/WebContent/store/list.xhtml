@@ -376,17 +376,7 @@
 								<span class="cstyle09"><input id="Slider1" type="slider"
 									name="price" value="400;700" /></span>
 							</div>
-							<script type="text/javascript">
-								jQuery("#Slider1").slider({
-									from : 100,
-									to : 1000,
-									step : 5,
-									smooth : true,
-									round : 0,
-									dimension : "&nbsp;$",
-									skin : "round"
-								});
-							</script>
+							
 						</div>
 					</div>
 					<!-- End of Price range -->
@@ -455,8 +445,8 @@
 										data-gallery="multiimages" data-toggle="lightbox">
 										<p:graphicImage cache="false" value="#{frontendBean.generateImage()}">
 											<f:param name="img" value="#{pacchetto.immagine}" />
-											<f:param name="width" value="300" />
-											<f:param name="height" value="200" />
+											<f:param name="width" value="542" />
+											<f:param name="height" value="420" />
 										</p:graphicImage>
 										</a>
 									<div class="liover"></div>
@@ -469,7 +459,7 @@
 									<div class="labelright">
 										<h:graphicImage library="store" name="images/filter-rating-#{pacchetto.hotel.stelle}.png" width="60"  />
 										<br /><br /> 
-										<span class="green size18"><b>$36.00</b></span>
+										<span class="green size18"><b>#{frontendBean.getTotalePacchetto(pacchetto)} €</b></span>
 										<br />
 										<span class="size11 grey">avg/night</span>
 										<br /><br /><br />
@@ -479,7 +469,7 @@
 									</div>
 									<div class="labelleft2">
 										<b>#{pacchetto.nome}</b><br /> <br /> <br />
-										<p class="grey">#{pacchetto.descrizione}"</p>
+										<p class="grey">#{pacchetto.descrizione}</p>
 										<br />
 									</div>
 								</div>
@@ -533,6 +523,18 @@
 			name="plugins/jslider/js/draggable-0.1.js" />
 		<h:outputScript library="store"
 			name="plugins/jslider/js/jquery.slider.js" />
+			
+			<script type="text/javascript">
+								jQuery("#Slider1").slider({
+									from : 100,
+									to : 1000,
+									step : 5,
+									smooth : true,
+									round : 0,
+									dimension : "&nbsp;$",
+									skin : "round"
+								});
+							</script>
 
 		<h:outputScript library="store" name="js/js-list.js" />
 

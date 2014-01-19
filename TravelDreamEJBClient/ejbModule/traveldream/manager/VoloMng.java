@@ -44,6 +44,11 @@ public interface VoloMng {
 	 */
 	public VoloDTO aggiungiVoloAPacchetto(VoloDTO volo) throws ParseException;
 	
+	/**
+	 * ritorna i voli compatibili con le date del pacchetto, con posti disponibili e che non sono eliminati
+	 * @param pacchetto
+	 * @return
+	 */
 	public ArrayList<VoloDTO> getVoliDisponibiliECompatibili(PacchettoDTO pacchetto);
 	
 

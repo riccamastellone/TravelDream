@@ -74,8 +74,6 @@ public class PacchettoBean implements Serializable {
 
 	private List<PacchettoDTO> pacchetti;
 
-	private List<PacchettoDTO> pacchettiVendibili;
-
 	private PacchettoDTO pacchettoDaVisualizzareDto;
 	
 	private List<AttivitaSecondariaDTO> attivitaSecondarie;

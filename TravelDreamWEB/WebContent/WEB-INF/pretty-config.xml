@@ -17,5 +17,10 @@
 		<pattern value="/store/package/book" />
 		<view-id value="/store/book.xhtml" />
 	</url-mapping>
+	
+	<url-mapping id="list">
+		<pattern value="/store/package/list" />
+		<view-id value="/store/list.xhtml" />
+	</url-mapping>
 
 </pretty-config>

@@ -12,6 +12,9 @@ import java.util.Date;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import javax.imageio.ImageIO;
 
 import org.imgscalr.Scalr;
@@ -52,6 +55,10 @@ public class FrontendBean implements Serializable {
 	private int idPacchetto;
 
 	private PacchettoDTO pacchetto;
+		
+	// Salviamo temporaneamente il nome dell'immagine dato che per qualche strana ragione
+	// viene chiamata piu' volte la funzione.
+	private String tmpImage;
 	
 	public ArrayList<PacchettoDTO> getLastMinute() {
 		return lastMinute;
@@ -159,9 +166,11 @@ public class FrontendBean implements Serializable {
 	 * @return
 	 * @throws IOException
 	 */
-	public StreamedContent generateImage(String imgName, int width, int height) throws IOException {
+	public StreamedContent doGenerateImage(String imgName, int width, int height) throws IOException {
+		
+
+
 		File img = new File("/var/uploads/up/" + imgName);
-		System.out.println(img);
 		BufferedImage image = ImageIO.read(img);
 		int x = 0;
 		int y = 0;
@@ -218,7 +227,35 @@ public class FrontendBean implements Serializable {
 	public static String nl2br(String s) {
 		return s.replaceAll("\n", "<br/>");
 	}
-	
+
+	public String getTmpImage() {
+		return tmpImage;
+	}
+
+	public void setTmpImage(String tmpImage) {
+		this.tmpImage = tmpImage;
+	}
+
+	public StreamedContent generateImage() throws IOException {
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+
+	    if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+	        // So, we're rendering the view. Return a stub StreamedContent so that it will generate right URL.
+	        return new DefaultStreamedContent();
+	    }
+	    else {
+	        // So, browser is requesting the image. Get ID value from actual request param.
+	    	String img = context.getExternalContext().getRequestParameterMap().get("img");
+	    	String height = context.getExternalContext().getRequestParameterMap().get("height");
+	    	String width = context.getExternalContext().getRequestParameterMap().get("width");
+	        
+	        return this.doGenerateImage(img, Integer.parseInt(width), Integer.parseInt(height));
+	    }
+	    
+	   
+	}
+
 
 	
 	

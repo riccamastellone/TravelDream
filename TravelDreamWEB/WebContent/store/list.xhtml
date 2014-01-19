@@ -9,6 +9,7 @@
 
 
 	<ui:define name="head_add">
+		<h:outputStylesheet library="store" name="css/jquery-ui.css" />
 		<h:outputStylesheet library="store"
 			name="plugins/jslider/css/jslider.css" />
 		<h:outputStylesheet library="store"
@@ -47,11 +48,7 @@
 					<div class="filtertip">
 						<div class="padding20">
 							<p class="size13">
-								<span class="size18 bold counthotel">53</span> Packages starting
-								at
-							</p>
-							<p class="size30 bold">
-								$<span class="countprice"></span>
+								<span class="size18 bold countPacchetti">53</span> Packages found
 							</p>
 							<p class="size13">
 								Narrow results or <a href="#">view all</a>
@@ -376,7 +373,7 @@
 								<span class="cstyle09"><input id="Slider1" type="slider"
 									name="price" value="400;700" /></span>
 							</div>
-							
+
 						</div>
 					</div>
 					<!-- End of Price range -->
@@ -435,53 +432,56 @@
 
 					<div class="itemscontainer offset-1">
 
-						<ui:repeat value="#{pacchettoBean.pacchetti}" var="pacchetto">	
+						<ui:repeat value="#{pacchettoBean.pacchetti}" var="pacchetto">
 							<div class="offset-2">
-							<div class="col-md-4 offset-0">
-								<div class="listitem2">
-								
-									<a href="images/items/item7.jpg"
-										data-footer="A custom footer text" data-title="A random title"
-										data-gallery="multiimages" data-toggle="lightbox">
-										<p:graphicImage cache="false" value="#{frontendBean.generateImage()}">
-											<f:param name="img" value="#{pacchetto.immagine}" />
-											<f:param name="width" value="542" />
-											<f:param name="height" value="420" />
-										</p:graphicImage>
-										</a>
-									<div class="liover"></div>
-									<a class="fav-icon" href="#"></a> <a class="book-icon"
-										href="details.html"></a>
-								</div>
-							</div>
-							<div class="col-md-8 offset-0">
-								<div class="itemlabel3">
-									<div class="labelright">
-										<h:graphicImage library="store" name="images/filter-rating-#{pacchetto.hotel.stelle}.png" width="60"  />
-										<br /><br /> 
-										<span class="green size18"><b>#{frontendBean.getTotalePacchetto(pacchetto)} €</b></span>
-										<br />
-										<span class="size11 grey">avg/night</span>
-										<br /><br /><br />
-										<form action="details.html">
-											<button class="bookbtn mt1" type="submit">Book</button>
-										</form>
-									</div>
-									<div class="labelleft2">
-										<b>#{pacchetto.nome}</b><br /> <br /> <br />
-										<p class="grey">#{pacchetto.descrizione}</p>
-										<br />
-									</div>
-								</div>
-							</div>
-						</div>
+								<div class="col-md-4 offset-0">
+									<div class="listitem2">
 
-						<div class="clearfix"></div>
-						<div class="offset-2">
-							<hr class="featurette-divider3" />
-						</div>
-						
-						
+										<a href="images/items/item7.jpg"
+											data-footer="A custom footer text"
+											data-title="A random title" data-gallery="multiimages"
+											data-toggle="lightbox"> <p:graphicImage cache="false"
+												value="#{frontendBean.generateImage()}">
+												<f:param name="img" value="#{pacchetto.immagine}" />
+												<f:param name="width" value="542" />
+												<f:param name="height" value="420" />
+											</p:graphicImage>
+										</a>
+										<div class="liover"></div>
+										<a class="fav-icon" href="#"></a> <a class="book-icon"
+											href="details.html"></a>
+									</div>
+								</div>
+								<div class="col-md-8 offset-0">
+									<div class="itemlabel3">
+										<div class="labelright">
+											<h:graphicImage library="store"
+												name="images/filter-rating-#{pacchetto.hotel.stelle}.png"
+												width="60" />
+											<br />
+											<br /> <span class="green size18"><b>#{frontendBean.getTotalePacchetto(pacchetto)}
+													€</b></span> <br /> <span class="size11 grey">avg/night</span> <br />
+											<br />
+											<br />
+											<form action="details.html">
+												<button class="bookbtn mt1" type="submit">Book</button>
+											</form>
+										</div>
+										<div class="labelleft2">
+											<b>#{pacchetto.nome}</b><br /> <br /> <br />
+											<p class="grey">#{pacchetto.descrizione}</p>
+											<br />
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="clearfix"></div>
+							<div class="offset-2">
+								<hr class="featurette-divider3" />
+							</div>
+
+
 						</ui:repeat>
 
 					</div>
@@ -523,18 +523,8 @@
 			name="plugins/jslider/js/draggable-0.1.js" />
 		<h:outputScript library="store"
 			name="plugins/jslider/js/jquery.slider.js" />
-			
-			<script type="text/javascript">
-								jQuery("#Slider1").slider({
-									from : 100,
-									to : 1000,
-									step : 5,
-									smooth : true,
-									round : 0,
-									dimension : "&nbsp;$",
-									skin : "round"
-								});
-							</script>
+
+		
 
 		<h:outputScript library="store" name="js/js-list.js" />
 
@@ -545,6 +535,24 @@
 		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
 
 		<h:outputScript library="store" name="js/jquery.customSelect.js" />
+		
+		<script type="text/javascript">
+			jQuery("#Slider1").slider({
+				from : 100,
+				to : 1000,
+				step : 5,
+				smooth : true,
+				round : 0,
+				dimension : "&nbsp;$",
+				skin : "round"
+			});
+			$('.countPacchetti').countTo({
+				from: 1,
+				to: #{pacchettoBean.pacchetti.size()},
+				speed: 1000,
+				refreshInterval: 10
+			});		
+		</script>
 
 	</ui:define>
 

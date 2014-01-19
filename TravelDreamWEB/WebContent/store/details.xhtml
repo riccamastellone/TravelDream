@@ -41,8 +41,11 @@
 
 				<!-- Immagine Pacchetto -->
 				<div class="col-md-8 immagine-pacchetto">
-					<p:graphicImage cache="false"
-						value="#{frontendBean.generateImage(frontendBean.pacchetto.immagine, 759,500)}" />
+				<p:graphicImage cache="false" value="#{frontendBean.generateImage()}">
+											<f:param name="img" value="#{frontendBean.pacchetto.immagine}" />
+											<f:param name="width" value="759" />
+											<f:param name="height" value="500" />
+										</p:graphicImage>
 				</div>
 				<!--  759,427 -->
 

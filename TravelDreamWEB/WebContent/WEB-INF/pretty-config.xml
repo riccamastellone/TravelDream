@@ -12,5 +12,10 @@
 		<pattern value="/store/details/#{id : frontendBean.idPacchetto}" />
 		<view-id value="/store/details.xhtml" />
 	</url-mapping>
+	
+	<url-mapping id="book">
+		<pattern value="/store/package/book" />
+		<view-id value="/store/book.xhtml" />
+	</url-mapping>
 
 </pretty-config>

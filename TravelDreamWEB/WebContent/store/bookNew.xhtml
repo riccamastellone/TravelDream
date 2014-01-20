@@ -10,7 +10,9 @@
 <h:body>
 
 	
-		<h:form id="form">		
+		<h:form id="form">	
+		
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />	
 
 		<p:selectOneRadio id="persone" style="margin:0 auto" value="#{bookBean.persone}">
 								<f:selectItem itemLabel="1" itemValue="1" />
@@ -32,9 +34,8 @@
 			</div>
 			
 			<p:commandButton value="Check Availability" styleClass="btn btn-default"
-						action="#{bookBean.checkDisponibilitaPacchetto(frontendBean.pacchetto)}" 
-						update=":form:prenota:displayAndata,:form:prenota:displayRitorno"
-						oncomplete="PF('voliDialog').show();"
+						actionListener="#{bookBean.checkDisponibilitaPacchetto(event,frontendBean.pacchetto)}" 
+						update=":form:prenota:displayAndata,:form:prenota:displayRitorno"			
 						/>
 						
 						
@@ -126,9 +127,21 @@
 				<p:commandButton value="Aggiungi" styleClass="btn btn-default"
 				action="#{bookBean.prenota(frontendBean.pacchetto)}"
 				process="@this,prenota"/>
+				
+				
+				
 
 			</h:form>
+			
+			<p:dialog header="Error" widgetVar="errorDialog" resizable="false">
+				<p:panel>
+					<h:outputText value="You have to select one departure flight and one arrival flight" />
+				</p:panel>
 			</p:dialog>
+			
+			</p:dialog>
+			
+			
 
 </h:form>
 </h:body>

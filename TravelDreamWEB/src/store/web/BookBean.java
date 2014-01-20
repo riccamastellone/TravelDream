@@ -7,9 +7,13 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
 import traveldream.dtos.AttivitaSecondariaDTO;
@@ -114,7 +118,7 @@ public class BookBean implements Serializable {
 	
 	
 	
-	public void checkDisponibilitaPacchetto(PacchettoDTO pacchetto){
+	public void checkDisponibilitaPacchetto(ActionEvent event, PacchettoDTO pacchetto){
 		
 		//evito che si ricarichi la lista con i risultati vecchi
 		this.listaVoliAndata.clear();
@@ -125,6 +129,7 @@ public class BookBean implements Serializable {
 			//controllo che yutte le attivita scelte siano disponibili
 			for (AttivitaSecondariaDTO attivita : pacchetto.getAttivitaSecondarie()) {
 				if (attivita.getDisponibilita() < this.persone ){
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO:", "We are sorry but there is not availability for the combination of people/dates"));
 					return;
 				}
 			}
@@ -139,6 +144,7 @@ public class BookBean implements Serializable {
 			
 			//se non e presente nemmeno un volo disponibile esco
 			if (this.listaVoliAndata.isEmpty()){
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO:", "We are sorry but there is not availability for the combination of people/dates"));
 				return;
 			}
 			
@@ -152,24 +158,35 @@ public class BookBean implements Serializable {
 			
 			//se non e presente nemmeno un volo disponibile esco
 			if (this.listaVoliRitorno.isEmpty()){
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO:", "We are sorry but there is not availability for the combination of people/dates"));
 				return;
 			}
 			
 			
-			return;
 			
+			RequestContext.getCurrentInstance().execute("voliDialog.show()");
+			return;
 		}
 		
 		else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO:", "We are sorry but there is not availability for the combination of people/dates"));
 			return;
 		}
 		
 	}
 	
 	public String prenota(PacchettoDTO pacchetto){
-		System.out.println("tastopremuto");
-		System.out.println(this.voloAndata.getCittaArrivo());
-		return "prenotazioneOk?faces-redirect=true";
+		//System.out.println("tastopremuto");
+		//System.out.println(this.voloAndata.getCittaArrivo());
+		if (this.voloAndata == null || this.voloRitorno == null){
+			RequestContext.getCurrentInstance().execute("errorDialog.show()");
+			return null;
+		}
+		else {
+			return "prenotazioneOk?faces-redirect=true";
+		}
+		
+		
 	}
 
 

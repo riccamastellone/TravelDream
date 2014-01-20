@@ -19,7 +19,7 @@
 		<ui:include src="header.xhtml" />
 
 
-		<h:form>
+		
 		<div class="container breadcrub">
 			<div>
 				<a class="homebtn left" href="#"></a>
@@ -36,7 +36,8 @@
 			<div class="clearfix"></div>
 			<div class="brlines"></div>
 		</div>
-
+		<h:form id="form">
+		
 		<div class="container">
 			<div class="container pagecontainer2 offset-0">
 				<div class="hpadding50c">
@@ -45,6 +46,8 @@
 						yours and we'll take care of everything!</p>
 					<p class="aboutarrow"></p>
 				</div>
+				
+				
 				<div class="line3"></div>
 
 				<div class="hpadding50c">
@@ -84,7 +87,7 @@
 						
 						<p:commandButton value="Check Availability" styleClass="btn btn-default"
 						action="#{bookBean.checkDisponibilitaPacchetto(frontendBean.pacchetto)}" 
-						process="@this"
+						update=":form:prenota:displayAndata,:form:prenota:displayRitorno"
 						oncomplete="PF('voliDialog').show();"
 						/>
 						
@@ -101,13 +104,10 @@
 		
 		
 		<p:dialog header="Voli" widgetVar="voliDialog" resizable="false">
-			<h:form>
+			<h:form id="prenota">
 				<p:dataTable id="displayAndata" var="volo"
-					value="#{bookBean.listaVoliAndata}" selection="#{bookBean.voloAndata}">
-					<f:facet name="header"> Andata </f:facet>
-					
-					<p:column selectionMode="single" style="width:2%" />  
-					
+					value="#{bookBean.listaVoliAndata}"  selection="#{bookBean.voloAndata}" selectionMode="single" rowKey="#{volo.id}">
+					<f:facet name="header"> Andata  </f:facet>
 					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
 						<h:outputText value="#{volo.nomeCompagnia}" />
 					</p:column>
@@ -146,10 +146,8 @@
 				</p:dataTable>
 
 				<p:dataTable id="displayRitorno" var="volo_r"
-					value="#{bookBean.listaVoliRitorno}" selection="#{bookBean.voloRitorno}">
+					value="#{bookBean.listaVoliRitorno}" selection="#{bookBean.voloRitorno}" selectionMode="single" rowKey="#{volo_r.id}">
 					<f:facet name="header">Ritorno</f:facet>
-					 
-					
 					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
 						<h:outputText value="#{volo_r.nomeCompagnia}" />
 					</p:column>
@@ -184,27 +182,25 @@
 						<h:outputText value="#{volo_r.costo} €" />
 					</p:column>
 					
-					<p:column selectionMode="single" style="width:2%" >
-					</p:column>  
-					
-				
 				
 
 				</p:dataTable>
 				
 				<p:commandButton value="Aggiungi" styleClass="btn btn-default"
-				action="#{bookBean.prenota(frontendBean.pacchetto)}"/>
+				action="#{bookBean.prenota(frontendBean.pacchetto)}"
+				process="@this,prenota"/>
 
 			</h:form>
 			</p:dialog>
 
+	</h:form>
+ 
 		<ui:include src="footer.xhtml" />
 		<h:outputScript library="store" name="js/functions.js" />
 		<h:outputScript library="store" name="js/js-details.js" />
 		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
 
-	</h:form>
-	
+
 	</ui:define>
 
 </ui:composition>

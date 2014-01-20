@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
 import javax.imageio.ImageIO;
 
@@ -258,7 +259,12 @@ public class FrontendBean implements Serializable {
 	    
 	   
 	}
-
+	
+	public void modificaHotel(AjaxBehaviorEvent event) {
+		System.out.println("sadas");
+	}
+	
+	
 
 	
 	

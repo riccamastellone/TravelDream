@@ -32,13 +32,18 @@
 				<p:calendar value="#{bookBean.date2}" mode="inline"
 									id="inlineCal2" mindate="#{frontendBean.pacchetto.inizioValidita}" maxdate="#{frontendBean.pacchetto.fineValidita}"/>
 			</div>
-			
+			 
 			<p:commandButton value="Check Availability" styleClass="btn btn-default"
 						actionListener="#{bookBean.checkDisponibilitaPacchetto(event,frontendBean.pacchetto)}" 
 						update=":form:prenota:displayAndata,:form:prenota:displayRitorno"			
 						/>
 						
-						
+				
+			
+				<p:commandButton value="perche??" styleClass="btn btn-default"
+						actionListener="#{frontendBean.modificaHotel}"
+									
+						/>	
 		
 		
 		<p:dialog header="Voli" widgetVar="voliDialog" resizable="false">

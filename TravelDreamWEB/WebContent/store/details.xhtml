@@ -107,6 +107,7 @@
 						<div id="hotel" class="tab-pane fade active in">
 							<div class="hpadding20">
 								<p class="dark">
+									<h:form id="modificaHotel">
 									<h:panelGrid id="displayHotel" columns="2" cellpadding="4">
 									
 										<h:outputText value="Nome:" />
@@ -140,6 +141,12 @@
 											style="font-weight:bold" />
 
 									</h:panelGrid>
+									<p:commandButton value="Change" styleClass="btn btn-default"
+									actionListener="#{frontendBean.modificaHotel(event)}" />
+									
+									</h:form>
+									
+									
 								</p>
 							</div>
 						</div>

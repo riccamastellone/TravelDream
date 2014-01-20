@@ -12,7 +12,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.primefaces.context.RequestContext;
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
@@ -173,6 +175,7 @@ public class BookBean implements Serializable {
 			return;
 		}
 		
+		
 	}
 	
 	public String prenota(PacchettoDTO pacchetto){
@@ -188,7 +191,7 @@ public class BookBean implements Serializable {
 		
 		
 	}
-
+	
 
 
 }

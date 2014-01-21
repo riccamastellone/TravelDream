@@ -23,6 +23,38 @@
 								<f:selectItem itemLabel="6" itemValue="6" />
 		</p:selectOneRadio>
 		
+		<h:panelGrid id="displayHotel" columns="2" cellpadding="4">  
+  
+              
+  
+            <h:outputText value="Nome:" />  
+            <h:outputText value="#{frontendBean.pacchetto.hotel.nome}" style="font-weight:bold"/>  
+  
+            <h:outputText value="Stelle:" />  
+            <h:outputText value="#{frontendBean.pacchetto.hotel.stelle}" style="font-weight:bold"/>  
+  
+            <h:outputText value="Località:" />  
+            <h:outputText value="#{frontendBean.pacchetto.hotel.luogo}" style="font-weight:bold"/>  
+  
+            <h:outputText value="Descrizione:" />  
+            <h:outputText value="#{frontendBean.pacchetto.hotel.descrizione}" style="font-weight:bold"/>  
+            
+            <h:outputText value="Posti Disponibili:" />  
+            <h:outputText value="#{frontendBean.pacchetto.hotel.disponibilita}" style="font-weight:bold"/>
+              
+            <h:outputText value="Costo Giornaliero:" />  
+            <h:outputText value="#{frontendBean.pacchetto.hotel.costoGiornaliero}" style="font-weight:bold"/>
+            
+            
+            <p:commandButton value="Check Availability" styleClass="btn btn-default"
+						actionListener="#{bookBean.cambiaHotel(event,frontendBean.pacchetto)}" 
+						update=":form:formHotel:hotelDisponibili"			
+						/>
+              
+       		 </h:panelGrid> 
+       		 
+       		 
+		
 		
 		<div class="col-md-4 col-md-offset-2">
 			<p:calendar value="#{bookBean.date1}" mode="inline"
@@ -38,13 +70,7 @@
 						update=":form:prenota:displayAndata,:form:prenota:displayRitorno"			
 						/>
 						
-				
-			
-				<p:commandButton value="perche??" styleClass="btn btn-default"
-						actionListener="#{frontendBean.modificaHotel}"
-									
-						/>	
-		
+						
 		
 		<p:dialog header="Voli" widgetVar="voliDialog" resizable="false">
 			<h:form id="prenota">
@@ -145,10 +171,51 @@
 			</p:dialog>
 			
 			</p:dialog>
-			
-			
 
-</h:form>
+		<p:dialog header="Hotel" widgetVar="hotelDialog" resizable="false">
+		
+			<h:form id="formHotel">
+
+				<p:dataTable id="hotelDisponibili" var="hotel"
+					value="#{bookBean.hotelDisponibili}">
+					<f:facet name="header">  
+            		Elenco Hotel 
+       				 </f:facet>
+
+					<p:column sortBy="nome" headerText="Nome" filterBy="#{hotel.nome}">
+						<h:outputText value="#{hotel.nome}" />
+					</p:column>
+
+					<p:column sortBy="stelle" headerText="Stelle">
+						<h:outputText value="#{hotel.stelle}" />
+					</p:column>
+
+					<p:column sortBy="costoGiornaliero" headerText="Costo giornaliero">
+						<h:outputText value="#{hotel.costoGiornaliero} €" />
+					</p:column>
+
+					<p:column sortBy="luogo" headerText="Luogo">
+						<h:outputText value="#{hotel.luogo}" />
+					</p:column>
+
+					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{hotel.disponibilita}" />
+					</p:column>
+
+					
+
+
+				</p:dataTable>
+
+
+			</h:form>
+
+
+
+		</p:dialog>
+
+
+	</h:form>
 </h:body>
 
 

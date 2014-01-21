@@ -260,7 +260,7 @@ public class FrontendBean implements Serializable {
 	   
 	}
 	
-	public void modificaHotel(AjaxBehaviorEvent event) {
+	public void modificaHotel() {
 		System.out.println("sadas");
 	}
 	

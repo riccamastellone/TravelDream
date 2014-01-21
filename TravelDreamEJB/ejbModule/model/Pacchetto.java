@@ -70,6 +70,7 @@ public class Pacchetto implements Serializable {
 		this.inizioValidita = pacchetto.getInizioValidita();
 		this.fineValidita = pacchetto.getFineValidita();
 		this.localita = pacchetto.getLocalita();
+		this.immagine = pacchetto.getImmagine();
 		
 	}	
 

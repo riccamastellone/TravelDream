@@ -1,11 +1,16 @@
 package traveldream.dipendente.web;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -13,7 +18,11 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.model.UploadedFile;
 
 import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.HotelDTO;
@@ -81,6 +90,10 @@ public class PacchettoBean implements Serializable {
 	private List<AttivitaSecondariaDTO> attivitaSecondarieEsistentiCompatibili;
 	
 	private AttivitaSecondariaDTO attivitaDaSalvare;
+	
+	private UploadedFile file;
+	
+	private String tmpImage;
 	
 
 	public PacchettoBean() {
@@ -239,6 +252,43 @@ public class PacchettoBean implements Serializable {
 		this.attivitaSecondarieEsistentiCompatibili = attivitaSecondarieEsistentiCompatibili;
 	}
 	
+	// funzione per l'update dell'immagine
+	public void handleFileUpload(FileUploadEvent event) {  
+        this.setFile(event.getFile());
+        
+        try {
+			// Glassfish deve avere i permessi!!
+			File path = new File("/var/uploads/up");
+			
+			String filename = FilenameUtils.getName(file.getFileName());
+			String basename = FilenameUtils.getBaseName(filename) + "_";
+			String extension = "." + FilenameUtils.getExtension(filename);
+
+			// tentiamo di creare le cartelle
+			System.out.println(path.mkdirs());
+
+			InputStream input;
+			try {
+				File newFile = File.createTempFile(basename, extension, path);
+
+
+				input = file.getInputstream();
+				OutputStream output = new FileOutputStream(newFile);
+				try {
+					IOUtils.copy(input, output);
+					tmpImage = ((FilenameUtils.getName(newFile.toString())));
+				} finally {
+					IOUtils.closeQuietly(input);
+					IOUtils.closeQuietly(output);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} finally {
+
+		}
+        
+    }  
 
 	/* PARTE GESTIONE VOLO IN PACCHETTO */
 
@@ -247,6 +297,42 @@ public class PacchettoBean implements Serializable {
 		//this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
 		
 		//serve per precaricare la tabella di AggiungiVoloEsistente
+		
+		pacchetto.setImmagine(null);
+		try {
+			// Glassfish deve avere i permessi!!
+			File path = new File("/var/uploads/up");
+			
+			String filename = FilenameUtils.getName(file.getFileName());
+			String basename = FilenameUtils.getBaseName(filename) + "_";
+			String extension = "." + FilenameUtils.getExtension(filename);
+
+			// tentiamo di creare le cartelle
+			System.out.println(path.mkdirs());
+
+			InputStream input;
+			try {
+				File newFile = File.createTempFile(basename, extension, path);
+
+				System.out.println(newFile);
+
+				input = file.getInputstream();
+				OutputStream output = new FileOutputStream(newFile);
+				try {
+					IOUtils.copy(input, output);
+					pacchetto.setImmagine(FilenameUtils.getName(newFile.toString()));
+				} finally {
+					IOUtils.closeQuietly(input);
+					IOUtils.closeQuietly(output);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} finally {
+
+		}
+		
+		
 		this.voli = voloMng.getVoliDisponibiliECompatibili(this.pacchetto);
 		
 		return "aggiungiVoli?faces-redirect=true";
@@ -550,7 +636,13 @@ public class PacchettoBean implements Serializable {
 	
 	 public void onEdit(RowEditEvent event) throws ParseException { 
 	       FacesMessage msg = new FacesMessage("Pacchetto Aggiornato");  
-	       pkgMng.editInfoGenerali((PacchettoDTO) event.getObject());
+	       
+	       pacchetto = (PacchettoDTO) event.getObject();
+	       System.out.println("IMM " + tmpImage);
+	       if(tmpImage != null) {
+	    	   pacchetto.setImmagine(tmpImage);
+	       }	       
+	       pkgMng.editInfoGenerali(pacchetto);
 	       FacesContext.getCurrentInstance().addMessage(null, msg);  
 	    } 
 	
@@ -751,6 +843,22 @@ public class PacchettoBean implements Serializable {
 		 }
 		 
 	 }
+
+	public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}
+
+	public String getTmpImage() {
+		return tmpImage;
+	}
+
+	public void setTmpImage(String tmpImage) {
+		this.tmpImage = tmpImage;
+	}
 	 
 
 	 

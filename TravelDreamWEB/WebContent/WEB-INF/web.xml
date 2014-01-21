@@ -22,7 +22,10 @@
     </form-login-config>
 
   </login-config>
-  <!--  
+
+
+  <!-- 
+
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Admins Pages</web-resource-name>
@@ -52,6 +55,7 @@
     <auth-constraint>
       <role-name>CLIENTE</role-name>
     </auth-constraint>
+<<<<<<< HEAD
   </security-constraint> 
   -->
   

@@ -17,6 +17,9 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
 import javax.imageio.ImageIO;
 
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 import org.imgscalr.Scalr;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -55,6 +58,11 @@ public class FrontendBean implements Serializable {
 	private int idPacchetto;
 
 	private PacchettoDTO pacchetto;
+	
+
+	
+	
+		
 		
 	// Salviamo temporaneamente il nome dell'immagine dato che per qualche strana ragione
 	// viene chiamata piu' volte la funzione.
@@ -259,18 +267,6 @@ public class FrontendBean implements Serializable {
 	    
 	   
 	}
-	
-	public void modificaHotel() {
-		System.out.println("bene");
-	}
-	
-	
-	
-	
-	
 
-	
-	
-	
 
 }

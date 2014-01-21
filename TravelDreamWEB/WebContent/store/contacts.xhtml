@@ -34,22 +34,23 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="bs-example bs-example-tabs cstyle04">
-							<h:form action="#">
+							<h:form>
 								<div class="tab-content">
 
 									<div class="col-md-4">
 
-										<span class="opensans size24 slim">Contact</span> <input
-											type="text" placeholder="Name"
-											class="form-control logpadding margtop10" /> <input
-											type="text" placeholder="Phone"
-											class="form-control logpadding margtop20" /> <input
-											type="text" placeholder="E-mail"
+										<span class="opensans size24 slim">Contact</span> <h:inputText
+											type="text" placeholder="Name" value="#{mailBean.nome}"
+											class="form-control logpadding margtop10" /> <h:inputText
+											type="text" placeholder="Phone" value="#{mailBean.telefono}"
+											class="form-control logpadding margtop20" /> <h:inputText
+											type="text" placeholder="E-mail" value="#{mailBean.mail}"
 											class="form-control logpadding margtop20" />
 									</div>
 									<div class="col-md-4">
-										<textarea rows="9" class="form-control margtop10"></textarea>
+										<h:inputTextarea rows="9" class="form-control margtop10" value="#{mailBean.messaggio}"></h:inputTextarea>
 									</div>
+									
 									<div class="col-md-4 opensans grey">
 										Address:<br /> <span class="dark"> TravelDream Srls<br />
 											Via Filippo Turati 7<br />20121 Milano<br />
@@ -61,8 +62,7 @@
 								</div>
 
 								<div class="searchbg3">
-									<button type="submit" class="btn-search right mr20">Send
-										Email</button>
+								<h:commandButton value="Send Email" class="btn-search right mr20" action="#{mailBean.sendMail}" />
 
 								</div>
 							</h:form>

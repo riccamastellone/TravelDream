@@ -124,44 +124,9 @@
 				<!-- LIST CONTENT-->
 				<div class="rightcontent col-md-9 offset-0">
 
-					<div class="hpadding20">
-						<!-- Top filters -->
-						<div class="topsortby">
-							<div class="col-md-1 offset-0">
-
-								<div class="left mt7">
-									<b>Sort by:</b>
-								</div>
 
 
-
-							</div>
-							<div class="col-md-4">
-								<div class="w50percent">
-									<div class="wh90percent">
-										<select class="form-control mySelectBoxClass ">
-											<option selected="selected">Name</option>
-											<option>A to Z</option>
-											<option>Z to A</option>
-										</select>
-									</div>
-								</div>
-								<div class="w50percentlast">
-									<div class="wh90percent">
-										<select class="form-control mySelectBoxClass ">
-											<option selected="selected">Price</option>
-											<option>Ascending</option>
-											<option>Descending</option>
-										</select>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- End of topfilters-->
-					</div>
-					<!-- End of padding -->
-
-					<br /> <br />
+					<br /> 
 					<div class="clearfix"></div>
 
 
@@ -171,15 +136,13 @@
 							<div class="offset-2">
 								<div class="col-md-4 offset-0">
 									<div class="listitem2">
-
 										<p:graphicImage cache="false"
 											value="#{frontendBean.generateImage()}">
 											<f:param name="img" value="#{hotel.pathtoImage}" />
 											<f:param name="width" value="542" />
 											<f:param name="height" value="420" />
 										</p:graphicImage>
-										<div class="liover"></div>
-										<h:link class="book-icon" outcome="/store/details.xhtml">
+										<h:link class="" outcome="/store/details.xhtml">
 											<f:param name="id" value="#{hotel.id}" />
 										</h:link>
 
@@ -252,11 +215,10 @@
 
 		<h:outputScript library="store" name="js/jquery.customSelect.js" />
 
-
 		<script type="text/javascript">
 			jQuery('.countPacchetti').countTo({
 				from: 1,
-				to: #{pacchettoBean.pacchetti.size()},
+				to: #{hotelBean.allHotel.size()},
 				speed: 2000,
 				refreshInterval: 50
 			});		

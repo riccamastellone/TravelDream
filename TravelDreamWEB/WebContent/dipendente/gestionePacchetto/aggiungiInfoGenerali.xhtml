@@ -11,7 +11,7 @@
 	<ui:define name="content">
 
 		<br></br>
-		<h:form>
+		<h:form enctype="multipart/form-data">
 
 			<div class="form-group">
 				<label>Nome Pacchetto:</label>
@@ -48,6 +48,15 @@
 			</div>
 		</div>
 		</div>
+		
+		<div class="form-group">
+				<label>Immagine:</label><br />
+				<pf:fileUpload value="#{pacchettoBean.file}" mode="simple" />
+			</div>
+		
+		
+		
+		
 			
 
 			<h:commandLink value="Avanti" class="btn btn-default"

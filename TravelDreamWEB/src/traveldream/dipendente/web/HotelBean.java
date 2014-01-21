@@ -231,7 +231,6 @@ public class HotelBean implements Serializable{
 	       if(tmpImage != null) {
 	    	   hotel.setPathtoImage(tmpImage);
 	       }
-	       System.out.println(hotel.getPathtoImage());
 	       hotelMng.aggiornaHotel(hotel);
 	       FacesContext.getCurrentInstance().addMessage(null, msg);  
 	    }

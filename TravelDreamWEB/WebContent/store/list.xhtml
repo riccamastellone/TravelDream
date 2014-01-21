@@ -42,147 +42,150 @@
 
 				<!-- FILTERS -->
 				<div class="col-md-3 filters offset-0">
+					<h:form>
 
-
-					<!-- TOP TIP -->
-					<div class="filtertip">
-						<div class="padding20">
-							<p class="size13">
-								<span class="size18 bold countPacchetti"></span> Packages
-							</p>
-							<p class="size13">
-								Narrow results or <a href="#">view all</a>
-							</p>
-						</div>
-						<div class="tip-arrow"></div>
-					</div>
-
-					<div class="bookfilters hpadding20">
-
-
-						<div class="clearfix"></div>
-
-
-						<div class="vacationstab2">
-							<span class="opensans size13">Where do you want to go?</span> <input
-								type="text" class="form-control" placeholder="Greece" />
-
-							<div class="clearfix pbottom15"></div>
-
-							<div class="w50percent">
-								<div class="wh90percent textleft">
-									<span class="opensans size13">Check in date</span> <input
-										type="text" class="form-control mySelectCalendar"
-										id="datepicker7" placeholder="mm/dd/yyyy" />
-								</div>
+						<!-- TOP TIP -->
+						<div class="filtertip">
+							<div class="padding20">
+								<p class="size13">
+									<span class="size18 bold countPacchetti"></span> Packages
+								</p>
+								<p class="size13">
+									Narrow results or <a href="#">view all</a>
+								</p>
 							</div>
+							<div class="tip-arrow"></div>
+						</div>
 
+						<div class="bookfilters hpadding20">
+
+
+							<div class="clearfix"></div>
+
+
+							<div class="vacationstab2">
+								<span class="opensans size13">Where do you want to go?</span>
+								<h:inputText type="text" class="form-control"
+									placeholder="Greece" value="#{pacchettoFrontBean.destinazione}" />
+
+								<div class="clearfix pbottom15"></div>
+
+								<div class="w50percent">
+									<div class="wh90percent textleft">
+										<span class="opensans size13">Check in date</span>
+										<p:calendar id="datepicker7" format="mm/dd/yyyy"
+											value="#{pacchettoFrontBean.data1}" />
+									</div>
+								</div>
+								
 							<div class="w50percentlast">
 								<div class="wh90percent textleft right">
-									<span class="opensans size13">Check in date</span> <input
-										type="text" class="form-control mySelectCalendar"
-										id="datepicker8" placeholder="mm/dd/yyyy" />
+									<span class="opensans size13">Check in date</span> <p:calendar
+										id="datepicker8" format="mm/dd/yyyy" value="#{pacchettoFrontBean.data2}" />
 								</div>
 							</div>
 
-							<div class="clearfix pbottom15"></div>
+								<div class="clearfix pbottom15"></div>
 
-									<div class="wh90percent textleft">
-										<div class="w50percent">
-											<div class="wh90percent textleft left">
-												<span class="opensans size13">Adult</span> <select
-													class="form-control mySelectBoxClass">
-													<option>1</option>
-													<option selected="selected">2</option>
-													<option>3</option>
-													<option>4</option>
-													<option>5</option>
-												</select>
-											</div>
+								<div class="wh90percent textleft">
+									<div class="">
+										<div class="wh90percent textleft left">
+											<span class="opensans size13">How many people?</span><br />
+											<p:selectOneMenu styleClass="" value="#{pacchettoFrontBean.persone}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="2" itemValue="2" />
+												<f:selectItem itemLabel="3" itemValue="3" />
+												<f:selectItem itemLabel="4" itemValue="4" />
+												<f:selectItem itemLabel="5" itemValue="5" />
+											</p:selectOneMenu>
+
+											<script>$.noConflict()</script>
+										</div>
 									</div>
+								</div>
+								<div class="clearfix"></div>
+								<br />
+								<h:commandButton value="Filter" class="btn-search3"
+									action="#{pacchettoFrontBean.refresh}" />
+							</div>
+							<!-- END OF VACATIONS TAB -->
+
+						</div>
+						<!-- END OF BOOK FILTERS -->
+
+						<div class="line2"></div>
+
+						<div class="padding20title">
+							<h3 class="opensans dark">Filter by</h3>
+						</div>
+						<div class="line2"></div>
+
+						<!-- Star ratings -->
+						<button type="button" class="collapsebtn" data-toggle="collapse"
+							data-target="#collapse1">
+							Star rating <span class="collapsearrow"></span>
+						</button>
+
+						<div id="collapse1" class="collapse in">
+							<div class="hpadding20">
+								<div class="checkbox">
+									<label> <input type="checkbox" /> <h:graphicImage
+											library="store" name="images/filter-rating-5.png"
+											class="imgpos1" /> 5 Stars
+									</label>
+								</div>
+								<div class="checkbox">
+									<label> <input type="checkbox" /> <h:graphicImage
+											library="store" name="images/filter-rating-4.png"
+											class="imgpos1" /> 4 Stars
+									</label>
+								</div>
+								<div class="checkbox">
+									<label> <input type="checkbox" /> <h:graphicImage
+											library="store" name="images/filter-rating-3.png"
+											class="imgpos1" /> 3 Stars
+									</label>
+								</div>
+								<div class="checkbox">
+									<label> <input type="checkbox" /> <h:graphicImage
+											library="store" name="images/filter-rating-2.png"
+											class="imgpos1" /> 2 Stars
+									</label>
+								</div>
+								<div class="checkbox">
+									<label> <input type="checkbox" /> <h:graphicImage
+											library="store" name="images/filter-rating-1.png"
+											class="imgpos1" /> 1 Star
+									</label>
+								</div>
 							</div>
 							<div class="clearfix"></div>
-							<br />
-							<button type="submit" class="btn-search3">Search</button>
 						</div>
-						<!-- END OF VACATIONS TAB -->
+						<!-- End of Star ratings -->
 
-					</div>
-					<!-- END OF BOOK FILTERS -->
+						<div class="line2"></div>
 
-					<div class="line2"></div>
+						<!-- Price range -->
+						<button type="button" class="collapsebtn" data-toggle="collapse"
+							data-target="#collapse2">
+							Price range <span class="collapsearrow"></span>
+						</button>
 
-					<div class="padding20title">
-						<h3 class="opensans dark">Filter by</h3>
-					</div>
-					<div class="line2"></div>
+						<div id="collapse2" class="collapse in">
+							<div class="padding20">
+								<div class="layout-slider wh100percent">
+									<span class="cstyle09"><input id="Slider1" type="slider"
+										name="price" value="400;700" /></span>
+								</div>
 
-					<!-- Star ratings -->
-					<button type="button" class="collapsebtn" data-toggle="collapse"
-						data-target="#collapse1">
-						Star rating <span class="collapsearrow"></span>
-					</button>
-
-					<div id="collapse1" class="collapse in">
-						<div class="hpadding20">
-							<div class="checkbox">
-								<label> <input type="checkbox" /> <h:graphicImage
-										library="store" name="images/filter-rating-5.png"
-										class="imgpos1" /> 5 Stars
-								</label>
-							</div>
-							<div class="checkbox">
-								<label> <input type="checkbox" /> <h:graphicImage
-										library="store" name="images/filter-rating-4.png"
-										class="imgpos1" /> 4 Stars
-								</label>
-							</div>
-							<div class="checkbox">
-								<label> <input type="checkbox" /> <h:graphicImage
-										library="store" name="images/filter-rating-3.png"
-										class="imgpos1" /> 3 Stars
-								</label>
-							</div>
-							<div class="checkbox">
-								<label> <input type="checkbox" /> <h:graphicImage
-										library="store" name="images/filter-rating-2.png"
-										class="imgpos1" /> 2 Stars
-								</label>
-							</div>
-							<div class="checkbox">
-								<label> <input type="checkbox" /> <h:graphicImage
-										library="store" name="images/filter-rating-1.png"
-										class="imgpos1" /> 1 Star
-								</label>
 							</div>
 						</div>
+						<!-- End of Price range -->
+
+						<div class="line2"></div>
+
 						<div class="clearfix"></div>
-					</div>
-					<!-- End of Star ratings -->
-
-					<div class="line2"></div>
-
-					<!-- Price range -->
-					<button type="button" class="collapsebtn" data-toggle="collapse"
-						data-target="#collapse2">
-						Price range <span class="collapsearrow"></span>
-					</button>
-
-					<div id="collapse2" class="collapse in">
-						<div class="padding20">
-							<div class="layout-slider wh100percent">
-								<span class="cstyle09"><input id="Slider1" type="slider"
-									name="price" value="400;700" /></span>
-							</div>
-
-						</div>
-					</div>
-					<!-- End of Price range -->
-
-					<div class="line2"></div>
-
-					<div class="clearfix"></div>
-
+					</h:form>
 
 				</div>
 				<!-- END OF FILTERS -->
@@ -238,19 +241,19 @@
 								<div class="col-md-4 offset-0">
 									<div class="listitem2">
 
-										 <p:graphicImage cache="false"
-												value="#{frontendBean.generateImage()}">
-												<f:param name="img" value="#{pacchetto.immagine}" />
-												<f:param name="width" value="542" />
-												<f:param name="height" value="420" />
-											</p:graphicImage>
+										<p:graphicImage cache="false"
+											value="#{frontendBean.generateImage()}">
+											<f:param name="img" value="#{pacchetto.immagine}" />
+											<f:param name="width" value="542" />
+											<f:param name="height" value="420" />
+										</p:graphicImage>
 										<div class="liover"></div>
 										<a class="fav-icon" href="#"></a>
-											
-											<h:link class="book-icon" outcome="/store/details.xhtml">
-												<f:param name="id" value="#{pacchetto.id}" />
-											</h:link>
-											
+
+										<h:link class="book-icon" outcome="/store/details.xhtml">
+											<f:param name="id" value="#{pacchetto.id}" />
+										</h:link>
+
 									</div>
 								</div>
 								<div class="col-md-8 offset-0">
@@ -259,12 +262,10 @@
 											<h:graphicImage library="store"
 												name="images/filter-rating-#{pacchetto.hotel.stelle}.png"
 												width="60" />
-											<br />
-											<br /> <span class="green size18"><b>#{frontendBean.getTotalePacchetto(pacchetto)}
+											<br /> <br /> <span class="green size18"><b>#{frontendBean.getTotalePacchetto(pacchetto)}
 													€</b></span> <br /> <span class="size11 grey">avg/night</span> <br />
-											<br />
-											<br />
-											<h:link  outcome="/store/details.xhtml">
+											<br /> <br />
+											<h:link outcome="/store/details.xhtml">
 												<f:param name="id" value="#{pacchetto.id}" />
 												<button class="bookbtn mt1" type="submit">Select</button>
 											</h:link>
@@ -347,10 +348,10 @@
 		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
 
 		<h:outputScript library="store" name="js/jquery.customSelect.js" />
-		
-		
+
+
 		<script type="text/javascript">
-			$('.countPacchetti').countTo({
+			jQuery('.countPacchetti').countTo({
 				from: 1,
 				to: #{pacchettoBean.pacchetti.size()},
 				speed: 2000,

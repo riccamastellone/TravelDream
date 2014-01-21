@@ -59,6 +59,10 @@
         <extension>jpg</extension>
         <mime-type>image/jpeg</mime-type>
     </mime-mapping>
+    <mime-mapping>
+        <extension>woff</extension>
+        <mime-type>application/font-woff</mime-type>
+    </mime-mapping>
     <context-param>
   <param-name>com.ocpsoft.pretty.DEVELOPMENT</param-name>
   <param-value>true</param-value>

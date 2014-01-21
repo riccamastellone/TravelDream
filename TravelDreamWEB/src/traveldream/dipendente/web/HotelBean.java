@@ -17,6 +17,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -39,6 +40,8 @@ public class HotelBean implements Serializable{
 	private ArrayList<HotelDTO> allHotel;
 
 	private UploadedFile file;
+	
+	private String tmpImage;
 
 	public HotelBean() {
 		this.setHotel(new HotelDTO());
@@ -125,12 +128,56 @@ public class HotelBean implements Serializable{
 	public void setFile(UploadedFile file) {
 		this.file = file;
 	}
+	// funzione per l'update dell'immagine
+	public void handleFileUpload(FileUploadEvent event) {  
+        this.setFile(event.getFile());
+        
+        try {
+			// Glassfish deve avere i permessi!!
+			File path = new File("/var/uploads/up");
+			
+			String filename = FilenameUtils.getName(file.getFileName());
+			String basename = FilenameUtils.getBaseName(filename) + "_";
+			String extension = "." + FilenameUtils.getExtension(filename);
+
+			// tentiamo di creare le cartelle
+			System.out.println(path.mkdirs());
+
+			InputStream input;
+			try {
+				File newFile = File.createTempFile(basename, extension, path);
+
+				System.out.println(newFile);
+
+				input = file.getInputstream();
+				OutputStream output = new FileOutputStream(newFile);
+				try {
+					IOUtils.copy(input, output);
+					tmpImage = (FilenameUtils.getName(newFile.toString()));
+					System.out.println(newFile);
+				} finally {
+					IOUtils.closeQuietly(input);
+					IOUtils.closeQuietly(output);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} finally {
+
+		}
+        
+    }  
+	
+
+	
+	
 
 	public String aggiungiHotel() {
 		hotel.setPathtoImage(null);
 		try {
 			// Glassfish deve avere i permessi!!
 			File path = new File("/var/uploads/up");
+			
 			String filename = FilenameUtils.getName(file.getFileName());
 			String basename = FilenameUtils.getBaseName(filename) + "_";
 			String extension = "." + FilenameUtils.getExtension(filename);
@@ -180,9 +227,24 @@ public class HotelBean implements Serializable{
 	
 	 public void onEdit(RowEditEvent event) throws ParseException { 
 	       FacesMessage msg = new FacesMessage("Hotel Aggiornato");  
-	       hotelMng.aggiornaHotel((HotelDTO) event.getObject());
+	       hotel = (HotelDTO) event.getObject();
+	       if(tmpImage != null) {
+	    	   hotel.setPathtoImage(tmpImage);
+	       }
+	       System.out.println(hotel.getPathtoImage());
+	       hotelMng.aggiornaHotel(hotel);
 	       FacesContext.getCurrentInstance().addMessage(null, msg);  
-	    } 
+	    }
+
+
+	public String getTmpImage() {
+		return tmpImage;
+	}
+
+
+	public void setTmpImage(String tmpImage) {
+		this.tmpImage = tmpImage;
+	} 
 	
 
 

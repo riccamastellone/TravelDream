@@ -22,5 +22,11 @@
 		<pattern value="/store/package/list" />
 		<view-id value="/store/list.xhtml" />
 	</url-mapping>
+	
+	
+	<url-mapping id="list-hotel">
+		<pattern value="/store/hotel/list" />
+		<view-id value="/store/listHotel.xhtml" />
+	</url-mapping>
 
 </pretty-config>

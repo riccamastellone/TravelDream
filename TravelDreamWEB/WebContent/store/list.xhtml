@@ -238,19 +238,19 @@
 								<div class="col-md-4 offset-0">
 									<div class="listitem2">
 
-										<a href="images/items/item7.jpg"
-											data-footer="A custom footer text"
-											data-title="A random title" data-gallery="multiimages"
-											data-toggle="lightbox"> <p:graphicImage cache="false"
+										 <p:graphicImage cache="false"
 												value="#{frontendBean.generateImage()}">
 												<f:param name="img" value="#{pacchetto.immagine}" />
 												<f:param name="width" value="542" />
 												<f:param name="height" value="420" />
 											</p:graphicImage>
-										</a>
 										<div class="liover"></div>
-										<a class="fav-icon" href="#"></a> <a class="book-icon"
-											href="details.html"></a>
+										<a class="fav-icon" href="#"></a>
+											
+											<h:link class="book-icon" outcome="/store/details.xhtml">
+												<f:param name="id" value="#{pacchetto.id}" />
+											</h:link>
+											
 									</div>
 								</div>
 								<div class="col-md-8 offset-0">
@@ -264,9 +264,10 @@
 													€</b></span> <br /> <span class="size11 grey">avg/night</span> <br />
 											<br />
 											<br />
-											<form action="details.html">
-												<button class="bookbtn mt1" type="submit">Book</button>
-											</form>
+											<h:link  outcome="/store/details.xhtml">
+												<f:param name="id" value="#{pacchetto.id}" />
+												<button class="bookbtn mt1" type="submit">Select</button>
+											</h:link>
 										</div>
 										<div class="labelleft2">
 											<b>#{pacchetto.nome}</b><br /> <br /> <br />

@@ -16,7 +16,14 @@ import java.util.List;
  */
 @Entity
 @Table(name= "Prenotazione")
-@NamedQuery(name="Prenotazione.findAll", query="SELECT p FROM Prenotazione p")
+
+@NamedQueries({
+		
+	@NamedQuery(name="Prenotazione.findAll", query="SELECT p FROM Prenotazione p"),
+	
+	@NamedQuery(name= "Prenotazione.selectMax", query= "SELECT p FROM Prenotazione p WHERE p.id = (SELECT max(p.id) FROM Prenotazione p)")
+
+})
 public class Prenotazione implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -28,10 +28,6 @@ public class PacchettoFrontBean implements Serializable {
 	private Date data1 = new Date();
 	private Date data2 = new Date();
 	private int persone = 1;
-	private int stelle;
-	private int costo1;
-	private int costo2;
-
 	
 	public PacchettoFrontBean(){
 	}
@@ -90,36 +86,6 @@ public class PacchettoFrontBean implements Serializable {
 		this.persone = persone;
 	}
 
-
-	public int getStelle() {
-		return stelle;
-	}
-
-
-	public void setStelle(int stelle) {
-		this.stelle = stelle;
-	}
-
-
-	public int getCosto1() {
-		return costo1;
-	}
-
-
-	public void setCosto1(int costo1) {
-		this.costo1 = costo1;
-	}
-
-
-	public int getCosto2() {
-		return costo2;
-	}
-
-
-	public void setCosto2(int costo2) {
-		this.costo2 = costo2;
-	}
-	
 	
 
 }

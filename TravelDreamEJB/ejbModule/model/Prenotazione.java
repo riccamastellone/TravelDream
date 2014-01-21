@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import traveldream.dtos.PrenotazioneDTO;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -28,23 +30,36 @@ public class Prenotazione implements Serializable {
 	@Column(name="data_creazione")
 	private Timestamp dataCreazione;
 
-	private int hotel;
+	@ManyToOne
+	@JoinColumn(name = "hotel")
+	private Hotel hotel;
 
 	private int persone;
 
-	private String utente;
+	@ManyToOne
+	@JoinColumn(name="utente",referencedColumnName = "email")
+	private Utente utente;
 
-	@Column(name="volo_andata")
-	private int voloAndata;
+	
+	@ManyToOne
+	@JoinColumn(name = "volo_andata")
+	private Volo voloAndata;
 
-	@Column(name="volo_ritorno")
-	private int voloRitorno;
+	
+	@ManyToOne
+	@JoinColumn(name = "volo_ritorno")
+	private Volo voloRitorno;
 
 	//bi-directional many-to-one association to AttivitaSecondariaPrenotazione
 	@OneToMany(mappedBy="prenotazioneBean")
 	private List<AttivitaSecondariaPrenotazione> attivitaSecondariePrenotazione;
 
-	public Prenotazione() {
+	public Prenotazione(){}
+	
+	public Prenotazione(PrenotazioneDTO prenotazione) {
+		
+		this.costoPersona = prenotazione.getCostoPersona();
+		this.persone = prenotazione.getPersone();
 	}
 
 	public int getId() {
@@ -71,11 +86,11 @@ public class Prenotazione implements Serializable {
 		this.dataCreazione = dataCreazione;
 	}
 
-	public int getHotel() {
+	public Hotel getHotel() {
 		return this.hotel;
 	}
 
-	public void setHotel(int hotel) {
+	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
 	}
 
@@ -87,27 +102,27 @@ public class Prenotazione implements Serializable {
 		this.persone = persone;
 	}
 
-	public String getUtente() {
+	public Utente getUtente() {
 		return this.utente;
 	}
 
-	public void setUtente(String utente) {
+	public void setUtente(Utente utente) {
 		this.utente = utente;
 	}
 
-	public int getVoloAndata() {
+	public Volo getVoloAndata() {
 		return this.voloAndata;
 	}
 
-	public void setVoloAndata(int voloAndata) {
+	public void setVoloAndata(Volo voloAndata) {
 		this.voloAndata = voloAndata;
 	}
 
-	public int getVoloRitorno() {
+	public Volo getVoloRitorno() {
 		return this.voloRitorno;
 	}
 
-	public void setVoloRitorno(int voloRitorno) {
+	public void setVoloRitorno(Volo voloRitorno) {
 		this.voloRitorno = voloRitorno;
 	}
 

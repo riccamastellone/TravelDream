@@ -15,6 +15,7 @@ public class CommonBean {
 	
 	
 	private UtenteDTO user;
+	
 	@EJB
 	private UtenteMrg userMgr;
 	

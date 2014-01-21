@@ -20,10 +20,13 @@ import org.primefaces.expression.impl.ThisExpressionResolver;
 
 import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.PacchettoDTO;
+import traveldream.dtos.PrenotazioneDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.HotelMng;
-import traveldream.manager.PacchettoMng;
-import traveldream.manager.VoloMng;
+
+import traveldream.manager.PrenotazioneMng;
+import traveldream.manager.UtenteMrg;
+
 
 @ManagedBean(name = "bookBean")
 @SessionScoped
@@ -32,13 +35,10 @@ public class BookBean implements Serializable {
 	private static final long serialVersionUID = 2502104564094834379L;
 
 	@EJB
-	private PacchettoMng pkgMng;
-
+	private PrenotazioneMng prenotazioneMng;
+	
 	@EJB
-	private HotelMng hotelMng;
-
-	@EJB
-	private VoloMng voloMng;
+	private UtenteMrg userMgr;
 	
 	private int persone;
 	
@@ -53,6 +53,8 @@ public class BookBean implements Serializable {
 	private VoloDTO voloAndata;
 	
 	private VoloDTO voloRitorno;
+	
+	private PrenotazioneDTO prenotazione;
 	
 
 	public BookBean(){
@@ -116,6 +118,14 @@ public class BookBean implements Serializable {
 
 	public void setListaVoliRitorno(List<VoloDTO> listaVoliRitorno) {
 		this.listaVoliRitorno = listaVoliRitorno;
+	}
+	
+	public PrenotazioneDTO getPrenotazione() {
+		return prenotazione;
+	}
+
+	public void setPrenotazione(PrenotazioneDTO prenotazione) {
+		this.prenotazione = prenotazione;
 	}
 	
 	
@@ -186,11 +196,23 @@ public class BookBean implements Serializable {
 			return null;
 		}
 		else {
+			
+			this.prenotazione = new PrenotazioneDTO();
+			this.prenotazione.setHotel(pacchetto.getHotel());
+			this.prenotazione.setPersone(this.persone);
+			this.prenotazione.setUtente(this.userMgr.getUserDTO());
+			this.prenotazione.setVoloAndata(this.voloAndata);
+			this.prenotazione.setVoloRitorno(this.voloRitorno);
+			this.prenotazione.setCostoPersona(132);
+			this.prenotazione.setListAttivitaSecondarie(pacchetto.getAttivitaSecondarie());
+			this.prenotazioneMng.Prenota(this.prenotazione);
+			
 			return "prenotazioneOk?faces-redirect=true";
 		}
-		
-		
+				
 	}
+
+
 	
 
 

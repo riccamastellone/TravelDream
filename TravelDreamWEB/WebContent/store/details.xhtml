@@ -41,11 +41,12 @@
 
 				<!-- Immagine Pacchetto -->
 				<div class="col-md-8 immagine-pacchetto">
-				<p:graphicImage cache="false" value="#{frontendBean.generateImage()}">
-											<f:param name="img" value="#{frontendBean.pacchetto.immagine}" />
-											<f:param name="width" value="759" />
-											<f:param name="height" value="500" />
-										</p:graphicImage>
+					<p:graphicImage cache="false"
+						value="#{frontendBean.generateImage()}">
+						<f:param name="img" value="#{frontendBean.pacchetto.immagine}" />
+						<f:param name="width" value="759" />
+						<f:param name="height" value="500" />
+					</p:graphicImage>
 				</div>
 				<!--  759,427 -->
 
@@ -53,8 +54,9 @@
 				<div class="col-md-4 detailsright offset-0">
 					<div class="padding20">
 						<h3 class="lh1">#{frontendBean.pacchetto.nome}</h3>
-						<h:graphicImage library="store"
-							name="#{frontendBean.getStarsImage(frontendBean.pacchetto.hotel.stelle)}" alt="" />
+						<!-- <h:graphicImage library="store"
+							name="#{frontendBean.getStarsImage(frontendBean.pacchetto.hotel.stelle)}"
+							alt="" /> -->
 					</div>
 
 					<div class="line3"></div>
@@ -72,8 +74,7 @@
 					<div class="padding20">
 						<a href="#" class="sharebtn margtop5">Send to friend</a> <a
 							href="#" class="add2fav margtop5">Add to whish list</a>
-						<h:link outcome="bookNew"
-							class="booknow margtop20 btnmarg">Book now</h:link>
+						<h:link outcome="bookNew" class="booknow margtop20 btnmarg">Book now</h:link>
 					</div>
 				</div>
 				<!-- END OF RIGHT INFO -->
@@ -87,13 +88,13 @@
 					<div class="cstyle10"></div>
 
 					<ul class="nav nav-tabs" id="myTab">
-					
-						<li onclick="mySelectUpdate()" class="active"><a data-toggle="tab"
-							href="#hotel"><span class="thingstodo"></span><span
+
+						<li onclick="mySelectUpdate()" class="active"><a
+							data-toggle="tab" href="#hotel"><span class="summary"></span><span
 								class="hidetext">Hotel</span>&nbsp;</a></li>
 
-						<li onclick="mySelectUpdate()" class=""><a
-							data-toggle="tab" href="#flights"><span class="rates"></span><span
+						 <li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
+							href="#flights"><span class="rates"></span><span
 								class="hidetext">Flights</span>&nbsp;</a></li>
 
 						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
@@ -105,53 +106,28 @@
 
 						<!-- TAB 1 -->
 						<div id="hotel" class="tab-pane fade active in">
+
 							<div class="hpadding20">
-								<p class="dark">
-									<h:form id="modificaHotel">
-									<h:panelGrid id="displayHotel" columns="2" cellpadding="4">
-									
-										<h:outputText value="Nome:" />
-										<h:outputText
-											value="#{frontendBean.pacchetto.hotel.nome}"
-											style="font-weight:bold" />
+								<p class="lato size30 slim">#{frontendBean.pacchetto.hotel.nome}</p>
+								<h:graphicImage library="store" name="#{frontendBean.getStarsImage(frontendBean.pacchetto.hotel.stelle)}" alt="" />
+							</div>
+							<div class="line4"></div>
 
-										<h:outputText value="Stelle:" />
-										<h:outputText
-											value="#{frontendBean.pacchetto.hotel.stelle}"
-											style="font-weight:bold" />
+							<div class="hpadding20">
+								<p>#{frontendBean.pacchetto.hotel.descrizione}</p>
+								<div class="line4"></div>
+								
+								<p class="lato size22 slim">Details</p>
+								
+								<p>Location: #{frontendBean.pacchetto.hotel.luogo}</p>
+								<p>Availability: #{frontendBean.pacchetto.hotel.disponibilita}</p>
+								<p>Daily cost: #{frontendBean.pacchetto.hotel.costoGiornaliero} €</p>
 
-										<h:outputText value="Località:" />
-										<h:outputText
-											value="#{frontendBean.pacchetto.hotel.luogo}"
-											style="font-weight:bold" />
-
-										<h:outputText value="Descrizione:" />
-										<h:outputText
-											value="#{frontendBean.pacchetto.hotel.descrizione}"
-											style="font-weight:bold" />
-
-										<h:outputText value="Posti Disponibili:" />
-										<h:outputText
-											value="#{frontendBean.pacchetto.hotel.disponibilita}"
-											style="font-weight:bold" />
-
-										<h:outputText value="Costo Giornaliero:" />
-										<h:outputText
-											value="#{frontendBean.pacchetto.hotel.costoGiornaliero}"
-											style="font-weight:bold" />
-
-									</h:panelGrid>
-									<p:commandButton value="Change" styleClass="btn btn-default"
-									actionListener="#{frontendBean.modificaHotel(event)}" />
-									
-									</h:form>
-									
-									
-								</p>
 							</div>
 						</div>
 
 						<!-- TAB 2 -->
+						
 						<div id="flights" class="tab-pane fade ">
 							<div class="hpadding20">
 								<p class="dark">
@@ -241,35 +217,25 @@
 								</p>
 							</div>
 						</div>
+						
 
 
 
 						<!-- TAB 3 -->
 						<div id="thingstodo" class="tab-pane fade">
-							<p:dataTable id="dataTableAttivita" var="attivita"
-								value="#{frontendBean.pacchetto.attivitaSecondarie}"
-								lazy="true">
-								<f:facet name="header">  
-                					Elenco Attivita Secondarie 
-       		   					 </f:facet>
-								<p:column sortBy="nome" headerText="Nome">
-									<h:outputText value="#{attivita.nome}" />
-								</p:column>
-
-								<p:column sortBy="costoGiornaliero" headerText="Costo">
-									<h:outputText value="#{attivita.costo} €" />
-								</p:column>
-
-								<p:column sortBy="luogo" headerText="Luogo">
-									<h:outputText value="#{attivita.localita}" />
-								</p:column>
-								<p:column sortBy="disponibilita" headerText="Posti disponibili">
-									<h:outputText value="#{attivita.disponibilita}" />
-								</p:column>
-
-
-							</p:dataTable>
-
+						<p class="hpadding20">These are the Things to Do available in this package</p>
+						
+						<ui:repeat var="attivita" value="#{frontendBean.pacchetto.attivitaSecondarie}">
+							<div class="line4"></div>
+							<div class="hpadding20">
+								<h3 class="lato size22">#{attivita.nome}</h3>
+								<p>Cost: #{attivita.costo} €<br />
+								Availability: #{attivita.disponibilita}<br />
+								Where: #{attivita.localita}</p>
+							</div>
+							
+						</ui:repeat>
+						
 						</div>
 					</div>
 				</div>

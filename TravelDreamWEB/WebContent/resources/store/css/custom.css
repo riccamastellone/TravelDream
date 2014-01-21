@@ -1022,10 +1022,9 @@ color:#fff;
 .nav-tabs > li > a span.thingstodo {width:15px;height:18px; display:block; float:left; background:url("#{resource['store:images/sprite.png']}")  -255px 0px; -webkit-transition:.2s;-moz-transition:.2s;transition:.2s}
 .nav-tabs > li > a:hover span.thingstodo {width:15px;height:18px; display:block; float:left; background:url("#{resource['store:images/sprite.png']}")  -255px -18px;}
 
-#air{height:203px; overflow-x: hidden;}
-#hotel{height:203px; overflow-x: hidden;}
-#car{height:203px; overflow-x: hidden;}
-#vacations{height:203px; overflow-x: hidden;}
+#air{overflow-x: hidden;}
+#hotel{overflow-x: hidden;}
+#vacations{overflow-x: hidden;}
 
 /*For the wide tabs*/
 #air2{height:203px; overflow-x: hidden;}

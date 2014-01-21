@@ -22,7 +22,7 @@
     </form-login-config>
 
   </login-config>
-  <!--  <security-constraint>
+  <security-constraint>
     <web-resource-collection>
       <web-resource-name>Admins Pages</web-resource-name>
       <description></description>
@@ -51,11 +51,13 @@
     <auth-constraint>
       <role-name>CLIENTE</role-name>
     </auth-constraint>
-  </security-constraint> -->
+  </security-constraint> 
+  
+  
   <welcome-file-list> 
     <welcome-file>home.xhtml</welcome-file>
   </welcome-file-list>
-<mime-mapping>
+	<mime-mapping>
         <extension>jpg</extension>
         <mime-type>image/jpeg</mime-type>
     </mime-mapping>

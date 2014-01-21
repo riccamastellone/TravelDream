@@ -30,6 +30,13 @@ public class AttivitaSecondariaPrenotazione implements Serializable {
 	private AttivitaSecondaria attivitaSecondariaBean;
 
 	public AttivitaSecondariaPrenotazione() {
+		
+	}
+	
+	public AttivitaSecondariaPrenotazione(AttivitaSecondaria attivita, Prenotazione prenotazione) {
+		
+		this.prenotazioneBean = prenotazione;
+		this.attivitaSecondariaBean = attivita;
 	}
 
 	public int getId() {

@@ -261,8 +261,11 @@ public class FrontendBean implements Serializable {
 	}
 	
 	public void modificaHotel() {
-		System.out.println("sadas");
+		System.out.println("bene");
 	}
+	
+	
+	
 	
 	
 

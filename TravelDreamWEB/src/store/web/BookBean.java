@@ -227,9 +227,15 @@ public class BookBean implements Serializable {
 				
 	}
 	
-	public void cambiaHotel(ActionEvent event, PacchettoDTO pacchetto) {
+	public void goToCambiaHotel(ActionEvent event, PacchettoDTO pacchetto) {
 		this.hotelDisponibili = this.hotelMng.getAllHotelCompatibili(pacchetto.getLocalita());
 		RequestContext.getCurrentInstance().execute("hotelDialog.show()");
+	}
+	
+	public void cambiaHotel(PacchettoDTO pacchetto, HotelDTO hotel) {
+		System.out.println("sccs");
+		pacchetto.setHotel(hotel);
+		
 	}
 
 	

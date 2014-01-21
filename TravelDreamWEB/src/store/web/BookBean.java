@@ -19,11 +19,11 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
 import traveldream.dtos.AttivitaSecondariaDTO;
+import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.PrenotazioneDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.HotelMng;
-
 import traveldream.manager.PrenotazioneMng;
 import traveldream.manager.UtenteMrg;
 
@@ -39,6 +39,9 @@ public class BookBean implements Serializable {
 	
 	@EJB
 	private UtenteMrg userMgr;
+	
+	@EJB
+	private HotelMng hotelMng;
 	
 	private int persone;
 	
@@ -56,12 +59,16 @@ public class BookBean implements Serializable {
 	
 	private PrenotazioneDTO prenotazione;
 	
+	private List<HotelDTO> hotelDisponibili;
+	
 
 	public BookBean(){
 		this.voloAndata = new VoloDTO();
 		this.voloRitorno = new VoloDTO();
 		this.listaVoliAndata = new ArrayList<VoloDTO>();
 		this.listaVoliRitorno = new ArrayList<VoloDTO>();
+		this.hotelDisponibili = new ArrayList<HotelDTO>();
+		
 	}
 	
 	public int getPersone() {
@@ -126,6 +133,14 @@ public class BookBean implements Serializable {
 
 	public void setPrenotazione(PrenotazioneDTO prenotazione) {
 		this.prenotazione = prenotazione;
+	}
+	
+	public List<HotelDTO> getHotelDisponibili() {
+		return hotelDisponibili;
+	}
+
+	public void setHotelDisponibili(List<HotelDTO> hotelDisponibili) {
+		this.hotelDisponibili = hotelDisponibili;
 	}
 	
 	
@@ -211,9 +226,18 @@ public class BookBean implements Serializable {
 		}
 				
 	}
-
+	
+	public void goToCambiaHotel(ActionEvent event, PacchettoDTO pacchetto) {
+		this.hotelDisponibili = this.hotelMng.getAllHotelCompatibili(pacchetto.getLocalita());
+		RequestContext.getCurrentInstance().execute("hotelDialog.show()");
+	}
+	
+	public void cambiaHotel(PacchettoDTO pacchetto, HotelDTO hotel) {
+		System.out.println("sccs");
+		pacchetto.setHotel(hotel);
+		
+	}
 
 	
-
 
 }

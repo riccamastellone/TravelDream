@@ -4,6 +4,8 @@
 //Animations for this page
 //------------------------------
 $(document).ready(function(){
+	jQuery( "body" ).addClass("thebg");
+
 	$('.tip-arrow').css({'bottom':1+'px'});
 	$('.tip-arrow').animate({'bottom':-9+'px'},{ duration: 700, queue: false });	
 	

@@ -30,7 +30,7 @@
 						<li><a href="#" class="active">#{frontendBean.pacchetto.nome}</a></li>
 					</ul>
 				</div>
-				<a class="backbtn right" href="#"></a>
+				<h:link class="backbtn right" outcome="/store/list.xhtml" />
 			</div>
 			<div class="clearfix"></div>
 			<div class="brlines"></div>
@@ -41,11 +41,12 @@
 
 				<!-- Immagine Pacchetto -->
 				<div class="col-md-8 immagine-pacchetto">
-				<p:graphicImage cache="false" value="#{frontendBean.generateImage()}">
-											<f:param name="img" value="#{frontendBean.pacchetto.immagine}" />
-											<f:param name="width" value="759" />
-											<f:param name="height" value="500" />
-										</p:graphicImage>
+					<p:graphicImage cache="false"
+						value="#{frontendBean.generateImage()}">
+						<f:param name="img" value="#{frontendBean.pacchetto.immagine}" />
+						<f:param name="width" value="759" />
+						<f:param name="height" value="500" />
+					</p:graphicImage>
 				</div>
 				<!--  759,427 -->
 
@@ -53,8 +54,9 @@
 				<div class="col-md-4 detailsright offset-0">
 					<div class="padding20">
 						<h3 class="lh1">#{frontendBean.pacchetto.nome}</h3>
-						<h:graphicImage library="store"
-							name="#{frontendBean.getStarsImage(4)}" alt="" />
+						<!-- <h:graphicImage library="store"
+							name="#{frontendBean.getStarsImage(frontendBean.pacchetto.hotel.stelle)}"
+							alt="" /> -->
 					</div>
 
 					<div class="line3"></div>
@@ -72,8 +74,7 @@
 					<div class="padding20">
 						<a href="#" class="sharebtn margtop5">Send to friend</a> <a
 							href="#" class="add2fav margtop5">Add to whish list</a>
-						<h:link outcome="bookNew" value="Book Now"
-							class="booknow margtop20 btnmarg">Book now</h:link>
+						<h:link outcome="bookNew" class="booknow margtop20 btnmarg">Book now</h:link>
 					</div>
 				</div>
 				<!-- END OF RIGHT INFO -->
@@ -87,105 +88,167 @@
 					<div class="cstyle10"></div>
 
 					<ul class="nav nav-tabs" id="myTab">
-						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
-							href="#summary"><span class="summary"></span><span
-								class="hidetext">Summary</span>&nbsp;</a></li>
+
 						<li onclick="mySelectUpdate()" class="active"><a
-							data-toggle="tab" href="#flights"><span class="rates"></span><span
+							data-toggle="tab" href="#hotel"><span class="summary"></span><span
+								class="hidetext">Hotel</span>&nbsp;</a></li>
+
+						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
+							href="#flights"><span class="rates"></span><span
 								class="hidetext">Flights</span>&nbsp;</a></li>
 
-						<li onclick="loadScript()" class=""><a data-toggle="tab"
-							href="#maps"><span class="maps"></span><span class="hidetext">Maps</span>&nbsp;</a></li>
 						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
 							href="#thingstodo"><span class="thingstodo"></span><span
 								class="hidetext">Things to do</span>&nbsp;</a></li>
 
 					</ul>
 					<div class="tab-content4">
-						<!-- TAB 1 -->
-						<div id="summary" class="tab-pane fade ">
-							<p class="hpadding20">Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit. Nullam auctor aliquam felis, sit amet tempus
-								nibh ullamcorper nec. Maecenas suscipit dolor at blandit congue.
-								Sed adipiscing, odio feugiat pellentesque tincidunt, est leo
-								vestibulum erat, ac pharetra massa justo ac lorem.</p>
-							<div class="line4"></div>
-						</div>
 
+						<!-- TAB 1 -->
+						<div id="hotel" class="tab-pane fade active in">
+							<p:graphicImage cache="false" style="width:379px;float:right;"
+								value="#{frontendBean.generateImage()}">
+								<f:param name="img"
+									value="#{frontendBean.pacchetto.hotel.pathtoImage}" />
+								<f:param name="width" value="759" />
+								<f:param name="height" value="500" />
+							</p:graphicImage>
+							<div class="hpadding20">
+								<p class="lato size30 slim">#{frontendBean.pacchetto.hotel.nome}</p>
+								<h:graphicImage library="store"
+									name="#{frontendBean.getStarsImage(frontendBean.pacchetto.hotel.stelle)}"
+									alt="" />
+							</div>
+
+							<div class="line4"></div>
+
+							<div class="hpadding20">
+								<p>#{frontendBean.pacchetto.hotel.descrizione}</p>
+								<div class="line4"></div>
+
+								<p class="lato size22 slim">Details</p>
+
+								<p>Location: #{frontendBean.pacchetto.hotel.luogo}</p>
+								<p>Availability:
+									#{frontendBean.pacchetto.hotel.disponibilita}</p>
+								<p>Daily cost:
+									#{frontendBean.pacchetto.hotel.costoGiornaliero} €</p>
+
+							</div>
+						</div>
 
 						<!-- TAB 2 -->
-						<div id="flights" class="tab-pane fade active in">
+
+						<div id="flights" class="tab-pane fade ">
 							<div class="hpadding20">
-								<p class="dark">Available Flights</p>
+								<p class="dark">
+									<p:dataTable id="displayAndata" var="volo"
+										value="#{frontendBean.pacchetto.voliAndata}">
+										<f:facet name="header"> Andata </f:facet>
+										<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+											<h:outputText value="#{volo.nomeCompagnia}" />
+										</p:column>
+
+										<p:column sortBy="cittaPartenza"
+											headerText="Città di partenza">
+											<h:outputText value="#{volo.cittaPartenza}" />
+										</p:column>
+
+										<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+											<h:outputText value="#{volo.cittaArrivo}" />
+										</p:column>
+
+										<p:column sortBy="partenza" headerText="Data di Partenza">
+											<h:outputText value="#{volo.partenza}">
+												<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+											</h:outputText>
+										</p:column>
+
+										<p:column sortBy="arrivo" headerText="Data di arrivo">
+											<h:outputText value="#{volo.arrivo}">
+												<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+											</h:outputText>
+										</p:column>
+
+										<p:column sortBy="disponibilita"
+											headerText="Posti disponibili">
+											<h:outputText value="#{volo.disponibilita}" />
+
+
+										</p:column>
+
+										<p:column sortBy="costo" headerText="Prezzo">
+											<h:outputText value="#{volo.costo} €" />
+										</p:column>
+
+
+
+									</p:dataTable>
+
+									<p:dataTable id="displayRitorno" var="volo_r"
+										value="#{frontendBean.pacchetto.voliRitorno}">
+										<f:facet name="header">Ritorno</f:facet>
+										<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+											<h:outputText value="#{volo_r.nomeCompagnia}" />
+										</p:column>
+
+										<p:column sortBy="cittaPartenza"
+											headerText="Città di partenza">
+											<h:outputText value="#{volo_r.cittaPartenza}" />
+										</p:column>
+
+										<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+											<h:outputText value="#{volo_r.cittaArrivo}" />
+										</p:column>
+
+										<p:column sortBy="partenza" headerText="Data di Partenza">
+											<h:outputText value="#{volo_r.partenza}">
+												<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+											</h:outputText>
+										</p:column>
+
+										<p:column sortBy="arrivo" headerText="Data di arrivo">
+											<h:outputText value="#{volo_r.arrivo}">
+												<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+											</h:outputText>
+										</p:column>
+
+										<p:column sortBy="disponibilita"
+											headerText="Posti disponibili">
+											<h:outputText value="#{volo_r.disponibilita}" />
+
+
+										</p:column>
+
+										<p:column sortBy="costo" headerText="Prezzo">
+											<h:outputText value="#{volo_r.costo} €" />
+										</p:column>
+
+									</p:dataTable>
+								</p>
 							</div>
 						</div>
 
-						<!-- TAB 4 -->
-						<div id="maps" class="tab-pane fade">
-							<div class="hpadding20">
-								<div id="map-canvas"></div>
-							</div>
-						</div>
 
 
-						<!-- TAB 6 -->
+
+						<!-- TAB 3 -->
 						<div id="thingstodo" class="tab-pane fade">
+							<p class="hpadding20">These are the Things to Do available in
+								this package</p>
 
-							<p class="hpadding20 opensans size16 dark bold">Attractions
-								travelers recommend</p>
-
-							<div class="line2"></div>
-
-
-							<div class="padding20">
-
-								<div class="offset-0">
-									<div class="col-md-8 mediafix1">
-										<span class="opensans dark size16 margtop1 margtop-5">Marathonissi
-											(Turtle Island), Laganas</span><br /> <span class="green">“Beautiful”</span>
-										08/27/2013<br />
-										<p class="margtop10">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam velit augue, placerat quis
-											est eget, cursus dictum felis. Morbi non dui vitae nisl
-											pharetra placerat.</p>
-										<div class="clearfix"></div>
-									</div>
-									<div class="col-md-4 center bordertype4">
-
-										<br />
-										<button class="bookbtn mt1">More</button>
-										<br /> <br />
-									</div>
+							<ui:repeat var="attivita"
+								value="#{frontendBean.pacchetto.attivitaSecondarie}">
+								<div class="line4"></div>
+								<div class="hpadding20">
+									<h3 class="lato size22">#{attivita.nome}</h3>
+									<p>
+										Cost: #{attivita.costo} €<br /> Availability:
+										#{attivita.disponibilita}<br /> Where: #{attivita.localita}
+									</p>
 								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="line2"></div>
 
-							<div class="padding20">
-
-								<div class="offset-0">
-									<div class="col-md-8 mediafix1">
-										<span class="opensans dark size16 margtop1 margtop-5">Navagio
-											Beach (Shipwreck Beach)</span><br /> <span class="green">“like
-											being on a tropical island”</span> 08/27/2013<br />
-										<p class="margtop10">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam velit augue, placerat quis
-											est eget, cursus dictum felis. Morbi non dui vitae nisl
-											pharetra placerat.</p>
-										<div class="clearfix"></div>
-									</div>
-									<div class="col-md-4 center bordertype4">
-										<br />
-										<button class="bookbtn mt1">More</button>
-										<br /> <br />
-									</div>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="line2"></div>
-
-
-
+							</ui:repeat>
 
 						</div>
 					</div>
@@ -217,6 +280,12 @@
 		<h:outputScript library="store" name="js/functions.js" />
 		<h:outputScript library="store" name="js/js-details.js" />
 		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
+		<script>
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(2)').addClass('active');
+			});
+		</script>
 
 	</ui:define>
 

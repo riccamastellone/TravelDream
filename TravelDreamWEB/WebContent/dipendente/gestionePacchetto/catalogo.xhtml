@@ -180,6 +180,19 @@
 					</p:cellEditor>
 				</p:column>
 				
+				
+				<p:column headerText="Immagine">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:graphicImage value="/up/#{pacchetto.immagine}"
+					width="200" />
+						</f:facet>
+						<f:facet name="input">
+							<p:commandButton value="IMG" type="button" styleClass="btn" onclick="PF('cambiaImmagine').show();" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
 				<p:column style="width:6%">
 					<h:commandLink id="canc" class="btn btn-default btn-danger"
 							onclick="return confirm('Confermi di voler eliminare questo pacchetto?');"
@@ -741,6 +754,8 @@
 					p:placeholder="Inserisci una descrzione"
 					value="#{pacchettoBean.attivitaDaSalvare.descrizione}" />
 			</div>
+			
+			
 
 			<p:commandButton value="Aggiungi" styleClass="btn btn-default"
 				action="#{pacchettoBean.aggiungiNuovaAttivitaAPacchettoEsistente()}" oncomplete="PF('editAttivitaNuovaDialog').hide();"
@@ -789,7 +804,13 @@
 			
 	
 		</h:form>
-	
+	<p:dialog header="Cambia Immagine" widgetVar="cambiaImmagine"
+			resizable="false">
+			<h:form enctype="multipart/form-data">
+				<p:fileUpload fileUploadListener="#{pacchettoBean.handleFileUpload}"
+					mode="advanced" />
+			</h:form>
+		</p:dialog>
 	<script>
 			jQuery.noConflict();
 		</script>

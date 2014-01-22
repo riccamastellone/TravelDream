@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
 <ui:composition template="../template.xhtml">
 
@@ -34,22 +35,25 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="bs-example bs-example-tabs cstyle04">
-							<h:form action="#">
+							<h:form>
 								<div class="tab-content">
 
 									<div class="col-md-4">
 
-										<span class="opensans size24 slim">Contact</span> <input
-											type="text" placeholder="Name"
-											class="form-control logpadding margtop10" /> <input
-											type="text" placeholder="Phone"
-											class="form-control logpadding margtop20" /> <input
-											type="text" placeholder="E-mail"
+										<span class="opensans size24 slim">Contact</span> 
+										<h:inputText
+											id="keyyy" value="#{mailBean.nome}"
+											class="form-control logpadding margtop10" p:placeholder="Name"/> 
+											<h:inputText
+											type="text" p:placeholder="Phone" value="#{mailBean.telefono}"
+											class="form-control logpadding margtop20" /> <h:inputText
+											type="text" p:placeholder="E-mail" value="#{mailBean.mail}"
 											class="form-control logpadding margtop20" />
 									</div>
 									<div class="col-md-4">
-										<textarea rows="9" class="form-control margtop10"></textarea>
+										<h:inputTextarea rows="9" class="form-control margtop10" value="#{mailBean.messaggio}"></h:inputTextarea>
 									</div>
+									
 									<div class="col-md-4 opensans grey">
 										Address:<br /> <span class="dark"> TravelDream Srls<br />
 											Via Filippo Turati 7<br />20121 Milano<br />
@@ -61,8 +65,7 @@
 								</div>
 
 								<div class="searchbg3">
-									<button type="submit" class="btn-search right mr20">Send
-										Email</button>
+								<h:commandButton value="Send Email" class="btn-search right mr20" action="#{mailBean.sendMail}" />
 
 								</div>
 							</h:form>
@@ -76,18 +79,21 @@
 
 			<div class="lastminutecontact lcfix">
 				<div class="container lmc">
-					<h:graphicImage library="store" name="#{frontendBean.getStarsImage(4)}" alt="" /><br /> LAST MINUTE: <b>Barcelona</b>
-					- 2 nights - Flight+4* Hotel, Dep 27h Aug from $209/person<br />
-					<form action="details.html">
-						<button class="btn iosbtn" type="submit">Select</button>
-					</form>
+					<h:graphicImage library="store" name="#{frontendBean.getStarsImage(frontendBean.getLastMinute().hotel.stelle)}" alt="" />
+					<br /> LAST MINUTE: <b>#{frontendBean.getLastMinute().nome}</b> - Flight+#{frontendBean.getLastMinute().hotel.stelle}* Hotel,<br />
+					Dep #{frontendBean.getPartenzaCheap(frontendBean.getLastMinute())} from €#{frontendBean.getTotalePacchetto(frontendBean.getLastMinute())}/person<br />
+					<h:link class="btn iosbtn" outcome="/store/details.xhtml">
+											<f:param name="id" value="#{frontendBean.getLastMinute().id}" />
+											<h:graphicImage library="store" name="images/spacer.png" />
+											View Details
+										</h:link>
 				</div>
 			</div>
 
 			<ui:include src="footer.xhtml" />
 
 		</div>
-		<script>$(function() {$('.active').removeClass('active');$('.nav li:nth-child(5)').addClass('active');});</script>
+		<script>$(function() {$('.active').removeClass('active');$('.nav li:nth-child(4)').addClass('active');});</script>
 		<h:outputScript library="store" name="js/js-index.js" />
 		
 		<h:outputScript library="store" name="js/functions.js" />

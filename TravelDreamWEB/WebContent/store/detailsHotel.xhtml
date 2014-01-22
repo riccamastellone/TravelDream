@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../template.xhtml">
+
+
+	<ui:define name="head_add">
+		<h:outputStylesheet library="store" name="css/jquery-ui.css" />
+	</ui:define>
+
+
+	<ui:define name="content">
+
+
+		<ui:include src="header.xhtml" />
+
+
+		<div class="container breadcrub">
+			<div>
+				<a class="homebtn left" href="#"></a>
+				<div class="left">
+					<ul class="bcrumbs">
+						<li>/</li>
+						<li><a href="#">Hotels</a></li>
+						<li>/</li>
+						<li><a href="#" class="active">#{frontendBean.hotel.nome}</a></li>
+					</ul>
+				</div>
+				<h:link class="backbtn right" outcome="/store/listHotel.xhtml" />
+			</div>
+			<div class="clearfix"></div>
+			<div class="brlines"></div>
+		</div>
+
+		<div class="container">
+			<div class="container pagecontainer offset-0">
+
+				<!-- Immagine Hotel -->
+				<div class="col-md-8 immagine-pacchetto">
+					<p:graphicImage cache="false"
+						value="#{frontendBean.generateImage()}">
+						<f:param name="img" value="#{frontendBean.hotel.pathtoImage}" />
+						<f:param name="width" value="759" />
+						<f:param name="height" value="500" />
+					</p:graphicImage>
+				</div>
+				<!--  759,427 -->
+
+				<!-- RIGHT INFO -->
+				<div class="col-md-4 detailsright offset-0">
+					<div class="padding20">
+						<h3 class="lh1">#{frontendBean.hotel.nome}</h3>
+						<h:graphicImage library="store"
+							name="#{frontendBean.getStarsImage(frontendBean.hotel.stelle)}"
+							alt="" />
+					</div>
+
+					<div class="line3"></div>
+
+					<div style="color: #999;" class="padding20">
+						<h:outputText
+							value="#{frontendBean.nl2br(frontendBean.hotel.descrizione)}"
+							escape="false" />
+					</div>
+					<div class="line3"></div>
+					<div class="padding20" style="color: #999;">
+						<p>Location: #{frontendBean.hotel.luogo}</p>
+						<div class="line2"></div>
+						<p>Availability: #{frontendBean.hotel.disponibilita}</p>
+						<div class="line2"></div>
+						<p>Daily cost: #{frontendBean.hotel.costoGiornaliero} €</p>
+					</div>
+
+					<div class="clearfix"></div>
+
+					<div class="padding20">
+						<a href="#" class="sharebtn margtop5">Send to friend</a>
+						<h:link outcome="bookNew" class="booknow margtop20 btnmarg">Book now</h:link>
+					</div>
+				</div>
+				<!-- END OF RIGHT INFO -->
+
+			</div>
+			<!-- END OF container-->
+
+
+		</div>
+
+		<ui:include src="footer.xhtml" />
+		<h:outputScript library="store" name="js/functions.js" />
+		<h:outputScript library="store" name="js/js-details.js" />
+		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
+		<script>
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(3)').addClass('active');
+			});
+		</script>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

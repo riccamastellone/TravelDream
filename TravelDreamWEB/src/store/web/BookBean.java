@@ -4,18 +4,31 @@ package store.web;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
+
+import org.primefaces.context.RequestContext;
+import org.primefaces.expression.impl.ThisExpressionResolver;
 
 import traveldream.dtos.AttivitaSecondariaDTO;
+import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
+import traveldream.dtos.PrenotazioneDTO;
 import traveldream.dtos.VoloDTO;
+import traveldream.manager.AttivitaMng;
 import traveldream.manager.HotelMng;
-import traveldream.manager.PacchettoMng;
+import traveldream.manager.PrenotazioneMng;
+import traveldream.manager.UtenteMrg;
 import traveldream.manager.VoloMng;
+
 
 @ManagedBean(name = "bookBean")
 @SessionScoped
@@ -24,15 +37,21 @@ public class BookBean implements Serializable {
 	private static final long serialVersionUID = 2502104564094834379L;
 
 	@EJB
-	private PacchettoMng pkgMng;
-
+	private PrenotazioneMng prenotazioneMng;
+	
+	@EJB
+	private UtenteMrg userMgr;
+	
 	@EJB
 	private HotelMng hotelMng;
-
+	
+	@EJB
+	private AttivitaMng attivitaMng;
+	
 	@EJB
 	private VoloMng voloMng;
 	
-	private int persone;
+	private int persone = 1;
 	
 	private Date date1;
 	
@@ -46,12 +65,29 @@ public class BookBean implements Serializable {
 	
 	private VoloDTO voloRitorno;
 	
+	private PrenotazioneDTO prenotazione;
+	
+	private List<HotelDTO> hotelDisponibili;
+	
+	private List<AttivitaSecondariaDTO> listaAttivitaSecondarie;
+	
+	private String ritornoPartenza;
+
+	private String ritornoArrivo;
+	
+	private String andataPartenza;
+	
+	private String andataArrivo;
+
 
 	public BookBean(){
 		this.voloAndata = new VoloDTO();
 		this.voloRitorno = new VoloDTO();
 		this.listaVoliAndata = new ArrayList<VoloDTO>();
 		this.listaVoliRitorno = new ArrayList<VoloDTO>();
+		this.hotelDisponibili = new ArrayList<HotelDTO>();
+		this.listaAttivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
+		
 	}
 	
 	public int getPersone() {
@@ -110,18 +146,55 @@ public class BookBean implements Serializable {
 		this.listaVoliRitorno = listaVoliRitorno;
 	}
 	
+	public PrenotazioneDTO getPrenotazione() {
+		return prenotazione;
+	}
+
+	public void setPrenotazione(PrenotazioneDTO prenotazione) {
+		this.prenotazione = prenotazione;
+	}
 	
+	public List<HotelDTO> getHotelDisponibili() {
+		return hotelDisponibili;
+	}
+
+	public void setHotelDisponibili(List<HotelDTO> hotelDisponibili) {
+		this.hotelDisponibili = hotelDisponibili;
+	}
 	
-	public void checkDisponibilitaPacchetto(PacchettoDTO pacchetto){
+	public List<AttivitaSecondariaDTO> getListaAttivitaSecondarie() {
+		return listaAttivitaSecondarie;
+	}
+
+	public void setListaAttivitaSecondarie(List<AttivitaSecondariaDTO> listaAttivitaSecondarie) {
+		this.listaAttivitaSecondarie = listaAttivitaSecondarie;
+	}
+	
+
+
+	
+
+	public void checkDisponibilitaPacchetto(ActionEvent event, PacchettoDTO pacchetto){
 		
+		//evito che si ricarichi la lista con i risultati vecchi
+		this.listaVoliAndata.clear();
+		this.listaVoliRitorno.clear();
 		//controllo che ci sia l hotel disponibile
 		if ( (pacchetto.getHotel().getDisponibilita() >= this.persone) ){
 			
 			//controllo che yutte le attivita scelte siano disponibili
 			for (AttivitaSecondariaDTO attivita : pacchetto.getAttivitaSecondarie()) {
 				if (attivita.getDisponibilita() < this.persone ){
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO:", "We are sorry but there is not availability for the combination of people/dates"));
 					return;
 				}
+			}
+			
+			//serve per quando si crea un pacchetto da 0
+			if (pacchetto.getVoliAndata().isEmpty() || pacchetto.getVoliRitorno().isEmpty()){
+				
+				RequestContext.getCurrentInstance().execute("scegliVoliDialog.show()");
+				return;
 			}
 			
 			//controllo che i voli di andata siano disponibili per le date scelte
@@ -134,6 +207,7 @@ public class BookBean implements Serializable {
 			
 			//se non e presente nemmeno un volo disponibile esco
 			if (this.listaVoliAndata.isEmpty()){
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO:", "We are sorry but there is not availability for the combination of people/dates"));
 				return;
 			}
 			
@@ -147,18 +221,140 @@ public class BookBean implements Serializable {
 			
 			//se non e presente nemmeno un volo disponibile esco
 			if (this.listaVoliRitorno.isEmpty()){
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO:", "We are sorry but there is not availability for the combination of people/dates"));
 				return;
 			}
 			
-			return;
 			
+			
+			RequestContext.getCurrentInstance().execute("voliDialog.show()");
+			return;
 		}
 		
 		else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO:", "We are sorry but there is not availability for the combination of people/dates"));
 			return;
 		}
 		
+		
+	}
+	
+	public String prenota(PacchettoDTO pacchetto){
+		System.out.println("tastopremuto");
+		//System.out.println(this.voloAndata.getCittaArrivo());
+		if (this.voloAndata == null || this.voloRitorno == null){
+			RequestContext.getCurrentInstance().execute("errorDialog.show()");
+			return null;
+		}
+		else {
+			
+			this.prenotazione = new PrenotazioneDTO();
+			this.prenotazione.setHotel(pacchetto.getHotel());
+			this.prenotazione.setPersone(this.persone);
+			this.prenotazione.setUtente(this.userMgr.getUserDTO());
+			this.prenotazione.setVoloAndata(this.voloAndata);
+			this.prenotazione.setVoloRitorno(this.voloRitorno);
+			this.prenotazione.setCostoPersona(132);
+			this.prenotazione.setListAttivitaSecondarie(pacchetto.getAttivitaSecondarie());
+			this.prenotazioneMng.Prenota(this.prenotazione);
+			
+			return "prenotazioneOk?faces-redirect=true";
+		}
+				
+	}
+	
+	public void goToCambiaHotel(ActionEvent event, PacchettoDTO pacchetto) {
+		this.hotelDisponibili = this.hotelMng.getAllHotelCompatibili(pacchetto.getLocalita());
+		RequestContext.getCurrentInstance().execute("hotelDialog.show()");
+	}
+	
+	public void cambiaHotel(PacchettoDTO pacchetto, HotelDTO hotel) {
+		System.out.println("sccs");
+		pacchetto.setHotel(hotel);
+		
+	}
+	
+	public void goToCambiaAttivita(ActionEvent event, PacchettoDTO pacchetto) {
+		this.listaAttivitaSecondarie = this.attivitaMng.getAttivitaCompatibiliPacchetto(pacchetto);
+		
+		//uso gli iterator cosi da poter rimuovere elemnti dalla stessa lista su cui sto ciclando
+		for (AttivitaSecondariaDTO attivitaPacchetto : pacchetto.getAttivitaSecondarie()) {
+				
+			for (Iterator<AttivitaSecondariaDTO> attivitaEsistente = this.listaAttivitaSecondarie.iterator(); attivitaEsistente.hasNext(); ) {
+				AttivitaSecondariaDTO attivitaSecondariaDTO = attivitaEsistente.next();
+				if(attivitaSecondariaDTO.getId() == attivitaPacchetto.getId()){
+					attivitaEsistente.remove();
+				}
+				
+			}
+		
+		}
+		
+		
+		RequestContext.getCurrentInstance().execute("attivitaDialog2.show()");
+	}
+	
+	public void scegliAttivita(AjaxBehaviorEvent action, AttivitaSecondariaDTO attivita, PacchettoDTO pacchetto){
+		
+		this.listaAttivitaSecondarie.remove(attivita);
+		pacchetto.getAttivitaSecondarie().add(attivita);
+		System.out.println("scegli");
+		
+	 }
+	
+	public void eliminaAttivita(AjaxBehaviorEvent action, AttivitaSecondariaDTO attivita, PacchettoDTO pacchetto){
+		 
+		this.listaAttivitaSecondarie.add(attivita);
+		pacchetto.getAttivitaSecondarie().remove(attivita);
+		System.out.println("elimina");
+
+		
+	 }
+	
+	public void ricercaVoli(){
+		
+		this.listaVoliAndata.clear(); 
+		this.listaVoliRitorno.clear();
+		
+		this.listaVoliAndata = this.voloMng.getVoliByAndataERitorno(this.andataPartenza, this.andataArrivo, this.persone);
+		this.listaVoliRitorno = this.voloMng.getVoliByAndataERitorno(this.ritornoPartenza, this.ritornoArrivo, this.persone);
+		
 	}
 
+	public String getRitornoPartenza() {
+		return ritornoPartenza;
+	}
+
+	public void setRitornoPartenza(String ritornoPartenza) {
+		this.ritornoPartenza = ritornoPartenza;
+	}
+
+	public String getRitornoArrivo() {
+		return ritornoArrivo;
+	}
+
+	public void setRitornoArrivo(String ritornoArrivo) {
+		this.ritornoArrivo = ritornoArrivo;
+	}
+
+	public String getAndataPartenza() {
+		return andataPartenza;
+	}
+
+	public void setAndataPartenza(String andataPartenza) {
+		this.andataPartenza = andataPartenza;
+	}
+
+	public String getAndataArrivo() {
+		return andataArrivo;
+	}
+
+	public void setAndataArrivo(String andataArrivo) {
+		this.andataArrivo = andataArrivo;
+	}
+
+
+
+	
 
 }

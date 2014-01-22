@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../template.xhtml">
+
+
+	<ui:define name="head_add">
+		<h:outputStylesheet library="store" name="css/jquery-ui.css" />
+
+
+	</ui:define>
+
+
+	<ui:define name="content">
+
+
+		<ui:include src="header.xhtml" />
+
+		<div class="container breadcrub">
+			<div>
+				<a class="homebtn left" href="#"></a>
+				<div class="left">
+					<ul class="bcrumbs">
+						<li><a href="#" class="active">Hotels</a></li>
+					</ul>
+				</div>
+				<h:link class="backbtn right" outcome="/store/home.xhtml" />
+			</div>
+			<div class="clearfix"></div>
+			<div class="brlines"></div>
+		</div>
+
+		<div class="container">
+			<div class="container pagecontainer offset-0">
+
+				<!-- FILTERS -->
+				<div class="col-md-3 filters offset-0">
+					<h:form>
+
+						<!-- TOP TIP -->
+						<div class="filtertip">
+							<div class="padding20">
+								<p class="size13">
+									<span class="size18 bold countPacchetti"></span> Hotels
+								</p>
+								<p class="size13">
+									Narrow results or <a href="#">view all</a>
+								</p>
+							</div>
+							<div class="tip-arrow"></div>
+						</div>
+
+						<div class="bookfilters hpadding20">
+
+
+							<div class="clearfix"></div>
+
+
+							<div class="vacationstab2">
+								<span class="opensans size13">Where do you want to go?</span>
+								<h:inputText type="text" class="form-control"
+									placeholder="Greece" value="#{pacchettoFrontBean.destinazione}" />
+
+								<div class="clearfix pbottom15"></div>
+
+								<div class="w50percent">
+									<div class="wh90percent textleft">
+										<span class="opensans size13">Check in date</span>
+										<p:calendar id="datepicker7" format="mm/dd/yyyy"
+											value="#{pacchettoFrontBean.data1}" />
+									</div>
+								</div>
+								
+							<div class="w50percentlast">
+								<div class="wh90percent textleft right">
+									<span class="opensans size13">Check in date</span> <p:calendar
+										id="datepicker8" format="mm/dd/yyyy" value="#{pacchettoFrontBean.data2}" />
+								</div>
+							</div>
+
+								<div class="clearfix pbottom15"></div>
+
+								<div class="wh90percent textleft">
+									<div class="">
+										<div class="wh90percent textleft left">
+											<span class="opensans size13">How many people?</span><br />
+											<h:selectOneMenu class="form-control mySelectBoxClass" value="#{pacchettoFrontBean.persone}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="2" itemValue="2" />
+												<f:selectItem itemLabel="3" itemValue="3" />
+												<f:selectItem itemLabel="4" itemValue="4" />
+												<f:selectItem itemLabel="5" itemValue="5" />
+											</h:selectOneMenu>
+
+											<script>$.noConflict()</script>
+										</div>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+								<br />
+								<h:commandButton value="Filter" class="btn-search3"
+									action="#{pacchettoFrontBean.refresh}" />
+							</div>
+							<!-- END OF VACATIONS TAB -->
+
+						</div>
+						<!-- END OF BOOK FILTERS -->
+
+						<div class="line2"></div>
+
+						
+
+
+						<div class="clearfix"></div>
+					</h:form>
+
+				</div>
+				<!-- END OF FILTERS -->
+
+				<!-- LIST CONTENT-->
+				<div class="rightcontent col-md-9 offset-0">
+
+
+
+					<br /> 
+					<div class="clearfix"></div>
+
+
+					<div class="itemscontainer offset-1">
+
+						<ui:repeat value="#{hotelBean.allHotel}" var="hotel">
+							<div class="offset-2">
+								<div class="col-md-4 offset-0">
+									<div class="listitem2">
+										<p:graphicImage cache="false"
+											value="#{frontendBean.generateImage()}">
+											<f:param name="img" value="#{hotel.pathtoImage}" />
+											<f:param name="width" value="542" />
+											<f:param name="height" value="420" />
+										</p:graphicImage>
+										<h:link class="" outcome="/store/details.xhtml">
+											<f:param name="id" value="#{hotel.id}" />
+										</h:link>
+
+									</div>
+								</div>
+								<div class="col-md-8 offset-0">
+									<div class="itemlabel3">
+										<div class="labelright">
+											<h:graphicImage library="store"
+												name="images/filter-rating-#{hotel.stelle}.png"
+												width="60" />
+											<br /> <br /> <span class="green size18"><b>#{hotel.costoGiornaliero}
+													€</b></span> <br /> <span class="size11 grey">avg/night</span> <br />
+											<br /> <br />
+											<h:link outcome="/store/detailsHotel.xhtml">
+												<f:param name="id" value="#{hotel.id}" />
+												<button class="bookbtn mt1" type="submit">Select</button>
+											</h:link>
+										</div>
+										<div class="labelleft2">
+											<b>#{hotel.nome}</b><br /> <br /> <br />
+											<p class="grey">#{hotel.descrizione}</p>
+											<br />
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="clearfix"></div>
+							<div class="offset-2">
+								<hr class="featurette-divider3" />
+							</div>
+
+
+						</ui:repeat>
+
+					</div>
+					<!-- End of offset1-->
+
+
+				</div>
+				<!-- END OF LIST CONTENT-->
+
+
+
+			</div>
+		</div>
+
+		<ui:include src="footer.xhtml" />
+
+
+		<h:outputScript library="store"
+			name="plugins/jslider/js/jshashtable-2.1_src.js" />
+		<h:outputScript library="store"
+			name="plugins/jslider/js/jquery.numberformatter-1.2.3.js" />
+		<h:outputScript library="store" name="plugins/jslider/js/tmpl.js" />
+		<h:outputScript library="store"
+			name="plugins/jslider/js/jquery.dependClass-0.1.js" />
+		<h:outputScript library="store"
+			name="plugins/jslider/js/draggable-0.1.js" />
+
+
+		<h:outputScript library="store" name="js/js-list.js" />
+
+		<h:outputScript library="store" name="js/functions.js" />
+		<h:outputScript library="store" name="js/jquery-ui.js" />
+		<h:outputScript library="store" name="js/jquery.easing.js" />
+		<h:outputScript library="store" name="js/counter.js" />
+		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
+
+		<h:outputScript library="store" name="js/jquery.customSelect.js" />
+
+		<script type="text/javascript">
+			jQuery('.countPacchetti').countTo({
+				from: 1,
+				to: #{hotelBean.allHotel.size()},
+				speed: 2000,
+				refreshInterval: 50
+			});		
+		</script>
+		<script>$(function() {$('.active').removeClass('active');$('.nav li:nth-child(3)').addClass('active');});</script>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

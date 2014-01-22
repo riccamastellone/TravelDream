@@ -8,6 +8,11 @@
 		<view-id value="/home.xhtml" />
 	</url-mapping>
 	
+	<url-mapping id="store-home">
+		<pattern value="/store/home" />
+		<view-id value="/store/home.xhtml" />
+	</url-mapping>
+	
 	<url-mapping id="dettaglio">
 		<pattern value="/store/details/#{id : frontendBean.idPacchetto}" />
 		<view-id value="/store/details.xhtml" />
@@ -28,10 +33,14 @@
 		<view-id value="/store/list.xhtml" />
 	</url-mapping>
 	
-	
 	<url-mapping id="list-hotel">
 		<pattern value="/store/hotel/list" />
 		<view-id value="/store/listHotel.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="contatti">
+		<pattern value="/store/contacts" />
+		<view-id value="/store/contacts.xhtml" />
 	</url-mapping>
 
 </pretty-config>

@@ -24,7 +24,7 @@
   </login-config>
 
 
-  <!-- 
+
 
   <security-constraint>
     <web-resource-collection>
@@ -55,9 +55,9 @@
     <auth-constraint>
       <role-name>CLIENTE</role-name>
     </auth-constraint>
-<<<<<<< HEAD
+
   </security-constraint> 
-  -->
+ 
   
   <welcome-file-list> 
     <welcome-file>home.xhtml</welcome-file>

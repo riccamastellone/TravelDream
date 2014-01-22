@@ -292,7 +292,7 @@
 		<p:dialog header="Scegli Voli" widgetVar="scegliVoliDialog" resizable="false">
 			<h:form id="scegliVoliNuovi">
 			
-				<h:form id="vaiAndata">
+				
 				<h:outputText value = "Andata" />
 				<h:inputText value = "#{bookBean.andataPartenza}" />
 				<h:outputText value = "Andata" />
@@ -300,8 +300,8 @@
 				<p:commandButton value="Ricerca" styleClass="btn btn-default"
 				action="#{bookBean.ricercaVoli()}"
 				update=":form:scegliVoliNuovi:displayAndataNuovi"
-				process="@this,vaiAndata"/>
-				</h:form>
+				process="@this,scegliVoliNuovi"/>
+				
 				<p:dataTable id="displayAndataNuovi" var="volo"
 					value="#{bookBean.listaVoliAndata}"  selection="#{bookBean.voloAndata}" selectionMode="single" rowKey="#{volo.id}">
 					<f:facet name="header"> Andata  </f:facet>
@@ -342,7 +342,7 @@
 					
 				</p:dataTable>
 				
-				<h:form id="vaiRitorno">
+				
 				<h:outputText value = "Ritorno" />
 				<h:inputText value = "#{bookBean.ritornoPartenza}" />
 				<h:outputText value = "Andata" />
@@ -350,8 +350,8 @@
 				<p:commandButton value="Ricerca" styleClass="btn btn-default"
 				action="#{bookBean.ricercaVoli()}"
 				update=":form:scegliVoliNuovi:displayRitornoNuovi"
-				process="@this,vaiRitorno"/>
-				</h:form>
+				process="@this,scegliVoliNuovi"/>
+			
 				
 				<p:dataTable id="displayRitornoNuovi" var="volo"
 					value="#{bookBean.listaVoliRitorno}"  selection="#{bookBean.voloRitorno}" selectionMode="single" rowKey="#{volo.id}">
@@ -393,18 +393,12 @@
 					
 				</p:dataTable>
 				
-				<h:commandLink id="prenotaTutto" value="Scegli"
-						class="btn btn-danger white"
-						action="#{bookBean.prenota(frontendBean.pacchetto)}">
-						<p:ajax execute="prenotaTutto"  />
-				</h:commandLink>
-				
-				<!--  
+
 				<p:commandButton value="Prenota" styleClass="btn btn-default"
 				action="#{bookBean.prenota(frontendBean.pacchetto)}"
-				process="@this,form"/>
-	
-				-->
+				process="@this,scegliVoliNuovi"/>
+				
+				
 			</h:form>
 			
 			<!--  

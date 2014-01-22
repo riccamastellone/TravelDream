@@ -428,12 +428,14 @@
 
 			<div class="lastminute">
 				<div class="container lmc">
-					<h:graphicImage library="store" name="images/rating-4.png" alt="" />
-					<br /> LAST MINUTE: <b>Barcelona</b> - 2 nights - Flight+4* Hotel,
-					Dep 27h Aug from €209/person<br />
-					<form action="details.html">
-						<button class="btn iosbtn" type="submit">VIEW DETAILS</button>
-					</form>
+					<h:graphicImage library="store" name="#{frontendBean.getStarsImage(frontendBean.getLastMinute().hotel.stelle)}" alt="" />
+					<br /> LAST MINUTE: <b>#{frontendBean.getLastMinute().nome}</b> - Flight+#{frontendBean.getLastMinute().hotel.stelle}* Hotel,<br />
+					Dep #{frontendBean.getPartenzaCheap(frontendBean.getLastMinute())} from €#{frontendBean.getTotalePacchetto(frontendBean.getLastMinute())}/person<br />
+					<h:link class="btn iosbtn" outcome="/store/details.xhtml">
+											<f:param name="id" value="#{frontendBean.getLastMinute().id}" />
+											<h:graphicImage library="store" name="images/spacer.png" />
+											View Details
+										</h:link>
 				</div>
 			</div>
 

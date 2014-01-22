@@ -234,6 +234,9 @@ public class FrontendBean implements Serializable {
 	public void setIdHotel(int idHotel) {
 		this.idHotel = idHotel;
 		hotel = hotelMng.findHotelDTO(idHotel);
+		this.pacchetto = new PacchettoDTO();
+		this.pacchetto.setLocalita(hotel.getLuogo());
+		this.pacchetto.setHotel(hotel);
 
 	}
 

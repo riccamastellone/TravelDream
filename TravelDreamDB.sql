@@ -142,4 +142,17 @@ CREATE TABLE IF NOT EXISTS `AttivitaSecondariaPrenotazione` (
   FOREIGN KEY (`attivita_secondaria`) REFERENCES `AttivitaSecondaria` (`id`))
 ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `ListaDesisderi`; 
+CREATE TABLE IF NOT EXISTS `ListaDesisderi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `utente` varchar(255) NOT NULL,
+  `pacchetto` int(11) NOT NULL,
+  `pagato_da` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`utente`) REFERENCES `Utente` (`email`)
+  ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (`pacchetto`) REFERENCES `Pacchetto` (`id`)
+  ON UPDATE CASCADE ON DELETE CASCADE
+  )ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
 

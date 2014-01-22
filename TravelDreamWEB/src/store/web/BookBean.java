@@ -257,6 +257,7 @@ public class BookBean implements Serializable {
 	public void goToCambiaAttivita(ActionEvent event, PacchettoDTO pacchetto) {
 		this.listaAttivitaSecondarie = this.attivitaMng.getAttivitaCompatibiliPacchetto(pacchetto);
 		
+		//uso gli iterator cosi da poter rimuovere elemnti dalla stessa lista su cui sto ciclando
 		for (AttivitaSecondariaDTO attivitaPacchetto : pacchetto.getAttivitaSecondarie()) {
 				
 			for (Iterator<AttivitaSecondariaDTO> attivitaEsistente = this.listaAttivitaSecondarie.iterator(); attivitaEsistente.hasNext(); ) {

@@ -4,6 +4,7 @@ package store.web;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -255,11 +256,35 @@ public class BookBean implements Serializable {
 	
 	public void goToCambiaAttivita(ActionEvent event, PacchettoDTO pacchetto) {
 		this.listaAttivitaSecondarie = this.attivitaMng.getAttivitaCompatibiliPacchetto(pacchetto);
+		
+		for (AttivitaSecondariaDTO attivitaPacchetto : pacchetto.getAttivitaSecondarie()) {
+				
+			for (Iterator<AttivitaSecondariaDTO> attivitaEsistente = this.listaAttivitaSecondarie.iterator(); attivitaEsistente.hasNext(); ) {
+				AttivitaSecondariaDTO attivitaSecondariaDTO = attivitaEsistente.next();
+				if(attivitaSecondariaDTO.getId() == attivitaPacchetto.getId()){
+					attivitaEsistente.remove();
+				}
+				
+			}
+		
+		}
+		/*
+		for (AttivitaSecondariaDTO attivitaPacchetto : pacchetto.getAttivitaSecondarie()) {
+			for (AttivitaSecondariaDTO attivitaEsistente : this.listaAttivitaSecondarie) {
+				if (attivitaPacchetto.getId() == attivitaEsistente.getId()){
+					this.listaAttivitaSecondarie.remove(attivitaEsistente);
+				}
+			}
+		}
+		*/
+		
 		RequestContext.getCurrentInstance().execute("attivitaDialog2.show()");
 	}
 	
 	public void scegliAttivita(AjaxBehaviorEvent action, AttivitaSecondariaDTO attivita, PacchettoDTO pacchetto){
 		
+		this.listaAttivitaSecondarie.remove(attivita);
+		pacchetto.getAttivitaSecondarie().add(attivita);
 		System.out.println("scegli");
 		
 	 }

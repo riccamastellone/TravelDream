@@ -6,20 +6,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
 import javax.imageio.ImageIO;
 
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
 import org.imgscalr.Scalr;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -45,8 +43,6 @@ public class FrontendBean implements Serializable {
 
 	@EJB
 	private VoloMng voloMng;
-
-	private ArrayList<PacchettoDTO> lastMinute;
 
 	private ArrayList<PacchettoDTO> topDeals;
 
@@ -76,14 +72,6 @@ public class FrontendBean implements Serializable {
 		this.pacchetto = new PacchettoDTO();
 	}
 	
-	public ArrayList<PacchettoDTO> getLastMinute() {
-		return lastMinute;
-	}
-
-	public void setLastMinute(ArrayList<PacchettoDTO> lastMinute) {
-		this.lastMinute = lastMinute;
-	}
-
 	public ArrayList<PacchettoDTO> getTopDeals() {
 		return topDeals;
 	}
@@ -120,7 +108,7 @@ public class FrontendBean implements Serializable {
 
 	/**
 	 * Calcoliamo il totale di un pacchetto prendendo il volo di andata e di
-	 * ritorno pi������ economici, calcola i giorni di differenza e con questi
+	 * ritorno piu' economici, calcola i giorni di differenza e con questi
 	 * calcola il totale dell'hotel (Da pensare una cosa migliore)
 	 * 
 	 * @param pacchetto
@@ -171,6 +159,36 @@ public class FrontendBean implements Serializable {
 
 		// return 12;
 		return totalePacchetto;
+	}
+	
+	public PacchettoDTO getLastMinute() {
+		//List<PacchettoDTO> tmp = ;
+		return pkgMng.getAllPacchetti().get(0);
+	}
+	/**
+	 * Quando valutiamo il costo di un pacchetto, controlla tutti i voli e le partenze 
+	 * per avere il costo più basso. Questo metodo ritorna la data del volo di partenza 
+	 * considerato
+	 * @return
+	 */
+	public String getPartenzaCheap(PacchettoDTO pacchetto){
+		
+		float voloAndataCosto = 0;
+		Date dataAndata = new Date();
+		for (VoloDTO volo : pacchetto.getVoliAndata()) {
+			// primo ciclo
+			if (voloAndataCosto == 0) {
+				voloAndataCosto = volo.getCosto();
+				dataAndata = volo.getArrivo();
+			}
+			if (voloAndataCosto > volo.getCosto()) {
+				voloAndataCosto = volo.getCosto();
+				dataAndata = volo.getArrivo();
+			}
+		}
+		
+		
+		return new SimpleDateFormat("dd MMM").format(dataAndata).toUpperCase();
 	}
 
 	/**

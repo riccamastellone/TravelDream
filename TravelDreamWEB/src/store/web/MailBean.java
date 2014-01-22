@@ -33,7 +33,7 @@ import traveldream.manager.VoloMng;
 
 @ManagedBean(name = "mailBean")
 @SessionScoped
-public class mailBean implements Serializable {
+public class MailBean implements Serializable {
 
 	private static final long serialVersionUID = 2502104564094834379L;
 
@@ -44,7 +44,7 @@ public class mailBean implements Serializable {
 	private String js;
 
 
-	public mailBean(){
+	public MailBean(){
 	}
 	
 	

@@ -53,6 +53,8 @@ public interface VoloMng {
 	 * @return
 	 */
 	public ArrayList<VoloDTO> getVoliDisponibiliECompatibili(PacchettoDTO pacchetto);
+	
+	public List<VoloDTO> getVoliByAndataERitorno(String andata, String ritorno, int persone);
 
 
 }

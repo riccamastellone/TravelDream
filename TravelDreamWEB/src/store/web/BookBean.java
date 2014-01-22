@@ -15,7 +15,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.primefaces.context.RequestContext;
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
@@ -28,6 +27,7 @@ import traveldream.manager.AttivitaMng;
 import traveldream.manager.HotelMng;
 import traveldream.manager.PrenotazioneMng;
 import traveldream.manager.UtenteMrg;
+import traveldream.manager.VoloMng;
 
 
 @ManagedBean(name = "bookBean")
@@ -47,6 +47,9 @@ public class BookBean implements Serializable {
 	
 	@EJB
 	private AttivitaMng attivitaMng;
+	
+	@EJB
+	private VoloMng voloMng;
 	
 	private int persone = 1;
 	
@@ -68,6 +71,14 @@ public class BookBean implements Serializable {
 	
 	private List<AttivitaSecondariaDTO> listaAttivitaSecondarie;
 	
+	private String ritornoPartenza;
+
+	private String ritornoArrivo;
+	
+	private String andataPartenza;
+	
+	private String andataArrivo;
+
 
 	public BookBean(){
 		this.voloAndata = new VoloDTO();
@@ -159,8 +170,10 @@ public class BookBean implements Serializable {
 		this.listaAttivitaSecondarie = listaAttivitaSecondarie;
 	}
 	
+
+
 	
-	
+
 	public void checkDisponibilitaPacchetto(ActionEvent event, PacchettoDTO pacchetto){
 		
 		//evito che si ricarichi la lista con i risultati vecchi
@@ -175,6 +188,13 @@ public class BookBean implements Serializable {
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO:", "We are sorry but there is not availability for the combination of people/dates"));
 					return;
 				}
+			}
+			
+			//serve per quando si crea un pacchetto da 0
+			if (pacchetto.getVoliAndata().isEmpty() || pacchetto.getVoliRitorno().isEmpty()){
+				
+				RequestContext.getCurrentInstance().execute("scegliVoliDialog.show()");
+				return;
 			}
 			
 			//controllo che i voli di andata siano disponibili per le date scelte
@@ -290,8 +310,50 @@ public class BookBean implements Serializable {
 
 		
 	 }
-
 	
+	public void ricercaVoli(){
+		
+		this.listaVoliAndata.clear(); 
+		this.listaVoliRitorno.clear();
+		
+		this.listaVoliAndata = this.voloMng.getVoliByAndataERitorno(this.andataPartenza, this.andataArrivo, this.persone);
+		this.listaVoliRitorno = this.voloMng.getVoliByAndataERitorno(this.ritornoPartenza, this.ritornoArrivo, this.persone);
+		
+	}
+
+	public String getRitornoPartenza() {
+		return ritornoPartenza;
+	}
+
+	public void setRitornoPartenza(String ritornoPartenza) {
+		this.ritornoPartenza = ritornoPartenza;
+	}
+
+	public String getRitornoArrivo() {
+		return ritornoArrivo;
+	}
+
+	public void setRitornoArrivo(String ritornoArrivo) {
+		this.ritornoArrivo = ritornoArrivo;
+	}
+
+	public String getAndataPartenza() {
+		return andataPartenza;
+	}
+
+	public void setAndataPartenza(String andataPartenza) {
+		this.andataPartenza = andataPartenza;
+	}
+
+	public String getAndataArrivo() {
+		return andataArrivo;
+	}
+
+	public void setAndataArrivo(String andataArrivo) {
+		this.andataArrivo = andataArrivo;
+	}
+
+
 
 	
 

@@ -159,4 +159,16 @@ public class VoloMngBean implements VoloMng {
 		
 	}
 
+	@Override
+	public List<VoloDTO> getVoliByAndataERitorno(String andata, String ritorno, int persone) {
+		// TODO Auto-generated method stub
+		List<Volo> voli = em.createNamedQuery("Volo.getVoliByAndataERitorno", Volo.class).setParameter("partenza", andata).setParameter("arrivo", ritorno).setParameter("persone", persone).getResultList();
+		List<VoloDTO> voliAndata = new ArrayList<VoloDTO>();
+		
+		for (Volo volo: voli) {
+			voliAndata.add(this.convertVoloToDTO(volo));
+		}
+		return voliAndata;
+	}
+
 }

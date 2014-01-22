@@ -37,10 +37,11 @@ public class mailBean implements Serializable {
 
 	private static final long serialVersionUID = 2502104564094834379L;
 
-	private String nome = "Name";
-	private String telefono = "Phone";
-	private String mail = "E-Mail";
+	private String nome;
+	private String telefono;
+	private String mail;
 	private String messaggio;
+	private String js;
 
 
 	public mailBean(){
@@ -57,7 +58,10 @@ public class mailBean implements Serializable {
 		email.addTo("riccardo.mastellone@gmail.com");
 		email.addTo("seba0691@gmail.com");
 		email.send();
-		System.out.println("inviata"); 
+		nome = "";
+		telefono = "";
+		mail = "";
+		messaggio = "";
 		
 
 	}
@@ -101,6 +105,6 @@ public class mailBean implements Serializable {
 	public void setMessaggio(String messaggio) {
 		this.messaggio = messaggio;
 	}
-	
+
 
 }

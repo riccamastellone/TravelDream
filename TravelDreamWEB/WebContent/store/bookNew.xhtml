@@ -46,16 +46,41 @@
             <h:outputText value="#{frontendBean.pacchetto.hotel.costoGiornaliero}" style="font-weight:bold"/>
             
             
-            <p:commandButton value="Cambia" styleClass="btn btn-default"
+            <p:commandButton value="Cambia Hotel" styleClass="btn btn-default"
 						actionListener="#{bookBean.goToCambiaHotel(event,frontendBean.pacchetto)}" 
 						update=":form:formHotel:hotelDisponibili"			
 						/>
               
-        </h:panelGrid> 
-       		 
-       		 
+       		</h:panelGrid>
+
+		<p:dataTable id="dataTableAttivita" var="attivita"
+			value="#{frontendBean.pacchetto.attivitaSecondarie}" lazy="true">
+			<f:facet name="header">  
+                Elenco Attivita Secondarie 
+       		    </f:facet>
+			<p:column sortBy="nome" headerText="Nome">
+				<h:outputText value="#{attivita.nome}" />
+			</p:column>
+
+			<p:column sortBy="costoGiornaliero" headerText="Costo">
+				<h:outputText value="#{attivita.costo} €" />
+			</p:column>
+
+			<p:column sortBy="luogo" headerText="Luogo">
+				<h:outputText value="#{attivita.localita}" />
+			</p:column>
+			<p:column sortBy="disponibilita" headerText="Posti disponibili">
+				<h:outputText value="#{attivita.disponibilita}" />
+			</p:column>
+
+
+		</p:dataTable>
 		
-		
+		<p:commandButton value="Cambia Attività" styleClass="btn btn-default"
+						actionListener="#{bookBean.goToCambiaAttivita(event,frontendBean.pacchetto)}" 
+						update=":form:dataTableAttivita2"			
+						/>
+
 		<div class="col-md-4 col-md-offset-2">
 			<p:calendar value="#{bookBean.date1}" mode="inline"
 									id="inlineCal1" mindate="#{frontendBean.pacchetto.inizioValidita}" maxdate="#{frontendBean.pacchetto.fineValidita}"/>
@@ -219,6 +244,43 @@
 
 
 		</p:dialog>
+
+
+		<p:dialog header="Attivita Secondarie" widgetVar="attivitaDialog2" resizable="false">
+
+			<p:dataTable id="dataTableAttivita2" var="attivita"
+				value="#{bookBean.listaAttivitaSecondarie}"
+				lazy="true">
+				<f:facet name="header">  
+                Elenco Attivita Secondarie 
+       		    </f:facet>
+				<p:column sortBy="nome" headerText="Nome">
+					<h:outputText value="#{attivita.nome}" />
+				</p:column>
+
+				<p:column sortBy="costoGiornaliero" headerText="Costo">
+					<h:outputText value="#{attivita.costo} €" />
+				</p:column>
+
+				<p:column sortBy="luogo" headerText="Luogo">
+					<h:outputText value="#{attivita.localita}" />
+				</p:column>
+				<p:column sortBy="disponibilita" headerText="Posti disponibili">
+					<h:outputText value="#{attivita.disponibilita}" />
+				</p:column>
+
+				<p:column>
+					<h:commandLink id="scegliAttivita" value="Scegli"
+						class="btn btn-danger white"
+						action="#{bookBean.scegliAttivita(action,attivita, frontendBean.pacchetto)}">
+						<f:ajax execute="scegliAttivita" render="dataTableAttivita2" />
+					</h:commandLink>
+				</p:column>
+				
+			</p:dataTable>
+
+		</p:dialog>
+
 
 
 	</h:form>

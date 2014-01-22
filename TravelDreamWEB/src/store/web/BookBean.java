@@ -23,6 +23,7 @@ import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.PrenotazioneDTO;
 import traveldream.dtos.VoloDTO;
+import traveldream.manager.AttivitaMng;
 import traveldream.manager.HotelMng;
 import traveldream.manager.PrenotazioneMng;
 import traveldream.manager.UtenteMrg;
@@ -43,6 +44,9 @@ public class BookBean implements Serializable {
 	@EJB
 	private HotelMng hotelMng;
 	
+	@EJB
+	private AttivitaMng attivitaMng;
+	
 	private int persone;
 	
 	private Date date1;
@@ -61,6 +65,8 @@ public class BookBean implements Serializable {
 	
 	private List<HotelDTO> hotelDisponibili;
 	
+	private List<AttivitaSecondariaDTO> listaAttivitaSecondarie;
+	
 
 	public BookBean(){
 		this.voloAndata = new VoloDTO();
@@ -68,6 +74,7 @@ public class BookBean implements Serializable {
 		this.listaVoliAndata = new ArrayList<VoloDTO>();
 		this.listaVoliRitorno = new ArrayList<VoloDTO>();
 		this.hotelDisponibili = new ArrayList<HotelDTO>();
+		this.listaAttivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
 		
 	}
 	
@@ -141,6 +148,14 @@ public class BookBean implements Serializable {
 
 	public void setHotelDisponibili(List<HotelDTO> hotelDisponibili) {
 		this.hotelDisponibili = hotelDisponibili;
+	}
+	
+	public List<AttivitaSecondariaDTO> getListaAttivitaSecondarie() {
+		return listaAttivitaSecondarie;
+	}
+
+	public void setListaAttivitaSecondarie(List<AttivitaSecondariaDTO> listaAttivitaSecondarie) {
+		this.listaAttivitaSecondarie = listaAttivitaSecondarie;
 	}
 	
 	
@@ -237,6 +252,26 @@ public class BookBean implements Serializable {
 		pacchetto.setHotel(hotel);
 		
 	}
+	
+	public void goToCambiaAttivita(ActionEvent event, PacchettoDTO pacchetto) {
+		this.listaAttivitaSecondarie = this.attivitaMng.getAttivitaCompatibiliPacchetto(pacchetto);
+		RequestContext.getCurrentInstance().execute("attivitaDialog2.show()");
+	}
+	
+	public void scegliAttivita(AjaxBehaviorEvent action, AttivitaSecondariaDTO attivita, PacchettoDTO pacchetto){
+		
+		System.out.println("scegli");
+		
+	 }
+	
+	public void eliminaAttivita(AjaxBehaviorEvent action, AttivitaSecondariaDTO attivita, PacchettoDTO pacchetto){
+		 
+		System.out.println("elimina");
+
+		
+	 }
+
+	
 
 	
 

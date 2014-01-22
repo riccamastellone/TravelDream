@@ -54,7 +54,7 @@ public class mailBean implements Serializable {
 		email.setFrom("traveldream@rmdesign.it");
 		email.setSubject("Mail dal sito");
 		email.setMsg("Nome " + nome + "\n\rTelefono " + telefono + "\n\rEmail "+ mail + "\n\r\n\r" + messaggio);
-		email.addTo("riccardo.mastellone@gmail.com");
+		//email.addTo("riccardo.mastellone@gmail.com");
 		email.addTo("seba0691@gmail.com");
 		email.send();
 		System.out.println("inviata"); 

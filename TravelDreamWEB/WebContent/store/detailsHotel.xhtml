@@ -25,12 +25,12 @@
 				<div class="left">
 					<ul class="bcrumbs">
 						<li>/</li>
-						<li><a href="#">Packages</a></li>
+						<li><a href="#">Hotel</a></li>
 						<li>/</li>
-						<li><a href="#" class="active">#{frontendBean.pacchetto.nome}</a></li>
+						<li><a href="#" class="active">#{frontendBean.hotel.nome}</a></li>
 					</ul>
 				</div>
-				<a class="backbtn right" href="#"></a>
+				<h:link class="backbtn right" outcome="/store/listHotel.xhtml" />
 			</div>
 			<div class="clearfix"></div>
 			<div class="brlines"></div>
@@ -39,11 +39,11 @@
 		<div class="container">
 			<div class="container pagecontainer offset-0">
 
-				<!-- Immagine Pacchetto -->
+				<!-- Immagine Hotel -->
 				<div class="col-md-8 immagine-pacchetto">
 					<p:graphicImage cache="false"
 						value="#{frontendBean.generateImage()}">
-						<f:param name="img" value="#{frontendBean.pacchetto.immagine}" />
+						<f:param name="img" value="#{frontendBean.hotel.pathtoImage}" />
 						<f:param name="width" value="759" />
 						<f:param name="height" value="500" />
 					</p:graphicImage>
@@ -53,27 +53,32 @@
 				<!-- RIGHT INFO -->
 				<div class="col-md-4 detailsright offset-0">
 					<div class="padding20">
-						<h3 class="lh1">#{frontendBean.pacchetto.nome}</h3>
-						<!-- <h:graphicImage library="store"
-							name="#{frontendBean.getStarsImage(frontendBean.pacchetto.hotel.stelle)}"
-							alt="" /> -->
+						<h3 class="lh1">#{frontendBean.hotel.nome}</h3>
+						<h:graphicImage library="store"
+							name="#{frontendBean.getStarsImage(frontendBean.hotel.stelle)}"
+							alt="" />
 					</div>
 
 					<div class="line3"></div>
 
-					<div style="color: #999; padding: 20px;">
+					<div style="color: #999;" class="padding20">
 						<h:outputText
-							value="#{frontendBean.nl2br(frontendBean.pacchetto.descrizione)}"
+							value="#{frontendBean.nl2br(frontendBean.hotel.descrizione)}"
 							escape="false" />
 					</div>
 					<div class="line3"></div>
+					<div class="padding20" style="color: #999;">
+						<p>Location: #{frontendBean.hotel.luogo}</p>
+						<div class="line2"></div>
+						<p>Availability: #{frontendBean.hotel.disponibilita}</p>
+						<div class="line2"></div>
+						<p>Daily cost: #{frontendBean.hotel.costoGiornaliero} €</p>
+					</div>
 
 					<div class="clearfix"></div>
-					<br />
 
 					<div class="padding20">
-						<a href="#" class="sharebtn margtop5">Send to friend</a> <a
-							href="#" class="add2fav margtop5">Add to whish list</a>
+						<a href="#" class="sharebtn margtop5">Send to friend</a>
 						<h:link outcome="bookNew" class="booknow margtop20 btnmarg">Book now</h:link>
 					</div>
 				</div>
@@ -82,196 +87,6 @@
 			</div>
 			<!-- END OF container-->
 
-			<div class="container mt25 offset-0">
-
-				<div class="col-md-8 pagecontainer2 offset-0">
-					<div class="cstyle10"></div>
-
-					<ul class="nav nav-tabs" id="myTab">
-
-						<li onclick="mySelectUpdate()" class="active"><a
-							data-toggle="tab" href="#hotel"><span class="summary"></span><span
-								class="hidetext">Hotel</span>&nbsp;</a></li>
-
-						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
-							href="#flights"><span class="rates"></span><span
-								class="hidetext">Flights</span>&nbsp;</a></li>
-
-						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
-							href="#thingstodo"><span class="thingstodo"></span><span
-								class="hidetext">Things to do</span>&nbsp;</a></li>
-
-					</ul>
-					<div class="tab-content4">
-
-						<!-- TAB 1 -->
-						<div id="hotel" class="tab-pane fade active in">
-							<p:graphicImage cache="false" style="width:379px;float:right;"
-								value="#{frontendBean.generateImage()}">
-								<f:param name="img" value="#{frontendBean.pacchetto.hotel.pathtoImage}" />
-								<f:param name="width" value="759" />
-								<f:param name="height" value="500" />
-							</p:graphicImage>
-							<div class="hpadding20">
-								<p class="lato size30 slim">#{frontendBean.pacchetto.hotel.nome}</p>
-								<h:graphicImage library="store"
-									name="#{frontendBean.getStarsImage(frontendBean.pacchetto.hotel.stelle)}"
-									alt="" />
-							</div>
-							
-							<div class="line4"></div>
-
-							<div class="hpadding20">
-								<p>#{frontendBean.pacchetto.hotel.descrizione}</p>
-								<div class="line4"></div>
-
-								<p class="lato size22 slim">Details</p>
-
-								<p>Location: #{frontendBean.pacchetto.hotel.luogo}</p>
-								<p>Availability:
-									#{frontendBean.pacchetto.hotel.disponibilita}</p>
-								<p>Daily cost:
-									#{frontendBean.pacchetto.hotel.costoGiornaliero} €</p>
-
-							</div>
-						</div>
-
-						<!-- TAB 2 -->
-
-						<div id="flights" class="tab-pane fade ">
-							<div class="hpadding20">
-								<p class="dark">
-									<p:dataTable id="displayAndata" var="volo"
-										value="#{frontendBean.pacchetto.voliAndata}">
-										<f:facet name="header"> Andata </f:facet>
-										<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
-											<h:outputText value="#{volo.nomeCompagnia}" />
-										</p:column>
-
-										<p:column sortBy="cittaPartenza"
-											headerText="Città di partenza">
-											<h:outputText value="#{volo.cittaPartenza}" />
-										</p:column>
-
-										<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-											<h:outputText value="#{volo.cittaArrivo}" />
-										</p:column>
-
-										<p:column sortBy="partenza" headerText="Data di Partenza">
-											<h:outputText value="#{volo.partenza}">
-												<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-											</h:outputText>
-										</p:column>
-
-										<p:column sortBy="arrivo" headerText="Data di arrivo">
-											<h:outputText value="#{volo.arrivo}">
-												<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-											</h:outputText>
-										</p:column>
-
-										<p:column sortBy="disponibilita"
-											headerText="Posti disponibili">
-											<h:outputText value="#{volo.disponibilita}" />
-
-
-										</p:column>
-
-										<p:column sortBy="costo" headerText="Prezzo">
-											<h:outputText value="#{volo.costo} €" />
-										</p:column>
-
-
-
-									</p:dataTable>
-
-									<p:dataTable id="displayRitorno" var="volo_r"
-										value="#{frontendBean.pacchetto.voliRitorno}">
-										<f:facet name="header">Ritorno</f:facet>
-										<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
-											<h:outputText value="#{volo_r.nomeCompagnia}" />
-										</p:column>
-
-										<p:column sortBy="cittaPartenza"
-											headerText="Città di partenza">
-											<h:outputText value="#{volo_r.cittaPartenza}" />
-										</p:column>
-
-										<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-											<h:outputText value="#{volo_r.cittaArrivo}" />
-										</p:column>
-
-										<p:column sortBy="partenza" headerText="Data di Partenza">
-											<h:outputText value="#{volo_r.partenza}">
-												<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-											</h:outputText>
-										</p:column>
-
-										<p:column sortBy="arrivo" headerText="Data di arrivo">
-											<h:outputText value="#{volo_r.arrivo}">
-												<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-											</h:outputText>
-										</p:column>
-
-										<p:column sortBy="disponibilita"
-											headerText="Posti disponibili">
-											<h:outputText value="#{volo_r.disponibilita}" />
-
-
-										</p:column>
-
-										<p:column sortBy="costo" headerText="Prezzo">
-											<h:outputText value="#{volo_r.costo} €" />
-										</p:column>
-
-									</p:dataTable>
-								</p>
-							</div>
-						</div>
-
-
-
-
-						<!-- TAB 3 -->
-						<div id="thingstodo" class="tab-pane fade">
-							<p class="hpadding20">These are the Things to Do available in
-								this package</p>
-
-							<ui:repeat var="attivita"
-								value="#{frontendBean.pacchetto.attivitaSecondarie}">
-								<div class="line4"></div>
-								<div class="hpadding20">
-									<h3 class="lato size22">#{attivita.nome}</h3>
-									<p>
-										Cost: #{attivita.costo} €<br /> Availability:
-										#{attivita.disponibilita}<br /> Where: #{attivita.localita}
-									</p>
-								</div>
-
-							</ui:repeat>
-
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4">
-
-
-					<div class="pagecontainer2 needassistancebox">
-						<div class="cpadding1">
-							<span class="icon-help"></span>
-							<h3 class="opensans">Need Assistance?</h3>
-							<p class="size14 grey">We are available 24/7 to help you
-								build your dream travel</p>
-							<p class="opensans size30 green xslim">(+39) 800-5996674</p>
-						</div>
-					</div>
-					<br />
-
-
-				</div>
-			</div>
-
-
 
 		</div>
 
@@ -279,6 +94,12 @@
 		<h:outputScript library="store" name="js/functions.js" />
 		<h:outputScript library="store" name="js/js-details.js" />
 		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
+		<script>
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(3)').addClass('active');
+			});
+		</script>
 
 	</ui:define>
 

@@ -28,7 +28,7 @@
 						<li><a href="#" class="active">Hotels</a></li>
 					</ul>
 				</div>
-				<a class="backbtn right" href="#"></a>
+				<h:link class="backbtn right" outcome="/store/home.xhtml" />
 			</div>
 			<div class="clearfix"></div>
 			<div class="brlines"></div>
@@ -157,7 +157,7 @@
 											<br /> <br /> <span class="green size18"><b>#{hotel.costoGiornaliero}
 													€</b></span> <br /> <span class="size11 grey">avg/night</span> <br />
 											<br /> <br />
-											<h:link outcome="/store/details.xhtml">
+											<h:link outcome="/store/detailsHotel.xhtml">
 												<f:param name="id" value="#{hotel.id}" />
 												<button class="bookbtn mt1" type="submit">Select</button>
 											</h:link>

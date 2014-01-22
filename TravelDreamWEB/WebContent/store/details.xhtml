@@ -30,7 +30,7 @@
 						<li><a href="#" class="active">#{frontendBean.pacchetto.nome}</a></li>
 					</ul>
 				</div>
-				<a class="backbtn right" href="#"></a>
+				<h:link class="backbtn right" outcome="/store/list.xhtml" />
 			</div>
 			<div class="clearfix"></div>
 			<div class="brlines"></div>
@@ -108,7 +108,8 @@
 						<div id="hotel" class="tab-pane fade active in">
 							<p:graphicImage cache="false" style="width:379px;float:right;"
 								value="#{frontendBean.generateImage()}">
-								<f:param name="img" value="#{frontendBean.pacchetto.hotel.pathtoImage}" />
+								<f:param name="img"
+									value="#{frontendBean.pacchetto.hotel.pathtoImage}" />
 								<f:param name="width" value="759" />
 								<f:param name="height" value="500" />
 							</p:graphicImage>
@@ -118,7 +119,7 @@
 									name="#{frontendBean.getStarsImage(frontendBean.pacchetto.hotel.stelle)}"
 									alt="" />
 							</div>
-							
+
 							<div class="line4"></div>
 
 							<div class="hpadding20">
@@ -279,6 +280,12 @@
 		<h:outputScript library="store" name="js/functions.js" />
 		<h:outputScript library="store" name="js/js-details.js" />
 		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
+		<script>
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(2)').addClass('active');
+			});
+		</script>
 
 	</ui:define>
 

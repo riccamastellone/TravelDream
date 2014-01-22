@@ -46,6 +46,8 @@ public interface HotelMng {
 	 * @throws ParseException
 	 */
 	public HotelDTO aggiungiHotelAPacchetto(HotelDTO hotel) throws ParseException;
+
+	public HotelDTO findHotelDTO(int id);
 	
 
 

@@ -13,6 +13,11 @@
 		<view-id value="/store/details.xhtml" />
 	</url-mapping>
 	
+	<url-mapping id="dettaglio-hotel">
+		<pattern value="/store/hotel/details/#{id : frontendBean.idHotel}" />
+		<view-id value="/store/detailsHotel.xhtml" />
+	</url-mapping>
+	
 	<url-mapping id="book">
 		<pattern value="/store/package/book" />
 		<view-id value="/store/book.xhtml" />

@@ -54,12 +54,16 @@ public class FrontendBean implements Serializable {
 	private ArrayList<String> depCities;
 
 	private ArrayList<String> arrCities;
-
+	
+	// carichiamo qua dentro l id pacchetto per il dettaglio
 	private int idPacchetto;
 
 	private PacchettoDTO pacchetto;
 	
-
+	// carichiamo qua l id hotel per il dettaglio
+	private int idHotel;
+	
+	private HotelDTO hotel;
 	
 	
 		
@@ -220,6 +224,18 @@ public class FrontendBean implements Serializable {
 		pacchetto = pkgMng.findPacchettoDTO(this.idPacchetto);
 
 	}
+	
+	/**
+	 * Quando Pretty Faces chiama questo metodo per settare l'id, carichiamo
+	 * anche l hotel corrispondente
+	 * 
+	 * @param idPacchetto
+	 */
+	public void setIdHotel(int idHotel) {
+		this.idHotel = idHotel;
+		hotel = hotelMng.findHotelDTO(idHotel);
+
+	}
 
 	public PacchettoDTO getPacchetto() {
 		return pacchetto;
@@ -266,6 +282,18 @@ public class FrontendBean implements Serializable {
 	    }
 	    
 	   
+	}
+
+	public int getIdHotel() {
+		return idHotel;
+	}
+
+	public HotelDTO getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(HotelDTO hotel) {
+		this.hotel = hotel;
 	}
 	
 	

@@ -11,8 +11,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import model.Hotel;
+import model.Pacchetto;
 import model.Volo;
 import traveldream.dtos.HotelDTO;
+import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.HotelMng;
 
@@ -131,10 +133,17 @@ public class HotelMngBean implements HotelMng{
 		myList = em.createNamedQuery("Hotel.getHotelCompatibiliPacchetto", Hotel.class).setParameter("luogo", luogo).getResultList();
 		for (Hotel h : myList)
 		    {
-			 myDTOlist.add(this.HotelToDTO(h));
+			 myDTOlist.add(HotelToDTO(h));
 		    }
 		return myDTOlist;
 		
+	}
+	
+	public HotelDTO findHotelDTO(int id) {
+		
+		Hotel hotel = this.findHotel(id);
+		HotelDTO hotelDTO = HotelToDTO(hotel);
+		return hotelDTO;
 	}
 
 

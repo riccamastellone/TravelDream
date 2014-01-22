@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
 <ui:composition template="../template.xhtml">
 
@@ -39,12 +40,14 @@
 
 									<div class="col-md-4">
 
-										<span class="opensans size24 slim">Contact</span> <h:inputText
-											type="text" placeholder="Name" value="#{mailBean.nome}"
-											class="form-control logpadding margtop10" /> <h:inputText
-											type="text" placeholder="Phone" value="#{mailBean.telefono}"
+										<span class="opensans size24 slim">Contact</span> 
+										<h:inputText
+											id="keyyy" value="#{mailBean.nome}"
+											class="form-control logpadding margtop10" p:placeholder="Name"/> 
+											<h:inputText
+											type="text" p:placeholder="Phone" value="#{mailBean.telefono}"
 											class="form-control logpadding margtop20" /> <h:inputText
-											type="text" placeholder="E-mail" value="#{mailBean.mail}"
+											type="text" p:placeholder="E-mail" value="#{mailBean.mail}"
 											class="form-control logpadding margtop20" />
 									</div>
 									<div class="col-md-4">

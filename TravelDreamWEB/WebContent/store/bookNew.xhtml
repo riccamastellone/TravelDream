@@ -392,8 +392,19 @@
 					
 					
 				</p:dataTable>
+				
+				<h:commandLink id="prenotaTutto" value="Scegli"
+						class="btn btn-danger white"
+						action="#{bookBean.prenota(frontendBean.pacchetto)}">
+						<p:ajax execute="prenotaTutto"  />
+				</h:commandLink>
+				
+				<!--  
+				<p:commandButton value="Prenota" styleClass="btn btn-default"
+				action="#{bookBean.prenota(frontendBean.pacchetto)}"
+				process="@this,form"/>
 	
-
+				-->
 			</h:form>
 			
 			<!--  

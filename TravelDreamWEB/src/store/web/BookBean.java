@@ -240,7 +240,7 @@ public class BookBean implements Serializable {
 	}
 	
 	public String prenota(PacchettoDTO pacchetto){
-		//System.out.println("tastopremuto");
+		System.out.println("tastopremuto");
 		//System.out.println(this.voloAndata.getCittaArrivo());
 		if (this.voloAndata == null || this.voloRitorno == null){
 			RequestContext.getCurrentInstance().execute("errorDialog.show()");

@@ -48,7 +48,7 @@ public class BookBean implements Serializable {
 	@EJB
 	private AttivitaMng attivitaMng;
 	
-	private int persone;
+	private int persone = 1;
 	
 	private Date date1;
 	
@@ -269,15 +269,7 @@ public class BookBean implements Serializable {
 			}
 		
 		}
-		/*
-		for (AttivitaSecondariaDTO attivitaPacchetto : pacchetto.getAttivitaSecondarie()) {
-			for (AttivitaSecondariaDTO attivitaEsistente : this.listaAttivitaSecondarie) {
-				if (attivitaPacchetto.getId() == attivitaEsistente.getId()){
-					this.listaAttivitaSecondarie.remove(attivitaEsistente);
-				}
-			}
-		}
-		*/
+		
 		
 		RequestContext.getCurrentInstance().execute("attivitaDialog2.show()");
 	}
@@ -292,6 +284,8 @@ public class BookBean implements Serializable {
 	
 	public void eliminaAttivita(AjaxBehaviorEvent action, AttivitaSecondariaDTO attivita, PacchettoDTO pacchetto){
 		 
+		this.listaAttivitaSecondarie.add(attivita);
+		pacchetto.getAttivitaSecondarie().remove(attivita);
 		System.out.println("elimina");
 
 		

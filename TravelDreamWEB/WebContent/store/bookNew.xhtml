@@ -72,6 +72,14 @@
 			<p:column sortBy="disponibilita" headerText="Posti disponibili">
 				<h:outputText value="#{attivita.disponibilita}" />
 			</p:column>
+			
+			<p:column>
+					<h:commandLink id="eliminaAttivita" value="Scegli"
+						class="btn btn-danger white"
+						action="#{bookBean.eliminaAttivita(action,attivita, frontendBean.pacchetto)}">
+						<p:ajax execute="eliminaAttivita"  update="dataTableAttivita,:form:dataTableAttivita2" />
+					</h:commandLink>
+			</p:column>
 
 
 		</p:dataTable>

@@ -273,7 +273,7 @@
 					<h:commandLink id="scegliAttivita" value="Scegli"
 						class="btn btn-danger white"
 						action="#{bookBean.scegliAttivita(action,attivita, frontendBean.pacchetto)}">
-						<p:ajax execute="scegliAttivita" render="dataTableAttivita2" update=":form:dataTableAttivita" />
+						<p:ajax execute="scegliAttivita"  update=":form:dataTableAttivita,dataTableAttivita2" />
 					</h:commandLink>
 				</p:column>
 				

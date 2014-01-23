@@ -298,9 +298,8 @@ public class PacchettoMngBean implements PacchettoMng {
 
 	@Override
 	public List<PacchettoDTO> ricercaPacchetto(String destinazione, Date partenza, Date ritorno, int persone) {
-		// TODO Auto-generated method stub
-		System.out.println("sono qui");
-		List<Pacchetto> lista = em.createNamedQuery("Pacchetto.Ricerca", Pacchetto.class).setParameter("localita", destinazione).getResultList();
+		
+		List<Pacchetto> lista = em.createNamedQuery("Pacchetto.Ricerca", Pacchetto.class).setParameter("localita", "%"+destinazione+"%").getResultList();
 		List<PacchettoDTO> pacchettiDTO = new ArrayList<PacchettoDTO>();
 		
 		//tolgo i paccheti non validi eliminando quelli che non hanno l hotel disponibile per il numero di persone scelte e che non sono nel range di date scelte

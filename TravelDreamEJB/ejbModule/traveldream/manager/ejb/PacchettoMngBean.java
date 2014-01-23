@@ -302,56 +302,83 @@ public class PacchettoMngBean implements PacchettoMng {
 		System.out.println("sono qui");
 		List<Pacchetto> lista = em.createNamedQuery("Pacchetto.Ricerca", Pacchetto.class).setParameter("localita", destinazione).getResultList();
 		List<PacchettoDTO> pacchettiDTO = new ArrayList<PacchettoDTO>();
-		//tolgo i pacchetti non validi e scremo i voli e le attivita
 		
+		//tolgo i paccheti non validi eliminando quelli che non hanno l hotel disponibile per il numero di persone scelte e che non sono nel range di date scelte
+		for (Iterator<Pacchetto> pacchettiIterator = lista.iterator(); pacchettiIterator.hasNext();) {
+			Pacchetto pacchetto = pacchettiIterator.next();
+			if ((pacchetto.getInizioValidita().after(partenza) || pacchetto.getFineValidita().before(ritorno)) || (pacchetto.getHotel().getDisponibilita() < persone) ){
+				System.out.println(pacchetto.getNome());
+				pacchettiIterator.remove();
+			}
+		}
+		System.out.println("------ Pacchetti rimanenti ----");
+		for (Pacchetto pacchetto : lista) {
+			System.out.println(pacchetto.getNome());
+		}
+		
+		for (Pacchetto pacchetto : lista) {
+			
+			PacchettoDTO pacchettoDTO = this.convertToDto(pacchetto);
+			
+			pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
+			
+			//tolgo le attivita che non hanno abbastanza posti disponibili
+			List<AttivitaSecondariaPacchetto> attivitaSecondariaPacchetto = pacchetto.getAttivitaSecondariePacchetto();
+			for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto2 : attivitaSecondariaPacchetto) {
+				if (attivitaSecondariaPacchetto2.getAttivitaSecondariaBean().getDisponibilita() >= persone){
+					pacchettoDTO.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto2.getAttivitaSecondariaBean()));
+				}
+			}
+		
+		//se l utente ha cercato anche le date restituisco solo i voli compatibili con le date scelte	
 		if (!partenza.equals(ritorno)){
 			
 			System.out.println("entrato");
-			
-			//tolgo i paccheti non validi eliminando quelli che non hanno l hotel disponibile per il numero di persone scelte e che non sono nel range di date scelte
-			for (Iterator<Pacchetto> pacchettiIterator = lista.iterator(); pacchettiIterator.hasNext();) {
-				Pacchetto pacchetto = pacchettiIterator.next();
-				if ((pacchetto.getInizioValidita().after(partenza) || pacchetto.getFineValidita().before(ritorno)) || (pacchetto.getHotel().getDisponibilita() < persone) ){
-					System.out.println(pacchetto.getNome());
-					pacchettiIterator.remove();
-				}
-			}
-			System.out.println("------ Pacchetti rimanenti ----");
-			for (Pacchetto pacchetto : lista) {
-				System.out.println(pacchetto.getNome());
-			}
-			
-			for (Pacchetto pacchetto : lista) {
-				
-				PacchettoDTO pacchettoDTO = this.convertToDto(pacchetto);
-				
-				
-				if (pacchetto.getHotel().getDisponibilita() < persone){
-					continue;
-				}
-				else {
-					pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
-				}
-				
+
 				List<VoloPacchetto> voliPacchetto = pacchetto.getVoliPacchetto();
+				
+				
 				for (VoloPacchetto voloPacchetto : voliPacchetto) {
+					//controllo il range delle date sui voli di andata e che i posti disponibii siano sufficienti
 					if (voloPacchetto.getTipo().equals("Andata") && (voloPacchetto.getVolo().getPartenza().after(partenza) || voloPacchetto.getVolo().getPartenza().equals(partenza)) && 
 							(voloPacchetto.getVolo().getPartenza().before(ritorno)) && (voloPacchetto.getVolo().getDisponibilita() >= persone) ){
 						pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
 					}
+					//controllo il range delle date sui voli di ritorno e che i posti disponibii siano sufficienti
 					if (voloPacchetto.getTipo().equals("Ritorno") && (voloPacchetto.getVolo().getPartenza().before(ritorno) || voloPacchetto.getVolo().getPartenza().equals(ritorno)) && 
 							(voloPacchetto.getVolo().getPartenza().after(partenza)) && (voloPacchetto.getVolo().getDisponibilita() >= persone)){
 						pacchettoDTO.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
 					}
 				}
+
+				//se almeno una lista di componenti e vuota non restitutisco il pacchetto
+				if (pacchettoDTO.getVoliAndata().isEmpty() || pacchettoDTO.getVoliRitorno().isEmpty() || pacchettoDTO.getAttivitaSecondarie().isEmpty() ){
+					continue;
+				}
+				//altrimenti lo aggiungo ai risultati della ricerca
+				else {
+					pacchettiDTO.add(pacchettoDTO);
+				}
+	
+			} //CHIUDO IF
+
+			//se l utente non ha cercato per data mi limito a scremare i voli per disponibilita
+			else{
+				System.out.println("entro else");
 				
-				List<AttivitaSecondariaPacchetto> attivitaSecondariaPacchetto = pacchetto.getAttivitaSecondariePacchetto();
-				for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto2 : attivitaSecondariaPacchetto) {
-					if (attivitaSecondariaPacchetto2.getAttivitaSecondariaBean().getDisponibilita() >= persone){
-						pacchettoDTO.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto2.getAttivitaSecondariaBean()));
+				List<VoloPacchetto> voliPacchetto = pacchetto.getVoliPacchetto();
+				for (VoloPacchetto voloPacchetto : voliPacchetto) {
+					if (voloPacchetto.getTipo().equals("Andata")  && 
+							(voloPacchetto.getVolo().getDisponibilita() >= persone) ){
+						pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+					}
+					if (voloPacchetto.getTipo().equals("Ritorno") && 
+							(voloPacchetto.getVolo().getDisponibilita() >= persone)){
+						pacchettoDTO.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
 					}
 				}
-				
+
+				//se almeno una lista di componenti e vuota non restitutisco il pacchetto
 				if (pacchettoDTO.getVoliAndata().isEmpty() || pacchettoDTO.getVoliRitorno().isEmpty() || pacchettoDTO.getAttivitaSecondarie().isEmpty() ){
 					continue;
 				}
@@ -359,47 +386,33 @@ public class PacchettoMngBean implements PacchettoMng {
 					pacchettiDTO.add(pacchettoDTO);
 				}
 				
-				
+			}// CHIUDO ELSE
+		
+		}//CHIUDO FOR
+		
+		
+		//DEBUG
+		System.out.println(pacchettiDTO.size());
+		for (PacchettoDTO pacchettoDTO : pacchettiDTO) {
+			System.out.println(pacchettoDTO.getHotel());
+			System.out.println("------ VOLI ANDATA ------");
+			for (VoloDTO voloDTO : pacchettoDTO.getVoliAndata()) {
+				System.out.println(voloDTO.getNomeCompagnia());
 			}
-			
-			for (PacchettoDTO pacchettoDTO : pacchettiDTO) {
-				System.out.println(pacchettoDTO.getHotel());
-				System.out.println("------ VOLI ANDATA ------");
-				for (VoloDTO voloDTO : pacchettoDTO.getVoliAndata()) {
-					System.out.println(voloDTO.getNomeCompagnia());
-				}
-				System.out.println("------ VOLI RITORNO ------");
-				for (VoloDTO voloDTO : pacchettoDTO.getVoliRitorno()) {
-					System.out.println(voloDTO.getNomeCompagnia());
-				}
-				System.out.println("------ ATTIVITA ------");
-				for (AttivitaSecondariaDTO att : pacchettoDTO.getAttivitaSecondarie()) {
-					System.out.println(att.getNome());
-				}
-				
+			System.out.println("------ VOLI RITORNO ------");
+			for (VoloDTO voloDTO : pacchettoDTO.getVoliRitorno()) {
+				System.out.println(voloDTO.getNomeCompagnia());
 			}
-			
-			return pacchettiDTO;
-			
-			
-			
+			System.out.println("------ ATTIVITA ------");
+			for (AttivitaSecondariaDTO att : pacchettoDTO
+					.getAttivitaSecondarie()) {
+				System.out.println(att.getNome());
+			}
+
 		}
-		
-		else {
-			
-			for (Iterator<Pacchetto> pacchettiIterator = lista.iterator(); pacchettiIterator.hasNext();) {
-				Pacchetto pacchetto = pacchettiIterator.next();
-				if ( (pacchetto.getHotel().getDisponibilita() < persone) ){
-					pacchettiIterator.remove();
-				}
-			}
-			
-			return this.buildPacchetti(lista);
-			
-		}
-		
-		
-		
+
+		return pacchettiDTO;
+					
 	}
 	
 

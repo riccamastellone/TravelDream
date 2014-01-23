@@ -152,7 +152,6 @@ public class FrontendBean implements Serializable {
 		System.out.println("Giorni di differenza: " + diffDays);
 
 		HotelDTO hotel = pacchetto.getHotel();
-		System.out.println(hotel);
 		float hotelCosto = hotel.getCostoGiornaliero() * diffDays;
 
 		float totalePacchetto = hotelCosto + voloAndataCosto + voloRitornoCosto;

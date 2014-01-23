@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -9,8 +10,9 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="ListaDesisderi.findAll", query="SELECT l FROM ListaDesisderi l")
-public class ListaDesisderi implements Serializable {
+@Table(name = "ListaDesideri")
+@NamedQuery(name="ListaDesideri.findAll", query="SELECT l FROM ListaDesideri l")
+public class ListaDesideri implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -27,7 +29,14 @@ public class ListaDesisderi implements Serializable {
 	@JoinColumn(name="utente")
 	private Utente utente;
 
-	public ListaDesisderi() {
+	public ListaDesideri() {
+	}
+	
+	public ListaDesideri(Pacchetto pacchetto, Utente utente ) {
+		
+		this.utente = utente;
+		this.pacchetto = pacchetto;
+		
 	}
 
 	public int getId() {

@@ -72,8 +72,12 @@
 					<br />
 
 					<div class="padding20">
-						<a href="#" class="sharebtn margtop5">Send to friend</a> <a
-							href="#" class="add2fav margtop5">Add to whish list</a>
+						<a href="#" class="sharebtn margtop5">Send to friend</a> 
+						<h:form>
+							<h:commandLink id="addAListaDesideri" class="add2fav margtop5" value="Add to whish list" action="#{listaDesideriBean.addAListaDesideri(frontendBean.pacchetto)}" >
+						    	<f:ajax execute="addAListaDesideri" />
+							</h:commandLink>
+						</h:form>
 						<h:link outcome="book" class="booknow margtop20 btnmarg">Book now</h:link>
 					</div>
 				</div>

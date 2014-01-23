@@ -41,7 +41,7 @@ public class PacchettoMngBean implements PacchettoMng {
 		// TODO Auto-generated constructor stub
 	}
 
-	private PacchettoDTO convertToDto(Pacchetto pacchetto) {
+	protected static PacchettoDTO convertToDto(Pacchetto pacchetto) {
 		PacchettoDTO p = new PacchettoDTO();
 		p.setId(pacchetto.getId());
 		p.setDescrizione(pacchetto.getDescrizione());

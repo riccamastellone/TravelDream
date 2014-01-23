@@ -2,7 +2,7 @@ package store.web;
 
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,11 +30,14 @@ public class PacchettoFrontBean implements Serializable {
 	private int persone = 1;
 	
 	public PacchettoFrontBean(){
+		
+		this.pacchetti = new ArrayList<PacchettoDTO>();
 	}
 	
 	
 	public List<PacchettoDTO> getPacchetti() {
 
+		
 		if (this.pacchetti.isEmpty()){
 			  this.pacchetti = pkgMng.getAllPacchetti();
 		}
@@ -43,7 +46,20 @@ public class PacchettoFrontBean implements Serializable {
 	}
 	
 	public void refresh() {
+		if (destinazione.equals("")){
+			this.destinazione="%";
+		}
+		
+		this.pacchetti = new ArrayList<PacchettoDTO>();
+		
+		this.pacchetti = this.pkgMng.ricercaPacchetto(this.destinazione);
 		System.out.println("DDD" + destinazione);
+		for (PacchettoDTO pacchettoDTO : this.pacchetti) {
+			System.out.println(pacchettoDTO.getNome());
+		}
+		
+		
+		
 	}
 
 

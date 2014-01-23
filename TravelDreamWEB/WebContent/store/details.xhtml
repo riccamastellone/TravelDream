@@ -17,7 +17,8 @@
 
 
 		<ui:include src="header.xhtml" />
-
+		
+	
 
 		<div class="container breadcrub">
 			<div>
@@ -75,14 +76,8 @@
 						<a href="#" class="sharebtn margtop5">Send to friend</a> 
 						<h:form>
 							<h:commandLink id="addAListaDesideri" class="add2fav margtop5" value="Add to whish list" action="#{listaDesideriBean.addAListaDesideri(frontendBean.pacchetto)}" >
-						    	<f:ajax execute="addAListaDesideri" />
+						    	<f:ajax execute="addAListaDesideri" update="messages" />
 							</h:commandLink>
-							
-							<p:dialog header="Added" widgetVar="okDialog" resizable="false">
-								<p:panel>
-									<h:outputText value="This package has been added to your gift list" />
-								</p:panel>
-							</p:dialog>
 							
 						</h:form>
 						<h:link outcome="book" class="booknow margtop20 btnmarg">Book now</h:link>

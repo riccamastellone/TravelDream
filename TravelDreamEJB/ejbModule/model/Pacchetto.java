@@ -21,7 +21,9 @@ import java.util.List;
 	
 	@NamedQuery(name = "Pacchetto.findAll", query = "SELECT p FROM Pacchetto p Where p.eliminato != 1"),
 	
-	@NamedQuery(name= "Pacchetto.selectMax", query= "SELECT p FROM Pacchetto p WHERE p.id = (SELECT max(p.id) FROM Pacchetto p)")
+	@NamedQuery(name= "Pacchetto.selectMax", query= "SELECT p FROM Pacchetto p WHERE p.id = (SELECT max(p.id) FROM Pacchetto p)"),
+	
+	@NamedQuery(name="Pacchetto.Ricerca", query="SELECT p FROM Pacchetto p Where p.eliminato !=1 AND p.localita Like :localita"),
 	
 })
 public class Pacchetto implements Serializable {

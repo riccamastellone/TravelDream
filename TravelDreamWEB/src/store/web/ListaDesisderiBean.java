@@ -3,6 +3,7 @@ package store.web;
 import java.io.Serializable;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -10,6 +11,9 @@ import javax.faces.bean.SessionScoped;
 
 
 
+
+
+import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 
@@ -41,7 +45,6 @@ public class ListaDesisderiBean implements Serializable{
 		lista.setUtente(this.userMgr.getUserDTO());
 		lista.setPacchetto(pacchetto);
 		this.listaDesideriMng.addAListaDesideri(lista);
-		RequestContext.getCurrentInstance().execute("okDialog.show()");
 		System.out.println(pacchetto.getNome());
 		
 	}

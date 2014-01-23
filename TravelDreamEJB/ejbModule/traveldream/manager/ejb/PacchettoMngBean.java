@@ -9,7 +9,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-
 import model.AttivitaSecondaria;
 import model.AttivitaSecondariaPacchetto;
 import model.Hotel;
@@ -290,6 +289,14 @@ public class PacchettoMngBean implements PacchettoMng {
 		
 		em.merge(pacchetto);
 		System.out.println("aggiorno pacchetto");
+		
+	}
+
+	@Override
+	public List<PacchettoDTO> ricercaPacchetto(String destinazione) {
+		// TODO Auto-generated method stub
+		List<Pacchetto> lista = em.createNamedQuery("Pacchetto.Ricerca", Pacchetto.class).setParameter("localita", destinazione).getResultList(); 
+		return this.buildPacchetti(lista);
 		
 	}
 	

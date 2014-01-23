@@ -80,4 +80,6 @@ public interface PacchettoMng {
 	 */
 	public void deletePacchetto(PacchettoDTO pacchetto);
 	
+	public List<PacchettoDTO> ricercaPacchetto(String destinazione);
+	
 }

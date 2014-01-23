@@ -19,7 +19,7 @@
 		<ui:include src="header.xhtml" />
 
 
-		
+
 		<div class="container breadcrub">
 			<div>
 				<a class="homebtn left" href="#"></a>
@@ -36,165 +36,247 @@
 			<div class="clearfix"></div>
 			<div class="brlines"></div>
 		</div>
-		<h:form id="form">
-		
-		<div class="container">
-			<div class="container pagecontainer2 offset-0">
-				<div class="hpadding50c">
-					<p class="lato size30 slim">Book your vacation!</p>
-					<p class="lato slim">Fill in some info of
-						yours and we'll take care of everything!</p>
-					<p class="aboutarrow"></p>
-				</div>
-				
-				
-				<div class="line3"></div>
+		<h:form id="booking-form">
 
-				<div class="hpadding50c">
+			<div class="container">
+				<div class="container pagecontainer2 offset-0">
+					<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+					<div class="hpadding50c">
+						<p class="lato size30 slim">Book your vacation!</p>
+						<p class="lato slim">Fill in some info of yours and we'll take
+							care of everything!</p>
+						<p class="aboutarrow"></p>
+					</div>
 
-					
-					<div class="col-md-12 offset-0">
-						<div id="select-people" class="textcenter">
-							<p class="lato size22 slim">How many people travelling?</p>
-							<p:selectOneRadio id="persone" style="margin:0 auto" value="#{bookBean.persone}">
-								<f:selectItem itemLabel="1" itemValue="1" />
-								<f:selectItem itemLabel="2" itemValue="2" />
-								<f:selectItem itemLabel="3" itemValue="3" />
-								<f:selectItem itemLabel="4" itemValue="4" />
-								<f:selectItem itemLabel="5" itemValue="5" />
-								<f:selectItem itemLabel="6" itemValue="6" />
-							</p:selectOneRadio>
-						</div>
-						<br />
-						<div class="line2"></div>
-						<br />
-						<div id="select-dates" class="textcenter">
-							<p class="lato size22 slim">Which dates where you thinking of?</p>
-							<div class="col-md-4 col-md-offset-2">
-								<p:calendar value="#{bookBean.date1}" mode="inline"
-									id="inlineCal1" mindate="#{frontendBean.pacchetto.inizioValidita}" maxdate="#{frontendBean.pacchetto.fineValidita}"/>
+
+					<div class="line3"></div>
+
+					<div class="hpadding50c">
+
+
+						<div class="col-md-12 offset-0">
+
+							<!--  PERSONE -->
+							<div id="select-people" class="textcenter">
+								<p class="lato size22 slim">How many people travelling?</p>
+								<p:selectOneRadio id="persone" style="margin:0 auto"
+									value="#{bookBean.persone}">
+									<f:selectItem itemLabel="1" itemValue="1" />
+									<f:selectItem itemLabel="2" itemValue="2" />
+									<f:selectItem itemLabel="3" itemValue="3" />
+									<f:selectItem itemLabel="4" itemValue="4" />
+									<f:selectItem itemLabel="5" itemValue="5" />
+									<f:selectItem itemLabel="6" itemValue="6" />
+								</p:selectOneRadio>
+
+
 							</div>
-							<div class="col-md-4 col-md-offset-1">
-								<p:calendar value="#{bookBean.date2}" mode="inline"
-									id="inlineCal2" mindate="#{frontendBean.pacchetto.inizioValidita}" maxdate="#{frontendBean.pacchetto.fineValidita}"/>
-							</div>
+							<div class="line2"></div>
+
+							<!--  HOTEL -->
+
+							<h:panelGroup id="select-hotel" class="textcenter" layout="block">
+								<p class="lato size22 slim">Where you're going to stay?</p>
+									<h3 class="lh1">#{frontendBean.pacchetto.hotel.nome}</h3>
+									<h:graphicImage library="store"
+										name="#{frontendBean.getStarsImage(frontendBean.pacchetto.hotel.stelle)}" />
+									<p style="color: #999;">Location: #{frontendBean.pacchetto.hotel.luogo}, 
+									Availability: #{frontendBean.pacchetto.hotel.disponibilita}, 
+									Daily cost: #{frontendBean.pacchetto.hotel.costoGiornaliero} €</p>
+	
+
+								<!--  <p:commandButton value="Cambia Hotel"
+									styleClass="btn btn-default"
+									actionListener="#{bookBean.goToCambiaHotel(event,frontendBean.pacchetto)}"
+									update=":form:formHotel:hotelDisponibili" /> -->
 							<div class="clearfix"></div>
-						</div>
-
-						<br />
-						<div class="line2"></div>
-						<br />
-						
-						<p:commandButton value="Check Availability" styleClass="btn btn-default"
-						action="#{bookBean.checkDisponibilitaPacchetto(frontendBean.pacchetto)}" 
-						update=":form:prenota:displayAndata,:form:prenota:displayRitorno"
-						oncomplete="PF('voliDialog').show();"
+							<p:commandButton value="Change" styleClass="btn btn-default"
+						actionListener="#{bookBean.goToCambiaHotel(event,frontendBean.pacchetto)}" 
+						update=":formHotel:hotelDisponibili"			
 						/>
 						
+							</h:panelGroup>
+								
+
+
+							<br />
+							<div class="line2"></div>
+							<br />
+							<div id="select-dates" class="textcenter">
+								<p class="lato size22 slim">Which dates where you thinking
+									of?</p>
+								<div class="col-md-4 col-md-offset-2">
+									<p:calendar value="#{bookBean.date1}" mode="inline"
+										id="inlineCal1"
+										mindate="#{frontendBean.pacchetto.inizioValidita}"
+										maxdate="#{frontendBean.pacchetto.fineValidita}" />
+								</div>
+								<div class="col-md-4 col-md-offset-1">
+									<p:calendar value="#{bookBean.date2}" mode="inline"
+										id="inlineCal2"
+										mindate="#{frontendBean.pacchetto.inizioValidita}"
+										maxdate="#{frontendBean.pacchetto.fineValidita}" />
+								</div>
+								<div class="clearfix"></div>
+							</div>
+
+							<br />
+							<div class="line2"></div>
+							<br />
+
+						</div>
+
+
 					</div>
-					
 
 				</div>
+				<!-- END OF container-->
+
 
 			</div>
-			<!-- END OF container-->
 
 
-		</div>
-		
-		
-		<p:dialog header="Voli" widgetVar="voliDialog" resizable="false">
-			<h:form id="prenota">
-				<p:dataTable id="displayAndata" var="volo"
-					value="#{bookBean.listaVoliAndata}"  selection="#{bookBean.voloAndata}" selectionMode="single" rowKey="#{volo.id}">
-					<f:facet name="header"> Andata  </f:facet>
-					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
-						<h:outputText value="#{volo.nomeCompagnia}" />
-					</p:column>
+			<p:dialog header="Voli" widgetVar="voliDialog" resizable="false">
+				<h:form id="prenota">
+					<p:dataTable id="displayAndata" var="volo"
+						value="#{bookBean.listaVoliAndata}"
+						selection="#{bookBean.voloAndata}" selectionMode="single"
+						rowKey="#{volo.id}">
+						<f:facet name="header"> Andata  </f:facet>
+						<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+							<h:outputText value="#{volo.nomeCompagnia}" />
+						</p:column>
 
-					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
-						<h:outputText value="#{volo.cittaPartenza}" />
-					</p:column>
+						<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+							<h:outputText value="#{volo.cittaPartenza}" />
+						</p:column>
 
-					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-						<h:outputText value="#{volo.cittaArrivo}" />
-					</p:column>
+						<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+							<h:outputText value="#{volo.cittaArrivo}" />
+						</p:column>
 
-					<p:column sortBy="partenza" headerText="Data di Partenza">
-						<h:outputText value="#{volo.partenza}">
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-						</h:outputText>
-					</p:column>
+						<p:column sortBy="partenza" headerText="Data di Partenza">
+							<h:outputText value="#{volo.partenza}">
+								<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+							</h:outputText>
+						</p:column>
 
-					<p:column sortBy="arrivo" headerText="Data di arrivo">
-						<h:outputText value="#{volo.arrivo}">
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-						</h:outputText>
-					</p:column>
+						<p:column sortBy="arrivo" headerText="Data di arrivo">
+							<h:outputText value="#{volo.arrivo}">
+								<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+							</h:outputText>
+						</p:column>
 
-					<p:column sortBy="disponibilita" headerText="Posti disponibili">
-						<h:outputText value="#{volo.disponibilita}" />
-
-
-					</p:column>
-
-					<p:column sortBy="costo" headerText="Prezzo">
-						<h:outputText value="#{volo.costo} €" />
-					</p:column>
-					
-					
-				</p:dataTable>
-
-				<p:dataTable id="displayRitorno" var="volo_r"
-					value="#{bookBean.listaVoliRitorno}" selection="#{bookBean.voloRitorno}" selectionMode="single" rowKey="#{volo_r.id}">
-					<f:facet name="header">Ritorno</f:facet>
-					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
-						<h:outputText value="#{volo_r.nomeCompagnia}" />
-					</p:column>
-
-					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
-						<h:outputText value="#{volo_r.cittaPartenza}" />
-					</p:column>
-
-					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-						<h:outputText value="#{volo_r.cittaArrivo}" />
-					</p:column>
-
-					<p:column sortBy="partenza" headerText="Data di Partenza">
-						<h:outputText value="#{volo_r.partenza}">
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-						</h:outputText>
-					</p:column>
-
-					<p:column sortBy="arrivo" headerText="Data di arrivo">
-						<h:outputText value="#{volo_r.arrivo}">
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-						</h:outputText>
-					</p:column>
-
-					<p:column sortBy="disponibilita" headerText="Posti disponibili">
-						<h:outputText value="#{volo_r.disponibilita}" />
+						<p:column sortBy="disponibilita" headerText="Posti disponibili">
+							<h:outputText value="#{volo.disponibilita}" />
 
 
-					</p:column>
+						</p:column>
 
-					<p:column sortBy="costo" headerText="Prezzo">
-						<h:outputText value="#{volo_r.costo} €" />
-					</p:column>
-					
-				
+						<p:column sortBy="costo" headerText="Prezzo">
+							<h:outputText value="#{volo.costo} €" />
+						</p:column>
 
-				</p:dataTable>
-				
-				<p:commandButton value="Aggiungi" styleClass="btn btn-default"
-				action="#{bookBean.prenota(frontendBean.pacchetto)}"
-				process="@this,prenota"/>
 
-			</h:form>
+					</p:dataTable>
+
+					<p:dataTable id="displayRitorno" var="volo_r"
+						value="#{bookBean.listaVoliRitorno}"
+						selection="#{bookBean.voloRitorno}" selectionMode="single"
+						rowKey="#{volo_r.id}">
+						<f:facet name="header">Ritorno</f:facet>
+						<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+							<h:outputText value="#{volo_r.nomeCompagnia}" />
+						</p:column>
+
+						<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+							<h:outputText value="#{volo_r.cittaPartenza}" />
+						</p:column>
+
+						<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+							<h:outputText value="#{volo_r.cittaArrivo}" />
+						</p:column>
+
+						<p:column sortBy="partenza" headerText="Data di Partenza">
+							<h:outputText value="#{volo_r.partenza}">
+								<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+							</h:outputText>
+						</p:column>
+
+						<p:column sortBy="arrivo" headerText="Data di arrivo">
+							<h:outputText value="#{volo_r.arrivo}">
+								<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+							</h:outputText>
+						</p:column>
+
+						<p:column sortBy="disponibilita" headerText="Posti disponibili">
+							<h:outputText value="#{volo_r.disponibilita}" />
+
+
+						</p:column>
+
+						<p:column sortBy="costo" headerText="Prezzo">
+							<h:outputText value="#{volo_r.costo} €" />
+						</p:column>
+
+
+
+					</p:dataTable>
+
+					<p:commandButton value="Aggiungi" styleClass="btn btn-default"
+						action="#{bookBean.prenota(frontendBean.pacchetto)}"
+						process="@this,prenota" />
+
+				</h:form>
 			</p:dialog>
 
-	</h:form>
- 
+		</h:form>
+		
+		<!--  START HOTEL CHOOSE  -->
+		<p:dialog header="Hotel" widgetVar="hotelDialog" resizable="false">
+			<h:form id="formHotel">
+				<p:dataTable id="hotelDisponibili" var="hotel"
+					value="#{bookBean.hotelDisponibili}">
+					<f:facet name="header">  
+            		Elenco Hotel 
+       				 </f:facet>
+
+					<p:column sortBy="nome" headerText="Nome">
+						<h:outputText value="#{hotel.nome}" />
+					</p:column>
+
+					<p:column sortBy="stelle" headerText="Stelle">
+						<h:outputText value="#{hotel.stelle}" />
+					</p:column>
+
+					<p:column sortBy="costoGiornaliero" headerText="Costo giornaliero">
+						<h:outputText value="#{hotel.costoGiornaliero} €" />
+					</p:column>
+
+					<p:column sortBy="luogo" headerText="Luogo">
+						<h:outputText value="#{hotel.luogo}" />
+					</p:column>
+
+					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{hotel.disponibilita}" />
+					</p:column>
+					
+					<p:column>
+				
+					<h:commandLink id="cambia" value="Scegli" class="btn btn-default"
+						action="#{bookBean.cambiaHotel(frontendBean.pacchetto, hotel)}" onclick="">
+						<p:ajax execute="aggiungi" update=":booking-form:select-hotel" oncomplete="PF('hotelDialog').hide();" />
+					</h:commandLink>
+						
+				</p:column>
+				
+				</p:dataTable>
+			</h:form>
+		</p:dialog>
+		
+		<!--  END HOTEL CHOOSE -->
+		<script>$.noConflict();</script>
 		<ui:include src="footer.xhtml" />
 		<h:outputScript library="store" name="js/functions.js" />
 		<h:outputScript library="store" name="js/js-details.js" />

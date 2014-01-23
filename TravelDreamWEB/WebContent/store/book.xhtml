@@ -42,12 +42,17 @@
 					<p:messages id="messages" showDetail="true" autoUpdate="true"
 						closable="true" />
 					<div class="hpadding50c">
-						<p class="lato size30 slim">Book your vacation!</p>
-						<p class="lato slim">Fill in some info of yours and we'll take
-							care of everything!</p>
+						<div class=" w50percent">
+							<p class="lato size30 slim">Book your vacation!</p>
+							<p class="lato slim">Fill in some info of yours and we'll
+								take care of everything!</p>
+						</div>
+						<h:panelGroup class="w50percentlast" style="text-align:right" id="preview-cost" layout="block">
+							<p class="lato size22 slim">Total cost: #{bookBean.calcolaCostoPrenotazione(frontendBean.pacchetto)} €</p>
+						</h:panelGroup>
+						<div class="clearfix"></div>
 						<p class="aboutarrow"></p>
 					</div>
-
 
 					<div class="line3"></div>
 
@@ -67,6 +72,7 @@
 									<f:selectItem itemLabel="4" itemValue="4" />
 									<f:selectItem itemLabel="5" itemValue="5" />
 									<f:selectItem itemLabel="6" itemValue="6" />
+									<f:ajax event="change" render=":booking-form:preview-cost" />
 								</p:selectOneRadio>
 
 
@@ -89,7 +95,7 @@
 								<div class="clearfix"></div>
 								<p:commandButton value="Change" styleClass="btn btn-default"
 									actionListener="#{bookBean.goToCambiaHotel(event,frontendBean.pacchetto)}"
-									update=":formHotel:hotelDisponibili" />
+									update=":formHotel:hotelDisponibili,:booking-form:preview-cost" />
 
 							</h:panelGroup>
 
@@ -125,7 +131,7 @@
 											class="btn btn-danger"
 											action="#{bookBean.eliminaAttivita(action,attivita, frontendBean.pacchetto)}">
 											<p:ajax execute="eliminaAttivita"
-												update="dataTableAttivita,:form-act:dataTableAttivita2" />
+												update="dataTableAttivita,:form-act:dataTableAttivita2,:booking-form:preview-cost" />
 										</h:commandLink>
 									</p:column>
 								</p:dataTable>
@@ -135,7 +141,7 @@
 								<p:commandButton value="Add activies"
 									styleClass="btn btn-default"
 									actionListener="#{bookBean.goToCambiaAttivita(event,frontendBean.pacchetto)}"
-									update=":form-act:dataTableAttivita2" />
+									update=":form-act:dataTableAttivita2,:booking-form:preview-cost" />
 
 
 							</h:panelGroup>
@@ -273,11 +279,11 @@
 				<div class="clearfix"></div>
 				<br />
 				<div class="textcenter">
-					<p:commandButton value="Purchase!" styleClass="btn btn-success"
-					action="#{bookBean.prenota(frontendBean.pacchetto)}"
-					process="@this,form-voli" />
+					<p:commandButton value="Save" styleClass="btn btn-success">
+						<p:ajax update=":booking-form:preview-cost" oncomplete="PF('voliDialog').hide();"/>
+								</p:commandButton>
 				</div>
-				
+
 
 			</h:form>
 		</p:dialog>
@@ -315,7 +321,7 @@
 						<h:commandLink id="cambia" value="Scegli" class="btn btn-default"
 							action="#{bookBean.cambiaHotel(frontendBean.pacchetto, hotel)}"
 							onclick="">
-							<p:ajax execute="aggiungi" update=":booking-form:select-hotel"
+							<p:ajax execute="aggiungi" update=":booking-form:select-hotel,:booking-form:preview-cost"
 								oncomplete="PF('hotelDialog').hide();" />
 						</h:commandLink>
 
@@ -354,7 +360,7 @@
 							class="btn btn-danger white"
 							action="#{bookBean.scegliAttivita(action,attivita, frontendBean.pacchetto)}">
 							<p:ajax execute="scegliAttivita"
-								update=":booking-form:dataTableAttivita,dataTableAttivita2" />
+								update=":booking-form:dataTableAttivita,dataTableAttivita2,:booking-form:preview-cost" />
 						</h:commandLink>
 					</p:column>
 
@@ -369,7 +375,8 @@
 		<!--  ERROR -->
 
 		<p:dialog header="Error" widgetVar="errorDialog" resizable="false">
-				<p>You have to select one departure flight and one arrival flight!</p>
+			<p>You have to select one departure flight and one arrival
+				flight!</p>
 		</p:dialog>
 
 		<!--  END ERROR -->

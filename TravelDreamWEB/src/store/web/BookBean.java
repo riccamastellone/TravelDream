@@ -254,13 +254,39 @@ public class BookBean implements Serializable {
 			this.prenotazione.setUtente(this.userMgr.getUserDTO());
 			this.prenotazione.setVoloAndata(this.voloAndata);
 			this.prenotazione.setVoloRitorno(this.voloRitorno);
-			this.prenotazione.setCostoPersona(132);
+			this.prenotazione.setCostoPersona(this.calcolaCostoPrenotazione(pacchetto));
 			this.prenotazione.setListAttivitaSecondarie(pacchetto.getAttivitaSecondarie());
 			this.prenotazioneMng.Prenota(this.prenotazione);
 			
 			return "prenotazioneOk?faces-redirect=true";
 		}
 				
+	}
+	
+	public float calcolaCostoPrenotazione(PacchettoDTO pacchetto) {
+		float costo = 0;
+		
+		// Costo dei voli
+		if (this.voloAndata.getCittaPartenza() != null && this.voloRitorno.getCittaPartenza() != null) {
+			
+			costo += this.voloAndata.getCosto() + this.voloRitorno.getCosto();
+
+			// Costo dell'hotel
+
+			// Calcolo la durata della permanenza
+			long diff = Math.abs(this.voloRitorno.getPartenza().getTime() - this.voloAndata.getArrivo().getTime());
+			int diffDays = (int) Math.ceil((diff + 12 * 60 * 60 * 1000) / (24 * 60 * 60 * 1000));
+
+			costo += pacchetto.getHotel().getCostoGiornaliero() * diffDays;
+
+			// Costo delle attivita secondarie
+			for (AttivitaSecondariaDTO attivita : pacchetto.getAttivitaSecondarie()) {
+				costo += attivita.getCosto();
+			}
+			costo = costo * this.persone;
+		}
+		
+		return costo;
 	}
 	
 	public void goToCambiaHotel(ActionEvent event, PacchettoDTO pacchetto) {

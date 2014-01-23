@@ -207,7 +207,7 @@ public class BookBean implements Serializable {
 			
 			//se non e presente nemmeno un volo disponibile esco
 			if (this.listaVoliAndata.isEmpty()){
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO:", "We are sorry but there is not availability for the combination of people/dates"));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"INFO:", "We are sorry but there is no availability for this combination of people/dates"));
 				return;
 			}
 			
@@ -221,7 +221,7 @@ public class BookBean implements Serializable {
 			
 			//se non e presente nemmeno un volo disponibile esco
 			if (this.listaVoliRitorno.isEmpty()){
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO:", "We are sorry but there is not availability for the combination of people/dates"));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"INFO:", "We are sorry but there is no availability for this combination of people/dates"));
 				return;
 			}
 			
@@ -232,7 +232,7 @@ public class BookBean implements Serializable {
 		}
 		
 		else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO:", "We are sorry but there is not availability for the combination of people/dates"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"INFO:", "We are sorry but there is no availability for this combination of people/dates"));
 			return;
 		}
 		

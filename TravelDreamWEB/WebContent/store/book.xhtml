@@ -39,16 +39,19 @@
 
 			<div class="container">
 				<div class="container pagecontainer2 offset-0">
-					<p:messages id="messages" showDetail="true" autoUpdate="true"
-						closable="true" />
+
 					<div class="hpadding50c">
 						<div class=" w50percent">
 							<p class="lato size30 slim">Book your vacation!</p>
 							<p class="lato slim">Fill in some info of yours and we'll
 								take care of everything!</p>
 						</div>
-						<h:panelGroup class="w50percentlast" style="text-align:right" id="preview-cost" layout="block">
-							<p class="lato size22 slim">Total cost: #{bookBean.calcolaCostoPrenotazione(frontendBean.pacchetto)} €</p>
+						<h:panelGroup class="w50percentlast" style="text-align:right"
+							id="preview-cost" layout="block">
+							<p class="lato size22 slim">
+								Total cost<br />#{bookBean.calcolaCostoPrenotazione(frontendBean.pacchetto)}
+								€
+							</p>
 						</h:panelGroup>
 						<div class="clearfix"></div>
 						<p class="aboutarrow"></p>
@@ -127,11 +130,12 @@
 									</p:column>
 
 									<p:column>
-										<h:commandLink id="eliminaAttivita" value="Remove"
+										<h:commandLink id="eliminaAttivita"
 											class="btn btn-danger"
 											action="#{bookBean.eliminaAttivita(action,attivita, frontendBean.pacchetto)}">
 											<p:ajax execute="eliminaAttivita"
 												update="dataTableAttivita,:form-act:dataTableAttivita2,:booking-form:preview-cost" />
+												<span class="glyphicon glyphicon-trash"></span>
 										</h:commandLink>
 									</p:column>
 								</p:dataTable>
@@ -167,9 +171,12 @@
 										maxdate="#{frontendBean.pacchetto.fineValidita}" />
 								</div>
 								<div class="clearfix"></div>
+								<p:messages id="messages" showDetail="true" autoUpdate="true"
+									closable="true" />
 								<br />
+
 								<p:commandButton value="Check Availability"
-									styleClass="btn btn-success"
+									styleClass="btn btn-default"
 									actionListener="#{bookBean.checkDisponibilitaPacchetto(event,frontendBean.pacchetto)}"
 									update=":form-voli:displayAndata,:form-voli:displayRitorno" />
 
@@ -179,6 +186,12 @@
 							<div class="line2"></div>
 							<br />
 
+							<p:commandButton value="Purchase!"
+								styleClass="btn btn-success pull-right"
+								action="#{bookBean.prenota(frontendBean.pacchetto)}"
+								process="@this,:form-voli" />
+
+							<div class="clearfix"></div>
 						</div>
 
 
@@ -279,9 +292,10 @@
 				<div class="clearfix"></div>
 				<br />
 				<div class="textcenter">
-					<p:commandButton value="Save" styleClass="btn btn-success">
-						<p:ajax update=":booking-form:preview-cost" oncomplete="PF('voliDialog').hide();"/>
-								</p:commandButton>
+					<p:commandButton value="Save" styleClass="btn btn-default">
+						<p:ajax update=":booking-form:preview-cost"
+							oncomplete="PF('voliDialog').hide();" />
+					</p:commandButton>
 				</div>
 
 
@@ -321,7 +335,8 @@
 						<h:commandLink id="cambia" value="Scegli" class="btn btn-default"
 							action="#{bookBean.cambiaHotel(frontendBean.pacchetto, hotel)}"
 							onclick="">
-							<p:ajax execute="aggiungi" update=":booking-form:select-hotel,:booking-form:preview-cost"
+							<p:ajax execute="aggiungi"
+								update=":booking-form:select-hotel,:booking-form:preview-cost"
 								oncomplete="PF('hotelDialog').hide();" />
 						</h:commandLink>
 

@@ -2180,7 +2180,7 @@ fieldset[disabled] .btn-warning.active {
 }
 
 .btn-danger {
-  color: #ffffff;
+  color: #ffffff !important;
   background-color: #d9534f;
   border-color: #d43f3a;
 }

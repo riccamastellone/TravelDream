@@ -11,7 +11,12 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "ListaDesideri")
-@NamedQuery(name="ListaDesideri.findAll", query="SELECT l FROM ListaDesideri l")
+@NamedQueries({ 
+	
+	@NamedQuery(name="ListaDesideri.findAll", query="SELECT l FROM ListaDesideri l"),
+	
+	@NamedQuery(name="ListaDesideri.getListaDesideriByPacchettoUtente", query="SELECT l FROM ListaDesideri l WHERE l.pacchetto = :pacchetto AND l.utente = :utente"),
+})
 public class ListaDesideri implements Serializable {
 	private static final long serialVersionUID = 1L;
 

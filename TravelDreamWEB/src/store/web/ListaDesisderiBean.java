@@ -10,6 +10,9 @@ import javax.faces.bean.SessionScoped;
 
 
 
+
+import org.primefaces.context.RequestContext;
+
 import traveldream.dtos.ListaDesideriMng;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.manager.ListaDesideriDTO;
@@ -38,6 +41,7 @@ public class ListaDesisderiBean implements Serializable{
 		lista.setUtente(this.userMgr.getUserDTO());
 		lista.setPacchetto(pacchetto);
 		this.listaDesideriMng.addAListaDesideri(lista);
+		RequestContext.getCurrentInstance().execute("okDialog.show()");
 		System.out.println(pacchetto.getNome());
 		
 	}

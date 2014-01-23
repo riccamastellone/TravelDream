@@ -77,6 +77,13 @@
 							<h:commandLink id="addAListaDesideri" class="add2fav margtop5" value="Add to whish list" action="#{listaDesideriBean.addAListaDesideri(frontendBean.pacchetto)}" >
 						    	<f:ajax execute="addAListaDesideri" />
 							</h:commandLink>
+							
+							<p:dialog header="Added" widgetVar="okDialog" resizable="false">
+								<p:panel>
+									<h:outputText value="This package has been added to your gift list" />
+								</p:panel>
+							</p:dialog>
+							
 						</h:form>
 						<h:link outcome="book" class="booknow margtop20 btnmarg">Book now</h:link>
 					</div>
@@ -279,6 +286,8 @@
 
 
 		</div>
+		
+		
 
 		<ui:include src="footer.xhtml" />
 		<h:outputScript library="store" name="js/functions.js" />

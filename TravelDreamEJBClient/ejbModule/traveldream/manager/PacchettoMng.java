@@ -1,5 +1,6 @@
 package traveldream.manager;
 
+import java.util.Date;
 import java.util.List;
 
 import traveldream.dtos.AttivitaSecondariaDTO;
@@ -80,6 +81,6 @@ public interface PacchettoMng {
 	 */
 	public void deletePacchetto(PacchettoDTO pacchetto);
 	
-	public List<PacchettoDTO> ricercaPacchetto(String destinazione);
+	public List<PacchettoDTO> ricercaPacchetto(String destinazione, Date partenza, Date ritorno, int persone);
 	
 }

@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
+import org.primefaces.expression.impl.ThisExpressionResolver;
 
 import traveldream.dtos.PacchettoDTO;
 import traveldream.manager.PacchettoMng;
@@ -31,38 +32,13 @@ public class PacchettoFrontBean implements Serializable {
 	private Date data2 = new Date();
 	private int persone = 1;
 	
-	private boolean first = true;
+	
 	
 	public PacchettoFrontBean(){
 		
 		this.pacchetti = new ArrayList<PacchettoDTO>();
 	}
 	
-	
-	public List<PacchettoDTO> getPacchetti() {
-		
-		return this.pacchetti;
-	}
-	
-	public void refresh() {
-		this.first = false;
-		if (destinazione.equals("")){
-			this.destinazione="%";
-		}
-		
-		//this.pacchetti = new ArrayList<PacchettoDTO>();
-		
-		this.pacchetti = this.pkgMng.ricercaPacchetto(this.destinazione);
-		System.out.println("DDD" + destinazione);
-		for (PacchettoDTO pacchettoDTO : this.pacchetti) {
-			System.out.println(pacchettoDTO.getNome());
-		}
-	
-		
-		
-	}
-
-
 	public String getDestinazione() {
 		return destinazione;
 	}
@@ -102,6 +78,30 @@ public class PacchettoFrontBean implements Serializable {
 		this.persone = persone;
 	}
 	
+	
+	public List<PacchettoDTO> getPacchetti() {
+		
+		return this.pacchetti;
+	}
+	
+	public void refresh() {
+		
+		if (destinazione.equals("")){
+			this.destinazione="%";
+		}
+		
+		this.pacchetti = this.pkgMng.ricercaPacchetto(this.destinazione, this.data1, this.data2, this.persone);
+		System.out.println("DDD" + destinazione);
+		System.out.println(data1.equals(data2));
+		//for (PacchettoDTO pacchettoDTO : this.pacchetti) {
+		//	System.out.println(pacchettoDTO.getNome());
+		//}
+	
+		
+		
+	}
+
+
 	public String goToListPacchetti(){
 		
 		this.pacchetti = pkgMng.getAllPacchetti();

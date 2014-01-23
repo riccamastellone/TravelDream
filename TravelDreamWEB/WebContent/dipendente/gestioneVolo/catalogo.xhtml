@@ -67,7 +67,7 @@
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{volo.partenza}">
-
+								<f:convertDateTime type="date" pattern="MM/dd/yyyy" timeZone="Europe/Rome" />
 							</h:outputText>
 
 						</f:facet>
@@ -81,7 +81,7 @@
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{volo.arrivo}">
-
+								<f:convertDateTime type="date" pattern="MM/dd/yyyy" timeZone="Europe/Rome" />
 							</h:outputText>
 						</f:facet>
 						<f:facet name="input">

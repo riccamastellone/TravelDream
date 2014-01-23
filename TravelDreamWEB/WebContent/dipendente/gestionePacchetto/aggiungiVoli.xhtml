@@ -43,13 +43,13 @@
 
 					<p:column sortBy="partenza" headerText="Data di Partenza">
 						<h:outputText value="#{volo.partenza}">
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" timeZone="Europe/Rome"/>
 						</h:outputText>
 					</p:column>
 
 					<p:column sortBy="arrivo" headerText="Data di arrivo">
 						<h:outputText value="#{volo.arrivo}">
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" timeZone="Europe/Rome"/>
 						</h:outputText>
 					</p:column>
 
@@ -102,13 +102,13 @@
 
 					<p:column sortBy="partenza" headerText="Data di Partenza">
 						<h:outputText value="#{volo.partenza}">
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" timeZone="Europe/Rome" />
 						</h:outputText>
 					</p:column>
 
 					<p:column sortBy="arrivo" headerText="Data di arrivo">
 						<h:outputText value="#{volo.arrivo}">
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" timeZone="Europe/Rome"/>
 						</h:outputText>
 					</p:column>
 

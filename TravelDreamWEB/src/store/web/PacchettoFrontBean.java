@@ -105,6 +105,7 @@ public class PacchettoFrontBean implements Serializable {
 	public String goToListPacchetti(){
 		
 		this.pacchetti = pkgMng.getAllPacchetti();
+		this.destinazione = "";
 		return "list?faces-redirect=true";
 		
 	}

@@ -23,9 +23,7 @@
 
   </login-config>
 
-
-
-
+<!-- 
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Admins Pages</web-resource-name>
@@ -55,8 +53,7 @@
     <auth-constraint>
       <role-name>CLIENTE</role-name>
     </auth-constraint>
-
-  </security-constraint> 
+  </security-constraint> -->
  
   
   <welcome-file-list> 

@@ -2066,7 +2066,7 @@ fieldset[disabled] .btn {
 .btn-default:focus,
 .btn-default:active,
 .btn-default.active,
-.open .dropdown-toggle.btn-default, .btn-default .ui-button-text:hover {
+.open .dropdown-toggle.btn-default, .btn-default .ui-button-text:hover, .ui-state-hover {
   color: #333333;
   background-color: #ebebeb;
   border-color: #adadad;
@@ -2220,7 +2220,7 @@ fieldset[disabled] .btn-danger.active {
   border-color: #d43f3a;
 }
 
-.btn-success {
+.btn-success, .btn-success .ui-button-text  {
   color: #ffffff;
   background-color: #5cb85c;
   border-color: #4cae4c;

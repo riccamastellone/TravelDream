@@ -10,7 +10,11 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="PacchettoCondiviso.findAll", query="SELECT p FROM PacchettoCondiviso p")
+@Table(name= "PacchettoCondiviso")
+@NamedQueries({
+	@NamedQuery(name="PacchettoCondiviso.findAll", query="SELECT p FROM PacchettoCondiviso p"),
+	@NamedQuery(name="PacchettoCondiviso.cercaChiave", query="SELECT p FROM PacchettoCondiviso p WHERE p.chiave = :chiave"),
+})
 public class PacchettoCondiviso implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,13 +29,13 @@ public class PacchettoCondiviso implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="pacchetto",referencedColumnName = "id")
-	private int pacchetto;
+	private Pacchetto pacchetto;
 
 	
 	private String stato;
 	
 	@JoinColumn(name="utente",referencedColumnName = "email")
-	private String utente;
+	private Utente utente;
 
 	public PacchettoCondiviso() {
 	}
@@ -60,11 +64,11 @@ public class PacchettoCondiviso implements Serializable {
 		this.emailAmico = emailAmico;
 	}
 
-	public int getPacchetto() {
+	public Pacchetto getPacchetto() {
 		return this.pacchetto;
 	}
 
-	public void setPacchetto(int pacchetto) {
+	public void setPacchetto(Pacchetto pacchetto) {
 		this.pacchetto = pacchetto;
 	}
 
@@ -76,11 +80,11 @@ public class PacchettoCondiviso implements Serializable {
 		this.stato = stato;
 	}
 
-	public String getUtente() {
+	public Utente getUtente() {
 		return this.utente;
 	}
 
-	public void setUtente(String utente) {
+	public void setUtente(Utente utente) {
 		this.utente = utente;
 	}
 

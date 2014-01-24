@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../template.xhtml">
+
+
+	<ui:define name="head_add">
+		<h:outputStylesheet library="store" name="css/jquery-ui.css" />
+	</ui:define>
+
+
+	<ui:define name="content">
+
+
+		<ui:include src="header.xhtml" />
+
+
+
+		<div class="container breadcrub">
+			<div>
+				<a class="homebtn left" href="#"></a>
+				<div class="left">
+					<ul class="bcrumbs">
+						<li>/</li>
+						<li><a href="#">Packages</a></li>
+						<li>/</li>
+						<li><a href="#" class="active">#{shareBean.pacchetto.nome}</a></li>
+					</ul>
+				</div>
+				<h:link class="backbtn right" outcome="/store/list.xhtml" />
+			</div>
+			<div class="clearfix"></div>
+			<div class="brlines"></div>
+		</div>
+
+		<div class="container">
+			<div class="container pagecontainer offset-0">
+
+				<!-- Immagine Pacchetto -->
+				<div class="col-md-8 immagine-pacchetto">
+					<p:graphicImage cache="false"
+						value="#{frontendBean.generateImage()}">
+						<f:param name="img" value="#{shareBean.pacchetto.immagine}" />
+						<f:param name="width" value="759" />
+						<f:param name="height" value="500" />
+					</p:graphicImage>
+				</div>
+				<!--  759,427 -->
+
+				<!-- RIGHT INFO -->
+				<div class="col-md-4 detailsright offset-0">
+					<div class="padding20">
+						<h3 class="lh1">#{shareBean.pacchetto.nome}</h3>
+						<!-- <h:graphicImage library="store"
+							name="#{frontendBean.getStarsImage(shareBean.pacchetto.hotel.stelle)}"
+							alt="" /> -->
+					</div>
+
+					<div class="line3"></div>
+
+					<div style="color: #999; padding: 20px;">
+						<h:outputText
+							value="#{frontendBean.nl2br(shareBean.pacchetto.descrizione)}"
+							escape="false" />
+					</div>
+					<div class="line3"></div>
+
+					<div class="clearfix"></div>
+					<br />
+
+					<div class="padding20">
+						<h:form>
+							<h:commandLink id="book" value="Accept Invitation"
+								class="booknow margtop20 btnmarg"
+								action="#{shareBean.acceptInvitation()}" />
+						</h:form>
+					</div>
+				</div>
+				<!-- END OF RIGHT INFO -->
+
+			</div>
+			<!-- END OF container-->
+
+			<div class="container mt25 offset-0">
+
+				<div class="col-md-8 pagecontainer2 offset-0">
+					<div class="cstyle10"></div>
+
+					<ul class="nav nav-tabs" id="myTab">
+
+						<li onclick="mySelectUpdate()" class="active"><a
+							data-toggle="tab" href="#hotel"><span class="summary"></span><span
+								class="hidetext">Hotel</span>&nbsp;</a></li>
+
+						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
+							href="#thingstodo"><span class="thingstodo"></span><span
+								class="hidetext">Things to do</span>&nbsp;</a></li>
+
+					</ul>
+					<div class="tab-content4">
+
+						<!-- TAB 1 -->
+						<div id="hotel" class="tab-pane fade active in">
+							<p:graphicImage cache="false" style="width:379px;float:right;"
+								value="#{frontendBean.generateImage()}">
+								<f:param name="img"
+									value="#{shareBean.pacchetto.hotel.pathtoImage}" />
+								<f:param name="width" value="759" />
+								<f:param name="height" value="500" />
+							</p:graphicImage>
+							<div class="hpadding20">
+								<p class="lato size30 slim">#{shareBean.pacchetto.hotel.nome}</p>
+								<h:graphicImage library="store"
+									name="#{frontendBean.getStarsImage(shareBean.pacchetto.hotel.stelle)}"
+									alt="" />
+							</div>
+
+							<div class="line4"></div>
+
+							<div class="hpadding20">
+								<p>#{shareBean.pacchetto.hotel.descrizione}</p>
+								<div class="line4"></div>
+
+								<p class="lato size22 slim">Details</p>
+
+								<p>Location: #{shareBean.pacchetto.hotel.luogo}</p>
+								<p>Availability: #{shareBean.pacchetto.hotel.disponibilita}</p>
+								<p>Daily cost: #{shareBean.pacchetto.hotel.costoGiornaliero}
+									€</p>
+
+							</div>
+						</div>
+
+
+						<!-- TAB 3 -->
+						<div id="thingstodo" class="tab-pane fade">
+							<p class="hpadding20">These are the Things to Do available in
+								this package</p>
+
+							<ui:repeat var="attivita"
+								value="#{shareBean.pacchetto.attivitaSecondarie}">
+								<div class="line4"></div>
+								<div class="hpadding20">
+									<h3 class="lato size22">#{attivita.nome}</h3>
+									<p>
+										Cost: #{attivita.costo} €<br /> Availability:
+										#{attivita.disponibilita}<br /> Where: #{attivita.localita}
+									</p>
+								</div>
+
+							</ui:repeat>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+
+
+					<div class="pagecontainer2 needassistancebox">
+						<div class="cpadding1">
+							<span class="icon-help"></span>
+							<h3 class="opensans">Need Assistance?</h3>
+							<p class="size14 grey">We are available 24/7 to help you
+								build your dream travel</p>
+							<p class="opensans size30 green xslim">(+39) 800-5996674</p>
+						</div>
+					</div>
+					<br />
+
+
+				</div>
+			</div>
+
+
+
+		</div>
+
+
+		<ui:include src="footer.xhtml" />
+		<h:outputScript library="store" name="js/functions.js" />
+		<h:outputScript library="store" name="js/js-details.js" />
+		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
+		<script>
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(2)').first().addClass('active');
+			});
+		</script>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

@@ -8,11 +8,11 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import traveldream.dtos.ListaDesideriMng;
+import traveldream.dtos.PacchettoDTO;
 import traveldream.manager.PacchettoMng;
 import traveldream.manager.ShareMng;
 
-@ManagedBean(name = "listaDesideriBean")
+@ManagedBean(name = "shareBean")
 @SessionScoped
 public class ShareBean implements Serializable{
 	
@@ -25,11 +25,11 @@ public class ShareBean implements Serializable{
 	@EJB
 	private PacchettoMng pkgMng;
 	
-	@EJB
-	private ListaDesideriMng listaDesideriMng;
 	
-	private String idShare;
+	private String chiave;
 	private SecureRandom random;
+	private int idshare;
+	private PacchettoDTO pacchetto;
 	
 	public ShareBean(){
 		random = new SecureRandom();
@@ -40,15 +40,24 @@ public class ShareBean implements Serializable{
 	  }
 	
 
-	public String getIdShare() {
-		return idShare;
+	public String getChiave() {
+		return chiave;
 	}
 
-	public void setIdShare(String idShare) {
-		int idPacchetto = shareMng.getIdPacchettoFromChiave(idShare);
-		FrontendBean fb = new FrontendBean();
-		fb.setIdPacchetto(idPacchetto);
-		this.idShare = idShare;
+	public void setChiave(String chiave) {
+		int idPacchetto = shareMng.getIdPacchettoFromChiave(chiave);
+		idshare = shareMng.getIdShareFromChiave(chiave);
+		pacchetto = pkgMng.findPacchettoDTO(idPacchetto);
+		System.out.println("Chiave: " + chiave);
+		System.out.println("Pacchetto: " + idPacchetto);
+		this.chiave = chiave;
+	}
+	
+	public String acceptInvitation() {
+		shareMng.acceptInvitation(idshare);
+		
+		// Mandiamolo alla registrazione
+		return "/registrazione?faces-redirect=true";
 	}
 	
 	public SecureRandom getRandom() {
@@ -57,6 +66,22 @@ public class ShareBean implements Serializable{
 
 	public void setRandom(SecureRandom random) {
 		this.random = random;
+	}
+
+	public PacchettoDTO getPacchetto() {
+		return pacchetto;
+	}
+
+	public void setPacchetto(PacchettoDTO pacchetto) {
+		this.pacchetto = pacchetto;
+	}
+
+	public int getIdshare() {
+		return idshare;
+	}
+
+	public void setIdshare(int idshare) {
+		this.idshare = idshare;
 	}
 
 }

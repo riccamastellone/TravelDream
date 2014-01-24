@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import model.Hotel;
 import model.ListaDesideri;
 import model.Pacchetto;
+import model.PacchettoCondiviso;
 import model.Utente;
 import registrazione.ejb.UtenteMgrBean;
 import traveldream.dtos.ListaDesideriMng;
@@ -34,12 +35,27 @@ public class ShareMngBean implements ShareMng {
     public ShareMngBean() {
     }
 
-	@Override
 	public int getIdPacchettoFromChiave(String chiave) {
-		em.find(Pacchetto.class, chiave);
-		return 0;
+		List<PacchettoCondiviso> result = em.createNamedQuery("PacchettoCondiviso.cercaChiave", PacchettoCondiviso.class).setParameter("chiave", chiave).getResultList();
+		return result.get(0).getPacchetto().getId();
 	}
-    
+
+	public void acceptInvitation(int idShare) {
+		PacchettoCondiviso pc = this.findShare(idShare);
+		pc.setStato("accettato");
+		em.merge(pc);	
+		}
+	
+	
+	private PacchettoCondiviso findShare(int id) {
+		return em.find(PacchettoCondiviso.class, id);
+	}
+
+	public int getIdShareFromChiave(String chiave) {
+		List<PacchettoCondiviso> result = em.createNamedQuery("PacchettoCondiviso.cercaChiave", PacchettoCondiviso.class).setParameter("chiave", chiave).getResultList();
+		return result.get(0).getId();
+	}
+
 
 
 }

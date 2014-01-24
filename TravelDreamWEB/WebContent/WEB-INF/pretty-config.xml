@@ -44,8 +44,8 @@
 	</url-mapping>
 	
 	<url-mapping id="shared-detail">
-		<pattern value="/invitation/#{id : shareBean.idShare}" />
-		<view-id value="/store/list.xhtml" />
+		<pattern value="/invitation/#{id : shareBean.chiave}" />
+		<view-id value="/store/detailsShare.xhtml" />
 	</url-mapping>
 
 </pretty-config>

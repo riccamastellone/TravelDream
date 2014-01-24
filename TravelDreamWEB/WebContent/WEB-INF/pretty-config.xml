@@ -42,5 +42,10 @@
 		<pattern value="/store/contacts" />
 		<view-id value="/store/contacts.xhtml" />
 	</url-mapping>
+	
+	<url-mapping id="shared-detail">
+		<pattern value="/invitation/#{id : shareBean.idShare}" />
+		<view-id value="/store/list.xhtml" />
+	</url-mapping>
 
 </pretty-config>

@@ -11,8 +11,6 @@
 	<ui:define name="head_add">
 		<h:outputStylesheet library="store" name="css/fullscreen.css" />
 		<h:outputStylesheet library="store" name="rs-plugin/css/settings.css" />
-		<h:outputStylesheet library="admin" name="css/jquery-ui.css" />
-
 	</ui:define>
 
 
@@ -164,8 +162,6 @@
 							<ul class="nav nav-tabs" id="myTab">
 								<li onclick="mySelectUpdate()" class="active"><a
 									data-toggle="tab" href="#vacations"><span class="suitcase"></span>&nbsp;Package</a></li>
-								<li onclick="mySelectUpdate()"><a data-toggle="tab"
-									href="#air"><span class="flight"></span>&nbsp;Flight</a></li>
 								<li onclick="mySelectUpdate()" class=""><a
 									data-toggle="tab" href="#hotel"><span class="hotel"></span>&nbsp;Hotel</a></li>
 
@@ -222,11 +218,14 @@
 
 											
 										</div>
-										
+										<br />
+										<div class="clearfix"></div>
+										<br />
 										<div class="searchbg">
 										<p:commandButton value="Filter" styleClass="btn-search3"
 										action="#{pacchettoFrontBean.goToRicerca()}" />
 									 	</div>
+									 	<div class="clearfix"></div>
 									 
 									</h:form>
 								</div>

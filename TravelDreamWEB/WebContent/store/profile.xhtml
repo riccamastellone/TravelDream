@@ -11,8 +11,6 @@
 	<ui:define name="head_add">
 		<h:outputStylesheet library="store" name="css/fullscreen.css" />
 		<h:outputStylesheet library="store" name="rs-plugin/css/settings.css" />
-		<h:outputStylesheet library="admin" name="css/jquery-ui.css" />
-
 	</ui:define>
 
 
@@ -509,25 +507,19 @@
 								<ui:repeat value="#{utenteFrontBean.listaDesideri}" var="lista" >
 								
 								<h:form>
-								<div>
-									<div class="col-md-4 offset-0">
-									
-										<p:graphicImage cache="false"
+								
+								<div class="col-md-4 offset-0">
+									<h:link class="dark" outcome="/store/details.xhtml">
+									<f:param name="id" value="#{lista.pacchetto.id}" />
+									<p:graphicImage cache="false" styleClass="left mr20"
 												value="#{frontendBean.generateImage()}">
 												<f:param name="img" value="#{lista.pacchetto.immagine}" />
-												<f:param name="width" value="83" />
-												<f:param name="height" value="62" />
-											</p:graphicImage> 
-										<h:link class="dark" outcome="/store/details.xhtml">
-											<f:param name="id" value="#{lista.pacchetto.id}" />
-											#{lista.pacchetto.nome}
-										</h:link> / 
-										<span class="dark size12">#{lista.pacchetto.localita}</span><br />
-										<span class="opensans green bold size14"></span> <span
-											class="grey">avg/night</span><br /><h:graphicImage library="store"
-													name="images/filter-rating-#{lista.pacchetto.hotel.stelle}.png"
-													width="60" /><br />
-									</div>
+												<f:param name="width" value="96" />
+												<f:param name="height" value="61" />
+											</p:graphicImage></h:link>
+									<a class="dark" href="#"><b>#{lista.pacchetto.nome}</b></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
+									 <h:graphicImage library="store" class="left mr20" name="images/filter-rating-3.png" alt="" /><br />
+								</div>
 									<div class="col-md-7">
 										<span class="grey">#{lista.pacchetto.descrizione}</span>
 									</div>
@@ -539,7 +531,6 @@
 									
 									<div class="clearfix"></div>
 									<div class="line6"></div>
-								</div>
 								</h:form>
 								
 								</ui:repeat>

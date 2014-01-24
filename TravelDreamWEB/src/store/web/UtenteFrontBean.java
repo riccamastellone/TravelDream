@@ -35,7 +35,6 @@ public class UtenteFrontBean implements Serializable {
 	}
 
 	public List<ListaDesideriDTO> getListaDesideri() {
-		System.out.println("ricevo");
 		return this.listaDesideri = listaDesideriMng.getListaDesisderiUtente(this.userMgr.getUserDTO());
 	}
 

@@ -500,7 +500,9 @@
 
 
 								<span class="dark size18">Wish list</span>
-
+								<a href="#"
+								class="btn btn-default" data-toggle="modal"
+								data-target="#sendToAFriendModal">Send to a friend</a>	
 								<div class="line4"></div>
 								<br />
 								<p:outputPanel id="listaDesideri">
@@ -598,6 +600,33 @@
 		</div>
 
 
+		</div>
+
+		<div class="modal fade" id="sendToAFriendModal">
+		<h:form>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<p class="opensans size16 dark bold">Send your wish list</p>
+						<div class="line2"></div>
+						<br />
+						<p class="grey">Insert the e-mail address of your friend</p>
+						<p:inputText value="#{mailBean.mail}" placeholder="E-mail" />
+					</div>
+					<div class="modal-footer">
+						
+							<a class="btn bookbtn" data-dismiss="modal">Cancel</a>
+							<p:commandButton id="sendEmail" styleClass="btn bookbtn" value="Send"
+								action="#{mailBean.sendListaDesideri()}">
+								<p:ajax execute="sendEmail" />
+							</p:commandButton>
+					
+					</div>
+				</div>
+			</div>
+		</h:form>
 		</div>
 
 		<ui:include src="footer.xhtml" />

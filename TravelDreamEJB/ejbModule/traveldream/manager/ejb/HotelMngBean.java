@@ -2,6 +2,8 @@ package traveldream.manager.ejb;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -144,6 +146,22 @@ public class HotelMngBean implements HotelMng{
 		Hotel hotel = this.findHotel(id);
 		HotelDTO hotelDTO = HotelToDTO(hotel);
 		return hotelDTO;
+	}
+
+
+	@Override
+	public List<HotelDTO> ricercaHotel(String destinazione, int persone) {
+		
+		System.out.println("sono qui");
+		List<Hotel> lista = em.createNamedQuery("Hotel.Ricerca", Hotel.class).setParameter("luogo", destinazione).setParameter("persone", persone).getResultList();
+		List<HotelDTO> hotelDTOs = new ArrayList<HotelDTO>();
+		for (Hotel hotel : lista) {
+			hotelDTOs.add(this.HotelToDTO(hotel));
+		}
+		
+		return hotelDTOs;
+		
+		
 	}
 
 

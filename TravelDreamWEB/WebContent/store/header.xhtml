@@ -32,8 +32,9 @@
 								<li><h:commandLink id="packages"  value="Packages" action="#{pacchettoFrontBean.goToListPacchetti()}" >
 						    	
 							</h:commandLink></li>
-								<li><h:link outcome="/store/listHotel.xhtml"
-										value="Hotels" /></li>
+								<li><h:commandLink id="hotels"  value="Hotels" action="#{pacchettoFrontBean.goToListHotel()}" >
+						    	
+							</h:commandLink></li>
 								<li><h:link outcome="/store/contacts" value="Contacts" /></li>
 								<li class="dropdown"><a data-toggle="dropdown"
 									class="dropdown-toggle" href="#">Hello <b

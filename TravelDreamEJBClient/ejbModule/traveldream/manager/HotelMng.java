@@ -2,6 +2,8 @@ package traveldream.manager;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import traveldream.dtos.HotelDTO;
 
@@ -48,6 +50,8 @@ public interface HotelMng {
 	public HotelDTO aggiungiHotelAPacchetto(HotelDTO hotel) throws ParseException;
 
 	public HotelDTO findHotelDTO(int id);
+	
+	public List<HotelDTO> ricercaHotel(String destinazione, int persone);
 	
 
 

@@ -175,22 +175,13 @@
 
 								<!--  TAB PACCHETTI -->
 								<div id="vacations" class="tab-pane fade active in">
-									<form>
+									<h:form id="pacchetti">
 
 										<div class="w50percent">
 											<div class="wh90percent textleft">
-												<span class="opensans size13"><b>Flying from</b></span> <input
-													type="text" class="form-control"
-													placeholder="City or airport" name="depCity" />
-											</div>
-										</div>
-
-
-										<div class="w50percentlast">
-											<div class="wh90percent textleft right">
-												<span class="opensans size13"><b>To</b></span> <input
-													type="text" class="form-control"
-													placeholder="City or airport" name="arrCity" />
+												<span class="opensans size13"><b>Where do you want to go?</b></span> 
+												<h:inputText type="text" class="form-control"
+												placeholder="Greece" value="#{pacchettoFrontBean.destinazione}" />
 											</div>
 										</div>
 
@@ -199,17 +190,15 @@
 
 										<div class="w50percent">
 											<div class="wh90percent textleft">
-												<span class="opensans size13"><b>Check in date</b></span> <input
-													type="text" class="form-control mySelectCalendar"
-													id="datepicker7" placeholder="mm/dd/yyyy" name="checkIn" />
+												<span class="opensans size13"><b>Check in date</b></span> 
+												<p:calendar id="datepicker7" format="mm/dd/yyyy" value="#{pacchettoFrontBean.data2}" />
 											</div>
 										</div>
 
 										<div class="w50percentlast">
 											<div class="wh90percent textleft right">
-												<span class="opensans size13"><b>Check in date</b></span> <input
-													type="text" class="form-control mySelectCalendar"
-													id="datepicker8" placeholder="mm/dd/yyyy" name="checkOut" />
+												<span class="opensans size13"><b>Check out date</b></span> 
+												<p:calendar id="datepicker8" format="mm/dd/yyyy" value="#{pacchettoFrontBean.data2}" />
 											</div>
 										</div>
 
@@ -218,107 +207,32 @@
 										<div class="room1 margtop15">
 											<div class="w50percent">
 												<div class="wh90percent textleft">
-													<span class="opensans size13"><b>Adult</b></span> <select
-														class="form-control mySelectBoxClass" name="adults">
-														<option>1</option>
-														<option selected="selected">2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-													</select>
+													<span class="opensans size13">How many people?</span><br />
+													<h:selectOneMenu class="form-control mySelectBoxClass" value="#{pacchettoFrontBean.persone}">
+														<f:selectItem itemLabel="1" itemValue="1" />
+														<f:selectItem itemLabel="2" itemValue="2" />
+														<f:selectItem itemLabel="3" itemValue="3" />
+														<f:selectItem itemLabel="4" itemValue="4" />
+														<f:selectItem itemLabel="5" itemValue="5" />
+													</h:selectOneMenu>
+
+													
 												</div>
 											</div>
 
-											<div class="w50percentlast">
-												<div class="wh90percent textleft right">
-													<span class="opensans size13"><b>Child</b></span> <select
-														class="form-control mySelectBoxClass" name="child">
-														<option>0</option>
-														<option selected="selected">1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-													</select>
-												</div>
-											</div>
+											
 										</div>
-									</form>
+										
+										<div class="searchbg">
+										<p:commandButton value="Filter" styleClass="btn-search3"
+										action="#{pacchettoFrontBean.goToRicerca()}" />
+									 	</div>
+									 
+									</h:form>
 								</div>
 								<!--End PACCEHTTI -->
 
-								<!--  TAB VOLI -->
-								<div id="air" class="tab-pane fade">
-									<form>
-										<div class="w50percent">
-											<div class="wh90percent textleft">
-												<span class="opensans size13"><b>Flying from</b></span> <input
-													type="text" class="form-control"
-													placeholder="City or airport" name="depCity" />
-											</div>
-										</div>
-
-										<div class="w50percentlast">
-											<div class="wh90percent textleft right">
-												<span class="opensans size13"><b>To</b></span> <input
-													type="text" class="form-control"
-													placeholder="City or airport" name="arrCity" />
-											</div>
-										</div>
-
-
-										<div class="clearfix"></div>
-										<br />
-
-										<div class="w50percent">
-											<div class="wh90percent textleft">
-												<span class="opensans size13"><b>Departing</b></span> <input
-													type="text" class="form-control mySelectCalendar"
-													id="datepicker3" placeholder="mm/dd/yyyy" name="checkIn" />
-											</div>
-										</div>
-
-										<div class="w50percentlast">
-											<div class="wh90percent textleft right">
-												<span class="opensans size13"><b>Returning</b></span> <input
-													type="text" class="form-control mySelectCalendar"
-													id="datepicker4" placeholder="mm/dd/yyyy" name="checkOut" />
-											</div>
-										</div>
-
-										<div class="clearfix"></div>
-
-										<div class="room1 margtop15">
-											<div class="w50percent">
-												<div class="wh90percent textleft">
-													<span class="opensans size13"><b>Adult</b></span> <select
-														class="form-control mySelectBoxClass" name="adults">
-														<option>1</option>
-														<option selected="selected">2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-													</select>
-												</div>
-											</div>
-
-											<div class="w50percentlast">
-												<div class="wh90percent textleft right">
-													<span class="opensans size13"><b>Child</b></span> <select
-														class="form-control mySelectBoxClass" name="child">
-														<option>0</option>
-														<option selected="selected">1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-													</select>
-												</div>
-											</div>
-										</div>
-									</form>
-								</div>
-								<!--End of 1st tab -->
+								
 
 								<!-- TAB HOTEL -->
 								<div id="hotel" class="tab-pane fade">
@@ -381,9 +295,7 @@
 
 							</div>
 
-							<div class="searchbg">
-								<button type="submit" class="btn-search">Search</button>
-							</div>
+							
 
 						</div>
 					</div>

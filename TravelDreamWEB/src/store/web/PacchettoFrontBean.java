@@ -13,7 +13,9 @@ import javax.faces.bean.SessionScoped;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
+import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
+import traveldream.manager.HotelMng;
 import traveldream.manager.PacchettoMng;
 
 @ManagedBean(name = "pacchettoFrontBean")
@@ -25,6 +27,9 @@ public class PacchettoFrontBean implements Serializable {
 	@EJB
 	private PacchettoMng pkgMng;
 	
+	@EJB
+	private HotelMng hotelMng;
+	
 	private List<PacchettoDTO> pacchetti;
 	
 	private String destinazione;
@@ -32,11 +37,14 @@ public class PacchettoFrontBean implements Serializable {
 	private Date data2 = new Date();
 	private int persone = 1;
 	
+	private List<HotelDTO> listaHotel;
+	
 	
 	
 	public PacchettoFrontBean(){
 		
 		this.pacchetti = new ArrayList<PacchettoDTO>();
+		this.listaHotel = new ArrayList<HotelDTO>();
 	}
 	
 	public String getDestinazione() {
@@ -84,6 +92,14 @@ public class PacchettoFrontBean implements Serializable {
 		return this.pacchetti;
 	}
 	
+	public List<HotelDTO> getListaHotel() {
+		return listaHotel;
+	}
+
+	public void setListaHotel(List<HotelDTO> listaHotel) {
+		this.listaHotel = listaHotel;
+	}
+	
 	public void refresh() {
 		
 		if (destinazione.equals("")){
@@ -109,6 +125,36 @@ public class PacchettoFrontBean implements Serializable {
 		return "list?faces-redirect=true";
 		
 	}
+	
+	public String goToListHotel(){
+		
+		this.listaHotel = hotelMng.getAllHotel();
+		this.destinazione = "";
+		return "listHotel?faces-redirect=true";
+		
+	}
+	
+	public String goToRicerca(){
+		this.refresh();
+		return "list?faces-redirect=true";
+	}
+	
+	public void ricercaHotel() {
+
+		if (destinazione.equals("")) {
+			this.destinazione = "%";
+		}
+
+		this.listaHotel = this.hotelMng.ricercaHotel(this.destinazione, this.persone);
+		System.out.println("DDD" + destinazione);
+		System.out.println(data1.equals(data2));
+		// for (PacchettoDTO pacchettoDTO : this.pacchetti) {
+		// System.out.println(pacchettoDTO.getNome());
+		// }
+
+	}
+
+	
 
 	
 

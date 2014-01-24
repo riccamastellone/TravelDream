@@ -303,12 +303,23 @@ public class PacchettoMngBean implements PacchettoMng {
 		List<Pacchetto> lista = em.createNamedQuery("Pacchetto.Ricerca", Pacchetto.class).setParameter("localita", destinazione).getResultList();
 		List<PacchettoDTO> pacchettiDTO = new ArrayList<PacchettoDTO>();
 		
+		if (!partenza.equals(ritorno)){
 		//tolgo i paccheti non validi eliminando quelli che non hanno l hotel disponibile per il numero di persone scelte e che non sono nel range di date scelte
 		for (Iterator<Pacchetto> pacchettiIterator = lista.iterator(); pacchettiIterator.hasNext();) {
 			Pacchetto pacchetto = pacchettiIterator.next();
 			if ((pacchetto.getInizioValidita().after(partenza) || pacchetto.getFineValidita().before(ritorno)) || (pacchetto.getHotel().getDisponibilita() < persone) ){
 				System.out.println(pacchetto.getNome());
 				pacchettiIterator.remove();
+			}
+		}
+		}
+		else {
+			for (Iterator<Pacchetto> pacchettiIterator = lista.iterator(); pacchettiIterator.hasNext();) {
+				Pacchetto pacchetto = pacchettiIterator.next();
+				if ((pacchetto.getHotel().getDisponibilita() < persone) ){
+					System.out.println(pacchetto.getNome());
+					pacchettiIterator.remove();
+				}
 			}
 		}
 		System.out.println("------ Pacchetti rimanenti ----");

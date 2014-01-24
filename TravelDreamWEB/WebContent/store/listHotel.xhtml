@@ -102,8 +102,10 @@
 								</div>
 								<div class="clearfix"></div>
 								<br />
-								<h:commandButton value="Filter" class="btn-search3"
-									action="#{pacchettoFrontBean.refresh}" />
+								<p:commandButton value="Filter" styleClass="btn-search3"
+									action="#{pacchettoFrontBean.ricercaHotel()}"
+									 update=":vista"
+									 />
 							</div>
 							<!-- END OF VACATIONS TAB -->
 
@@ -131,8 +133,8 @@
 
 
 					<div class="itemscontainer offset-1">
-
-						<ui:repeat value="#{hotelBean.allHotel}" var="hotel">
+						<p:outputPanel id="vista">
+						<ui:repeat value="#{pacchettoFrontBean.listaHotel}" var="hotel">
 							<div class="offset-2">
 								<div class="col-md-4 offset-0">
 									<div class="listitem2">
@@ -178,7 +180,7 @@
 
 
 						</ui:repeat>
-
+						</p:outputPanel>
 					</div>
 					<!-- End of offset1-->
 

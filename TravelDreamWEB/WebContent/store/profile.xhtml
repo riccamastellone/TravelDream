@@ -524,16 +524,16 @@
 												</h:link></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
 										<span class="opensans green bold size14"></span> <span
 											class="grey">avg/night</span><br /><h:graphicImage library="store"
-													name="images/filter-rating-#{lista.pacchetto.hotel.stelle}.png"
+													name="images/filter-rating-#{lista.pacchetto.hotel.stelle}"
 													width="60" /><br />
 									</div>
 									<div class="col-md-7">
 										<span class="grey">#{lista.pacchetto.descrizione}</span>
 									</div>
 									<h:commandLink id="canc" class="btn btn-default btn-danger "
+									value="Paga"
+									action="#{listaDesideriBean.pagaPacchetto(lista)}">
 									
-									action="#{utenteFrontBean.deletePacchetto(lista)}">
-									<span class="glyphicon glyphicon-trash white"></span>
 									<p:ajax execute="canc" update=":listaDesideri" />
 									</h:commandLink>
 									

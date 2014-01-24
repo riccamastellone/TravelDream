@@ -12,4 +12,6 @@ public interface ListaDesideriMng {
 	
 	public void eliminaDaListaDesideri(ListaDesideriDTO lista);
 	
+	public void pagaPacchttoInListaDesideri(ListaDesideriDTO lista, String nome);
+	
 }

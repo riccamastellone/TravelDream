@@ -92,6 +92,15 @@ public class ListaDesideriMngBean implements ListaDesideriMng{
 		em.remove(listaDesideri);
 			
 	}
+
+	@Override
+	public void pagaPacchttoInListaDesideri(ListaDesideriDTO lista, String nome) {
+		// TODO Auto-generated method stub
+		ListaDesideri listaDesideri = em.find(ListaDesideri.class, lista.getId());
+		listaDesideri.setPagatoDa(nome);
+		em.merge(listaDesideri);
+		
+	}
     
     
     

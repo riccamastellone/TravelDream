@@ -79,7 +79,7 @@ public class MailBean implements Serializable {
 		email.setSmtpPort(25);
 		email.setFrom("traveldream@rmdesign.it");
 		email.setSubject("Lista desideri");
-		email.setMsg("Ciao sono " + this.userMgr.getUserDTO().getNome() + " e questa è la mia lista desideri") ;
+		email.setMsg("Ciao sono " + this.userMgr.getUserDTO().getNome() + " e questa è la mia lista desideri \n\r http://localhost:8080/TravelDreamWEB/out/visualizzaLista.xhtml?user=" + this.userMgr.getUserDTO().getEmail()) ;
 		//email.addTo("riccardo.mastellone@gmail.com");
 		email.addTo(this.mail);
 		email.send();

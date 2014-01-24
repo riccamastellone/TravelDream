@@ -48,9 +48,9 @@
 		<view-id value="/store/detailsShare.xhtml" />
 	</url-mapping>
 	
-	<url-mapping id="wishList-detail">
-		<pattern value="/out/visualizaLista" />
-		<view-id value="/out/visualizaLista.xhtml*" />
+	<url-mapping id="wishlist-view1">
+		<pattern value="/out/viewlist" />
+		<view-id value="/out/visualizzaLista.xhtml" />
 	</url-mapping>
 
 </pretty-config>

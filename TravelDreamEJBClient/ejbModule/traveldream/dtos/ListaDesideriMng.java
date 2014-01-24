@@ -10,4 +10,6 @@ public interface ListaDesideriMng {
 	
 	public List<ListaDesideriDTO> getListaDesisderiUtente(UtenteDTO utenteDTO);
 	
+	public void eliminaDaListaDesideri(ListaDesideriDTO lista);
+	
 }

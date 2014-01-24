@@ -503,7 +503,10 @@
 
 								<div class="line4"></div>
 								<br />
+								<p:outputPanel id="listaDesideri">
 								<ui:repeat value="#{utenteFrontBean.listaDesideri}" var="lista" >
+								
+								<h:form>
 								<div>
 									<div class="col-md-4 offset-0">
 									
@@ -513,29 +516,32 @@
 												<f:param name="width" value="83" />
 												<f:param name="height" value="62" />
 											</p:graphicImage> 
-										<a class="dark" ><b>#{lista.pacchetto.nome}</b></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
+										<a class="dark" ><h:link outcome="/store/details.xhtml" value="#{lista.pacchetto.nome}">
+													<f:param name="id" value="#{lista.pacchetto.id}" />
+													
+												</h:link></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
 										<span class="opensans green bold size14"></span> <span
-											class="grey">avg/night</span><br /> <h:graphicImage library="store" class="left mr20" name="images/filter-rating-#{lista.pacchetto.hotel.stelle}.png" alt="" /><br />
+											class="grey">avg/night</span><br /><h:graphicImage library="store"
+													name="images/filter-rating-#{lista.pacchetto.hotel.stelle}.png"
+													width="60" /><br />
 									</div>
 									<div class="col-md-7">
-										<span class="grey">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam faucibus, quam vel interdum
-											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
+										<span class="grey">#{lista.pacchetto.descrizione}</span>
 									</div>
-									<div class="col-md-1 offset-0">
-										<button onclick="errorMessage()" type="submit"
-											class="btn-search5 right">
-											<span class="glyphicon glyphicon-heart dark"></span>
-										</button>
-									</div>
-									<button aria-hidden="true" data-dismiss="alert"
-										class="close mr20 mt10" type="button">×</button>
+									<h:commandLink id="canc" class="btn btn-default btn-danger "
+									
+									action="#{utenteFrontBean.deletePacchetto(lista)}">
+									<span class="glyphicon glyphicon-trash white"></span>
+									<p:ajax execute="canc" update=":listaDesideri" />
+									</h:commandLink>
+									
 									<div class="clearfix"></div>
 									<div class="line6"></div>
 								</div>
+								</h:form>
+								
 								</ui:repeat>
-							
+							</p:outputPanel>
 			
 
 								<div class="line4"></div>

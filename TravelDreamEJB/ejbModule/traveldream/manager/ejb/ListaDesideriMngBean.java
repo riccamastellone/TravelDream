@@ -84,6 +84,14 @@ public class ListaDesideriMngBean implements ListaDesideriMng{
 		lista.setUtente(UtenteMgrBean.convertToDTO(listaDesideri.getUtente()));
 		return lista;
 	}
+
+	@Override
+	public void eliminaDaListaDesideri(ListaDesideriDTO lista) {
+		// TODO Auto-generated method stub
+		ListaDesideri listaDesideri = em.find(ListaDesideri.class, lista.getId());
+		em.remove(listaDesideri);
+			
+	}
     
     
     

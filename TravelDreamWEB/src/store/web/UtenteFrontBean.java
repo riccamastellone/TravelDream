@@ -43,6 +43,12 @@ public class UtenteFrontBean implements Serializable {
 		this.listaDesideri = listaDesideri;
 	}
 	
+	public void deletePacchetto(ListaDesideriDTO lista){
+		System.out.println("benissimo");
+		this.listaDesideriMng.eliminaDaListaDesideri(lista);
+		this.listaDesideri.remove(lista);
+	}
+	
 	
 
 }

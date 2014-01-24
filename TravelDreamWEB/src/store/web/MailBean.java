@@ -43,7 +43,6 @@ public class MailBean implements Serializable {
 	private String telefono;
 	private String mail;
 	private String messaggio;
-	private String js;
 	
 	@EJB
 	private UtenteMrg userMgr;
@@ -60,7 +59,7 @@ public class MailBean implements Serializable {
 		email.setFrom("traveldream@rmdesign.it");
 		email.setSubject("Mail dal sito");
 		email.setMsg("Nome " + nome + "\n\rTelefono " + telefono + "\n\rEmail "+ mail + "\n\r\n\r" + messaggio);
-		//email.addTo("riccardo.mastellone@gmail.com");
+		email.addTo("riccardo.mastellone@gmail.com");
 		email.addTo("seba0691@gmail.com");
 		email.send();
 		nome = "";
@@ -79,7 +78,7 @@ public class MailBean implements Serializable {
 		email.setSmtpPort(25);
 		email.setFrom("traveldream@rmdesign.it");
 		email.setSubject("Lista desideri");
-		email.setMsg("Ciao sono " + this.userMgr.getUserDTO().getNome() + " e questa è la mia lista desideri \n\r http://localhost:8080/TravelDreamWEB/out/visualizzaLista.xhtml?user=" + this.userMgr.getUserDTO().getEmail()) ;
+		email.setMsg("Ciao sono " + this.userMgr.getUserDTO().getNome() + " e questa �� la mia lista desideri \n\r http://localhost:8080/TravelDreamWEB/out/visualizzaLista.xhtml?user=" + this.userMgr.getUserDTO().getEmail()) ;
 		//email.addTo("riccardo.mastellone@gmail.com");
 		email.addTo(this.mail);
 		email.send();

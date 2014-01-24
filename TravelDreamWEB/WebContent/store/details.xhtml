@@ -187,31 +187,38 @@
 
 
 		<div class="modal fade" id="sendtofriendModal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<p class="opensans size16 dark bold">Share this vacation with
-							a friend</p>
-						<div class="line2"></div>
-						<br />
-						<p class="grey">Type here your friend email to invite him. You can see if he accepts your 
-						invitation in <h:link outcome="/store/profile.xhtml">your profile</h:link> page</p>
-						<input type="text" class="form-control"
-							placeholder="name@domain.com" />
-					</div>
-					<div class="modal-footer">
-						<h:form>
+			<h:form id="shareForm">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<p class="opensans size16 dark bold">Share this vacation with
+								a friend</p>
+							<div class="line2"></div>
+							<br />
+							<p class="grey">
+								Type here your friend email to invite him. You can see if he
+								accepts your invitation in
+								<h:link outcome="/store/profile.xhtml">your profile</h:link>
+								page
+							</p>
+							<h:inputText class="form-control" placeholder="name@domain.com"
+								value="#{shareBean.email}" />
+						</div>
+						<div class="modal-footer">
+
 							<a class="btn bookbtn" data-dismiss="modal">Cancel</a>
-							<h:commandLink id="shareVacation" class="btn bookbtn" value="Send"
+							<h:commandLink id="shareVacation" class="btn bookbtn"
+								value="Send"
 								action="#{shareBean.shareVacation(frontendBean.pacchetto)}">
-								<f:ajax execute="shareVacation" />
+								<f:ajax execute="@form" />
 							</h:commandLink>
-						</h:form>
+
+						</div>
 					</div>
 				</div>
-			</div>
+			</h:form>
 		</div>
 
 
@@ -225,12 +232,16 @@
 							wish list</p>
 						<div class="line2"></div>
 						<br />
-						<p class="grey">Do you want to add <b>#{frontendBean.pacchetto.nome}</b> to your wish list?</p>
+						<p class="grey">
+							Do you want to add <b>#{frontendBean.pacchetto.nome}</b> to your
+							wish list?
+						</p>
 					</div>
 					<div class="modal-footer">
 						<h:form>
 							<a class="btn bookbtn" data-dismiss="modal">Cancel</a>
-							<h:commandLink id="addAListaDesideri" class="btn bookbtn" value="Add"
+							<h:commandLink id="addAListaDesideri" class="btn bookbtn"
+								value="Add"
 								action="#{listaDesideriBean.addAListaDesideri(frontendBean.pacchetto)}">
 								<f:ajax execute="addAListaDesideri" />
 							</h:commandLink>

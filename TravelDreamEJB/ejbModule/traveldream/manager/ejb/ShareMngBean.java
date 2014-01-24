@@ -16,6 +16,8 @@ import model.PacchettoCondiviso;
 import model.Utente;
 import registrazione.ejb.UtenteMgrBean;
 import traveldream.dtos.ListaDesideriMng;
+import traveldream.dtos.PacchettoDTO;
+import traveldream.dtos.UtenteDTO;
 import traveldream.manager.ListaDesideriDTO;
 import traveldream.manager.ShareMng;
 
@@ -54,6 +56,17 @@ public class ShareMngBean implements ShareMng {
 	public int getIdShareFromChiave(String chiave) {
 		List<PacchettoCondiviso> result = em.createNamedQuery("PacchettoCondiviso.cercaChiave", PacchettoCondiviso.class).setParameter("chiave", chiave).getResultList();
 		return result.get(0).getId();
+	}
+
+
+	public void createShare(PacchettoDTO pacchetto, UtenteDTO userDTO, String email, String key) {
+		PacchettoCondiviso pc = new PacchettoCondiviso();
+		pc.setChiave(key);
+		pc.setEmailAmico(email);
+		pc.setPacchetto(em.find(Pacchetto.class, pacchetto.getId()));
+		pc.setUtente(em.find(Utente.class, userDTO.getEmail()));
+		pc.setStato("non accettato");
+		em.persist(pc);
 	}
 
 

@@ -7,10 +7,17 @@ import java.security.SecureRandom;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 
 import traveldream.dtos.PacchettoDTO;
 import traveldream.manager.PacchettoMng;
 import traveldream.manager.ShareMng;
+import traveldream.manager.UtenteMrg;
 
 @ManagedBean(name = "shareBean")
 @SessionScoped
@@ -25,11 +32,15 @@ public class ShareBean implements Serializable{
 	@EJB
 	private PacchettoMng pkgMng;
 	
+	@EJB
+	private UtenteMrg userMgr;
+	
 	
 	private String chiave;
 	private SecureRandom random;
 	private int idshare;
 	private PacchettoDTO pacchetto;
+	private String email;
 	
 	public ShareBean(){
 		random = new SecureRandom();
@@ -60,6 +71,36 @@ public class ShareBean implements Serializable{
 		return "/registrazione?faces-redirect=true";
 	}
 	
+	public void shareVacation(PacchettoDTO pacchetto) throws EmailException {
+		System.out.println(email);
+		
+		String key = generaChiave();
+		System.out.println(key);
+		
+		shareMng.createShare(pacchetto, userMgr.getUserDTO(), email, key);
+		
+		// Generiamo l'url
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
+		String requestURL = request.getRequestURL().toString();
+		String url = requestURL.substring(0, requestURL.substring(0, requestURL.lastIndexOf("/")).lastIndexOf("/")) + "/invitation/" + key;
+		
+		System.out.println(url);
+		System.out.println(userMgr.getUserDTO().getNome());
+		
+		Email s_email = new SimpleEmail();
+		s_email.setHostName("localhost");
+		s_email.setSmtpPort(25);
+		s_email.setFrom("traveldream@rmdesign.it");
+		s_email.setSubject("TravelDream Invitation");
+		s_email.setMsg("You have been invited to join your friend " + userMgr.getUserDTO().getNome() + " on TravelDream\n"
+				+ "Click here to view the package he'd like you to join: " + url);
+		s_email.addTo(email);
+		//email.addTo("seba0691@gmail.com");
+		s_email.send();
+		
+	}
+	
 	public SecureRandom getRandom() {
 		return random;
 	}
@@ -82,6 +123,14 @@ public class ShareBean implements Serializable{
 
 	public void setIdshare(int idshare) {
 		this.idshare = idshare;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

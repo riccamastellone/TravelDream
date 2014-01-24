@@ -518,13 +518,14 @@
 												<f:param name="width" value="83" />
 												<f:param name="height" value="62" />
 											</p:graphicImage> 
-										<a class="dark" ><h:link outcome="/store/details.xhtml" value="#{lista.pacchetto.nome}">
-													<f:param name="id" value="#{lista.pacchetto.id}" />
-													
-												</h:link></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
+										<h:link class="dark" outcome="/store/details.xhtml">
+											<f:param name="id" value="#{lista.pacchetto.id}" />
+											#{lista.pacchetto.nome}
+										</h:link> / 
+										<span class="dark size12">#{lista.pacchetto.localita}</span><br />
 										<span class="opensans green bold size14"></span> <span
 											class="grey">avg/night</span><br /><h:graphicImage library="store"
-													name="images/filter-rating-#{lista.pacchetto.hotel.stelle}"
+													name="images/filter-rating-#{lista.pacchetto.hotel.stelle}.png"
 													width="60" /><br />
 									</div>
 									<div class="col-md-7">

@@ -532,9 +532,8 @@
 										<span class="grey">#{lista.pacchetto.descrizione}</span>
 									</div>
 									<h:commandLink id="canc" class="btn btn-default btn-danger "
-									value="Paga"
-									action="#{listaDesideriBean.pagaPacchetto(lista)}">
-									
+									action="#{utenteFrontBean.deletePacchetto(lista)}">
+									<span class="glyphicon glyphicon-trash white"></span>					
 									<p:ajax execute="canc" update=":listaDesideri" />
 									</h:commandLink>
 									

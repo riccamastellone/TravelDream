@@ -456,6 +456,7 @@ z-index:100;
 	text-transform:uppercase;
 	position:absolute;
 	bottom:20px;
+	z-index:111;
   
 	border: 1px solid #d75124;
 	background: #e35121;

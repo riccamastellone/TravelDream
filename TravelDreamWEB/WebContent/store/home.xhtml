@@ -15,7 +15,7 @@
 
 
 	<ui:define name="content">
-
+		<script>$.noConflict()</script>
 
 		<ui:include src="header.xhtml" />
 
@@ -173,12 +173,12 @@
 								<div id="vacations" class="tab-pane fade active in">
 									<h:form id="pacchetti">
 
-										<div class="w50percent">
-											<div class="wh90percent textleft">
-												<span class="opensans size13"><b>Where do you want to go?</b></span> 
-												<h:inputText type="text" class="form-control"
-												placeholder="Greece" value="#{pacchettoFrontBean.destinazione}" />
-											</div>
+										<div class="textleft">
+											<span class="opensans size13"><b>Where do you want
+													to go?</b></span>
+											<h:inputText type="text" class="form-control"
+												placeholder="Greece"
+												value="#{pacchettoFrontBean.destinazione}" />
 										</div>
 
 										<div class="clearfix"></div>
@@ -186,15 +186,17 @@
 
 										<div class="w50percent">
 											<div class="wh90percent textleft">
-												<span class="opensans size13"><b>Check in date</b></span> 
-												<p:calendar id="datepicker7" format="mm/dd/yyyy" value="#{pacchettoFrontBean.data2}" />
+												<span class="opensans size13"><b>Check in date</b></span>
+												<p:calendar id="datepicker7" format="mm/dd/yyyy"
+													value="#{pacchettoFrontBean.data2}" />
 											</div>
 										</div>
 
 										<div class="w50percentlast">
 											<div class="wh90percent textleft right">
-												<span class="opensans size13"><b>Check out date</b></span> 
-												<p:calendar id="datepicker8" format="mm/dd/yyyy" value="#{pacchettoFrontBean.data2}" />
+												<span class="opensans size13"><b>Check out date</b></span>
+												<p:calendar id="datepicker8" format="mm/dd/yyyy"
+													value="#{pacchettoFrontBean.data2}" />
 											</div>
 										</div>
 
@@ -203,8 +205,10 @@
 										<div class="room1 margtop15">
 											<div class="w50percent">
 												<div class="wh90percent textleft">
-													<span class="opensans size13">How many people?</span><br />
-													<h:selectOneMenu class="form-control mySelectBoxClass" value="#{pacchettoFrontBean.persone}">
+													<span class="opensans size13"><b>How many
+															people?</b></span><br />
+													<h:selectOneMenu class="form-control mySelectBoxClass"
+														value="#{pacchettoFrontBean.persone}">
 														<f:selectItem itemLabel="1" itemValue="1" />
 														<f:selectItem itemLabel="2" itemValue="2" />
 														<f:selectItem itemLabel="3" itemValue="3" />
@@ -212,107 +216,114 @@
 														<f:selectItem itemLabel="5" itemValue="5" />
 													</h:selectOneMenu>
 
-													
+
 												</div>
 											</div>
 
-											
+
 										</div>
 										<br />
 										<div class="clearfix"></div>
 										<br />
-										<div class="searchbg">
+
 										<p:commandButton value="Filter" styleClass="btn-search3"
-										action="#{pacchettoFrontBean.goToRicerca()}" />
-									 	</div>
-									 	<div class="clearfix"></div>
-									 
+											action="#{pacchettoFrontBean.goToRicerca()}" />
 									</h:form>
+
 								</div>
 								<!--End PACCEHTTI -->
 
-								
+
 
 								<!-- TAB HOTEL -->
 								<div id="hotel" class="tab-pane fade">
 									<h:form id="hotels">
-										<span class="opensans size18">Where do you want to go?</span>
-										<h:inputText type="text" class="form-control"
-									placeholder="Greece" value="#{pacchettoFrontBean.destinazione}" /> <br />
+
+										<div class="textleft">
+											<span class="opensans size13"><b>Where do you want
+													to go?</b></span>
+											<h:inputText type="text" class="form-control"
+												placeholder="Greece"
+												value="#{pacchettoFrontBean.destinazione}" />
+										</div>
+
 
 										<div class="clearfix"></div>
 
 										<div class="room1 margtop15">
 											<div class="w50percent">
 												<div class="wh90percent textleft">
-													<span class="opensans size13"><b>Adult</b></span> 
-													<span class="opensans size13">How many people?</span><br />
-													<h:selectOneMenu class="form-control mySelectBoxClass" value="#{pacchettoFrontBean.persone}">
-													<f:selectItem itemLabel="1" itemValue="1" />
-													<f:selectItem itemLabel="2" itemValue="2" />
-													<f:selectItem itemLabel="3" itemValue="3" />
-													<f:selectItem itemLabel="4" itemValue="4" />
-													<f:selectItem itemLabel="5" itemValue="5" />
-												</h:selectOneMenu>
-
-												<script>$.noConflict()</script>
+													<span class="opensans size13"><b>How many
+															people?</b></span><br />
+													<h:selectOneMenu class="form-control mySelectBoxClass"
+														value="#{pacchettoFrontBean.persone}">
+														<f:selectItem itemLabel="1" itemValue="1" />
+														<f:selectItem itemLabel="2" itemValue="2" />
+														<f:selectItem itemLabel="3" itemValue="3" />
+														<f:selectItem itemLabel="4" itemValue="4" />
+														<f:selectItem itemLabel="5" itemValue="5" />
+													</h:selectOneMenu>
 												</div>
-													
 											</div>
-			
 										</div>
 										
-										<div class="searchbg">
+										<br />
+										<div class="clearfix"></div>
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										
+										
 										<p:commandButton value="Filter" styleClass="btn-search3"
-										action="#{pacchettoFrontBean.goToRicercaHotel()}" />
-									 	</div>
-									 	
+											action="#{pacchettoFrontBean.goToRicercaHotel()}" />
+
 									</h:form>
 								</div>
 								<!--End of 2nd tab -->
-
-
-
 							</div>
-
-							
+							<div class="searchbg"></div>
 
 						</div>
 					</div>
-					
-					<ui:repeat value="#{pacchettoBean.pacchetti}" var="pacchetto" size="2">
-					
-					<div class="col-md-4">
+
+					<ui:repeat value="#{pacchettoBean.pacchetti}" var="pacchetto"
+						size="2">
+
+						<div class="col-md-4">
 							<div class="shadow cstyle05">
 								<div class="fwi one">
-								
-								<p:graphicImage cache="false"
-												value="#{frontendBean.generateImage()}">
-												<f:param name="img" value="#{pacchetto.immagine}" />
-												<f:param name="width" value="720" />
-												<f:param name="height" value="522" />
-											</p:graphicImage>
-											
+
+									<p:graphicImage cache="false"
+										value="#{frontendBean.generateImage()}">
+										<f:param name="img" value="#{pacchetto.immagine}" />
+										<f:param name="width" value="720" />
+										<f:param name="height" value="522" />
+									</p:graphicImage>
+
 									<div class="mhover none">
-										<span class="icon">
-										<h:link outcome="/store/details.xhtml">
-											<f:param name="id" value="#{pacchetto.id}" />
-											<h:graphicImage library="store" name="images/spacer.png" />
-										</h:link>
+										<span class="icon"> <h:link
+												outcome="/store/details.xhtml">
+												<f:param name="id" value="#{pacchetto.id}" />
+												<h:graphicImage library="store" name="images/spacer.png" />
+											</h:link>
 										</span>
 									</div>
 								</div>
 								<div class="ctitle">
 									#{pacchetto.nome}
 									<h:link outcome="/store/details.xhtml">
-											<f:param name="id" value="#{pacchettoBean.pacchetti[0].id}" />
-											<h:graphicImage library="store" name="images/spacer.png" />
-										</h:link>
-										<span>#{frontendBean.getTotalePacchetto(pacchetto)} €</span>
+										<f:param name="id" value="#{pacchettoBean.pacchetti[0].id}" />
+										<h:graphicImage library="store" name="images/spacer.png" />
+									</h:link>
+									<span>#{frontendBean.getTotalePacchetto(pacchetto)} €</span>
 								</div>
 							</div>
 						</div>
-					
+
 					</ui:repeat>
 				</div>
 			</div>
@@ -320,12 +331,17 @@
 
 			<div class="lastminute">
 				<div class="container lmc">
-					<h:graphicImage library="store" name="#{frontendBean.getStarsImage(frontendBean.getLastMinute().hotel.stelle)}" alt="" />
-					<br /> LAST MINUTE: <b>#{frontendBean.getLastMinute().nome}</b> - Flight+#{frontendBean.getLastMinute().hotel.stelle}* Hotel,<br />
-					Dep #{frontendBean.getPartenzaCheap(frontendBean.getLastMinute())} from €#{frontendBean.getTotalePacchetto(frontendBean.getLastMinute())}/person<br />
+					<h:graphicImage library="store"
+						name="#{frontendBean.getStarsImage(frontendBean.getLastMinute().hotel.stelle)}"
+						alt="" />
+					<br /> LAST MINUTE: <b>#{frontendBean.getLastMinute().nome}</b> -
+					Flight+#{frontendBean.getLastMinute().hotel.stelle}* Hotel,<br />
+					Dep #{frontendBean.getPartenzaCheap(frontendBean.getLastMinute())}
+					from
+					€#{frontendBean.getTotalePacchetto(frontendBean.getLastMinute())}/person<br />
 					<h:link class="btn iosbtn" outcome="/store/details.xhtml">
-											<f:param name="id" value="#{frontendBean.getLastMinute().id}" />
-											<h:graphicImage library="store" name="images/spacer.png" />
+						<f:param name="id" value="#{frontendBean.getLastMinute().id}" />
+						<h:graphicImage library="store" name="images/spacer.png" />
 											View Details
 										</h:link>
 				</div>
@@ -349,28 +365,28 @@
 						<div class="wrapper">
 							<div class="list_carousel">
 								<ul id="foo">
-								
-								<ui:repeat value="#{pacchettoBean.pacchetti}" var="pacchetto" size="6" offset="2">
-									<li>
-										<h:link outcome="/store/details.xhtml">
-											<f:param name="id" value="#{pacchetto.id}" />
-										
-										<p:graphicImage cache="false"
-												value="#{frontendBean.generateImage()}">
-												<f:param name="img" value="#{pacchetto.immagine}" />
-												<f:param name="width" value="255" />
-												<f:param name="height" value="179" />
-											</p:graphicImage>
-										</h:link>
-										
-										<div class="m1">
-											<h6 class="lh1 dark">
-												<b>#{pacchetto.nome}</b>
-											</h6>
-											<h6 class="lh1 green">Starting from #{frontendBean.getTotalePacchetto(pacchetto)}€/person</h6>
-										</div>
-									</li>
-								</ui:repeat>
+
+									<ui:repeat value="#{pacchettoBean.pacchetti}" var="pacchetto"
+										size="6" offset="2">
+										<li><h:link outcome="/store/details.xhtml">
+												<f:param name="id" value="#{pacchetto.id}" />
+
+												<p:graphicImage cache="false"
+													value="#{frontendBean.generateImage()}">
+													<f:param name="img" value="#{pacchetto.immagine}" />
+													<f:param name="width" value="255" />
+													<f:param name="height" value="179" />
+												</p:graphicImage>
+											</h:link>
+
+											<div class="m1">
+												<h6 class="lh1 dark">
+													<b>#{pacchetto.nome}</b>
+												</h6>
+												<h6 class="lh1 green">Starting from
+													#{frontendBean.getTotalePacchetto(pacchetto)}€/person</h6>
+											</div></li>
+									</ui:repeat>
 
 								</ul>
 								<div class="clearfix"></div>
@@ -385,7 +401,7 @@
 					</div>
 				</div>
 
-			
+
 			</div>
 			<!-- END OF WRAP -->
 

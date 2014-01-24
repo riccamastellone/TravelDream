@@ -102,10 +102,6 @@ public class PacchettoFrontBean implements Serializable {
 	
 	public void refresh() {
 		
-		if (destinazione.equals("")){
-			this.destinazione="%";
-		}
-		
 		this.pacchetti = this.pkgMng.ricercaPacchetto(this.destinazione, this.data1, this.data2, this.persone);
 		System.out.println("DDD" + destinazione);
 		System.out.println(data1.equals(data2));

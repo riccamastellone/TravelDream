@@ -1,3 +1,8 @@
+
+function illumina(id) {
+	$('#pacchetto-' + id + ' div').animateHighlight('#72bf66', 1000);
+}
+
 //------------------------------
 //Picker
 //------------------------------

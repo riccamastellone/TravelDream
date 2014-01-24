@@ -98,8 +98,7 @@
 									</div>
 								</div>
 								<div class="clearfix"></div>
-								<br />
-								<br />
+								<br /> <br />
 								<p:commandButton value="Filter" styleClass="btn-search3"
 									action="#{pacchettoFrontBean.refresh}" update=":vista"
 									oncomplete="StartAnime2()" />
@@ -132,7 +131,7 @@
 						<p:outputPanel id="vista">
 							<ui:repeat value="#{pacchettoFrontBean.pacchetti}"
 								var="pacchetto">
-								<div class="offset-2">
+								<div class="offset-2" id="pacchetto-#{pacchetto.id}">
 									<div class="col-md-4 offset-0">
 										<div class="listitem2">
 
@@ -143,7 +142,17 @@
 												<f:param name="height" value="420" />
 											</p:graphicImage>
 											<div class="liover"></div>
-											<a class="fav-icon" href="#"></a>
+											<h:form>
+												<h:commandLink id="addAListaDesideri" class="fav-icon"
+												onclick="return confirm('Vuoi aggiungere #{pacchetto.nome} alla tua wish list?');"
+													action="#{listaDesideriBean.addAListaDesideri(pacchetto)}">
+													<p:ajax execute="addAListaDesideri"
+														oncomplete="illumina(#{pacchetto.id});" />
+												</h:commandLink>
+											</h:form>
+
+
+											<a class="" href="#"></a>
 
 											<h:link class="book-icon" outcome="/store/details.xhtml">
 												<f:param name="id" value="#{pacchetto.id}" />

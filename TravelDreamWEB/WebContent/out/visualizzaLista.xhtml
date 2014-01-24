@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../template.xhtml">
+
+	<ui:define name="content">
+	
+	<h1>CIAO</h1>
+	
+	<f:metadata>
+    <f:viewParam name="user" value="#{listaDesideriBean.utenteProprietario}" />
+	</f:metadata>
+	
+	<span class="dark size18">Wish list</span>
+								
+								<div class="line4"></div>
+								<br />
+								<p:outputPanel id="listaDesideri">
+								<ui:repeat value="#{listaDesideriBean.listaDesideriUtente}" var="lista" >
+								
+								<h:form>
+								<div>
+									<div class="col-md-4 offset-0">
+									
+										<p:graphicImage cache="false"
+												value="#{frontendBean.generateImage()}">
+												<f:param name="img" value="#{lista.pacchetto.immagine}" />
+												<f:param name="width" value="83" />
+												<f:param name="height" value="62" />
+											</p:graphicImage> 
+										<a class="dark" ><h:link outcome="/store/details.xhtml" value="#{lista.pacchetto.nome}">
+													<f:param name="id" value="#{lista.pacchetto.id}" />
+													
+												</h:link></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
+										<span class="opensans green bold size14"></span> <span
+											class="grey">avg/night</span><br /><h:graphicImage library="store"
+													name="images/filter-rating-#{lista.pacchetto.hotel.stelle}"
+													width="60" /><br />
+									</div>
+									<div class="col-md-7">
+										<span class="grey">#{lista.pacchetto.descrizione}</span>
+									</div>
+									<p:commandButton id="canc" styleClass="btn btn-default  " value="Paga"
+									action="#{listaDesideriBean.pagaPacchetto(lista)}" update=":listaDesideri">
+									<p:ajax execute="canc"  />
+									</p:commandButton>
+									
+									<div class="clearfix"></div>
+									<div class="line6"></div>
+								</div>
+								</h:form>
+								
+								</ui:repeat>
+							</p:outputPanel>
+			
+
+		
+	</ui:define>
+	
+</ui:composition>
+
+</html>

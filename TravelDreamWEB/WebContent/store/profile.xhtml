@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="../template.xhtml">
 
@@ -499,133 +500,51 @@
 
 
 								<span class="dark size18">Wish list</span>
-
+								<a href="#"
+								class="btn btn-default" data-toggle="modal"
+								data-target="#sendToAFriendModal">Send to a friend</a>	
 								<div class="line4"></div>
 								<br />
-
+								<p:outputPanel id="listaDesideri">
+								<ui:repeat value="#{utenteFrontBean.listaDesideri}" var="lista" >
+								
+								<h:form>
 								<div>
 									<div class="col-md-4 offset-0">
 									
-										<a href="#"><h:graphicImage library="store" class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a> <a class="dark" href="#"><b>Package2</b></a> / <span class="dark size12">Greece - Zakynthos</span><br />
-										<span class="opensans green bold size14">$36-$160</span> <span
-											class="grey">avg/night</span><br /> <h:graphicImage library="store" class="left mr20" name="images/filter-rating-5.png" alt="" /><br />
+										<p:graphicImage cache="false"
+												value="#{frontendBean.generateImage()}">
+												<f:param name="img" value="#{lista.pacchetto.immagine}" />
+												<f:param name="width" value="83" />
+												<f:param name="height" value="62" />
+											</p:graphicImage> 
+										<a class="dark" ><h:link outcome="/store/details.xhtml" value="#{lista.pacchetto.nome}">
+													<f:param name="id" value="#{lista.pacchetto.id}" />
+													
+												</h:link></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
+										<span class="opensans green bold size14"></span> <span
+											class="grey">avg/night</span><br /><h:graphicImage library="store"
+													name="images/filter-rating-#{lista.pacchetto.hotel.stelle}"
+													width="60" /><br />
 									</div>
 									<div class="col-md-7">
-										<span class="grey">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam faucibus, quam vel interdum
-											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
+										<span class="grey">#{lista.pacchetto.descrizione}</span>
 									</div>
-									<div class="col-md-1 offset-0">
-										<button onclick="errorMessage()" type="submit"
-											class="btn-search5 right">
-											<span class="glyphicon glyphicon-heart dark"></span>
-										</button>
-									</div>
-									<button aria-hidden="true" data-dismiss="alert"
-										class="close mr20 mt10" type="button">×</button>
+									<h:commandLink id="canc" class="btn btn-default btn-danger "
+									value="Paga"
+									action="#{listaDesideriBean.pagaPacchetto(lista)}">
+									
+									<p:ajax execute="canc" update=":listaDesideri" />
+									</h:commandLink>
+									
 									<div class="clearfix"></div>
 									<div class="line6"></div>
 								</div>
-
-								<div>
-									<div class="col-md-4 offset-0">
-										<a href="#"><h:graphicImage library="store" class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a> <a class="dark" href="#"><b>Package3
-												</b></a> / <span class="dark size12">Greece - Zakynthos</span><br />
-										<span class="opensans green bold size14">$36-$160</span> <span
-											class="grey">avg/night</span><br /> <h:graphicImage library="store" class="left mr20" name="images/filter-rating-5.png" alt="" /><br />
-									</div>
-									<div class="col-md-7">
-										<span class="grey">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam faucibus, quam vel interdum
-											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-									</div>
-									<div class="col-md-1 offset-0">
-										<button onclick="errorMessage()" type="submit"
-											class="btn-search5 right">
-											<span class="glyphicon glyphicon-heart dark"></span>
-										</button>
-									</div>
-									<button aria-hidden="true" data-dismiss="alert"
-										class="close mr20 mt10" type="button">×</button>
-									<div class="clearfix"></div>
-									<div class="line6"></div>
-								</div>
-
-								<div>
-									<div class="col-md-4 offset-0">
-										<a href="#"><h:graphicImage library="store" class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a> <a class="dark" href="#"><b>Package3
-												</b></a> / <span class="dark size12">Greece - Zakynthos</span><br />
-										<span class="opensans green bold size14">$36-$160</span> <span
-											class="grey">avg/night</span><br /> <h:graphicImage library="store" class="left mr20" name="images/filter-rating-4.png" alt="" /><br />
-									</div>
-									<div class="col-md-7">
-										<span class="grey">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam faucibus, quam vel interdum
-											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-									</div>
-									<div class="col-md-1 offset-0">
-										<button onclick="errorMessage()" type="submit"
-											class="btn-search5 right">
-											<span class="glyphicon glyphicon-heart"></span>
-										</button>
-									</div>
-									<button aria-hidden="true" data-dismiss="alert"
-										class="close mr20 mt10" type="button">×</button>
-									<div class="clearfix"></div>
-									<div class="line6"></div>
-								</div>
-
-								<div>
-									<div class="col-md-4 offset-0">
-										<a href="#"><h:graphicImage library="store" class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a> <a class="dark" href="#"><b>Package3
-												</b></a> / <span class="dark size12">Greece - Zakynthos</span><br />
-										<span class="opensans green bold size14">$36-$160</span> <span
-											class="grey">avg/night</span><br /> <h:graphicImage library="store" class="left mr20" name="images/filter-rating-5.png" alt="" /><br />
-									</div>
-									<div class="col-md-7">
-										<span class="grey">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam faucibus, quam vel interdum
-											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-									</div>
-									<div class="col-md-1 offset-0">
-										<button onclick="errorMessage()" type="submit"
-											class="btn-search5 right">
-											<span class="glyphicon glyphicon-heart dark"></span>
-										</button>
-									</div>
-									<button aria-hidden="true" data-dismiss="alert"
-										class="close mr20 mt10" type="button">×</button>
-									<div class="clearfix"></div>
-									<div class="line6"></div>
-								</div>
-
-								<div>
-									<div class="col-md-4 offset-0">
-										<a href="#"><h:graphicImage library="store" class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a> <a class="dark" href="#"><b>Package3
-												</b></a> / <span class="dark size12">Greece - Zakynthos</span><br />
-										<span class="opensans green bold size14">$36-$160</span> <span
-											class="grey">avg/night</span><br /> <h:graphicImage library="store" class="left mr20" name="images/filter-rating-2.png" alt="" /><br />
-									</div>
-									<div class="col-md-7">
-										<span class="grey">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam faucibus, quam vel interdum
-											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-									</div>
-									<div class="col-md-1 offset-0">
-										<button onclick="errorMessage()" type="submit"
-											class="btn-search5 right">
-											<span class="glyphicon glyphicon-heart"></span>
-										</button>
-									</div>
-									<button aria-hidden="true" data-dismiss="alert"
-										class="close mr20 mt10" type="button">×</button>
-									<div class="clearfix"></div>
-								</div>
+								</h:form>
+								
+								</ui:repeat>
+							</p:outputPanel>
+			
 
 								<div class="line4"></div>
 
@@ -681,6 +600,33 @@
 		</div>
 
 
+		</div>
+
+		<div class="modal fade" id="sendToAFriendModal">
+		<h:form>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<p class="opensans size16 dark bold">Send your wish list</p>
+						<div class="line2"></div>
+						<br />
+						<p class="grey">Insert the e-mail address of your friend</p>
+						<p:inputText value="#{mailBean.mail}" placeholder="E-mail" />
+					</div>
+					<div class="modal-footer">
+						
+							<a class="btn bookbtn" data-dismiss="modal">Cancel</a>
+							<p:commandButton id="sendEmail" styleClass="btn bookbtn" value="Send"
+								action="#{mailBean.sendListaDesideri()}">
+								<p:ajax execute="sendEmail" />
+							</p:commandButton>
+					
+					</div>
+				</div>
+			</div>
+		</h:form>
 		</div>
 
 		<ui:include src="footer.xhtml" />

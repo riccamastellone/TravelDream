@@ -21,6 +21,7 @@ import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 import org.imgscalr.Scalr;
+import org.primefaces.expression.impl.ThisExpressionResolver;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -29,6 +30,7 @@ import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.HotelMng;
 import traveldream.manager.PacchettoMng;
+import traveldream.manager.UtenteMrg;
 import traveldream.manager.VoloMng;
 
 @ManagedBean(name = "mailBean")
@@ -42,6 +44,9 @@ public class MailBean implements Serializable {
 	private String mail;
 	private String messaggio;
 	private String js;
+	
+	@EJB
+	private UtenteMrg userMgr;
 
 
 	public MailBean(){
@@ -62,6 +67,24 @@ public class MailBean implements Serializable {
 		telefono = "";
 		mail = "";
 		messaggio = "";
+		
+
+	}
+	
+	public void sendListaDesideri() throws EmailException {
+		System.out.println(this.mail);
+		
+		Email email = new SimpleEmail();
+		email.setHostName("localhost");
+		email.setSmtpPort(25);
+		email.setFrom("traveldream@rmdesign.it");
+		email.setSubject("Lista desideri");
+		email.setMsg("Ciao sono " + this.userMgr.getUserDTO().getNome() + " e questa è la mia lista desideri \n\r http://localhost:8080/TravelDreamWEB/out/visualizzaLista.xhtml?user=" + this.userMgr.getUserDTO().getEmail()) ;
+		//email.addTo("riccardo.mastellone@gmail.com");
+		email.addTo(this.mail);
+		email.send();
+		System.out.println("invio");
+		
 		
 
 	}

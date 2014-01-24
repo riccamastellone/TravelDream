@@ -122,7 +122,7 @@ public class UtenteMgrBean implements UtenteMrg{
 	 * @param user
 	 * @return
 	 */
-	private UtenteDTO convertToDTO(Utente user) {
+	public static UtenteDTO convertToDTO(Utente user) {
 		UtenteDTO udto = new UtenteDTO();
 		udto.setEmail(user.getEmail());
 		udto.setNome(user.getNome());

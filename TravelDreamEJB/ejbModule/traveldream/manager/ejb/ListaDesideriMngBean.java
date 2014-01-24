@@ -1,6 +1,7 @@
 package traveldream.manager.ejb;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,6 +15,7 @@ import model.Pacchetto;
 import model.Utente;
 import registrazione.ejb.UtenteMgrBean;
 import traveldream.dtos.ListaDesideriMng;
+import traveldream.dtos.UtenteDTO;
 import traveldream.manager.ListaDesideriDTO;
 
 /**
@@ -59,6 +61,44 @@ public class ListaDesideriMngBean implements ListaDesideriMng{
 		
 		List<ListaDesideri> lista = em.createNamedQuery("ListaDesideri.getListaDesideriByPacchettoUtente", ListaDesideri.class).setParameter("pacchetto", pacchetto).setParameter("utente", utente).getResultList();
 		return lista;
+		
+	}
+
+	@Override
+	public List<ListaDesideriDTO> getListaDesisderiUtente(UtenteDTO utenteDTO) {
+		// TODO Auto-generated method stub
+		Utente utente = em.find(Utente.class, utenteDTO.getEmail());
+		List<ListaDesideri> lista = em.createNamedQuery("ListaDesideri.getListaDesideriByUtente", ListaDesideri.class).setParameter("utente", utente).getResultList();
+		List<ListaDesideriDTO> listaDesideriDTO = new ArrayList<ListaDesideriDTO>();
+		for (ListaDesideri listaDesideri : lista) {
+			listaDesideriDTO.add(this.convertToDto(listaDesideri));
+		}
+		return listaDesideriDTO;
+	}
+	
+	private ListaDesideriDTO convertToDto(ListaDesideri listaDesideri){
+		ListaDesideriDTO lista = new ListaDesideriDTO();
+		lista.setId(listaDesideri.getId());
+		lista.setPacchetto(PacchettoMngBean.convertToDto(listaDesideri.getPacchetto()));
+		lista.setPagatoDa(listaDesideri.getPagatoDa());
+		lista.setUtente(UtenteMgrBean.convertToDTO(listaDesideri.getUtente()));
+		return lista;
+	}
+
+	@Override
+	public void eliminaDaListaDesideri(ListaDesideriDTO lista) {
+		// TODO Auto-generated method stub
+		ListaDesideri listaDesideri = em.find(ListaDesideri.class, lista.getId());
+		em.remove(listaDesideri);
+			
+	}
+
+	@Override
+	public void pagaPacchttoInListaDesideri(ListaDesideriDTO lista, String nome) {
+		// TODO Auto-generated method stub
+		ListaDesideri listaDesideri = em.find(ListaDesideri.class, lista.getId());
+		listaDesideri.setPagatoDa(nome);
+		em.merge(listaDesideri);
 		
 	}
     

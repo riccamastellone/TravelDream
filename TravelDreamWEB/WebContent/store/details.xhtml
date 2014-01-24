@@ -17,8 +17,8 @@
 
 
 		<ui:include src="header.xhtml" />
-		
-	
+
+
 
 		<div class="container breadcrub">
 			<div>
@@ -73,14 +73,14 @@
 					<br />
 
 					<div class="padding20">
-						<a href="#" class="sharebtn margtop5">Send to friend</a> 
+						<a href="#" class="sharebtn margtop5" data-toggle="modal"
+							data-target="#sendtofriendModal">Send to friend</a> <a href="#"
+							class="sharebtn margtop5" data-toggle="modal"
+							data-target="#addtolistaModal">Add to wish list</a>
 						<h:form>
-							<h:commandLink id="addAListaDesideri" class="add2fav margtop5" value="Add to whish list" action="#{listaDesideriBean.addAListaDesideri(frontendBean.pacchetto)}" >
-						    	<f:ajax execute="addAListaDesideri" update="messages" />
-							</h:commandLink>
-							
-						
-						<h:commandLink id="book"  value="Book Now" class="booknow margtop20 btnmarg" action="#{bookBean.goToBook(pacchettoFrontBean.data1, pacchettoFrontBean.data2 )}" />
+							<h:commandLink id="book" value="Book Now"
+								class="booknow margtop20 btnmarg"
+								action="#{bookBean.goToBook(pacchettoFrontBean.data1, pacchettoFrontBean.data2 )}" />
 						</h:form>
 					</div>
 				</div>
@@ -99,10 +99,6 @@
 						<li onclick="mySelectUpdate()" class="active"><a
 							data-toggle="tab" href="#hotel"><span class="summary"></span><span
 								class="hidetext">Hotel</span>&nbsp;</a></li>
-
-						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
-							href="#flights"><span class="rates"></span><span
-								class="hidetext">Flights</span>&nbsp;</a></li>
 
 						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
 							href="#thingstodo"><span class="thingstodo"></span><span
@@ -143,9 +139,6 @@
 
 							</div>
 						</div>
-
-						
-
 
 
 						<!-- TAB 3 -->
@@ -191,8 +184,60 @@
 
 
 		</div>
-		
-		
+
+
+		<div class="modal fade" id="sendtofriendModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<p class="opensans size16 dark bold">Share this vacation with
+							a friend</p>
+						<div class="line2"></div>
+						<br />
+						<p class="grey">Type here your friend email</p>
+						<input type="text" class="form-control"
+							placeholder="name@domain.com" />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="bookbtn" data-dismiss="modal">Cancel</button>
+						<button type="button" class="bookbtn" id="doSend">Send</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="modal fade" id="addtolistaModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<p class="opensans size16 dark bold">Add this vacation to your
+							wish list</p>
+						<div class="line2"></div>
+						<br />
+						<p class="grey">Do you want to add <b>#{frontendBean.pacchetto.nome}</b> to your wish list?</p>
+					</div>
+					<div class="modal-footer">
+						<h:form>
+							<a class="btn bookbtn" data-dismiss="modal">Cancel</a>
+							<h:commandLink id="addAListaDesideri" class="btn bookbtn" value="Add"
+								action="#{listaDesideriBean.addAListaDesideri(frontendBean.pacchetto)}">
+								<f:ajax execute="addAListaDesideri" />
+							</h:commandLink>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
 
 		<ui:include src="footer.xhtml" />
 		<h:outputScript library="store" name="js/functions.js" />

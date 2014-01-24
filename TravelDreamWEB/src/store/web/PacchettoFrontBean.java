@@ -136,11 +136,6 @@ public class PacchettoFrontBean implements Serializable {
 	}
 	
 	public void ricercaHotel() {
-
-		if (destinazione.equals("")) {
-			this.destinazione = "%";
-		}
-
 		this.listaHotel = this.hotelMng.ricercaHotel(this.destinazione, this.persone);
 		System.out.println("DDD" + destinazione);
 		System.out.println(data1.equals(data2));

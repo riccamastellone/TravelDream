@@ -9,9 +9,7 @@
 
 
 	<ui:define name="head_add">
-		<h:outputStylesheet library="store" name="css/jquery-ui.css" />
-
-
+		<h:outputScript library="store" name="js/counter.js" />
 	</ui:define>
 
 
@@ -162,6 +160,15 @@
 
 
 						</ui:repeat>
+						
+						<script type="text/javascript">
+							jQuery('.countPacchetti').countTo({
+								from: 1,
+								to: #{pacchettoFrontBean.listaHotel.size()},
+								speed: 1000,
+								refreshInterval: 50
+							});		
+						</script>
 						</p:outputPanel>
 					</div>
 					<!-- End of offset1-->
@@ -194,19 +201,12 @@
 		<h:outputScript library="store" name="js/functions.js" />
 		<h:outputScript library="store" name="js/jquery-ui.js" />
 		<h:outputScript library="store" name="js/jquery.easing.js" />
-		<h:outputScript library="store" name="js/counter.js" />
+		
 		<h:outputScript library="store" name="js/jquery.nicescroll.min.js" />
 
 		<h:outputScript library="store" name="js/jquery.customSelect.js" />
 
-		<script type="text/javascript">
-			jQuery('.countPacchetti').countTo({
-				from: 1,
-				to: #{hotelBean.allHotel.size()},
-				speed: 2000,
-				refreshInterval: 50
-			});		
-		</script>
+		
 		<script>$(function() {$('.active').removeClass('active');$('.nav li:nth-child(3)').addClass('active');});</script>
 
 	</ui:define>

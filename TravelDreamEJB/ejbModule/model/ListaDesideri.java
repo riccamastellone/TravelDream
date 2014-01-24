@@ -16,6 +16,9 @@ import javax.persistence.*;
 	@NamedQuery(name="ListaDesideri.findAll", query="SELECT l FROM ListaDesideri l"),
 	
 	@NamedQuery(name="ListaDesideri.getListaDesideriByPacchettoUtente", query="SELECT l FROM ListaDesideri l WHERE l.pacchetto = :pacchetto AND l.utente = :utente"),
+	
+	@NamedQuery(name="ListaDesideri.getListaDesideriByUtente", query="SELECT l FROM ListaDesideri l WHERE l.utente = :utente"),
+	
 })
 public class ListaDesideri implements Serializable {
 	private static final long serialVersionUID = 1L;

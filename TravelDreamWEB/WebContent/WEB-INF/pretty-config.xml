@@ -47,5 +47,10 @@
 		<pattern value="/invitation/#{id : shareBean.chiave}" />
 		<view-id value="/store/detailsShare.xhtml" />
 	</url-mapping>
+	
+	<url-mapping id="wishList-detail">
+		<pattern value="/out/visualizaLista" />
+		<view-id value="/out/visualizaLista.xhtml*" />
+	</url-mapping>
 
 </pretty-config>

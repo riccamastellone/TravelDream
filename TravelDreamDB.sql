@@ -142,8 +142,8 @@ CREATE TABLE IF NOT EXISTS `AttivitaSecondariaPrenotazione` (
   FOREIGN KEY (`attivita_secondaria`) REFERENCES `AttivitaSecondaria` (`id`))
 ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `ListaDesisderi`; 
-CREATE TABLE IF NOT EXISTS `ListaDesisderi` (
+DROP TABLE IF EXISTS `ListaDesideri`; 
+CREATE TABLE IF NOT EXISTS `ListaDesideri` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `utente` varchar(255) NOT NULL,
   `pacchetto` int(11) NOT NULL,

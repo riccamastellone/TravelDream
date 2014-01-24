@@ -212,7 +212,7 @@
 							<h:commandLink id="shareVacation" class="btn bookbtn"
 								value="Send"
 								action="#{shareBean.shareVacation(frontendBean.pacchetto)}">
-								<f:ajax execute="@form" />
+								<p:ajax execute="@form" oncomplete="jQuery('#sendtofriendModal').modal('hide')"/>
 							</h:commandLink>
 
 						</div>
@@ -243,7 +243,7 @@
 							<h:commandLink id="addAListaDesideri" class="btn bookbtn"
 								value="Add"
 								action="#{listaDesideriBean.addAListaDesideri(frontendBean.pacchetto)}">
-								<f:ajax execute="addAListaDesideri" />
+								<p:ajax execute="addAListaDesideri" oncomplete="jQuery('#addtolistaModal').modal('hide')" />
 							</h:commandLink>
 						</h:form>
 					</div>

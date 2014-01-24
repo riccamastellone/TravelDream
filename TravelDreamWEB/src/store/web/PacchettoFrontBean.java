@@ -149,6 +149,11 @@ public class PacchettoFrontBean implements Serializable {
 		// }
 
 	}
+	
+	public String goToRicercaHotel(){
+		this.ricercaHotel();
+		return "listHotel?faces-redirect=true";
+	}
 
 	
 

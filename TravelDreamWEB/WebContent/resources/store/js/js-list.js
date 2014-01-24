@@ -234,182 +234,8 @@ jQuery(window).scroll(function(){
 
 
 
-//------------------------------
-//Change Tabs
-//------------------------------
-$(document).ready(function(){
-
-	function mySelectUpdate(){
-		setTimeout(function (){
-			$('.mySelectBoxClass').trigger('update');
-		}, 500);
-	}
-	mySelectUpdate();
-
-	$('.hotelstab2').removeClass('none');
-	
-	$( "#optionsRadios1" ).click(function() {
-		$('.hotelstab2').removeClass('none');
-		$('.flightstab2').addClass('none');
-		$('.vacationstab2').addClass('none');
-		$('.carstab2').addClass('none');
-		$('.cruisestab2').addClass('none');
-		$('.flighthotelcartab2').addClass('none');	
-		$('.flighthoteltab2').addClass('none');								
-		$('.flightcartab2').addClass('none');								
-		$('.hotelcartab2').addClass('none');								
-		mySelectUpdate();
-	});
-	$( "#optionsRadios2" ).click(function() {
-		$('.hotelstab2').addClass('none');
-		$('.flightstab2').removeClass('none');
-		$('.vacationstab2').addClass('none');
-		$('.carstab2').addClass('none');
-		$('.cruisestab2').addClass('none');
-		$('.flighthotelcartab2').addClass('none');	
-		$('.flighthoteltab2').addClass('none');								
-		$('.flightcartab2').addClass('none');								
-		$('.hotelcartab2').addClass('none');	
-		mySelectUpdate();
-	});						
-	$( "#optionsRadios3" ).click(function() {
-		$('.hotelstab2').addClass('none');
-		$('.flightstab2').addClass('none');
-		$('.vacationstab2').removeClass('none');
-		$('.carstab2').addClass('none');
-		$('.cruisestab2').addClass('none');
-		$('.flighthotelcartab2').addClass('none');	
-		$('.flighthoteltab2').addClass('none');								
-		$('.flightcartab2').addClass('none');								
-		$('.hotelcartab2').addClass('none');									
-		mySelectUpdate();
-	});	
-	$( "#optionsRadios4" ).click(function() {
-		$('.hotelstab2').addClass('none');
-		$('.flightstab2').addClass('none');
-		$('.vacationstab2').addClass('none');
-		$('.carstab2').removeClass('none');
-		$('.cruisestab2').addClass('none');
-		$('.flighthotelcartab2').addClass('none');
-		$('.flighthoteltab2').addClass('none');								
-		$('.flightcartab2').addClass('none');								
-		$('.hotelcartab2').addClass('none');									
-		mySelectUpdate();
-	});	
-	$( "#optionsRadios5" ).click(function() {
-		$('.hotelstab2').addClass('none');
-		$('.flightstab2').addClass('none');
-		$('.vacationstab2').addClass('none');
-		$('.carstab2').addClass('none');
-		$('.cruisestab2').removeClass('none');
-		$('.flighthotelcartab2').addClass('none');
-		$('.flighthoteltab2').addClass('none');								
-		$('.flightcartab2').addClass('none');								
-		$('.hotelcartab2').addClass('none');									
-		mySelectUpdate();
-	});	
-	$( "#optionsRadios6" ).click(function() {
-		$('.hotelstab2').addClass('none');
-		$('.flightstab2').addClass('none');
-		$('.vacationstab2').addClass('none');
-		$('.carstab2').addClass('none');
-		$('.cruisestab2').addClass('none');
-		$('.flighthotelcartab2').removeClass('none');
-		$('.flighthoteltab2').addClass('none');								
-		$('.flightcartab2').addClass('none');								
-		$('.hotelcartab2').addClass('none');									
-		mySelectUpdate();
-	});			
-	$( "#optionsRadios7" ).click(function() {
-		$('.hotelstab2').addClass('none');
-		$('.flightstab2').addClass('none');
-		$('.vacationstab2').addClass('none');
-		$('.carstab2').addClass('none');
-		$('.cruisestab2').addClass('none');
-		$('.flighthotelcartab2').addClass('none');
-		$('.flighthoteltab2').removeClass('none');								
-		$('.flightcartab2').addClass('none');								
-		$('.hotelcartab2').addClass('none');									
-		mySelectUpdate();
-	});	
-	$( "#optionsRadios8" ).click(function() {
-		$('.hotelstab2').addClass('none');
-		$('.flightstab2').addClass('none');
-		$('.vacationstab2').addClass('none');
-		$('.carstab2').addClass('none');
-		$('.cruisestab2').addClass('none');
-		$('.flighthotelcartab2').addClass('none');
-		$('.flighthoteltab2').addClass('none');								
-		$('.flightcartab2').removeClass('none');								
-		$('.hotelcartab2').addClass('none');									
-		mySelectUpdate();
-	});		
-	$( "#optionsRadios9" ).click(function() {
-		$('.hotelstab2').addClass('none');
-		$('.flightstab2').addClass('none');
-		$('.vacationstab2').addClass('none');
-		$('.carstab2').addClass('none');
-		$('.cruisestab2').addClass('none');
-		$('.flighthotelcartab2').addClass('none');
-		$('.flighthoteltab2').addClass('none');								
-		$('.flightcartab2').addClass('none');								
-		$('.hotelcartab2').removeClass('none');									
-		mySelectUpdate();
-	});	
-
-});
-
-
-
-
-
-
-
-//------------------------------
-// List Hover Animations
-//------------------------------
+// Animazione del book e cuore sull'immagine
 $(document).ready(function($){
-	
-
-
-	function StartAnime2() {
-		var $wlist = $('.listitem2').width();
-		var $hlist = $('.listitem2').height();
-
-		$('.liover').css({
-			"width":10+"%",
-			"height":10+"%",
-			"background-color":"#72bf66",
-			"position":"absolute",
-			"top":$hlist/2+"px", 
-			"left":$wlist/2+"px", 
-			"opacity":0.0, 
-		});
-		$('.fav-icon').css({
-			"top":$hlist/2-11+"px",
-			"left":$wlist+"px",
-		});
-		$('.book-icon').css({
-			"top":$hlist/2-11+"px",
-			"left":-25+"px",
-		});
-		
-		$( ".listitem2" )
-			.mouseenter(function() {
-				$(this).find('.liover').stop().animate({ "left":10+"%","top":10+"%","width":80+"%","height":80+"%","opacity":0.5  });
-				$(this).find('.book-icon').stop().animate({ "left":$wlist/2-42+"px" });
-				$(this).find('.fav-icon').stop().animate({ "left":$wlist/2+18+"px" });
-
-
-			})
-			.mouseleave(function() {
-				$(this).find('.liover').stop().animate({ "left":$wlist/2+"px","top":$hlist/2+"px","width":10+"%","height":10+"%","opacity":0.0  });
-				$(this).find('.book-icon').stop().animate({ "left":-25+"px" });
-				$(this).find('.fav-icon').stop().animate({ "left":$wlist+"px" });
-			
-			});	
-		
-	}
 	
 	StartAnime2();
 	
@@ -418,9 +244,46 @@ $(document).ready(function($){
 	});
 	
 
-
 });
 
+function StartAnime2() {
+	var $wlist = $('.listitem2').width();
+	var $hlist = $('.listitem2').height();
+
+	$('.liover').css({
+		"width":10+"%",
+		"height":10+"%",
+		"background-color":"#72bf66",
+		"position":"absolute",
+		"top":$hlist/2+"px", 
+		"left":$wlist/2+"px", 
+		"opacity":0.0, 
+	});
+	$('.fav-icon').css({
+		"top":$hlist/2-11+"px",
+		"left":$wlist+"px",
+	});
+	$('.book-icon').css({
+		"top":$hlist/2-11+"px",
+		"left":-25+"px",
+	});
+	
+	$( ".listitem2" )
+		.mouseenter(function() {
+			$(this).find('.liover').stop().animate({ "left":10+"%","top":10+"%","width":80+"%","height":80+"%","opacity":0.5  });
+			$(this).find('.book-icon').stop().animate({ "left":$wlist/2-42+"px" });
+			$(this).find('.fav-icon').stop().animate({ "left":$wlist/2+18+"px" });
+
+
+		})
+		.mouseleave(function() {
+			$(this).find('.liover').stop().animate({ "left":$wlist/2+"px","top":$hlist/2+"px","width":10+"%","height":10+"%","opacity":0.0  });
+			$(this).find('.book-icon').stop().animate({ "left":-25+"px" });
+			$(this).find('.fav-icon').stop().animate({ "left":$wlist+"px" });
+		
+		});	
+	
+}
 
 
 

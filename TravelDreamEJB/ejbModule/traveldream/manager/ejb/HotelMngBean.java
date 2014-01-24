@@ -149,14 +149,11 @@ public class HotelMngBean implements HotelMng{
 	}
 
 
-	@Override
 	public List<HotelDTO> ricercaHotel(String destinazione, int persone) {
-		
-		System.out.println("sono qui");
-		List<Hotel> lista = em.createNamedQuery("Hotel.Ricerca", Hotel.class).setParameter("luogo", destinazione).setParameter("persone", persone).getResultList();
+		List<Hotel> lista = em.createNamedQuery("Hotel.Ricerca", Hotel.class).setParameter("luogo", "%"+destinazione+"%").setParameter("persone", persone).getResultList();
 		List<HotelDTO> hotelDTOs = new ArrayList<HotelDTO>();
 		for (Hotel hotel : lista) {
-			hotelDTOs.add(this.HotelToDTO(hotel));
+			hotelDTOs.add(HotelToDTO(hotel));
 		}
 		
 		return hotelDTOs;

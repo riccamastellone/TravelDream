@@ -15,7 +15,7 @@ import traveldream.dtos.HotelDTO;
 	@NamedQuery(name="Hotel.selectMax", query="SELECT h FROM Hotel h Where h.id = (SELECT max(h.id) FROM Hotel h)"),
 	@NamedQuery(name="Hotel.getVoloById", query="SELECT h FROM Hotel h Where h.id = :id"),
 	@NamedQuery(name="Hotel.getHotelCompatibiliPacchetto", query="SELECT h FROM Hotel h Where h.luogo = :luogo AND h.eliminato != 1"),
-	@NamedQuery(name="Hotel.Ricerca", query="SELECT h FROM Hotel h Where h.eliminato !=1 AND h.luogo Like :luogo AND h.disponibilita >= :persone"),
+	@NamedQuery(name="Hotel.Ricerca", query="SELECT h FROM Hotel h Where h.eliminato !=1 AND (h.luogo Like :luogo OR h.nome Like :luogo) AND h.disponibilita >= :persone"),
 		
 })
 

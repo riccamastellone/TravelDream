@@ -156,3 +156,19 @@ CREATE TABLE IF NOT EXISTS `ListaDesisderi` (
   )ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `PacchettoCondiviso`; 
+CREATE TABLE IF NOT EXISTS `PacchettoCondiviso` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `utente` varchar(255) NOT NULL,
+  `pacchetto` int(11) NOT NULL,
+  `email_amico` varchar(255) NOT NULL,
+  `chiave` varchar(255) NOT NULL,
+  `stato` varchar(65) DEFAULT 'non accettato',
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`utente`) REFERENCES `Utente` (`email`)
+  ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (`pacchetto`) REFERENCES `Pacchetto` (`id`)
+  ON UPDATE CASCADE ON DELETE CASCADE
+  )ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+

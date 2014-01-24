@@ -196,13 +196,19 @@
 							a friend</p>
 						<div class="line2"></div>
 						<br />
-						<p class="grey">Type here your friend email</p>
+						<p class="grey">Type here your friend email to invite him. You can see if he accepts your 
+						invitation in <h:link outcome="/store/profile.xhtml">your profile</h:link> page</p>
 						<input type="text" class="form-control"
 							placeholder="name@domain.com" />
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="bookbtn" data-dismiss="modal">Cancel</button>
-						<button type="button" class="bookbtn" id="doSend">Send</button>
+						<h:form>
+							<a class="btn bookbtn" data-dismiss="modal">Cancel</a>
+							<h:commandLink id="shareVacation" class="btn bookbtn" value="Send"
+								action="#{shareBean.shareVacation(frontendBean.pacchetto)}">
+								<f:ajax execute="shareVacation" />
+							</h:commandLink>
+						</h:form>
 					</div>
 				</div>
 			</div>
@@ -246,7 +252,7 @@
 		<script>
 			$(function() {
 				$('.active').removeClass('active');
-				$('.nav li:nth-child(2)').addClass('active');
+				$('.nav li:nth-child(2)').first().addClass('active');
 			});
 		</script>
 

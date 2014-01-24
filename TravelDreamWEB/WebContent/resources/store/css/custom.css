@@ -445,6 +445,7 @@ z-index:100;
 	
 }
 
+.btn-search3 .ui-button-text {padding:0 !important;}
 .btn-search3 {
   /*color: #333333;
   background-color: #ffffff;
@@ -461,7 +462,7 @@ z-index:100;
 	background: -moz-linear-gradient(top, #ff6633, #e35121);
 	background: -ms-linear-gradient(top, #ff6633, #e35121);
 	background: -o-linear-gradient(top, #ff6633, #e35121);
-	padding: 7.5px 20px;
+	padding: 7.5px 20px !important;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;

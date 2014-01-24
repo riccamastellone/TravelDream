@@ -378,6 +378,13 @@ public class BookBean implements Serializable {
 	public void setAndataArrivo(String andataArrivo) {
 		this.andataArrivo = andataArrivo;
 	}
+	
+	public String goToBook(Date partenza, Date ritorno){
+		this.date1 = partenza;
+		this.date2 = ritorno;
+		
+		return "book?faces-redirect=true";
+	}
 
 
 

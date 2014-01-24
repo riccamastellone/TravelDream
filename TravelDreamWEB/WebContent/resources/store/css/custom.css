@@ -446,6 +446,8 @@ z-index:100;
 }
 
 .btn-search3 .ui-button-text {padding:0 !important;}
+
+#pacchetti .btn-search3 {position:absolute !important;}
 .btn-search3 {
   /*color: #333333;
   background-color: #ffffff;
@@ -454,6 +456,7 @@ z-index:100;
 	text-transform:uppercase;
 	position:absolute;
 	bottom:20px;
+	z-index:111;
   
 	border: 1px solid #d75124;
 	background: #e35121;

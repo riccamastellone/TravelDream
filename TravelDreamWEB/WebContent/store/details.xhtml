@@ -209,11 +209,11 @@
 						<div class="modal-footer">
 
 							<a class="btn bookbtn" data-dismiss="modal">Cancel</a>
-							<h:commandLink id="shareVacation" class="btn bookbtn"
+							<p:commandLink id="shareVacation" styleClass="btn bookbtn"
 								value="Send"
 								action="#{shareBean.shareVacation(frontendBean.pacchetto)}">
 								<p:ajax execute="@form" oncomplete="jQuery('#sendtofriendModal').modal('hide')"/>
-							</h:commandLink>
+							</p:commandLink>
 
 						</div>
 					</div>

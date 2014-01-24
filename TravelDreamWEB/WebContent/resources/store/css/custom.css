@@ -2791,3 +2791,4 @@ transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !import
 background:url("#{resource['store:images/calendar.png']}") #fff no-repeat right !important;
 background-position:98% 1px !important;
 }
+.ui-widget {font-size:1em !important;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;}

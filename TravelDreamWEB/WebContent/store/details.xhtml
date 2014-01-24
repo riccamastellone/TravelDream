@@ -17,8 +17,8 @@
 
 
 		<ui:include src="header.xhtml" />
-		
-	
+
+
 
 		<div class="container breadcrub">
 			<div>
@@ -73,12 +73,14 @@
 					<br />
 
 					<div class="padding20">
-						<a href="#" class="sharebtn margtop5">Send to friend</a> 
+						<a href="#" class="sharebtn margtop5" data-toggle="modal" data-target="#sendtofriendModal">Send to friend</a>
 						<h:form>
-							<h:commandLink id="addAListaDesideri" class="add2fav margtop5" value="Add to whish list" action="#{listaDesideriBean.addAListaDesideri(frontendBean.pacchetto)}" >
-						    	<f:ajax execute="addAListaDesideri" update="messages" />
+							<h:commandLink id="addAListaDesideri" class="add2fav margtop5"
+								value="Add to whish list"
+								action="#{listaDesideriBean.addAListaDesideri(frontendBean.pacchetto)}">
+								<f:ajax execute="addAListaDesideri" update="messages" />
 							</h:commandLink>
-							
+
 						</h:form>
 						<h:link outcome="book" class="booknow margtop20 btnmarg">Book now</h:link>
 					</div>
@@ -98,10 +100,6 @@
 						<li onclick="mySelectUpdate()" class="active"><a
 							data-toggle="tab" href="#hotel"><span class="summary"></span><span
 								class="hidetext">Hotel</span>&nbsp;</a></li>
-
-						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
-							href="#flights"><span class="rates"></span><span
-								class="hidetext">Flights</span>&nbsp;</a></li>
 
 						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
 							href="#thingstodo"><span class="thingstodo"></span><span
@@ -142,99 +140,6 @@
 
 							</div>
 						</div>
-
-						<!-- TAB 2 -->
-
-						<div id="flights" class="tab-pane fade ">
-							<div class="hpadding20">
-								<p class="dark">
-									<p:dataTable id="displayAndata" var="volo"
-										value="#{frontendBean.pacchetto.voliAndata}">
-										<f:facet name="header"> Andata </f:facet>
-										<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
-											<h:outputText value="#{volo.nomeCompagnia}" />
-										</p:column>
-
-										<p:column sortBy="cittaPartenza"
-											headerText="Città di partenza">
-											<h:outputText value="#{volo.cittaPartenza}" />
-										</p:column>
-
-										<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-											<h:outputText value="#{volo.cittaArrivo}" />
-										</p:column>
-
-										<p:column sortBy="partenza" headerText="Data di Partenza">
-											<h:outputText value="#{volo.partenza}">
-												<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-											</h:outputText>
-										</p:column>
-
-										<p:column sortBy="arrivo" headerText="Data di arrivo">
-											<h:outputText value="#{volo.arrivo}">
-												<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-											</h:outputText>
-										</p:column>
-
-										<p:column sortBy="disponibilita"
-											headerText="Posti disponibili">
-											<h:outputText value="#{volo.disponibilita}" />
-
-
-										</p:column>
-
-										<p:column sortBy="costo" headerText="Prezzo">
-											<h:outputText value="#{volo.costo} €" />
-										</p:column>
-
-
-
-									</p:dataTable>
-
-									<p:dataTable id="displayRitorno" var="volo_r"
-										value="#{frontendBean.pacchetto.voliRitorno}">
-										<f:facet name="header">Ritorno</f:facet>
-										<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
-											<h:outputText value="#{volo_r.nomeCompagnia}" />
-										</p:column>
-
-										<p:column sortBy="cittaPartenza"
-											headerText="Città di partenza">
-											<h:outputText value="#{volo_r.cittaPartenza}" />
-										</p:column>
-
-										<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-											<h:outputText value="#{volo_r.cittaArrivo}" />
-										</p:column>
-
-										<p:column sortBy="partenza" headerText="Data di Partenza">
-											<h:outputText value="#{volo_r.partenza}">
-												<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-											</h:outputText>
-										</p:column>
-
-										<p:column sortBy="arrivo" headerText="Data di arrivo">
-											<h:outputText value="#{volo_r.arrivo}">
-												<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-											</h:outputText>
-										</p:column>
-
-										<p:column sortBy="disponibilita"
-											headerText="Posti disponibili">
-											<h:outputText value="#{volo_r.disponibilita}" />
-
-
-										</p:column>
-
-										<p:column sortBy="costo" headerText="Prezzo">
-											<h:outputText value="#{volo_r.costo} €" />
-										</p:column>
-
-									</p:dataTable>
-								</p>
-							</div>
-						</div>
-
 
 
 
@@ -281,8 +186,31 @@
 
 
 		</div>
-		
-		
+
+
+		<div class="modal fade" id="sendtofriendModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<p class="opensans size16 dark bold">Share this vacation with a friend</p>
+						<div class="line2"></div>
+						<br />
+						<p class="grey">Type here your friend email</p>
+						<input type="text" class="form-control" placeholder="name@domain.com"/>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="bookbtn" data-dismiss="modal">Cancel</button>
+						<button type="button" class="bookbtn" id="doSend">Send</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
 
 		<ui:include src="footer.xhtml" />
 		<h:outputScript library="store" name="js/functions.js" />

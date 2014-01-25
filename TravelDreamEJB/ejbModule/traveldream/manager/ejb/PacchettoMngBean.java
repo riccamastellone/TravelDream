@@ -240,6 +240,7 @@ public class PacchettoMngBean implements PacchettoMng {
 	public PacchettoDTO getPacchettoAggiornato(PacchettoDTO pacchetto) {
 		// TODO Auto-generated method stub
 		System.out.println("chiamato");
+		em.getEntityManagerFactory().getCache().evictAll();
 		Pacchetto pacchettoAggiornato = this.findPacchetto(pacchetto.getId());
 		PacchettoDTO nuovoPacchetto = convertToDto(pacchettoAggiornato);
 		for (VoloPacchetto voloPacchetto : pacchettoAggiornato.getVoliPacchetto()) {

@@ -20,8 +20,10 @@ import javax.faces.event.AjaxBehaviorEvent;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.expression.impl.ThisExpressionResolver;
 import org.primefaces.model.UploadedFile;
 
 import traveldream.dtos.AttivitaSecondariaDTO;
@@ -624,6 +626,10 @@ public class PacchettoBean implements Serializable {
 	public void mostraInfo(AjaxBehaviorEvent actionEvent, PacchettoDTO pacchetto) {
 		
 		this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
+	System.out.println(this.pacchettoDaVisualizzareDto.getHotel().getEliminato());
+		if (this.pacchettoDaVisualizzareDto.getHotel().getEliminato() == 1){
+			this.pacchettoDaVisualizzareDto.setHotel(null);
+		}
 		
 	}
 
@@ -633,18 +639,26 @@ public class PacchettoBean implements Serializable {
 		return pkgMng.getAllPacchetti();
 	}
 
-	
-	 public void onEdit(RowEditEvent event) throws ParseException { 
-	       FacesMessage msg = new FacesMessage("Pacchetto Aggiornato");  
+	public void onEdit(RowEditEvent event) throws ParseException { 
+		   
+		pacchetto = (PacchettoDTO) event.getObject();
+		 if (pacchetto.getInizioValidita().after(pacchetto.getFineValidita()) || pacchetto.getInizioValidita().equals(pacchetto.getFineValidita())){
+			this.pacchetti = this.pkgMng.getAllPacchetti();
+			 RequestContext.getCurrentInstance().execute("erroreDate.show()");
+			 return;
+		 }
+		 
+	     FacesMessage msg = new FacesMessage("Pacchetto Aggiornato");  
 	       
-	       pacchetto = (PacchettoDTO) event.getObject();
-	       System.out.println("IMM " + tmpImage);
-	       if(tmpImage != null) {
+	       
+	     System.out.println("IMM " + tmpImage);
+	     if(tmpImage != null) {
 	    	   pacchetto.setImmagine(tmpImage);
-	       }	       
-	       pkgMng.editInfoGenerali(pacchetto);
+	     }	       
+	     pkgMng.editInfoGenerali(pacchetto);
 	       FacesContext.getCurrentInstance().addMessage(null, msg);  
-	    } 
+	    }
+	
 	
 	public void deletePacchetto(PacchettoDTO pacchetto){
 		pkgMng.deletePacchetto(pacchetto);

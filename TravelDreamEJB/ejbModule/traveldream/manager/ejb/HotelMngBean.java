@@ -69,6 +69,7 @@ public class HotelMngBean implements HotelMng{
 		hdto.setDisponibilita(h.getDisponibilita());
 		hdto.setDescrizione(h.getDescrizione());
 		hdto.setId(h.getId());
+		hdto.setEliminato(h.getEliminato());
 		return hdto;
 		
 	}

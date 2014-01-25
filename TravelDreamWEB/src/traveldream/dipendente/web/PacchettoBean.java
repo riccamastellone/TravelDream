@@ -748,7 +748,7 @@ public class PacchettoBean implements Serializable {
 	 }
 	 
 	 public void goToAddVoloEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
-		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
 		 this.voli = voloMng.getVoliDisponibiliECompatibili(this.pacchettoDaVisualizzareDto);
 		 for (VoloDTO voloEsaminato : this.pacchettoDaVisualizzareDto.getVoliAndata()) {		
 			 //serve per non mostrare i voli gia inseriti
@@ -920,15 +920,7 @@ public class PacchettoBean implements Serializable {
 		
 		 this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
 		 this.attivitaSecondarieEsistentiCompatibili = attivitalMng.getAttivitaCompatibiliPacchetto(pacchetto);
-		 System.out.println("--pacchetto---");
-		 for (AttivitaSecondariaDTO mostraPacchetto : this.pacchettoDaVisualizzareDto.getAttivitaSecondarie()) {
-
-			System.out.println(mostraPacchetto.getNome());
-		}
-		 System.out.println("--lista---");
-		 for (AttivitaSecondariaDTO mostraLista : this.attivitaSecondarieEsistentiCompatibili) {
-				System.out.println(mostraLista.getNome());
-			}
+		 
 		 //non mostro le attivit gia associate
 		 for (AttivitaSecondariaDTO attivitaPacchetto : this.pacchettoDaVisualizzareDto.getAttivitaSecondarie()) {
 				

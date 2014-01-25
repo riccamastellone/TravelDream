@@ -204,6 +204,13 @@ public class PacchettoMngBean implements PacchettoMng {
 		pacchettoDaModificare.setNome(pacchetto.getNome());
 		pacchettoDaModificare.setImmagine(pacchetto.getImmagine());
 		em.merge(pacchettoDaModificare);
+		for (VoloPacchetto voloPacchetto : pacchettoDaModificare.getVoliPacchetto()) {
+			if (voloPacchetto.getVolo().getPartenza().before(pacchetto.getInizioValidita()) || voloPacchetto.getVolo().getPartenza().after(pacchetto.getFineValidita())) {	
+				
+				em.remove(voloPacchetto);
+			}
+		}
+		
 		System.out.println("aggiorno pacchetto");
 
 	}

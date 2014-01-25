@@ -133,7 +133,7 @@ public class HotelMngBean implements HotelMng{
 		
 		List<Hotel> myList;
 		ArrayList <HotelDTO> myDTOlist = new ArrayList <HotelDTO> ();
-		myList = em.createNamedQuery("Hotel.getHotelCompatibiliPacchetto", Hotel.class).setParameter("luogo", luogo).getResultList();
+		myList = em.createNamedQuery("Hotel.getHotelCompatibiliPacchetto", Hotel.class).setParameter("luogo", "%"+luogo+"%").getResultList();
 		for (Hotel h : myList)
 		    {
 			 myDTOlist.add(HotelToDTO(h));

@@ -96,7 +96,7 @@ public class AttivitaMngBean implements AttivitaMng {
 	public List<AttivitaSecondariaDTO> getAttivitaCompatibiliPacchetto(PacchettoDTO pacchetto) {
 		// TODO Auto-generated method stub
 		List<AttivitaSecondariaDTO> attivitaDTO = new ArrayList<AttivitaSecondariaDTO>();
-		List<AttivitaSecondaria> listaAttivita = em.createNamedQuery("AttivitaSecondaria.getAttivitaCompatibiliPacchetto", AttivitaSecondaria.class).setParameter("localita", pacchetto.getLocalita()).getResultList();
+		List<AttivitaSecondaria> listaAttivita = em.createNamedQuery("AttivitaSecondaria.getAttivitaCompatibiliPacchetto", AttivitaSecondaria.class).setParameter("localita", "%"+pacchetto.getLocalita()+"%").getResultList();
 	
 		for (AttivitaSecondaria attivita : listaAttivita) {
 

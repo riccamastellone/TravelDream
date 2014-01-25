@@ -23,7 +23,7 @@ import java.util.List;
 	
 	@NamedQuery(name="AttivitaSecondaria.getVoloById", query="SELECT a FROM AttivitaSecondaria a Where a.id = :id"),
 	
-	@NamedQuery(name="AttivitaSecondaria.getAttivitaCompatibiliPacchetto", query="SELECT a FROM AttivitaSecondaria a Where a.localita = :localita AND a.eliminato != 1"),
+	@NamedQuery(name="AttivitaSecondaria.getAttivitaCompatibiliPacchetto", query="SELECT a FROM AttivitaSecondaria a Where a.localita LIKE :localita AND a.eliminato != 1"),
 
 })
 public class AttivitaSecondaria implements Serializable {

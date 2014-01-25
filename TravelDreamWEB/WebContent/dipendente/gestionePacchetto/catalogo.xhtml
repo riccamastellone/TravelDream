@@ -216,9 +216,10 @@
 			<p:panel id="addVoloNuovoForm">
 			<div class="form-group">
 				<label>Citta Partenza:</label>
-				<h:inputText pf:placeholder="Inserisci la città di partenza"
+				<h:inputText id="cittaPartenza" pf:placeholder="Inserisci la città di partenza"
 					class="form-control" placeholder="Inserisci la città di partenza"
 					value="#{pacchettoBean.volo.cittaPartenza}" />
+				
 			</div>
 
 			<div class="form-group">
@@ -264,8 +265,12 @@
 			</p:selectOneRadio>
 
 			<p:commandButton value="Aggiungi" styleClass="btn btn-default"
-				action="#{pacchettoBean.addVoloNuovo()}" oncomplete="PF('addVoloNuovo').hide();"
+				action="#{pacchettoBean.addVoloNuovo()}" 
 				update=":form:displayRitorno2,:form:displayAndata2,:form:displayAndata,:form:displayRitorno"/>
+				
+			<p:dialog header="Error" widgetVar="erroreDate" resizable="false" >
+				<h:outputText value="Inserire date valide" />
+			</p:dialog>
 			
 		</p:panel>	
 		</h:form>

@@ -1,6 +1,8 @@
 package traveldream.dtos;
 
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -9,24 +11,27 @@ public class HotelDTO {
 	
 	private int id;
 
-	@NotEmpty 
+	@NotEmpty(message= "Non deve essere vuoto") 
 	private String nome;
 
-	@NotEmpty
+	@NotEmpty(message= "Non deve essere vuoto")
 	private String luogo;
 	
-	@NotNull
+	@Min(value = 0, message = "Non deve essere negativo")
+	@Digits(integer=6, fraction=2)
     private float costoGiornaliero;
 	 
-	@NotEmpty
+	
 	private String pathtoImage; 
 	
 	@NotNull
 	private Integer stelle;
 	
-	@NotNull
+	@Min(value = 0, message = "Non deve essere negativo")
+	@NotNull(message= "Non deve essere vuoto")
 	private Integer disponibilita;
 	
+	@NotEmpty(message= "Non deve essere vuoto")
 	private String descrizione;
 	
 	private int eliminato;

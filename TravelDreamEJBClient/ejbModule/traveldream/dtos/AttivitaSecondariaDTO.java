@@ -1,7 +1,6 @@
 package traveldream.dtos;
 
 
-import java.util.Date;
 
 import javax.validation.constraints.*;
 
@@ -12,18 +11,20 @@ public class AttivitaSecondariaDTO {
 	
 	private int id;
 	
+	@Min(value = 0, message = "Non deve essere negativo")
 	@Digits(integer=6, fraction=2)
 	private float costo;
 	
+	@NotEmpty(message= "Non deve essere vuoto") 
 	private String descrizione;
 	
-	@Min(0)
+	@Min(value = 0, message = "Non deve essere negativo") 
 	private int disponibilita;
 	
-	@NotEmpty
+	@NotEmpty(message= "Non deve essere vuoto")
 	private String localita;
 
-	@NotEmpty
+	@NotEmpty(message= "Non deve essere vuoto")
 	private String nome;
 	
 	private int eliminato;

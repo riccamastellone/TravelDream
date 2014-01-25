@@ -45,7 +45,7 @@ public class VoloBean implements Serializable {
 	}
 
 
-	public String aggiungiVolo() throws ParseException {
+	public String aggiungiVolo() throws ParseException, InterruptedException {
 		
 		System.out.println(this.volo);
 		if (volo.getPartenza().after(volo.getArrivo()) || volo.getPartenza().equals(volo.getArrivo())){

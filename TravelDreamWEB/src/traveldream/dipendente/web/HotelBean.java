@@ -19,6 +19,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.expression.impl.ThisExpressionResolver;
 import org.primefaces.model.UploadedFile;
 
 import com.sun.el.parser.ParseException;
@@ -67,6 +68,7 @@ public class HotelBean implements Serializable{
 	}
 
 	public String aggiornaHotel() throws ParseException {
+		
 		
 		HotelDTO hotelDTO = this.hotel;
 		this.hotel = new HotelDTO();
@@ -174,6 +176,7 @@ public class HotelBean implements Serializable{
 
 	public String aggiungiHotel() {
 		hotel.setPathtoImage(null);
+		
 		try {
 			// Glassfish deve avere i permessi!!
 			File path = new File("/var/uploads/up");
@@ -200,8 +203,8 @@ public class HotelBean implements Serializable{
 					IOUtils.closeQuietly(input);
 					IOUtils.closeQuietly(output);
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IllegalArgumentException | IOException e2) {
+				return null;
 			}
 		} finally {
 

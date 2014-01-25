@@ -705,12 +705,17 @@ public class PacchettoBean implements Serializable {
 	 
 	
 	 public void addVoloNuovo() throws ParseException{
-		 System.out.println(this.volo.getNomeCompagnia());		
+		 System.out.println(this.volo.getNomeCompagnia());
+		 if (volo.getPartenza().after(volo.getArrivo()) || volo.getPartenza().equals(volo.getArrivo())){
+				RequestContext.getCurrentInstance().execute("erroreDate.show()");
+				return;
+			}
 		 this.volo = this.voloMng.aggiungiVoloAPacchetto(this.volo);	
 		 pkgMng.aggiungiVoloAPacchetto(this.pacchettoDaVisualizzareDto, this.volo, this.tipoVolo);
 		
 		 this.volo = new VoloDTO();
 		 this.tipoVolo = "Andata";
+		 RequestContext.getCurrentInstance().execute("addVoloNuovo.hide()");
 		 
 	 }
 	 

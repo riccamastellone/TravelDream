@@ -39,6 +39,17 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
+				
+				<p:column sortBy="descrizione" headerText="Descrizione">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{attivita.descrizione}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{attivita.descrizione}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
 
 
 				<p:column sortBy="costo" headerText="Costo">

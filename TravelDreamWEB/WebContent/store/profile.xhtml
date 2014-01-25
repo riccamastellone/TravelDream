@@ -298,25 +298,25 @@
 								<div class="line4"></div>
 								<br />
 								<p:outputPanel id="sharesList">
-								<ui:repeat value="#{shareBean.getShares()}" var="lista" >
+								<ui:repeat value="#{shareBean.getShares()}" var="lista2" >
 								
 								<h:form>
 								
 								<div class="col-md-4 offset-0">
 									<h:link class="dark" outcome="/store/details.xhtml">
-									<f:param name="id" value="#{lista.pacchetto.id}" />
+									<f:param name="id" value="#{lista2.pacchetto.id}" />
 									<p:graphicImage cache="false" styleClass="left mr20"
 												value="#{frontendBean.generateImage()}">
-												<f:param name="img" value="#{lista.pacchetto.immagine}" />
+												<f:param name="img" value="#{lista2.pacchetto.immagine}" />
 												<f:param name="width" value="96" />
 												<f:param name="height" value="61" />
 											</p:graphicImage></h:link>
-									<a class="dark" href="#"><b>#{lista.pacchetto.nome}</b></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
+									<a class="dark" href="#"><b>#{lista2.pacchetto.nome}</b></a> / <span class="dark size12">#{lista2.pacchetto.localita}</span><br />
 									 <h:graphicImage library="store" class="left mr20" name="images/filter-rating-3.png" alt="" /><br />
 								</div>
 									<div class="col-md-7">
 									<p class="opensans size16 dark slim">Invited Friends</p>
-									<ui:repeat value="#{lista.amici}" var="amici" >
+									<ui:repeat value="#{lista2.amici}" var="amici" >
 										<span class="grey">#{amici[0]} - <h:outputText value="#{amici[2]}" escape="false" /></span><br />
 										</ui:repeat>
 									</div>

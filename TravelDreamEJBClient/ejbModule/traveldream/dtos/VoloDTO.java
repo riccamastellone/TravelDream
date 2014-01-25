@@ -11,11 +11,14 @@ public class VoloDTO {
 
 	private int id;
 	
-	@NotNull(message= "Non deve essere vuoto")
-	private Date arrivo;
+	
 	
 	@NotNull(message= "Non deve essere vuoto")
 	private Date partenza;
+	
+	
+	@NotNull(message= "Non deve essere vuoto")
+	private Date arrivo;
 
 	@NotEmpty(message= "Non deve essere vuoto")
 	private String cittaArrivo;

@@ -48,7 +48,10 @@ public class VoloBean implements Serializable {
 	public String aggiungiVolo() throws ParseException {
 		
 		System.out.println(this.volo);
-		
+		if (volo.getPartenza().after(volo.getArrivo()) || volo.getPartenza().equals(volo.getArrivo())){
+			RequestContext.getCurrentInstance().execute("erroreDate.show()");
+			return null;
+		}
 		voloMng.salvaVolo(volo);
 		this.voli = new ArrayList<VoloDTO>();
 		this.volo = new VoloDTO();

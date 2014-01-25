@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import traveldream.dtos.HotelDTO;
@@ -61,8 +62,15 @@ public class VoloBean implements Serializable {
 	}
 	
 	 public void onEdit(RowEditEvent event) throws ParseException { 
+		 
+		 VoloDTO voloDaAggiornare = (VoloDTO) event.getObject();
+		 if (voloDaAggiornare.getPartenza().after(voloDaAggiornare.getArrivo()) || voloDaAggiornare.getPartenza().equals(voloDaAggiornare.getArrivo())){
+			this.voli = this.voloMng.getVoli();
+			 RequestContext.getCurrentInstance().execute("erroreDate.show()");
+			 return;
+		 }
 	       FacesMessage msg = new FacesMessage("Volo Aggiornato");  
-	       voloMng.aggiornaVolo((VoloDTO) event.getObject());
+	       voloMng.aggiornaVolo(voloDaAggiornare);
 	       FacesContext.getCurrentInstance().addMessage(null, msg);  
 	    } 
 	

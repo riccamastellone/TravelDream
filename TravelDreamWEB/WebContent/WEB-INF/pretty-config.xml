@@ -52,5 +52,10 @@
 		<pattern value="/out/viewlist" />
 		<view-id value="/out/visualizzaLista.xhtml" />
 	</url-mapping>
+	
+	<url-mapping id="profile">
+		<pattern value="/store/profile" />
+		<view-id value="/store/profile.xhtml" />
+	</url-mapping>
 
 </pretty-config>

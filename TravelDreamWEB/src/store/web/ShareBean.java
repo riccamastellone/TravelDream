@@ -136,19 +136,20 @@ public class ShareBean implements Serializable {
 	}
 
 	public List<ShareDTO> getShares() {
-		if (shares == null) {
-			shares = shareMng.getSharesUtente(this.userMgr.getUserDTO());
+		if(shares != null) {
+			shares.clear();
+		}
+		shares = shareMng.getSharesUtente(this.userMgr.getUserDTO());
 
-			for (ShareDTO s : shares) {
-				for (List<String> ss : s.getAmici()) {
-					if (ss.get(1).equals("accettato")) {
-						ss.add("<span class='glyphicon glyphicon-ok'></span> Accepted");
-					} else {
-						ss.add("<span class='glyphicon glyphicon-remove'></span> Still waiting");
-					}
+		for (ShareDTO s : shares) {
+			for (List<String> ss : s.getAmici()) {
+				if (ss.get(1).equals("accettato")) {
+					ss.add("<span class='glyphicon glyphicon-ok'></span> Accepted");
+				} else {
+					ss.add("<span class='glyphicon glyphicon-remove'></span> Still waiting");
 				}
-
 			}
+
 		}
 		return shares;
 	}

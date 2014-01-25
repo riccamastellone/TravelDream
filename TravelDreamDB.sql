@@ -165,6 +165,7 @@ CREATE TABLE IF NOT EXISTS `PacchettoCondiviso` (
   `chiave` varchar(255) NOT NULL,
   `stato` varchar(65) DEFAULT 'non accettato',
   PRIMARY KEY (`id`),
+  UNIQUE ('utente','pacchetto','email_amico'),
   FOREIGN KEY (`utente`) REFERENCES `Utente` (`email`)
   ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (`pacchetto`) REFERENCES `Pacchetto` (`id`)

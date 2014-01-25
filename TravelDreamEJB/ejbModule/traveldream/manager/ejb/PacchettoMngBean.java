@@ -63,7 +63,7 @@ public class PacchettoMngBean implements PacchettoMng {
 
 	public PacchettoDTO findPacchettoDTO(int id) {
 		Pacchetto pacchetto = this.findPacchetto(id);
-		PacchettoDTO pacchettoDTO = this.convertToDto(pacchetto);
+		PacchettoDTO pacchettoDTO = convertToDto(pacchetto);
 		for (VoloPacchetto voloPacchetto : pacchetto.getVoliPacchetto()) {
 
 			if (voloPacchetto.getTipo().equals("Andata")) {

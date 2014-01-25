@@ -14,6 +14,7 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name="PacchettoCondiviso.findAll", query="SELECT p FROM PacchettoCondiviso p"),
 	@NamedQuery(name="PacchettoCondiviso.cercaChiave", query="SELECT p FROM PacchettoCondiviso p WHERE p.chiave = :chiave"),
+	@NamedQuery(name="PacchettoCondiviso.getByUtente", query="SELECT p FROM PacchettoCondiviso p WHERE p.utente = :utente")
 })
 public class PacchettoCondiviso implements Serializable {
 	private static final long serialVersionUID = 1L;

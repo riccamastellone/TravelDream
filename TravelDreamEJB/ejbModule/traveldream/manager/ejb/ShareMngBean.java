@@ -1,6 +1,6 @@
 package traveldream.manager.ejb;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,16 +9,12 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import model.Hotel;
-import model.ListaDesideri;
 import model.Pacchetto;
 import model.PacchettoCondiviso;
 import model.Utente;
-import registrazione.ejb.UtenteMgrBean;
-import traveldream.dtos.ListaDesideriMng;
 import traveldream.dtos.PacchettoDTO;
+import traveldream.dtos.ShareDTO;
 import traveldream.dtos.UtenteDTO;
-import traveldream.manager.ListaDesideriDTO;
 import traveldream.manager.ShareMng;
 
 /**
@@ -27,15 +23,17 @@ import traveldream.manager.ShareMng;
 @Stateless
 public class ShareMngBean implements ShareMng {
 
-	
 	@PersistenceContext
-    private EntityManager em;
-	
+	private EntityManager em;
+
 	@Resource
 	private EJBContext context;
 	
-    public ShareMngBean() {
-    }
+	private List<ShareDTO> shareList;
+
+	public ShareMngBean() {
+		shareList = new ArrayList<ShareDTO>();
+	}
 
 	public int getIdPacchettoFromChiave(String chiave) {
 		List<PacchettoCondiviso> result = em.createNamedQuery("PacchettoCondiviso.cercaChiave", PacchettoCondiviso.class).setParameter("chiave", chiave).getResultList();
@@ -45,10 +43,9 @@ public class ShareMngBean implements ShareMng {
 	public void acceptInvitation(int idShare) {
 		PacchettoCondiviso pc = this.findShare(idShare);
 		pc.setStato("accettato");
-		em.merge(pc);	
-		}
-	
-	
+		em.merge(pc);
+	}
+
 	private PacchettoCondiviso findShare(int id) {
 		return em.find(PacchettoCondiviso.class, id);
 	}
@@ -57,7 +54,6 @@ public class ShareMngBean implements ShareMng {
 		List<PacchettoCondiviso> result = em.createNamedQuery("PacchettoCondiviso.cercaChiave", PacchettoCondiviso.class).setParameter("chiave", chiave).getResultList();
 		return result.get(0).getId();
 	}
-
 
 	public void createShare(PacchettoDTO pacchetto, UtenteDTO userDTO, String email, String key) {
 		PacchettoCondiviso pc = new PacchettoCondiviso();
@@ -69,6 +65,40 @@ public class ShareMngBean implements ShareMng {
 		em.persist(pc);
 	}
 
-
+	public List<ShareDTO> getSharesUtente(UtenteDTO userDTO) {
+		Utente utente = em.find(Utente.class, userDTO.getEmail());
+		List<PacchettoCondiviso> lista = em.createNamedQuery("PacchettoCondiviso.getByUtente", PacchettoCondiviso.class).setParameter("utente", utente).getResultList();
+		for(PacchettoCondiviso p : lista) {
+			buildDTO(p);
+		}
+		return shareList;
+	}
+	
+	
+	protected void buildDTO(PacchettoCondiviso s) {
+		
+		List<String> friend = new ArrayList<String>();
+		friend.add(s.getEmailAmico());
+		friend.add(s.getStato());
+		
+		
+		int t = 0;
+		for(ShareDTO sl : shareList) {
+			if(sl.getPacchetto().getId() == s.getPacchetto().getId()) {
+				sl.getAmici().add(friend);
+				t = 1;
+			} 
+		}
+		if(t == 0) { 
+			ShareDTO share = new ShareDTO();
+			share.setPacchetto(PacchettoMngBean.convertToDto(s.getPacchetto()));
+			List<List<String>> friendList = new ArrayList<List<String>>();
+			friendList.add(friend);
+			share.setAmici(friendList);
+			shareList.add(share);
+		}
+		
+	}
+	
 
 }

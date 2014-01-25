@@ -53,7 +53,7 @@ public class HotelMngBean implements HotelMng{
 		myList = em.createNamedQuery(Hotel.FIND_ALL, Hotel.class).getResultList();
 		for (Hotel h : myList)
 		    {
-			 myDTOlist.add(this.HotelToDTO(h));
+			 myDTOlist.add(HotelToDTO(h));
 		    }
 		return myDTOlist;
 	}

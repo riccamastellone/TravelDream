@@ -362,6 +362,10 @@ public class PacchettoBean implements Serializable {
 		// controllo il tipo e scelgo di aggiungere il volo all opportuna
 		// arraylist
 
+		 if (this.volo.getPartenza().after(this.volo.getArrivo()) || this.volo.getPartenza().equals(this.volo.getArrivo())){
+				
+				 return null;
+			 }
 		if (this.tipoVolo.equals("Andata")) {
 
 			// serve solamante per mostrare a schermo

@@ -15,46 +15,53 @@
 
 			<div class="form-group">
 				<label>Citta Partenza:</label>
-				<h:inputText p:placeholder="Inserisci la città di partenza"
+				<h:inputText id="cittaPartenza" p:placeholder="Inserisci la città di partenza"
 					class="form-control" placeholder="Inserisci la città di partenza"
 					value="#{pacchettoBean.volo.cittaPartenza}" />
+				<pf:message for="cittaPartenza"></pf:message>
 			</div>
 
 			<div class="form-group">
 				<label>Citta Arrivo:</label>
-				<h:inputText p:placeholder="Inserisci la città di arrivo"
+				<h:inputText id="cittaArrivo" p:placeholder="Inserisci la città di arrivo"
 					class="form-control" value="#{pacchettoBean.volo.cittaArrivo}" />
+				<pf:message for="cittaArrivo"></pf:message>
 			</div>
 
 			<div class="form-group">
 				<label>Nome Compagnia:</label>
-				<h:inputText p:placeholder="Inserisci il nome della compagnia"
+				<h:inputText id="nomeCompagnia" p:placeholder="Inserisci il nome della compagnia"
 					class="form-control" value="#{pacchettoBean.volo.nomeCompagnia}" />
+				<pf:message for="nomeCompagnia"></pf:message>
 			</div>
 
 			<div class="form-group">
 				<label>Data partenza :</label> <br />
-				<pf:calendar value="#{pacchettoBean.volo.partenza}"
+				<pf:calendar id="dataPartenza" value="#{pacchettoBean.volo.partenza}"
 					pattern="MM/dd/yyyy HH:mm" mindate="#{pacchettoBean.pacchetto.inizioValidita}" maxdate="#{pacchettoBean.pacchetto.fineValidita}" />
+				<pf:message for="dataPartenza"></pf:message>
 			</div>
 
 			<div class="form-group">
 				<label>Data arrivo:</label> <br />
-				<pf:calendar value="#{pacchettoBean.volo.arrivo}"
+				<pf:calendar id="dataArrivo" value="#{pacchettoBean.volo.arrivo}"
 					pattern="MM/dd/yyyy HH:mm" mindate="#{pacchettoBean.pacchetto.inizioValidita}" maxdate="#{pacchettoBean.pacchetto.fineValidita}"/>
+				<pf:message for="dataArrivo"></pf:message>
 			</div>
 
 			<div class="form-group">
 				<label>Disponibilità:</label>
-				<h:inputText
+				<h:inputText id="disponibilita"
 					p:placeholder="Inserisci il numero di posti disponibili"
 					class="form-control" value="#{pacchettoBean.volo.disponibilita}" />
+				<pf:message for="disponibilita"></pf:message>
 			</div>
 
 			<div class="form-group">
 				<label>Costo:</label>
-				<h:inputText p:placeholder="Inserisci il costo" class="form-control"
+				<h:inputText id="costo" p:placeholder="Inserisci il costo" class="form-control"
 					value="#{pacchettoBean.volo.costo}" />
+				<pf:message for="costo"></pf:message>
 			</div>
 
 			<pf:selectOneRadio value="#{pacchettoBean.tipoVolo}">

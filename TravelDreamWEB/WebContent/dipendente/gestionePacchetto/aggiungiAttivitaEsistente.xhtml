@@ -16,13 +16,18 @@
 		<h:form id="form">
 
 
-				<p:dataTable id="dataTable" var="attivita" value="#{pacchettoBean.attivitaSecondarieEsistentiCompatibili}" lazy="true">
+				<p:dataTable id="dataTable" var="attivita" value="#{pacchettoBean.attivitaSecondarieEsistentiCompatibili}" >
 				<f:facet name="header">  
                 Elenco Attivita Secondarie 
        		    </f:facet>
 				<p:column sortBy="nome" headerText="Nome">
 							<h:outputText value="#{attivita.nome}" />
 				</p:column>
+				
+				<p:column sortBy="descrizione" headerText="Descrizione">
+						<h:outputText value="#{attivita.descrizione}" />
+				</p:column>
+				
 
 				<p:column sortBy="costoGiornaliero" headerText="Costo">
 						<h:outputText value="#{attivita.costo} €" />				

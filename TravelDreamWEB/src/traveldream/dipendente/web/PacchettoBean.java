@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -749,6 +750,27 @@ public class PacchettoBean implements Serializable {
 	 public void goToAddVoloEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
 		 this.pacchettoDaVisualizzareDto = pacchetto;
 		 this.voli = voloMng.getVoliDisponibiliECompatibili(this.pacchettoDaVisualizzareDto);
+		 for (VoloDTO voloEsaminato : this.pacchettoDaVisualizzareDto.getVoliAndata()) {		
+			 //serve per non mostrare i voli gia inseriti
+			 for (Iterator<VoloDTO> voliEsistentIterator = this.voli.iterator(); voliEsistentIterator.hasNext(); ) {
+					VoloDTO voloDTO = voliEsistentIterator.next();
+					if(voloDTO.getId() == voloEsaminato.getId()){
+						voliEsistentIterator.remove();
+					}
+			 }
+		}
+		 
+		 for (VoloDTO voloEsaminato : this.pacchettoDaVisualizzareDto.getVoliRitorno()) {		
+			 //serve per non mostrare i voli gia inseriti
+			 for (Iterator<VoloDTO> voliEsistentIterator = this.voli.iterator(); voliEsistentIterator.hasNext(); ) {
+					VoloDTO voloDTO = voliEsistentIterator.next();
+					if(voloDTO.getId() == voloEsaminato.getId()){
+						voliEsistentIterator.remove();
+					}
+			 }
+		}
+				
+		
 	 }
 	 
 	
@@ -896,18 +918,29 @@ public class PacchettoBean implements Serializable {
 	 
 	 public void goToAddAttivitaEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
 		
-		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
 		 this.attivitaSecondarieEsistentiCompatibili = attivitalMng.getAttivitaCompatibiliPacchetto(pacchetto);
-		 
-		 //non visualizo le attivita gia appartenenti al pacchetto
-		 for (AttivitaSecondariaDTO attivita : this.pacchettoDaVisualizzareDto.getAttivitaSecondarie()) {
-			 for (AttivitaSecondariaDTO attivitaEsistente : this.attivitaSecondarieEsistentiCompatibili) {
-				if (attivita.equals(attivitaEsistente)) {
-					this.attivitaSecondarieEsistentiCompatibili.remove(attivitaEsistente);
-				}
+		 System.out.println("--pacchetto---");
+		 for (AttivitaSecondariaDTO mostraPacchetto : this.pacchettoDaVisualizzareDto.getAttivitaSecondarie()) {
+
+			System.out.println(mostraPacchetto.getNome());
+		}
+		 System.out.println("--lista---");
+		 for (AttivitaSecondariaDTO mostraLista : this.attivitaSecondarieEsistentiCompatibili) {
+				System.out.println(mostraLista.getNome());
 			}
+		 //non mostro le attivit gia associate
+		 for (AttivitaSecondariaDTO attivitaPacchetto : this.pacchettoDaVisualizzareDto.getAttivitaSecondarie()) {
+				
+				for (Iterator<AttivitaSecondariaDTO> attivitaEsistente = this.attivitaSecondarieEsistentiCompatibili.iterator(); attivitaEsistente.hasNext(); ) {
+					AttivitaSecondariaDTO attivitaSecondariaDTO = attivitaEsistente.next();
+					if(attivitaSecondariaDTO.getId() == attivitaPacchetto.getId()){
+						attivitaEsistente.remove();
+					}
+					
+				}
 			
-		 }
+			}
 		 
 	 }
 

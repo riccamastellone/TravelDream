@@ -286,7 +286,7 @@
             		Elenco Hotel 
        				 </f:facet>
 
-				<p:column sortBy="nome" headerText="Nome" filterBy="#{hotel.nome}" >
+				<p:column sortBy="nome" headerText="Nome"  >
 					<h:outputText value="#{hotel.nome}" />
 				</p:column>
 
@@ -796,7 +796,7 @@
 				<p:column>
 					<h:commandLink id="aggiungiAttivita" value="Aggiungi" class="btn btn-default"
 						action="#{pacchettoBean.aggiungiAttivitaEsistenteAPacchettoEsistente(attivita)}">
-						<f:ajax execute="aggiungiAttivita" render="dataTableAddAttivitaEsistente" />
+						<f:ajax execute="aggiungiAttivita" render="dataTableAddAttivitaEsistente" update=":form:pacchettiTable"/>
 					</h:commandLink>
 					
 				</p:column>

@@ -16,7 +16,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.primefaces.context.RequestContext;
-import org.primefaces.expression.impl.ThisExpressionResolver;
 
 import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.HotelDTO;

@@ -97,311 +97,358 @@
 
 								<!-- COL 1 -->
 								<div class="col-md-12 offset-0">
+									<h:form id="user-details">
 
+										<br /> Name*: <h:inputText class="form-control"
+											placeholder="John Doe" rel="popover" id="user-name"
+											data-content="This field is mandatory"
+											data-original-title="Here you can edit your name"
+											value="#{commonBean.user.nome}" />
+										<br />
+										Surname*: <h:inputText class="form-control"
+											placeholder="John Doe" rel="popover" id="user-surname"
+											data-content="This field is mandatory"
+											data-original-title="Here you can edit your surname"
+											value="#{commonBean.user.cognome}" />
+										<br />
+									E-mail*: <h:inputText class="form-control"
+											placeholder="office@email.com" id="email"
+											data-content="This field is mandatory"
+											data-original-title="Edit your email address"
+											value="#{commonBean.user.email}" />
+										<br />
+									Birth date: <h:inputText class="form-control"
+											placeholder="20/11/1991" id="birthdate"
+											data-content="This field is not mandatory"
+											data-original-title="Edit your birth date"
+											value="#{commonBean.user.dataNascita}" />
+										<br />
+										<br />
+										<span class="size16 bold">Your address</span>
+										<div class="line2"></div>
 
-									<br /> Name*: <input type="text" class="form-control"
-										placeholder="John Doe" rel="popover" id="name"
-										data-content="This field is mandatory"
-										data-original-title="Here you can edit your name" value="#{registrazioneBean.user.nome}" /><br />
-										Surname*: <input type="text" class="form-control"
-										placeholder="John Doe" rel="popover" id="name"
-										data-content="This field is mandatory"
-										data-original-title="Here you can edit your surname" value="#{registrazioneBean.user.cognome}" /><br />
-									E-mail*: <input type="text" class="form-control"
-										placeholder="office@email.com" id="email"
-										data-content="This field is mandatory"
-										data-original-title="Edit your email address"  value="#{registrazioneBean.user.nome}"/><br /> Phone
-									number: <input type="text" class="form-control" placeholder="" /><br />
-									Birth date: <input type="text" class="form-control"
-										placeholder="20/11/1991" id="birthdate"
-										data-content="This field is not mandatory"
-										data-original-title="Edit your birth date"  value="#{registrazioneBean.user.dataNascita}"/><br />
-
-
-
-								<br /> <br /> <span class="size16 bold">Your address</span>
-								<div class="line2"></div>
-
-								<br /> Address*: <input type="text" class="form-control"
-									placeholder="" /><br />
-									 <br />
-								<button type="submit" class="greenbtn  margtop20">Update</button>
-							</div>
-							<!-- END OF COL 1 -->
-
-
-
-
-
-						</div>
-						<!-- END OF TAB 1 -->
-
-
-
-						<!-- TAB 2 -->
-						<div class="tab-pane" id="bookings">
-							<div class="padding40">
-								<span class="dark size18">Your latest bookings</span>
-								
-								<div class="line4"></div>
-								<br />
-
-								<div class="col-md-4 offset-0">
-									<a href="#"><h:graphicImage library="store" class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a> <a class="dark" href="#"><b>Package1</b></a> / <span class="dark size12">Greece - Zakynthos</span><br />
-									<span class="opensans green bold size14">$36-$160</span> <span
-										class="grey">avg/night</span><br /> <h:graphicImage library="store" class="left mr20" name="images/filter-rating-1.png" alt="" /><br />
+										<br /> Address*: <h:inputText class="form-control"
+											placeholder="" value="#{commonBean.user.indirizzo}" />
+										<br />
+										<br />
+										<p:commandLink value="Update" styleClass="greenbtn  margtop20"
+											action="#{commonBean.updateUtente()}" update=":user-details" />
+									</h:form>
 								</div>
-								<div class="col-md-7">
-									<span class="grey">Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit. Nam faucibus, quam vel interdum
-										lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-										diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-								</div>
-								<div class="col-md-1 offset-0">
-									<button onclick="errorMessage()" type="submit"
-										class="btn-search5 right">More</button>
-								</div>
-								<div class="clearfix"></div>
-								<div class="line4"></div>
+								<!-- END OF COL 1 -->
 
-								<div class="col-md-4 offset-0">
-									<a href="#"><h:graphicImage library="store" class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a> <a class="dark" href="#"><b>Package1</b></a> / <span class="dark size12">Greece - Zakynthos</span><br />
-									<span class="opensans green bold size14">$36-$160</span> <span
-										class="grey">avg/night</span><br /> <h:graphicImage library="store" class="left mr20" name="images/filter-rating-4.png" alt="" /><br />
-								</div>
-								<div class="col-md-7">
-									<span class="grey">Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit. Nam faucibus, quam vel interdum
-										lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-										diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-								</div>
-								<div class="col-md-1 offset-0">
-									<button onclick="errorMessage()" type="submit"
-										class="btn-search5 right">More</button>
-								</div>
-								<div class="clearfix"></div>
-								<div class="line4"></div>
 
-								<div class="col-md-4 offset-0">
-									<a href="#"><h:graphicImage library="store" class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a> <a class="dark" href="#"><b>Package1</b></a> / <span class="dark size12">Greece - Zakynthos</span><br />
-									<span class="opensans green bold size14">$36-$160</span> <span
-										class="grey">avg/night</span><br /> <h:graphicImage library="store" class="left mr20" name="images/filter-rating-2.png" alt="" /><br />
-								</div>
-								<div class="col-md-7">
-									<span class="grey">Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit. Nam faucibus, quam vel interdum
-										lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-										diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-								</div>
-								<div class="col-md-1 offset-0">
-									<button onclick="errorMessage()" type="submit"
-										class="btn-search5 right">More</button>
-								</div>
-								<div class="clearfix"></div>
-								<div class="line4"></div>
-
-								<div class="col-md-4 offset-0">
-									<a href="#"><h:graphicImage library="store" class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a> <a class="dark" href="#"><b>Package1</b></a> / <span class="dark size12">Greece - Zakynthos</span><br />
-									<span class="opensans green bold size14">$36-$160</span> <span
-										class="grey">avg/night</span><br /> <h:graphicImage library="store" class="left mr20" name="images/filter-rating-5.png" alt="" /><br />
-								</div>
-								<div class="col-md-7">
-									<span class="grey">Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit. Nam faucibus, quam vel interdum
-										lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-										diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-								</div>
-								<div class="col-md-1 offset-0">
-									<button onclick="errorMessage()" type="submit"
-										class="btn-search5 right">More</button>
-								</div>
-								<div class="clearfix"></div>
-								<div class="line4"></div>
-
-								<div class="col-md-4 offset-0">
-									<a href="#"><h:graphicImage library="store" class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a> <a class="dark" href="#"><b>Package1</b></a> / <span class="dark size12">Greece - Zakynthos</span><br />
-									<span class="opensans green bold size14">$36-$160</span> <span
-										class="grey">avg/night</span><br /> <h:graphicImage library="store" class="left mr20" name="images/filter-rating-3.png" alt="" /><br />
-								</div>
-								<div class="col-md-7">
-									<span class="grey">Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit. Nam faucibus, quam vel interdum
-										lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-										diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-								</div>
-								<div class="col-md-1 offset-0">
-									<button onclick="errorMessage()" type="submit"
-										class="btn-search5 right">More</button>
-								</div>
-								<div class="clearfix"></div>
-
-								<div class="line4"></div>
 
 
 
 							</div>
-						</div>
-						<!-- END OF TAB 2 -->
+							<!-- END OF TAB 1 -->
 
-						<!-- TAB WISH LIST -->
-						<div class="tab-pane" id="wishlist">
-							<div class="padding40">
-								<span class="dark size18">Wish list</span>
-								<a href="#"
-								class="btn bookbtn pull-right" data-toggle="modal" style="position:relative;bottom:7px;"
-								data-target="#sendToAFriendModal">Send to a friend</a>	
-								<br /><br />
-								<div class="line4"></div>
-								<br />
-								<p:outputPanel id="listaDesideri">
-								<ui:repeat value="#{utenteFrontBean.listaDesideri}" var="lista" >
-								
-								<h:form>
-								
-								<div class="col-md-4 offset-0">
-									<h:link class="dark" outcome="/store/details.xhtml">
-									<f:param name="id" value="#{lista.pacchetto.id}" />
-									<p:graphicImage cache="false" styleClass="left mr20"
-												value="#{frontendBean.generateImage()}">
-												<f:param name="img" value="#{lista.pacchetto.immagine}" />
-												<f:param name="width" value="96" />
-												<f:param name="height" value="61" />
-											</p:graphicImage></h:link>
-									<a class="dark" href="#"><b>#{lista.pacchetto.nome}</b></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
-									 <h:graphicImage library="store" class="left mr20" name="images/filter-rating-3.png" alt="" /><br />
-								</div>
-									<div class="col-md-7">
-										<span class="grey">#{lista.pacchetto.descrizione}</span>
+
+
+							<!-- TAB 2 -->
+							<div class="tab-pane" id="bookings">
+								<div class="padding40">
+									<span class="dark size18">Your latest bookings</span>
+
+									<div class="line4"></div>
+									<br />
+
+									<div class="col-md-4 offset-0">
+										<a href="#"><h:graphicImage library="store"
+												class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a>
+										<a class="dark" href="#"><b>Package1</b></a> / <span
+											class="dark size12">Greece - Zakynthos</span><br /> <span
+											class="opensans green bold size14">$36-$160</span> <span
+											class="grey">avg/night</span><br />
+										<h:graphicImage library="store" class="left mr20"
+											name="images/filter-rating-1.png" alt="" />
+										<br />
 									</div>
-									<h:commandLink id="canc" class="btn btn-default btn-danger "
-									action="#{utenteFrontBean.deletePacchetto(lista)}">
-									<span class="glyphicon glyphicon-trash white"></span>					
-									<p:ajax execute="canc" update=":listaDesideri" />
-									</h:commandLink>
-									
-									<div class="clearfix"></div>
-									<div class="line6"></div>
-								</h:form>
-								
-								</ui:repeat>
-							</p:outputPanel>
-							</div>
-						</div>
-						<!-- END OF TAB WISH LIST -->
-						
-						
-						<!-- TAB SHARES -->
-						<div class="tab-pane" id="shares">
-							<div class="padding40">
-								<span class="dark size18">Shared Packages</span>
-								<br /><br />
-								<div class="line4"></div>
-								<br />
-								<p:outputPanel id="sharesList">
-								<ui:repeat value="#{shareBean.getShares()}" var="lista" >
-								
-								<h:form>
-								
-								<div class="col-md-4 offset-0">
-									<h:link class="dark" outcome="/store/details.xhtml">
-									<f:param name="id" value="#{lista.pacchetto.id}" />
-									<p:graphicImage cache="false" styleClass="left mr20"
-												value="#{frontendBean.generateImage()}">
-												<f:param name="img" value="#{lista.pacchetto.immagine}" />
-												<f:param name="width" value="96" />
-												<f:param name="height" value="61" />
-											</p:graphicImage></h:link>
-									<a class="dark" href="#"><b>#{lista.pacchetto.nome}</b></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
-									 <h:graphicImage library="store" class="left mr20" name="images/filter-rating-3.png" alt="" /><br />
-								</div>
 									<div class="col-md-7">
-									<p class="opensans size16 dark slim">Invited Friends</p>
-									<ui:repeat value="#{lista.amici}" var="amici" >
-										<span class="grey">#{amici[0]} - <h:outputText value="#{amici[2]}" escape="false" /></span><br />
+										<span class="grey">Lorem ipsum dolor sit amet,
+											consectetur adipiscing elit. Nam faucibus, quam vel interdum
+											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
+											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
+									</div>
+									<div class="col-md-1 offset-0">
+										<button onclick="errorMessage()" type="submit"
+											class="btn-search5 right">More</button>
+									</div>
+									<div class="clearfix"></div>
+									<div class="line4"></div>
+
+									<div class="col-md-4 offset-0">
+										<a href="#"><h:graphicImage library="store"
+												class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a>
+										<a class="dark" href="#"><b>Package1</b></a> / <span
+											class="dark size12">Greece - Zakynthos</span><br /> <span
+											class="opensans green bold size14">$36-$160</span> <span
+											class="grey">avg/night</span><br />
+										<h:graphicImage library="store" class="left mr20"
+											name="images/filter-rating-4.png" alt="" />
+										<br />
+									</div>
+									<div class="col-md-7">
+										<span class="grey">Lorem ipsum dolor sit amet,
+											consectetur adipiscing elit. Nam faucibus, quam vel interdum
+											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
+											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
+									</div>
+									<div class="col-md-1 offset-0">
+										<button onclick="errorMessage()" type="submit"
+											class="btn-search5 right">More</button>
+									</div>
+									<div class="clearfix"></div>
+									<div class="line4"></div>
+
+									<div class="col-md-4 offset-0">
+										<a href="#"><h:graphicImage library="store"
+												class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a>
+										<a class="dark" href="#"><b>Package1</b></a> / <span
+											class="dark size12">Greece - Zakynthos</span><br /> <span
+											class="opensans green bold size14">$36-$160</span> <span
+											class="grey">avg/night</span><br />
+										<h:graphicImage library="store" class="left mr20"
+											name="images/filter-rating-2.png" alt="" />
+										<br />
+									</div>
+									<div class="col-md-7">
+										<span class="grey">Lorem ipsum dolor sit amet,
+											consectetur adipiscing elit. Nam faucibus, quam vel interdum
+											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
+											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
+									</div>
+									<div class="col-md-1 offset-0">
+										<button onclick="errorMessage()" type="submit"
+											class="btn-search5 right">More</button>
+									</div>
+									<div class="clearfix"></div>
+									<div class="line4"></div>
+
+									<div class="col-md-4 offset-0">
+										<a href="#"><h:graphicImage library="store"
+												class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a>
+										<a class="dark" href="#"><b>Package1</b></a> / <span
+											class="dark size12">Greece - Zakynthos</span><br /> <span
+											class="opensans green bold size14">$36-$160</span> <span
+											class="grey">avg/night</span><br />
+										<h:graphicImage library="store" class="left mr20"
+											name="images/filter-rating-5.png" alt="" />
+										<br />
+									</div>
+									<div class="col-md-7">
+										<span class="grey">Lorem ipsum dolor sit amet,
+											consectetur adipiscing elit. Nam faucibus, quam vel interdum
+											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
+											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
+									</div>
+									<div class="col-md-1 offset-0">
+										<button onclick="errorMessage()" type="submit"
+											class="btn-search5 right">More</button>
+									</div>
+									<div class="clearfix"></div>
+									<div class="line4"></div>
+
+									<div class="col-md-4 offset-0">
+										<a href="#"><h:graphicImage library="store"
+												class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a>
+										<a class="dark" href="#"><b>Package1</b></a> / <span
+											class="dark size12">Greece - Zakynthos</span><br /> <span
+											class="opensans green bold size14">$36-$160</span> <span
+											class="grey">avg/night</span><br />
+										<h:graphicImage library="store" class="left mr20"
+											name="images/filter-rating-3.png" alt="" />
+										<br />
+									</div>
+									<div class="col-md-7">
+										<span class="grey">Lorem ipsum dolor sit amet,
+											consectetur adipiscing elit. Nam faucibus, quam vel interdum
+											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
+											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
+									</div>
+									<div class="col-md-1 offset-0">
+										<button onclick="errorMessage()" type="submit"
+											class="btn-search5 right">More</button>
+									</div>
+									<div class="clearfix"></div>
+
+									<div class="line4"></div>
+
+
+
+								</div>
+							</div>
+							<!-- END OF TAB 2 -->
+
+							<!-- TAB WISH LIST -->
+							<div class="tab-pane" id="wishlist">
+								<div class="padding40">
+									<span class="dark size18">Wish list</span> <a href="#"
+										class="btn bookbtn pull-right" data-toggle="modal"
+										style="position: relative; bottom: 7px;"
+										data-target="#sendToAFriendModal">Send to a friend</a> <br />
+									<br />
+									<div class="line4"></div>
+									<br />
+									<p:outputPanel id="listaDesideri">
+										<ui:repeat value="#{utenteFrontBean.listaDesideri}"
+											var="lista">
+
+											<h:form>
+
+												<div class="col-md-4 offset-0">
+													<h:link class="dark" outcome="/store/details.xhtml">
+														<f:param name="id" value="#{lista.pacchetto.id}" />
+														<p:graphicImage cache="false" styleClass="left mr20"
+															value="#{frontendBean.generateImage()}">
+															<f:param name="img" value="#{lista.pacchetto.immagine}" />
+															<f:param name="width" value="96" />
+															<f:param name="height" value="61" />
+														</p:graphicImage>
+													</h:link>
+													<a class="dark" href="#"><b>#{lista.pacchetto.nome}</b></a>
+													/ <span class="dark size12">#{lista.pacchetto.localita}</span><br />
+													<h:graphicImage library="store" class="left mr20"
+														name="images/filter-rating-3.png" alt="" />
+													<br />
+												</div>
+												<div class="col-md-7">
+													<span class="grey">#{lista.pacchetto.descrizione}</span>
+												</div>
+												<h:commandLink id="canc" class="btn btn-default btn-danger "
+													action="#{utenteFrontBean.deletePacchetto(lista)}">
+													<span class="glyphicon glyphicon-trash white"></span>
+													<p:ajax execute="canc" update=":listaDesideri" />
+												</h:commandLink>
+
+												<div class="clearfix"></div>
+												<div class="line6"></div>
+											</h:form>
+
 										</ui:repeat>
-									</div>
-									
-									
-									<div class="clearfix"></div>
-									<div class="line6"></div>
-								</h:form>
-								
-								</ui:repeat>
-							</p:outputPanel>
+									</p:outputPanel>
+								</div>
 							</div>
-						</div>
-						<!-- END OF TAB SHARES -->
+							<!-- END OF TAB WISH LIST -->
 
 
+							<!-- TAB SHARES -->
+							<div class="tab-pane" id="shares">
+								<div class="padding40">
+									<span class="dark size18">Shared Packages</span> <br /> <br />
+									<div class="line4"></div>
+									<br />
+									<p:outputPanel id="sharesList">
+										<ui:repeat value="#{shareBean.getShares()}" var="lista">
 
-						<!-- TAB 6 -->
-						<div class="tab-pane" id="password">
-							<div class="padding40">
+											<h:form>
 
-								<span class="dark size18">Change password</span>
-								<div class="line4"></div>
+												<div class="col-md-4 offset-0">
+													<h:link class="dark" outcome="/store/details.xhtml">
+														<f:param name="id" value="#{lista.pacchetto.id}" />
+														<p:graphicImage cache="false" styleClass="left mr20"
+															value="#{frontendBean.generateImage()}">
+															<f:param name="img" value="#{lista.pacchetto.immagine}" />
+															<f:param name="width" value="96" />
+															<f:param name="height" value="61" />
+														</p:graphicImage>
+													</h:link>
+													<a class="dark" href="#"><b>#{lista.pacchetto.nome}</b></a>
+													/ <span class="dark size12">#{lista.pacchetto.localita}</span><br />
+													<h:graphicImage library="store" class="left mr20"
+														name="images/filter-rating-3.png" alt="" />
+													<br />
+												</div>
+												<div class="col-md-7">
+													<p class="opensans size16 dark slim">Invited Friends</p>
+													<ui:repeat value="#{lista.amici}" var="amici">
+														<span class="grey">#{amici[0]} - <h:outputText
+																value="#{amici[2]}" escape="false" /></span>
+														<br />
+													</ui:repeat>
+												</div>
 
-								Old Password<br /> <input
-									type="text" class="form-control " placeholder="" /><br /> New
-								Password<br /> <input type="text" class="form-control "
-									placeholder="" /><br />
-								<button type="submit" class="btn-search5">Save changes</button>
 
+												<div class="clearfix"></div>
+												<div class="line6"></div>
+											</h:form>
 
-								<button type="submit" class="btn-search5">Save changes</button>
-
+										</ui:repeat>
+									</p:outputPanel>
+								</div>
 							</div>
+							<!-- END OF TAB SHARES -->
+
+
+
+							<!-- TAB 6 -->
+							<div class="tab-pane" id="password">
+								<div class="padding40">
+
+									<span class="dark size18">Change password</span>
+									<div class="line4"></div>
+
+									Old Password<br /> <input type="text" class="form-control "
+										placeholder="" /><br /> New Password<br /> <input
+										type="text" class="form-control " placeholder="" /><br />
+									<button type="submit" class="btn-search5">Save changes</button>
+
+
+									<button type="submit" class="btn-search5">Save changes</button>
+
+								</div>
+							</div>
+							<!-- END OF TAB 6 -->
+
+
+
+
+
+
 						</div>
-						<!-- END OF TAB 6 -->
-
-
-
-
-
+						<!-- End of Tab panes from left menu -->
 
 					</div>
-					<!-- End of Tab panes from left menu -->
+					<!-- END OF RIGHT CPNTENT -->
 
+					<div class="clearfix"></div>
+					<br /> <br />
 				</div>
-				<!-- END OF RIGHT CPNTENT -->
+				<!-- END CONTENT -->
 
-				<div class="clearfix"></div>
-				<br /> <br />
+
+
 			</div>
-			<!-- END CONTENT -->
-
-
-
-		</div>
 
 
 		</div>
 
 		<div class="modal fade" id="sendToAFriendModal">
-		<h:form>
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<p class="opensans size16 dark bold">Send your wish list</p>
-						<div class="line2"></div>
-						<br />
-						<p class="grey">Insert the e-mail address of your friend</p>
-						<p:inputText value="#{mailBean.mail}" placeholder="E-mail" />
-					</div>
-					<div class="modal-footer">
-						
+			<h:form>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<p class="opensans size16 dark bold">Send your wish list</p>
+							<div class="line2"></div>
+							<br />
+							<p class="grey">Insert the e-mail address of your friend</p>
+							<p:inputText value="#{mailBean.mail}" placeholder="E-mail" />
+						</div>
+						<div class="modal-footer">
+
 							<a class="btn bookbtn" data-dismiss="modal">Cancel</a>
-							<p:commandButton id="sendEmail" styleClass="btn bookbtn" value="Send"
-								action="#{mailBean.sendListaDesideri()}">
+							<p:commandButton id="sendEmail" styleClass="btn bookbtn"
+								value="Send" action="#{mailBean.sendListaDesideri()}">
 								<p:ajax execute="sendEmail" />
 							</p:commandButton>
-					
+
+						</div>
 					</div>
 				</div>
-			</div>
-		</h:form>
+			</h:form>
 		</div>
 
 		<ui:include src="footer.xhtml" />

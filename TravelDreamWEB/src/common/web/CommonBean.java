@@ -17,6 +17,7 @@ import traveldream.manager.UtenteMrg;
 public class CommonBean {
 
 	private UtenteDTO user;
+	private String backup_mail;
 
 	@EJB
 	private UtenteMrg userMgr;
@@ -31,6 +32,7 @@ public class CommonBean {
 	public UtenteDTO getUser() {
 		this.user = userMgr.getUserDTO();
 		this.gruppo = userMgr.getGruppo(this.user);
+		this.backup_mail = user.getEmail();
 		return user;
 	}
 
@@ -44,6 +46,20 @@ public class CommonBean {
 
 	public void setGruppo(String gruppo) {
 		this.gruppo = gruppo;
+	}
+	
+	public void updateUtente(){
+		System.out.println(user.getNome());
+		System.out.println(user.getEmail());
+		userMgr.aggiornaUtente(user, backup_mail);
+	}
+
+	public String getBackup_mail() {
+		return backup_mail;
+	}
+
+	public void setBackup_mail(String backup_mail) {
+		this.backup_mail = backup_mail;
 	}
 
 }

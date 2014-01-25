@@ -63,6 +63,9 @@
 					value="#{pacchettoBean.hotelDTO.descrizione}" />
 				<p:message for="descrizione"></p:message>
 			</div>
+			
+			<p:fileUpload id="immagine" value="#{pacchettoBean.file}" mode="simple" />
+			
 
 			<h:commandButton value="Aggiungi" class="btn btn-default"
 				action="#{pacchettoBean.aggiungiNuovoHotelAPacchetto()}" />

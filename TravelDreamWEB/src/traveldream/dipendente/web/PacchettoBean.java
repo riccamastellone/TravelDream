@@ -480,7 +480,41 @@ public class PacchettoBean implements Serializable {
 	 * @return
 	 */
 	public String aggiungiNuovoHotelAPacchetto() {
-		// ricordarsi di aggiungere elimnato!!!!
+	
+		hotelDTO.setPathtoImage(null);
+		try {
+			// Glassfish deve avere i permessi!!
+			File path = new File("/var/uploads/up");
+			
+			String filename = FilenameUtils.getName(file.getFileName());
+			String basename = FilenameUtils.getBaseName(filename) + "_";
+			String extension = "." + FilenameUtils.getExtension(filename);
+
+			// tentiamo di creare le cartelle
+			System.out.println(path.mkdirs());
+
+			InputStream input;
+			try {
+				File newFile = File.createTempFile(basename, extension, path);
+
+				System.out.println(newFile);
+
+				input = file.getInputstream();
+				OutputStream output = new FileOutputStream(newFile);
+				try {
+					IOUtils.copy(input, output);
+					hotelDTO.setPathtoImage(FilenameUtils.getName(newFile.toString()));
+				} finally {
+					IOUtils.closeQuietly(input);
+					IOUtils.closeQuietly(output);
+				}
+			} catch (IllegalArgumentException | IOException e2) {
+				return null;
+			}
+		} finally {
+
+		}
+		
 		this.hotelSalvato.add((HotelDTO) this.hotelDTO.clone());
 		return "aggiungiHotel?faces-redirect=true";
 	}

@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -117,6 +118,8 @@ public class PacchettoBean implements Serializable {
 		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
 		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
 		this.attivitaDaSalvare = new AttivitaSecondariaDTO();
+		this.pacchetto.setInizioValidita(new Date());
+		this.pacchetto.setFineValidita(new Date());
 
 	}
 
@@ -299,7 +302,10 @@ public class PacchettoBean implements Serializable {
 		//this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
 		
 		//serve per precaricare la tabella di AggiungiVoloEsistente
-		
+		if (pacchetto.getInizioValidita().after(pacchetto.getFineValidita()) || pacchetto.getInizioValidita().equals(pacchetto.getFineValidita())){
+			
+			 return null;
+		}
 		pacchetto.setImmagine(null);
 		try {
 			// Glassfish deve avere i permessi!!
@@ -327,8 +333,8 @@ public class PacchettoBean implements Serializable {
 					IOUtils.closeQuietly(input);
 					IOUtils.closeQuietly(output);
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IllegalArgumentException | IOException e2) {
+				return null;
 			}
 		} finally {
 
@@ -620,7 +626,11 @@ public class PacchettoBean implements Serializable {
 		this.pacchetti = new ArrayList<PacchettoDTO>();
 		this.pacchettoDaVisualizzareDto = new PacchettoDTO();
 		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
-		this.attivitaDaSalvare = new AttivitaSecondariaDTO();	
+		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
+		this.attivitaDaSalvare = new AttivitaSecondariaDTO();
+		this.pacchetto.setInizioValidita(new Date());
+		this.pacchetto.setFineValidita(new Date());
+	
 	}
 
 	public void mostraInfo(AjaxBehaviorEvent actionEvent, PacchettoDTO pacchetto) {

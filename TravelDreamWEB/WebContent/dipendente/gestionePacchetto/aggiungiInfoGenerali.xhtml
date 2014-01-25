@@ -15,20 +15,23 @@
 
 			<div class="form-group">
 				<label>Nome Pacchetto:</label>
-				<h:inputText p:placeholder="Inserisci il nome del pacchetto"
+				<h:inputText id="nome" p:placeholder="Inserisci il nome del pacchetto"
 					class="form-control" value="#{pacchettoBean.pacchetto.nome}" />
+				<pf:message for="nome"></pf:message>
 			</div>
 
 			<div class="form-group">
 				<label>Località:</label>
-				<h:inputText p:placeholder="Inserisci la località"
+				<h:inputText id="localita" p:placeholder="Inserisci la località"
 					class="form-control" value="#{pacchettoBean.pacchetto.localita}" />
+				<pf:message for="localita"></pf:message>
 			</div>
 
 			<div class="form-group">
 				<label>Descrizione:</label>
-				<h:inputTextarea p:placeholder="Inserisci la descrizione"
+				<h:inputTextarea id="descrizione" p:placeholder="Inserisci la descrizione"
 					class="form-control" value="#{pacchettoBean.pacchetto.descrizione}" />
+				<pf:message for="descrizione"></pf:message>
 			</div>
 
 			
@@ -36,15 +39,17 @@
 		<div class="col-md-4">
 		<div class="form-group">
 				<label>Data Inizio Validità:</label><br />
-				<pf:calendar  mode="inline" value="#{pacchettoBean.pacchetto.inizioValidita}"
+				<pf:calendar  id="inizio" mode="inline" value="#{pacchettoBean.pacchetto.inizioValidita}"
 					pattern="MM/dd/yyyy" />
+				<pf:message for="inizio"></pf:message>
 			</div>
 		</div>
 		<div class="col-md-4">
 		<div class="form-group">
 				<label>Data Fine Validità:</label><br />
-				<pf:calendar  mode="inline" value="#{pacchettoBean.pacchetto.fineValidita}"
+				<pf:calendar  id="fine" mode="inline" value="#{pacchettoBean.pacchetto.fineValidita}"
 					pattern="MM/dd/yyyy" onchange="alert('1');"/>
+				<pf:message for="fine"></pf:message>
 			</div>
 		</div>
 		</div>

@@ -13,6 +13,7 @@ public class PacchettoDTO {
 
 	private int id;
 	
+	@NotEmpty(message= "Non deve essere vuoto") 
 	private String descrizione;
 	
 	@Temporal(TemporalType.DATE)
@@ -27,10 +28,10 @@ public class PacchettoDTO {
 	@NotEmpty
 	private String immagine;
 	
-	@NotEmpty
+	@NotEmpty(message= "Non deve essere vuoto") 
 	private String localita;
 	
-	@NotEmpty
+	@NotEmpty(message= "Non deve essere vuoto") 
 	private String nome;
 
 	private List<VoloDTO> voliAndata;

@@ -95,5 +95,10 @@ public class VoloBean implements Serializable {
 		this.voli.remove(volo);	
 
 	}
+	
+	public String goToGestioneVoli(){
+		this.voli = voloMng.getVoli();
+		return "/dipendente/gestioneVolo/catalogo.xhtml?faces-redirect=true";
+	}
 
 }

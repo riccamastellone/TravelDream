@@ -248,6 +248,12 @@ public class HotelBean implements Serializable{
 		this.tmpImage = tmpImage;
 	} 
 	
+	public String goToGestioneHotel(){
+		refreshHotels();
+		return "/dipendente/gestioneHotel/catalogo?faces-redirect=true";
+	}
+	 
+	
 
 
 }

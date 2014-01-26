@@ -1023,6 +1023,11 @@ public class PacchettoBean implements Serializable {
 	public void setTmpImageHotel(String tmpImageHotel) {
 		this.tmpImageHotel = tmpImageHotel;
 	}
+	
+	public String goToGestionePacchetti(){
+		this.pacchetti = this.pkgMng.getAllPacchetti();
+		return "/dipendente/gestionePacchetto/catalogo.xhtml?faces-redirect=true";
+	}
 	 
 
 	 

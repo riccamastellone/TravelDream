@@ -387,7 +387,10 @@
 					placeholder="Inserisci una descrzione"
 					value="#{pacchettoBean.hotelDTO.descrizione}" />
 			</div>
-
+			
+			<p:commandButton value="IMG" type="button" styleClass="btn" onclick="PF('cambiaImmagineHotel').show();" />
+			<br />
+			<br />
 			<p:commandButton value="Aggiungi" styleClass="btn btn-default"
 				action="#{pacchettoBean.aggiungiNuovoHotelAPacchettoEsistente()}" oncomplete="PF('editHotelNuovoDialog').hide();"
 				process="@this,form4"/>
@@ -825,6 +828,14 @@
 			resizable="false">
 			<h:form enctype="multipart/form-data">
 				<p:fileUpload fileUploadListener="#{pacchettoBean.handleFileUpload}"
+					mode="advanced" />
+			</h:form>
+		</p:dialog>
+		
+				<p:dialog header="Cambia Immagine" widgetVar="cambiaImmagineHotel"
+			resizable="false">
+			<h:form enctype="multipart/form-data">
+				<p:fileUpload fileUploadListener="#{pacchettoBean.handleFileUploadHotel}"
 					mode="advanced" />
 			</h:form>
 		</p:dialog>

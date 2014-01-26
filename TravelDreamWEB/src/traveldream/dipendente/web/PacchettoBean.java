@@ -97,7 +97,11 @@ public class PacchettoBean implements Serializable {
 	
 	private UploadedFile file;
 	
+	private UploadedFile fileHotel;
+	
 	private String tmpImage;
+	
+	private String tmpImageHotel;
 	
 
 	public PacchettoBean() {
@@ -259,15 +263,14 @@ public class PacchettoBean implements Serializable {
 		this.attivitaSecondarieEsistentiCompatibili = attivitaSecondarieEsistentiCompatibili;
 	}
 	
-	// funzione per l'update dell'immagine
-	public void handleFileUpload(FileUploadEvent event) {  
-        this.setFile(event.getFile());
+	public void handleFileUploadHotel(FileUploadEvent event) {
+		this.setFileHotel(event.getFile());
         
         try {
 			// Glassfish deve avere i permessi!!
 			File path = new File("/var/uploads/up");
 			
-			String filename = FilenameUtils.getName(file.getFileName());
+			String filename = FilenameUtils.getName(fileHotel.getFileName());
 			String basename = FilenameUtils.getBaseName(filename) + "_";
 			String extension = "." + FilenameUtils.getExtension(filename);
 
@@ -279,11 +282,11 @@ public class PacchettoBean implements Serializable {
 				File newFile = File.createTempFile(basename, extension, path);
 
 
-				input = file.getInputstream();
+				input = fileHotel.getInputstream();
 				OutputStream output = new FileOutputStream(newFile);
 				try {
 					IOUtils.copy(input, output);
-					tmpImage = ((FilenameUtils.getName(newFile.toString())));
+					tmpImageHotel = ((FilenameUtils.getName(newFile.toString())));
 				} finally {
 					IOUtils.closeQuietly(input);
 					IOUtils.closeQuietly(output);
@@ -294,6 +297,46 @@ public class PacchettoBean implements Serializable {
 		} finally {
 
 		}
+	}
+    
+	
+	// funzione per l'update dell'immagine
+	public void handleFileUpload(FileUploadEvent event) {  
+		
+			 this.setFile(event.getFile());
+		        
+		        try {
+					// Glassfish deve avere i permessi!!
+					File path = new File("/var/uploads/up");
+					
+					String filename = FilenameUtils.getName(file.getFileName());
+					String basename = FilenameUtils.getBaseName(filename) + "_";
+					String extension = "." + FilenameUtils.getExtension(filename);
+
+					// tentiamo di creare le cartelle
+					System.out.println(path.mkdirs());
+
+					InputStream input;
+					try {
+						File newFile = File.createTempFile(basename, extension, path);
+
+
+						input = file.getInputstream();
+						OutputStream output = new FileOutputStream(newFile);
+						try {
+							IOUtils.copy(input, output);
+							tmpImage = ((FilenameUtils.getName(newFile.toString())));
+						} finally {
+							IOUtils.closeQuietly(input);
+							IOUtils.closeQuietly(output);
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} finally {
+
+				}
+	
         
     }  
 
@@ -704,10 +747,12 @@ public class PacchettoBean implements Serializable {
 	     System.out.println("IMM " + tmpImage);
 	     if(tmpImage != null) {
 	    	   pacchetto.setImmagine(tmpImage);
-	     }	       
+	     }	
+	     
 	     pkgMng.editInfoGenerali(pacchetto);
 	     this.pacchetti = this.pkgMng.getAllPacchetti();
-	       FacesContext.getCurrentInstance().addMessage(null, msg);  
+	     this.tmpImage = null;
+	      FacesContext.getCurrentInstance().addMessage(null, msg);  
 	    }
 	
 	
@@ -818,9 +863,16 @@ public class PacchettoBean implements Serializable {
 	 public void aggiungiNuovoHotelAPacchettoEsistente() throws ParseException{
 		 //ricordarsi di aggiungere elimnato!!!!
 		 System.out.println(" aggiungiNuovoHotelAPacchettoEsistente");
+		 if(tmpImageHotel != null) {
+	    	   hotelDTO.setPathtoImage(tmpImageHotel);
+	     }	
+		 else {
+			return;
+		}
 		 HotelDTO hotelDaSalvare = this.hotelMng.aggiungiHotelAPacchetto(this.hotelDTO);
 		 this.pkgMng.aggiungiHotelAPacchetto(this.pacchettoDaVisualizzareDto, hotelDaSalvare);
 		 this.hotelDTO = new HotelDTO();
+		 this.tmpImageHotel = null;
 		 System.out.println(this.hotelDTO.getNome());
 		 
 		}
@@ -952,6 +1004,22 @@ public class PacchettoBean implements Serializable {
 
 	public void setTmpImage(String tmpImage) {
 		this.tmpImage = tmpImage;
+	}
+
+	public UploadedFile getFileHotel() {
+		return fileHotel;
+	}
+
+	public void setFileHotel(UploadedFile fileHotel) {
+		this.fileHotel = fileHotel;
+	}
+
+	public String getTmpImageHotel() {
+		return tmpImageHotel;
+	}
+
+	public void setTmpImageHotel(String tmpImageHotel) {
+		this.tmpImageHotel = tmpImageHotel;
 	}
 	 
 

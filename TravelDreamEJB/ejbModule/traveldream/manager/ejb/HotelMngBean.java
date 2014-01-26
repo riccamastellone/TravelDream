@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import model.Hotel;
 import model.Pacchetto;
 import model.Volo;
+import model.VoloPacchetto;
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
@@ -102,7 +103,13 @@ public class HotelMngBean implements HotelMng{
 	public void deleteHotel(HotelDTO hotel) {
 		Hotel hotelDaCancellare = this.findHotel(hotel.getId());
 		hotelDaCancellare.setEliminato(1);
-		em.merge(hotelDaCancellare);		
+		em.merge(hotelDaCancellare);
+		List<Pacchetto> hotelPacchetto = em.createNamedQuery("Pacchetto.getPacchettiByHotel", Pacchetto.class).setParameter("hotel", hotelDaCancellare).getResultList();
+		for (Pacchetto pacchetto : hotelPacchetto) {
+				pacchetto.setHotel(null);
+				em.merge(pacchetto);
+			
+		}
 	}
 
 

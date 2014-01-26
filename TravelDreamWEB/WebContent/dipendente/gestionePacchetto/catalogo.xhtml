@@ -202,6 +202,17 @@
 						</h:commandLink>
 				</p:column>
 				
+				<p:column headerText="Stato" sortBy="ok">
+						<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{pacchetto.ok}" />
+								</f:facet>
+								<f:facet name="input">
+									<h:outputText value="#{pacchetto.ok}" />
+								</f:facet>
+						</p:cellEditor>						
+				</p:column>
+				
 				<p:column style="width:6%">
 					<p:rowEditor />
 				</p:column>
@@ -352,28 +363,28 @@
 
 			<div class="form-group">
 				<label>Costo Giornaliero:</label>
-				<h:inputText p:placeholder="Inserisci il costo giornaliero"
-					class="form-control" value="#{pacchettoBean.hotelDTO.costoGiornaliero}" />
+				<p:inputText placeholder="Inserisci il costo giornaliero"
+					styleClass="form-control" value="#{pacchettoBean.hotelDTO.costoGiornaliero}" />
 			</div>
 
 			<div class="form-group">
 				<label>Posti disponibili :</label>
-				<h:inputText
-					p:placeholder="Inserisci il numero di posti disponibili"
-					class="form-control" value="#{pacchettoBean.hotelDTO.disponibilita}" />
+				<p:inputText
+					placeholder="Inserisci il numero di posti disponibili"
+					styleClass="form-control" value="#{pacchettoBean.hotelDTO.disponibilita}" />
 			</div>
 
 			<div class="form-group">
 				<label>Luogo:</label>
-				<h:inputText p:placeholder="Inserisci l'ubicazione dell'albergo"
-					class="form-control" value="#{pacchettoBean.hotelDTO.luogo}" disable="true"/>
+				<p:inputText placeholder="Inserisci l'ubicazione dell'albergo"
+					styleClass="form-control" value="#{pacchettoBean.hotelDTO.luogo}" readonly="true"/>
 			</div>
 
 
 			<div class="form-group">
 				<label>Descrizione:</label>
-				<h:inputTextarea class="form-control"
-					p:placeholder="Inserisci una descrzione"
+				<p:inputTextarea styleClass="form-control"
+					placeholder="Inserisci una descrzione"
 					value="#{pacchettoBean.hotelDTO.descrizione}" />
 			</div>
 

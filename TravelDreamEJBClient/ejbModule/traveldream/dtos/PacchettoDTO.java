@@ -40,6 +40,8 @@ public class PacchettoDTO {
 	
 	private List<AttivitaSecondariaDTO> attivitaSecondarie;
 	
+	private String ok;
+	
 	public PacchettoDTO(){
 		this.voliAndata = new ArrayList<VoloDTO>();
 		this.voliRitorno = new ArrayList<VoloDTO>();
@@ -134,6 +136,14 @@ public class PacchettoDTO {
 
 	public void setVoliRitorno(List<VoloDTO> voliRitorno) {
 		this.voliRitorno = voliRitorno;
+	}
+
+	public String getOk() {
+		return ok;
+	}
+
+	public void setOk(String ok) {
+		this.ok = ok;
 	}
 
 	

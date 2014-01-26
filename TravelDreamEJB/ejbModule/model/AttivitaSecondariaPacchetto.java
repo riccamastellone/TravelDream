@@ -11,7 +11,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name= "AttivitaSecondariaPacchetto")
-@NamedQuery(name="AttivitaSecondariaPacchetto.findAll", query="SELECT a FROM AttivitaSecondariaPacchetto a")
+@NamedQueries({
+	
+	@NamedQuery(name="AttivitaSecondariaPacchetto.findAll", query="SELECT a FROM AttivitaSecondariaPacchetto a"),
+
+	@NamedQuery(name="AttivitaSecondariaPacchetto.getPacchettiByAttivita", query="SELECT a FROM AttivitaSecondariaPacchetto a WHERE a.attivitaSecondariaBean = :attivita")
+
+})
 public class AttivitaSecondariaPacchetto implements Serializable {
 	private static final long serialVersionUID = 1L;
 

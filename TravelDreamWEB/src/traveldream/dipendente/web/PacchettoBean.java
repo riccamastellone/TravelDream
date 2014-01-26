@@ -675,8 +675,8 @@ public class PacchettoBean implements Serializable {
 	public void mostraInfo(AjaxBehaviorEvent actionEvent, PacchettoDTO pacchetto) {
 		
 		this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
-	System.out.println(this.pacchettoDaVisualizzareDto.getHotel().getEliminato());
-		if (this.pacchettoDaVisualizzareDto.getHotel().getEliminato() == 1){
+	
+		if (this.pacchettoDaVisualizzareDto.getHotel().equals(null)){
 			this.pacchettoDaVisualizzareDto.setHotel(null);
 		}
 		
@@ -705,6 +705,7 @@ public class PacchettoBean implements Serializable {
 	    	   pacchetto.setImmagine(tmpImage);
 	     }	       
 	     pkgMng.editInfoGenerali(pacchetto);
+	     this.pacchetti = this.pkgMng.getAllPacchetti();
 	       FacesContext.getCurrentInstance().addMessage(null, msg);  
 	    }
 	

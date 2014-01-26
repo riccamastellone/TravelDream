@@ -2,6 +2,7 @@ package store.web;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -9,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import traveldream.dtos.ListaDesideriMng;
+import traveldream.dtos.ShareDTO;
 import traveldream.manager.ListaDesideriDTO;
 import traveldream.manager.UtenteMrg;
 
@@ -35,7 +37,17 @@ public class UtenteFrontBean implements Serializable {
 	}
 
 	public List<ListaDesideriDTO> getListaDesideri() {
-		return this.listaDesideri = listaDesideriMng.getListaDesisderiUtente(this.userMgr.getUserDTO());
+		this.listaDesideri = listaDesideriMng.getListaDesisderiUtente(this.userMgr.getUserDTO());
+		
+		for (Iterator<ListaDesideriDTO> s = this.listaDesideri.iterator(); s.hasNext(); ) {
+			
+			ListaDesideriDTO listaDaControllare = s.next();
+			if (listaDaControllare.getPacchetto().getOk().equals("X") || listaDaControllare.getPacchetto().getEliminato() == 1) {
+				s.remove();
+			}
+		}
+		
+		return this.listaDesideri;
 	}
 
 	public void setListaDesideri(List<ListaDesideriDTO> listaDesideri) {

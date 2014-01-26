@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import model.AttivitaSecondariaPacchetto;
 import model.ListaDesideri;
 import model.Pacchetto;
 import model.Utente;
@@ -80,6 +81,27 @@ public class ListaDesideriMngBean implements ListaDesideriMng{
 		ListaDesideriDTO lista = new ListaDesideriDTO();
 		lista.setId(listaDesideri.getId());
 		lista.setPacchetto(PacchettoMngBean.convertToDto(listaDesideri.getPacchetto()));
+		//ricavo l hotel
+		if (listaDesideri.getPacchetto().getHotel() == null) {
+			lista.getPacchetto().setHotel(null);
+		}
+		else {
+			lista.getPacchetto().setHotel(HotelMngBean.HotelToDTO(listaDesideri.getPacchetto().getHotel()));
+		}
+		
+		
+		//ricavo la lista delle attivita secondarie asociate al paccchetto
+		for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : listaDesideri.getPacchetto().getAttivitaSecondariePacchetto()) {
+			lista.getPacchetto().getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+		}
+		
+		if (lista.getPacchetto().getVoliAndata().isEmpty() || lista.getPacchetto().getVoliRitorno().isEmpty() || lista.getPacchetto().getHotel() == null || lista.getPacchetto().getAttivitaSecondarie().isEmpty()){
+			lista.getPacchetto().setOk("X");
+		}
+		else {
+			lista.getPacchetto().setOk("OK");
+		}
+		
 		lista.setPagatoDa(listaDesideri.getPagatoDa());
 		lista.setUtente(UtenteMgrBean.convertToDTO(listaDesideri.getUtente()));
 		return lista;

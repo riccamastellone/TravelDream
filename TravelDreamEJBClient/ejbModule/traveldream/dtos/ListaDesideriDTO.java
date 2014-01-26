@@ -1,10 +1,7 @@
-package traveldream.manager;
+package traveldream.dtos;
 
 
 import javax.persistence.Id;
-
-import traveldream.dtos.PacchettoDTO;
-import traveldream.dtos.UtenteDTO;
 
 
 

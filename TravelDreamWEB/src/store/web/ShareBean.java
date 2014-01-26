@@ -18,10 +18,10 @@ import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
+import traveldream.dtos.ListaDesideriDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.ShareDTO;
 import traveldream.dtos.UtenteDTO;
-import traveldream.manager.ListaDesideriDTO;
 import traveldream.manager.PacchettoMng;
 import traveldream.manager.ShareMng;
 import traveldream.manager.UtenteMrg;

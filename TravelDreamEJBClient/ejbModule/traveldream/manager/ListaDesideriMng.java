@@ -1,8 +1,9 @@
-package traveldream.dtos;
+package traveldream.manager;
 
 import java.util.List;
 
-import traveldream.manager.ListaDesideriDTO;
+import traveldream.dtos.ListaDesideriDTO;
+import traveldream.dtos.UtenteDTO;
 
 public interface ListaDesideriMng {
 

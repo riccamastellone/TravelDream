@@ -9,10 +9,10 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import traveldream.dtos.ListaDesideriMng;
+import traveldream.dtos.ListaDesideriDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.ShareDTO;
-import traveldream.manager.ListaDesideriDTO;
+import traveldream.manager.ListaDesideriMng;
 import traveldream.manager.UtenteMrg;
 
 @ManagedBean(name = "utenteFrontBean")

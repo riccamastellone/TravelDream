@@ -16,9 +16,9 @@ import model.Pacchetto;
 import model.Utente;
 import model.VoloPacchetto;
 import registrazione.ejb.UtenteMgrBean;
-import traveldream.dtos.ListaDesideriMng;
+import traveldream.dtos.ListaDesideriDTO;
 import traveldream.dtos.UtenteDTO;
-import traveldream.manager.ListaDesideriDTO;
+import traveldream.manager.ListaDesideriMng;
 
 /**
  * Session Bean implementation class ListaDesideriMngBean

@@ -874,6 +874,7 @@ public class PacchettoBean implements Serializable {
 		 this.hotelDTO = new HotelDTO();
 		 this.tmpImageHotel = null;
 		 System.out.println(this.hotelDTO.getNome());
+		 RequestContext.getCurrentInstance().execute("PF('editHotelNuovoDialog').hide();");
 		 
 		}
 	 
@@ -952,6 +953,7 @@ public class PacchettoBean implements Serializable {
 		 AttivitaSecondariaDTO attivitaDaSalvare = this.attivitalMng.aggiungiAttivitaAPacchetto(this.attivitaDaSalvare);
 		 this.pkgMng.aggiungiAttivitaAPacchetto(this.pacchettoDaVisualizzareDto, attivitaDaSalvare);
 		 this.attivitaDaSalvare = new AttivitaSecondariaDTO();
+		 RequestContext.getCurrentInstance().execute("PF('editAttivitaNuovaDialog').hide();");
 		 
 		 
 		}

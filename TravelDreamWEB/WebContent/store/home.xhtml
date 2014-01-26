@@ -290,41 +290,7 @@
 						</div>
 					</div>
 
-					<ui:repeat value="#{pacchettoBean.pacchetti}" var="pacchetto"
-						size="2">
-
-						<div class="col-md-4">
-							<div class="shadow cstyle05">
-								<div class="fwi one">
-
-									<p:graphicImage cache="false"
-										value="#{frontendBean.generateImage()}">
-										<f:param name="img" value="#{pacchetto.immagine}" />
-										<f:param name="width" value="720" />
-										<f:param name="height" value="522" />
-									</p:graphicImage>
-
-									<div class="mhover none">
-										<span class="icon"> <h:link
-												outcome="/store/details.xhtml">
-												<f:param name="id" value="#{pacchetto.id}" />
-												<h:graphicImage library="store" name="images/spacer.png" />
-											</h:link>
-										</span>
-									</div>
-								</div>
-								<div class="ctitle">
-									#{pacchetto.nome}
-									<h:link outcome="/store/details.xhtml">
-										<f:param name="id" value="#{pacchettoBean.pacchetti[0].id}" />
-										<h:graphicImage library="store" name="images/spacer.png" />
-									</h:link>
-									<span>#{frontendBean.getTotalePacchetto(pacchetto)} €</span>
-								</div>
-							</div>
-						</div>
-
-					</ui:repeat>
+					
 				</div>
 			</div>
 
@@ -366,8 +332,8 @@
 							<div class="list_carousel">
 								<ul id="foo">
 
-									<ui:repeat value="#{pacchettoBean.pacchetti}" var="pacchetto"
-										size="6" offset="2">
+									<ui:repeat value="#{frontendBean.pacchetti}" var="pacchetto"
+										>
 										<li><h:link outcome="/store/details.xhtml">
 												<f:param name="id" value="#{pacchetto.id}" />
 

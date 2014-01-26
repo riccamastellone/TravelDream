@@ -76,7 +76,12 @@ public class PacchettoMngBean implements PacchettoMng {
 		}
 		
 		//ricavo l hotel
-		pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
+		if (pacchetto.getHotel() == null) {
+			pacchettoDTO.setHotel(null);
+		}
+		else {
+			pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
+		}
 		//ricavo la lista delle attivita secondarie asociate al paccchetto
 		for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : pacchetto.getAttivitaSecondariePacchetto()) {
 			pacchettoDTO.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));

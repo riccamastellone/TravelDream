@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
+import org.primefaces.expression.impl.ThisExpressionResolver;
 
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.ShareDTO;
@@ -136,11 +138,27 @@ public class ShareBean implements Serializable {
 	}
 
 	public List<ShareDTO> getShares() {
-		if (shares == null) {
+			
+		if(this.shares != null){
+			this.shares.clear();
+		}
 			shares = shareMng.getSharesUtente(this.userMgr.getUserDTO());
 
-			for (ShareDTO s : shares) {
-				for (List<String> ss : s.getAmici()) {
+			//filtro i pacchetti giustu
+			for (Iterator<ShareDTO> s = this.shares.iterator(); s.hasNext(); ) {
+				
+					ShareDTO shareDaControllare = s.next();
+					if (shareDaControllare.getPacchetto().getOk().equals("X") || shareDaControllare.getPacchetto().getEliminato() == 1) {
+						s.remove();
+					}
+			}	
+			
+			System.out.println(this.shares.size());
+			
+			//ricavo le info sugli amici
+			for (ShareDTO share : this.shares) {
+				
+				for (List<String> ss : share.getAmici()) {
 					if (ss.get(1).equals("accettato")) {
 						ss.add("<span class='glyphicon glyphicon-ok'></span> Accepted");
 					} else {
@@ -149,7 +167,7 @@ public class ShareBean implements Serializable {
 				}
 
 			}
-		}
+
 		return shares;
 	}
 

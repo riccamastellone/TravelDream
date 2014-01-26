@@ -42,6 +42,8 @@ public class PacchettoDTO {
 	
 	private String ok;
 	
+	private int eliminato;
+	
 	public PacchettoDTO(){
 		this.voliAndata = new ArrayList<VoloDTO>();
 		this.voliRitorno = new ArrayList<VoloDTO>();
@@ -144,6 +146,14 @@ public class PacchettoDTO {
 
 	public void setOk(String ok) {
 		this.ok = ok;
+	}
+
+	public int getEliminato() {
+		return eliminato;
+	}
+
+	public void setEliminato(int eliminato) {
+		this.eliminato = eliminato;
 	}
 
 	

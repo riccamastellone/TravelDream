@@ -134,6 +134,7 @@ public class PacchettoFrontBean implements Serializable {
 	
 	public String goToListHotel(){
 		
+	
 		this.listaHotel = hotelMng.getAllHotel();
 		this.destinazione = "";
 		return "listHotel?faces-redirect=true";

@@ -677,7 +677,7 @@ public class PacchettoBean implements Serializable {
 		
 		this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
 	
-		if (this.pacchettoDaVisualizzareDto.getHotel().equals(null)){
+		if (this.pacchettoDaVisualizzareDto.getHotel() == null){
 			this.pacchettoDaVisualizzareDto.setHotel(null);
 		}
 		

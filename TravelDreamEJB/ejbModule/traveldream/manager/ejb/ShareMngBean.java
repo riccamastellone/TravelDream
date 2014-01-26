@@ -9,9 +9,11 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import model.AttivitaSecondariaPacchetto;
 import model.Pacchetto;
 import model.PacchettoCondiviso;
 import model.Utente;
+import model.VoloPacchetto;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.ShareDTO;
 import traveldream.dtos.UtenteDTO;
@@ -92,6 +94,42 @@ public class ShareMngBean implements ShareMng {
 		if(t == 0) { 
 			ShareDTO share = new ShareDTO();
 			share.setPacchetto(PacchettoMngBean.convertToDto(s.getPacchetto()));
+			
+			//ricavo tutti i voli e li distinguo tra andata e ritorno
+			for (VoloPacchetto voloPacchetto : s.getPacchetto().getVoliPacchetto()) {
+
+				if (voloPacchetto.getTipo().equals("Andata")) {
+					share.getPacchetto().getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+				} else {
+					share.getPacchetto().getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+				}
+
+				
+			}
+			
+			//ricavo l hotel
+			if (s.getPacchetto().getHotel() == null) {
+				share.getPacchetto().setHotel(null);
+			}
+			else {
+				share.getPacchetto().setHotel(HotelMngBean.HotelToDTO(s.getPacchetto().getHotel()));
+			}
+			
+			
+			//ricavo la lista delle attivita secondarie asociate al paccchetto
+			for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : s.getPacchetto().getAttivitaSecondariePacchetto()) {
+				share.getPacchetto().getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+			}
+			
+			if (share.getPacchetto().getVoliAndata().isEmpty() || share.getPacchetto().getVoliRitorno().isEmpty() || share.getPacchetto().getHotel() == null || share.getPacchetto().getAttivitaSecondarie().isEmpty()){
+				share.getPacchetto().setOk("X");
+			}
+			else {
+				share.getPacchetto().setOk("OK");
+			}
+			
+			
+		
 			List<List<String>> friendList = new ArrayList<List<String>>();
 			friendList.add(friend);
 			share.setAmici(friendList);

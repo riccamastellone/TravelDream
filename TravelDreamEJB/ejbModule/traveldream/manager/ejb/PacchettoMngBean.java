@@ -53,6 +53,7 @@ public class PacchettoMngBean implements PacchettoMng {
 		p.setLocalita(pacchetto.getLocalita());
 		p.setNome(pacchetto.getNome());
 		p.setImmagine(pacchetto.getImmagine());
+		p.setEliminato(pacchetto.getEliminato());
 		return p;
 	}
 

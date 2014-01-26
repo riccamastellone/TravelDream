@@ -216,6 +216,7 @@ public class PacchettoBean implements Serializable {
 
 		if (this.pacchetti.isEmpty()){
 			  this.pacchetti = pkgMng.getAllPacchetti();
+			  
 		}
 		
 		return this.pacchetti;

@@ -4,6 +4,7 @@ package store.web;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -120,6 +121,13 @@ public class PacchettoFrontBean implements Serializable {
 		
 		this.pacchetti = pkgMng.getAllPacchetti();
 		this.destinazione = "";
+		 for (Iterator<PacchettoDTO> pacchettidaFiltrare = this.pacchetti.iterator(); pacchettidaFiltrare.hasNext();) {
+				PacchettoDTO pacchettoDaControllare = pacchettidaFiltrare.next();
+				if (pacchettoDaControllare.getOk().equals("X")) {
+					pacchettidaFiltrare.remove();
+				}
+
+			}
 		return "list?faces-redirect=true";
 		
 	}

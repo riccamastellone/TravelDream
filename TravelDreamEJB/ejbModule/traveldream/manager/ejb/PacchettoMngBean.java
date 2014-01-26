@@ -53,6 +53,7 @@ public class PacchettoMngBean implements PacchettoMng {
 		p.setLocalita(pacchetto.getLocalita());
 		p.setNome(pacchetto.getNome());
 		p.setImmagine(pacchetto.getImmagine());
+		p.setEliminato(pacchetto.getEliminato());
 		return p;
 	}
 
@@ -76,7 +77,12 @@ public class PacchettoMngBean implements PacchettoMng {
 		}
 		
 		//ricavo l hotel
-		pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
+		if (pacchetto.getHotel() == null) {
+			pacchettoDTO.setHotel(null);
+		}
+		else {
+			pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
+		}
 		//ricavo la lista delle attivita secondarie asociate al paccchetto
 		for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : pacchetto.getAttivitaSecondariePacchetto()) {
 			pacchettoDTO.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
@@ -176,10 +182,24 @@ public class PacchettoMngBean implements PacchettoMng {
 			}
 			
 			//ricavo l hotel
-			pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
+			if (pacchetto.getHotel() == null) {
+				pacchettoDTO.setHotel(null);
+			}
+			else {
+				pacchettoDTO.setHotel(HotelMngBean.HotelToDTO(pacchetto.getHotel()));
+			}
+			
+			
 			//ricavo la lista delle attivita secondarie asociate al paccchetto
 			for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : pacchetto.getAttivitaSecondariePacchetto()) {
 				pacchettoDTO.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+			}
+			
+			if (pacchettoDTO.getVoliAndata().isEmpty() || pacchettoDTO.getVoliRitorno().isEmpty() || pacchettoDTO.getHotel() == null || pacchettoDTO.getAttivitaSecondarie().isEmpty()){
+				pacchettoDTO.setOk("X");
+			}
+			else {
+				pacchettoDTO.setOk("OK");
 			}
 			
 			pacchettiDto.add(pacchettoDTO);
@@ -204,6 +224,13 @@ public class PacchettoMngBean implements PacchettoMng {
 		pacchettoDaModificare.setNome(pacchetto.getNome());
 		pacchettoDaModificare.setImmagine(pacchetto.getImmagine());
 		em.merge(pacchettoDaModificare);
+		for (VoloPacchetto voloPacchetto : pacchettoDaModificare.getVoliPacchetto()) {
+			if (voloPacchetto.getVolo().getPartenza().before(pacchetto.getInizioValidita()) || voloPacchetto.getVolo().getPartenza().after(pacchetto.getFineValidita())) {	
+				
+				em.remove(voloPacchetto);
+			}
+		}
+		
 		System.out.println("aggiorno pacchetto");
 
 	}
@@ -233,6 +260,7 @@ public class PacchettoMngBean implements PacchettoMng {
 	public PacchettoDTO getPacchettoAggiornato(PacchettoDTO pacchetto) {
 		// TODO Auto-generated method stub
 		System.out.println("chiamato");
+		em.getEntityManagerFactory().getCache().evictAll();
 		Pacchetto pacchettoAggiornato = this.findPacchetto(pacchetto.getId());
 		PacchettoDTO nuovoPacchetto = convertToDto(pacchettoAggiornato);
 		for (VoloPacchetto voloPacchetto : pacchettoAggiornato.getVoliPacchetto()) {
@@ -243,10 +271,25 @@ public class PacchettoMngBean implements PacchettoMng {
 				nuovoPacchetto.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
 			}
 		}
-		nuovoPacchetto.setHotel(HotelMngBean.HotelToDTO(pacchettoAggiornato.getHotel()));
+		
+		//serve per i pacchetti a cui e stato eliminato l hotel
+		if (pacchettoAggiornato.getHotel() == null) {
+			nuovoPacchetto.setHotel(null);
+		}
+		else {
+			nuovoPacchetto.setHotel(HotelMngBean.HotelToDTO(pacchettoAggiornato.getHotel()));
+		}
+		
+		
 		
 		for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : pacchettoAggiornato.getAttivitaSecondariePacchetto()) {
 			nuovoPacchetto.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+		}
+		if (nuovoPacchetto.getVoliAndata().isEmpty() || nuovoPacchetto.getVoliRitorno().isEmpty() || nuovoPacchetto.getHotel() == null || nuovoPacchetto.getAttivitaSecondarie().isEmpty()){
+			nuovoPacchetto.setOk("X");
+		}
+		else {
+			nuovoPacchetto.setOk("OK");
 		}
 		return nuovoPacchetto;
 	}

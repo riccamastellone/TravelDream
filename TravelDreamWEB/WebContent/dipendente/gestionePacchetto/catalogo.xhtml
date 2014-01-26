@@ -23,7 +23,7 @@
 			<p:dataTable var="pacchetto" value="#{pacchettoBean.pacchetti}"
 				id="pacchettiTable"  editable="true">
 				
-				<p:ajax event="rowEdit" listener="#{pacchettoBean.onEdit}"
+				<p:ajax event="rowEdit"  listener="#{pacchettoBean.onEdit}"
 					update=":form:messages, :form:pacchettiTable" />
 				
 					
@@ -44,7 +44,7 @@
 									<h:outputText value="#{pacchetto.localita}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{pacchetto.localita}" />
+									<h:outputText value="#{pacchetto.localita}" />
 								</f:facet>
 					</p:cellEditor>	
 				</p:column>
@@ -77,7 +77,7 @@
 					<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{pacchetto.fineValidita}">
-											<f:convertDateTime type="date" pattern="MM/dd/yyyy" timeZone="Europe/Rome"/>
+									<f:convertDateTime type="date" pattern="MM/dd/yyyy" timeZone="Europe/Rome"/>
 									</h:outputText>
 								</f:facet>
 								<f:facet name="input">
@@ -202,6 +202,17 @@
 						</h:commandLink>
 				</p:column>
 				
+				<p:column headerText="Stato" sortBy="ok">
+						<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{pacchetto.ok}" />
+								</f:facet>
+								<f:facet name="input">
+									<h:outputText value="#{pacchetto.ok}" />
+								</f:facet>
+						</p:cellEditor>						
+				</p:column>
+				
 				<p:column style="width:6%">
 					<p:rowEditor />
 				</p:column>
@@ -216,9 +227,10 @@
 			<p:panel id="addVoloNuovoForm">
 			<div class="form-group">
 				<label>Citta Partenza:</label>
-				<h:inputText pf:placeholder="Inserisci la città di partenza"
+				<h:inputText id="cittaPartenza" pf:placeholder="Inserisci la città di partenza"
 					class="form-control" placeholder="Inserisci la città di partenza"
 					value="#{pacchettoBean.volo.cittaPartenza}" />
+				
 			</div>
 
 			<div class="form-group">
@@ -264,8 +276,12 @@
 			</p:selectOneRadio>
 
 			<p:commandButton value="Aggiungi" styleClass="btn btn-default"
-				action="#{pacchettoBean.addVoloNuovo()}" oncomplete="PF('addVoloNuovo').hide();"
+				action="#{pacchettoBean.addVoloNuovo()}" 
 				update=":form:displayRitorno2,:form:displayAndata2,:form:displayAndata,:form:displayRitorno"/>
+				
+			<p:dialog header="Error" widgetVar="erroreDate" resizable="false" >
+				<h:outputText value="Inserire date valide" />
+			</p:dialog>
 			
 		</p:panel>	
 		</h:form>
@@ -281,7 +297,7 @@
             		Elenco Hotel 
        				 </f:facet>
 
-				<p:column sortBy="nome" headerText="Nome" filterBy="#{hotel.nome}" >
+				<p:column sortBy="nome" headerText="Nome"  >
 					<h:outputText value="#{hotel.nome}" />
 				</p:column>
 
@@ -347,33 +363,36 @@
 
 			<div class="form-group">
 				<label>Costo Giornaliero:</label>
-				<h:inputText p:placeholder="Inserisci il costo giornaliero"
-					class="form-control" value="#{pacchettoBean.hotelDTO.costoGiornaliero}" />
+				<p:inputText placeholder="Inserisci il costo giornaliero"
+					styleClass="form-control" value="#{pacchettoBean.hotelDTO.costoGiornaliero}" />
 			</div>
 
 			<div class="form-group">
 				<label>Posti disponibili :</label>
-				<h:inputText
-					p:placeholder="Inserisci il numero di posti disponibili"
-					class="form-control" value="#{pacchettoBean.hotelDTO.disponibilita}" />
+				<p:inputText
+					placeholder="Inserisci il numero di posti disponibili"
+					styleClass="form-control" value="#{pacchettoBean.hotelDTO.disponibilita}" />
 			</div>
 
 			<div class="form-group">
 				<label>Luogo:</label>
-				<h:inputText p:placeholder="Inserisci l'ubicazione dell'albergo"
-					class="form-control" value="#{pacchettoBean.hotelDTO.luogo}" disable="true"/>
+				<p:inputText placeholder="Inserisci l'ubicazione dell'albergo"
+					styleClass="form-control" value="#{pacchettoBean.hotelDTO.luogo}" readonly="true"/>
 			</div>
 
 
 			<div class="form-group">
 				<label>Descrizione:</label>
-				<h:inputTextarea class="form-control"
-					p:placeholder="Inserisci una descrzione"
+				<p:inputTextarea styleClass="form-control"
+					placeholder="Inserisci una descrzione"
 					value="#{pacchettoBean.hotelDTO.descrizione}" />
 			</div>
-
+			
+			<p:commandButton value="IMG" type="button" styleClass="btn" onclick="PF('cambiaImmagineHotel').show();" />
+			<br />
+			<br />
 			<p:commandButton value="Aggiungi" styleClass="btn btn-default"
-				action="#{pacchettoBean.aggiungiNuovoHotelAPacchettoEsistente()}" oncomplete="PF('editHotelNuovoDialog').hide();"
+				action="#{pacchettoBean.aggiungiNuovoHotelAPacchettoEsistente()}" 
 				process="@this,form4"/>
 					
 			</p:panel>
@@ -758,7 +777,7 @@
 			
 
 			<p:commandButton value="Aggiungi" styleClass="btn btn-default"
-				action="#{pacchettoBean.aggiungiNuovaAttivitaAPacchettoEsistente()}" oncomplete="PF('editAttivitaNuovaDialog').hide();"
+				action="#{pacchettoBean.aggiungiNuovaAttivitaAPacchettoEsistente()}" 
 				process="@this,formAttivita"/>
 					
 			</p:panel>
@@ -791,7 +810,7 @@
 				<p:column>
 					<h:commandLink id="aggiungiAttivita" value="Aggiungi" class="btn btn-default"
 						action="#{pacchettoBean.aggiungiAttivitaEsistenteAPacchettoEsistente(attivita)}">
-						<f:ajax execute="aggiungiAttivita" render="dataTableAddAttivitaEsistente" />
+						<f:ajax execute="aggiungiAttivita" render="dataTableAddAttivitaEsistente" update=":form:pacchettiTable"/>
 					</h:commandLink>
 					
 				</p:column>
@@ -804,14 +823,28 @@
 			
 	
 		</h:form>
-	<p:dialog header="Cambia Immagine" widgetVar="cambiaImmagine"
+		
+		<p:dialog header="Cambia Immagine" widgetVar="cambiaImmagine"
 			resizable="false">
 			<h:form enctype="multipart/form-data">
 				<p:fileUpload fileUploadListener="#{pacchettoBean.handleFileUpload}"
 					mode="advanced" />
 			</h:form>
 		</p:dialog>
-	<script>
+		
+				<p:dialog header="Cambia Immagine" widgetVar="cambiaImmagineHotel"
+			resizable="false">
+			<h:form enctype="multipart/form-data">
+				<p:fileUpload fileUploadListener="#{pacchettoBean.handleFileUploadHotel}"
+					mode="advanced" />
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog header="Error" widgetVar="erroreDate" resizable="false" >
+			<h:outputText value="Inserire date valide" />
+		</p:dialog>
+		
+		<script>
 			jQuery.noConflict();
 		</script>
 

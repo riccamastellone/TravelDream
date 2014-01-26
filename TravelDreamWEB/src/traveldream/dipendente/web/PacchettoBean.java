@@ -9,6 +9,8 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -20,8 +22,10 @@ import javax.faces.event.AjaxBehaviorEvent;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.expression.impl.ThisExpressionResolver;
 import org.primefaces.model.UploadedFile;
 
 import traveldream.dtos.AttivitaSecondariaDTO;
@@ -93,7 +97,11 @@ public class PacchettoBean implements Serializable {
 	
 	private UploadedFile file;
 	
+	private UploadedFile fileHotel;
+	
 	private String tmpImage;
+	
+	private String tmpImageHotel;
 	
 
 	public PacchettoBean() {
@@ -115,6 +123,8 @@ public class PacchettoBean implements Serializable {
 		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
 		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
 		this.attivitaDaSalvare = new AttivitaSecondariaDTO();
+		this.pacchetto.setInizioValidita(new Date());
+		this.pacchetto.setFineValidita(new Date());
 
 	}
 
@@ -210,6 +220,7 @@ public class PacchettoBean implements Serializable {
 
 		if (this.pacchetti.isEmpty()){
 			  this.pacchetti = pkgMng.getAllPacchetti();
+			  
 		}
 		
 		return this.pacchetti;
@@ -252,15 +263,14 @@ public class PacchettoBean implements Serializable {
 		this.attivitaSecondarieEsistentiCompatibili = attivitaSecondarieEsistentiCompatibili;
 	}
 	
-	// funzione per l'update dell'immagine
-	public void handleFileUpload(FileUploadEvent event) {  
-        this.setFile(event.getFile());
+	public void handleFileUploadHotel(FileUploadEvent event) {
+		this.setFileHotel(event.getFile());
         
         try {
 			// Glassfish deve avere i permessi!!
 			File path = new File("/var/uploads/up");
 			
-			String filename = FilenameUtils.getName(file.getFileName());
+			String filename = FilenameUtils.getName(fileHotel.getFileName());
 			String basename = FilenameUtils.getBaseName(filename) + "_";
 			String extension = "." + FilenameUtils.getExtension(filename);
 
@@ -272,11 +282,11 @@ public class PacchettoBean implements Serializable {
 				File newFile = File.createTempFile(basename, extension, path);
 
 
-				input = file.getInputstream();
+				input = fileHotel.getInputstream();
 				OutputStream output = new FileOutputStream(newFile);
 				try {
 					IOUtils.copy(input, output);
-					tmpImage = ((FilenameUtils.getName(newFile.toString())));
+					tmpImageHotel = ((FilenameUtils.getName(newFile.toString())));
 				} finally {
 					IOUtils.closeQuietly(input);
 					IOUtils.closeQuietly(output);
@@ -287,6 +297,46 @@ public class PacchettoBean implements Serializable {
 		} finally {
 
 		}
+	}
+    
+	
+	// funzione per l'update dell'immagine
+	public void handleFileUpload(FileUploadEvent event) {  
+		
+			 this.setFile(event.getFile());
+		        
+		        try {
+					// Glassfish deve avere i permessi!!
+					File path = new File("/var/uploads/up");
+					
+					String filename = FilenameUtils.getName(file.getFileName());
+					String basename = FilenameUtils.getBaseName(filename) + "_";
+					String extension = "." + FilenameUtils.getExtension(filename);
+
+					// tentiamo di creare le cartelle
+					System.out.println(path.mkdirs());
+
+					InputStream input;
+					try {
+						File newFile = File.createTempFile(basename, extension, path);
+
+
+						input = file.getInputstream();
+						OutputStream output = new FileOutputStream(newFile);
+						try {
+							IOUtils.copy(input, output);
+							tmpImage = ((FilenameUtils.getName(newFile.toString())));
+						} finally {
+							IOUtils.closeQuietly(input);
+							IOUtils.closeQuietly(output);
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} finally {
+
+				}
+	
         
     }  
 
@@ -297,7 +347,10 @@ public class PacchettoBean implements Serializable {
 		//this.pacchetto = pkgMng.salvaInfoGenerali(pacchetto);
 		
 		//serve per precaricare la tabella di AggiungiVoloEsistente
-		
+		if (pacchetto.getInizioValidita().after(pacchetto.getFineValidita()) || pacchetto.getInizioValidita().equals(pacchetto.getFineValidita())){
+			
+			 return null;
+		}
 		pacchetto.setImmagine(null);
 		try {
 			// Glassfish deve avere i permessi!!
@@ -325,8 +378,8 @@ public class PacchettoBean implements Serializable {
 					IOUtils.closeQuietly(input);
 					IOUtils.closeQuietly(output);
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IllegalArgumentException | IOException e2) {
+				return null;
 			}
 		} finally {
 
@@ -354,6 +407,10 @@ public class PacchettoBean implements Serializable {
 		// controllo il tipo e scelgo di aggiungere il volo all opportuna
 		// arraylist
 
+		 if (this.volo.getPartenza().after(this.volo.getArrivo()) || this.volo.getPartenza().equals(this.volo.getArrivo())){
+				
+				 return null;
+			 }
 		if (this.tipoVolo.equals("Andata")) {
 
 			// serve solamante per mostrare a schermo
@@ -468,7 +525,41 @@ public class PacchettoBean implements Serializable {
 	 * @return
 	 */
 	public String aggiungiNuovoHotelAPacchetto() {
-		// ricordarsi di aggiungere elimnato!!!!
+	
+		hotelDTO.setPathtoImage(null);
+		try {
+			// Glassfish deve avere i permessi!!
+			File path = new File("/var/uploads/up");
+			
+			String filename = FilenameUtils.getName(file.getFileName());
+			String basename = FilenameUtils.getBaseName(filename) + "_";
+			String extension = "." + FilenameUtils.getExtension(filename);
+
+			// tentiamo di creare le cartelle
+			System.out.println(path.mkdirs());
+
+			InputStream input;
+			try {
+				File newFile = File.createTempFile(basename, extension, path);
+
+				System.out.println(newFile);
+
+				input = file.getInputstream();
+				OutputStream output = new FileOutputStream(newFile);
+				try {
+					IOUtils.copy(input, output);
+					hotelDTO.setPathtoImage(FilenameUtils.getName(newFile.toString()));
+				} finally {
+					IOUtils.closeQuietly(input);
+					IOUtils.closeQuietly(output);
+				}
+			} catch (IllegalArgumentException | IOException e2) {
+				return null;
+			}
+		} finally {
+
+		}
+		
 		this.hotelSalvato.add((HotelDTO) this.hotelDTO.clone());
 		return "aggiungiHotel?faces-redirect=true";
 	}
@@ -618,12 +709,20 @@ public class PacchettoBean implements Serializable {
 		this.pacchetti = new ArrayList<PacchettoDTO>();
 		this.pacchettoDaVisualizzareDto = new PacchettoDTO();
 		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
-		this.attivitaDaSalvare = new AttivitaSecondariaDTO();	
+		this.attivitaSecondarie = new ArrayList<AttivitaSecondariaDTO>();
+		this.attivitaDaSalvare = new AttivitaSecondariaDTO();
+		this.pacchetto.setInizioValidita(new Date());
+		this.pacchetto.setFineValidita(new Date());
+	
 	}
 
 	public void mostraInfo(AjaxBehaviorEvent actionEvent, PacchettoDTO pacchetto) {
 		
 		this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
+	
+		if (this.pacchettoDaVisualizzareDto.getHotel() == null){
+			this.pacchettoDaVisualizzareDto.setHotel(null);
+		}
 		
 	}
 
@@ -633,18 +732,29 @@ public class PacchettoBean implements Serializable {
 		return pkgMng.getAllPacchetti();
 	}
 
-	
-	 public void onEdit(RowEditEvent event) throws ParseException { 
-	       FacesMessage msg = new FacesMessage("Pacchetto Aggiornato");  
+	public void onEdit(RowEditEvent event) throws ParseException { 
+		   
+		pacchetto = (PacchettoDTO) event.getObject();
+		 if (pacchetto.getInizioValidita().after(pacchetto.getFineValidita()) || pacchetto.getInizioValidita().equals(pacchetto.getFineValidita())){
+			this.pacchetti = this.pkgMng.getAllPacchetti();
+			 RequestContext.getCurrentInstance().execute("erroreDate.show()");
+			 return;
+		 }
+		 
+	     FacesMessage msg = new FacesMessage("Pacchetto Aggiornato");  
 	       
-	       pacchetto = (PacchettoDTO) event.getObject();
-	       System.out.println("IMM " + tmpImage);
-	       if(tmpImage != null) {
+	       
+	     System.out.println("IMM " + tmpImage);
+	     if(tmpImage != null) {
 	    	   pacchetto.setImmagine(tmpImage);
-	       }	       
-	       pkgMng.editInfoGenerali(pacchetto);
-	       FacesContext.getCurrentInstance().addMessage(null, msg);  
-	    } 
+	     }	
+	     
+	     pkgMng.editInfoGenerali(pacchetto);
+	     this.pacchetti = this.pkgMng.getAllPacchetti();
+	     this.tmpImage = null;
+	      FacesContext.getCurrentInstance().addMessage(null, msg);  
+	    }
+	
 	
 	public void deletePacchetto(PacchettoDTO pacchetto){
 		pkgMng.deletePacchetto(pacchetto);
@@ -685,18 +795,44 @@ public class PacchettoBean implements Serializable {
 	 }
 	 
 	 public void goToAddVoloEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
-		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
 		 this.voli = voloMng.getVoliDisponibiliECompatibili(this.pacchettoDaVisualizzareDto);
+		 for (VoloDTO voloEsaminato : this.pacchettoDaVisualizzareDto.getVoliAndata()) {		
+			 //serve per non mostrare i voli gia inseriti
+			 for (Iterator<VoloDTO> voliEsistentIterator = this.voli.iterator(); voliEsistentIterator.hasNext(); ) {
+					VoloDTO voloDTO = voliEsistentIterator.next();
+					if(voloDTO.getId() == voloEsaminato.getId()){
+						voliEsistentIterator.remove();
+					}
+			 }
+		}
+		 
+		 for (VoloDTO voloEsaminato : this.pacchettoDaVisualizzareDto.getVoliRitorno()) {		
+			 //serve per non mostrare i voli gia inseriti
+			 for (Iterator<VoloDTO> voliEsistentIterator = this.voli.iterator(); voliEsistentIterator.hasNext(); ) {
+					VoloDTO voloDTO = voliEsistentIterator.next();
+					if(voloDTO.getId() == voloEsaminato.getId()){
+						voliEsistentIterator.remove();
+					}
+			 }
+		}
+				
+		
 	 }
 	 
 	
 	 public void addVoloNuovo() throws ParseException{
-		 System.out.println(this.volo.getNomeCompagnia());		
+		 System.out.println(this.volo.getNomeCompagnia());
+		 if (volo.getPartenza().after(volo.getArrivo()) || volo.getPartenza().equals(volo.getArrivo())){
+				RequestContext.getCurrentInstance().execute("erroreDate.show()");
+				return;
+			}
 		 this.volo = this.voloMng.aggiungiVoloAPacchetto(this.volo);	
 		 pkgMng.aggiungiVoloAPacchetto(this.pacchettoDaVisualizzareDto, this.volo, this.tipoVolo);
 		
 		 this.volo = new VoloDTO();
 		 this.tipoVolo = "Andata";
+		 RequestContext.getCurrentInstance().execute("addVoloNuovo.hide()");
 		 
 	 }
 	 
@@ -727,10 +863,18 @@ public class PacchettoBean implements Serializable {
 	 public void aggiungiNuovoHotelAPacchettoEsistente() throws ParseException{
 		 //ricordarsi di aggiungere elimnato!!!!
 		 System.out.println(" aggiungiNuovoHotelAPacchettoEsistente");
+		 if(tmpImageHotel != null) {
+	    	   hotelDTO.setPathtoImage(tmpImageHotel);
+	     }	
+		 else {
+			return;
+		}
 		 HotelDTO hotelDaSalvare = this.hotelMng.aggiungiHotelAPacchetto(this.hotelDTO);
 		 this.pkgMng.aggiungiHotelAPacchetto(this.pacchettoDaVisualizzareDto, hotelDaSalvare);
 		 this.hotelDTO = new HotelDTO();
+		 this.tmpImageHotel = null;
 		 System.out.println(this.hotelDTO.getNome());
+		 RequestContext.getCurrentInstance().execute("PF('editHotelNuovoDialog').hide();");
 		 
 		}
 	 
@@ -809,6 +953,7 @@ public class PacchettoBean implements Serializable {
 		 AttivitaSecondariaDTO attivitaDaSalvare = this.attivitalMng.aggiungiAttivitaAPacchetto(this.attivitaDaSalvare);
 		 this.pkgMng.aggiungiAttivitaAPacchetto(this.pacchettoDaVisualizzareDto, attivitaDaSalvare);
 		 this.attivitaDaSalvare = new AttivitaSecondariaDTO();
+		 RequestContext.getCurrentInstance().execute("PF('editAttivitaNuovaDialog').hide();");
 		 
 		 
 		}
@@ -829,18 +974,21 @@ public class PacchettoBean implements Serializable {
 	 
 	 public void goToAddAttivitaEsistente(AjaxBehaviorEvent event, PacchettoDTO pacchetto){
 		
-		 this.pacchettoDaVisualizzareDto = pacchetto;
+		 this.pacchettoDaVisualizzareDto = this.pkgMng.getPacchettoAggiornato(pacchetto);
 		 this.attivitaSecondarieEsistentiCompatibili = attivitalMng.getAttivitaCompatibiliPacchetto(pacchetto);
 		 
-		 //non visualizo le attivita gia appartenenti al pacchetto
-		 for (AttivitaSecondariaDTO attivita : this.pacchettoDaVisualizzareDto.getAttivitaSecondarie()) {
-			 for (AttivitaSecondariaDTO attivitaEsistente : this.attivitaSecondarieEsistentiCompatibili) {
-				if (attivita.equals(attivitaEsistente)) {
-					this.attivitaSecondarieEsistentiCompatibili.remove(attivitaEsistente);
+		 //non mostro le attivit gia associate
+		 for (AttivitaSecondariaDTO attivitaPacchetto : this.pacchettoDaVisualizzareDto.getAttivitaSecondarie()) {
+				
+				for (Iterator<AttivitaSecondariaDTO> attivitaEsistente = this.attivitaSecondarieEsistentiCompatibili.iterator(); attivitaEsistente.hasNext(); ) {
+					AttivitaSecondariaDTO attivitaSecondariaDTO = attivitaEsistente.next();
+					if(attivitaSecondariaDTO.getId() == attivitaPacchetto.getId()){
+						attivitaEsistente.remove();
+					}
+					
 				}
-			}
 			
-		 }
+			}
 		 
 	 }
 
@@ -858,6 +1006,27 @@ public class PacchettoBean implements Serializable {
 
 	public void setTmpImage(String tmpImage) {
 		this.tmpImage = tmpImage;
+	}
+
+	public UploadedFile getFileHotel() {
+		return fileHotel;
+	}
+
+	public void setFileHotel(UploadedFile fileHotel) {
+		this.fileHotel = fileHotel;
+	}
+
+	public String getTmpImageHotel() {
+		return tmpImageHotel;
+	}
+
+	public void setTmpImageHotel(String tmpImageHotel) {
+		this.tmpImageHotel = tmpImageHotel;
+	}
+	
+	public String goToGestionePacchetti(){
+		this.pacchetti = this.pkgMng.getAllPacchetti();
+		return "/dipendente/gestionePacchetto/catalogo.xhtml?faces-redirect=true";
 	}
 	 
 

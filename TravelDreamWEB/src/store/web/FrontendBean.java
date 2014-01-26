@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -21,6 +23,7 @@ import org.imgscalr.Scalr;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
@@ -60,6 +63,8 @@ public class FrontendBean implements Serializable {
 	
 	private HotelDTO hotel;
 	
+	private List<PacchettoDTO> pacchetti;
+	
 	
 		
 		
@@ -69,6 +74,7 @@ public class FrontendBean implements Serializable {
 	
 	public FrontendBean(){
 		this.pacchetto = new PacchettoDTO();
+		this.pacchetti = new ArrayList<PacchettoDTO>();
 	}
 	
 	public ArrayList<PacchettoDTO> getTopDeals() {
@@ -313,6 +319,32 @@ public class FrontendBean implements Serializable {
 
 	public void setHotel(HotelDTO hotel) {
 		this.hotel = hotel;
+	}
+
+	public List<PacchettoDTO> getPacchetti() {
+		if (this.pacchetti.isEmpty()) {
+			this.pacchetti = pkgMng.getAllPacchetti();
+
+			for (Iterator<PacchettoDTO> pacchettidaFiltrare = this.pacchetti.iterator(); pacchettidaFiltrare.hasNext();) {
+				PacchettoDTO pacchettoDaControllare = pacchettidaFiltrare.next();
+				if (pacchettoDaControllare.getOk().equals("X")) {
+					pacchettidaFiltrare.remove();
+				}
+
+			}
+			
+			System.out.println("----pacchetti ricavati----");
+			System.out.println(pacchetti.size());
+			for (PacchettoDTO pacchettoDTO : this.pacchetti) {
+				System.out.println(pacchettoDTO.getHotel().getNome());
+			}
+		}
+
+		return this.pacchetti;
+	}
+
+	public void setPacchetti(List<PacchettoDTO> pacchetti) {
+		this.pacchetti = pacchetti;
 	}
 	
 	

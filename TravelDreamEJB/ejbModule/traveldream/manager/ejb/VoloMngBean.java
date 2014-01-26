@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import model.Hotel;
 import model.Pacchetto;
 import model.Volo;
+import model.VoloPacchetto;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.VoloMng;
@@ -87,6 +88,12 @@ public class VoloMngBean implements VoloMng {
 		voloDaModificare.setNomeCompagnia(volo.getNomeCompagnia());
 		voloDaModificare.setPartenza(volo.getPartenza());
 		em.merge(voloDaModificare);
+		List<VoloPacchetto> voloPacchetto = em.createNamedQuery("VoloPacchetto.getPacchettiByVolo", VoloPacchetto.class).setParameter("volo", voloDaModificare).getResultList();
+		for (VoloPacchetto voloPacchetto2 : voloPacchetto) {
+			if(voloPacchetto2.getPacchetto().getInizioValidita().after(volo.getPartenza()) || voloPacchetto2.getPacchetto().getFineValidita().before(volo.getPartenza())){
+				em.remove(voloPacchetto2);
+			}
+		}
 		
 		
 
@@ -98,6 +105,12 @@ public class VoloMngBean implements VoloMng {
 		Volo voloDaCancellare = this.findVolo(volo.getId());
 		voloDaCancellare.setEliminato(1);
 		em.merge(voloDaCancellare);
+		List<VoloPacchetto> voloPacchetto = em.createNamedQuery("VoloPacchetto.getPacchettiByVolo", VoloPacchetto.class).setParameter("volo", voloDaCancellare).getResultList();
+		for (VoloPacchetto voloPacchetto2 : voloPacchetto) {
+				em.remove(voloPacchetto2);
+			
+		}
+		
 	}
 
 	@Override

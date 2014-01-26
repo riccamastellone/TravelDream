@@ -11,45 +11,58 @@
 	<ui:define name="content">
 		
 	<br></br>
-	<h:form>
+	<h:form id="form">
 	
+		
 		<div class="form-group">
 			<label >Citta Partenza:</label> 
-			<h:inputText p:placeholder="Inserisci la città di partenza" class="form-control" placeholder="Inserisci la città di partenza" value="#{voloBean.volo.cittaPartenza}" />
+			<h:inputText id="cittaPartenza" p:placeholder="Inserisci la città di partenza" class="form-control"  value="#{voloBean.volo.cittaPartenza}" />
+			<pf:message for="cittaPartenza"></pf:message>
 		</div>
 		
 		<div class="form-group">
 			<label >Citta Arrivo:</label> 
-			<h:inputText p:placeholder="Inserisci la città di arrivo" class="form-control" value="#{voloBean.volo.cittaArrivo}" />
+			<h:inputText  id="cittaArrivo" p:placeholder="Inserisci la città di arrivo" class="form-control" value="#{voloBean.volo.cittaArrivo}" />
+			<pf:message for="cittaArrivo"></pf:message>
 		</div>
 		
 		<div class="form-group">
 			<label >Nome Compagnia:</label> 
-			<h:inputText p:placeholder="Inserisci il nome della compagnia" class="form-control" value="#{voloBean.volo.nomeCompagnia}" />
+			<h:inputText id="compagnia" p:placeholder="Inserisci il nome della compagnia" class="form-control" value="#{voloBean.volo.nomeCompagnia}" />
+			<pf:message for="compagnia"></pf:message>
 		</div>
 		
 		<div class="form-group">
 			<label >Data partenza :</label> <br />
-			<pf:calendar value="#{voloBean.volo.partenza}"  pattern="MM/dd/yyyy HH:mm" />  
+			<pf:calendar id="partenza" value="#{voloBean.volo.partenza}"  pattern="MM/dd/yyyy HH:mm" />
+			<pf:message for="partenza"></pf:message>  
 		</div>
 		
 		<div class="form-group">
 			<label >Data arrivo:</label> <br />
-			<pf:calendar value="#{voloBean.volo.arrivo}" pattern="MM/dd/yyyy HH:mm" />  
+			<pf:calendar id="arrivo" value="#{voloBean.volo.arrivo}" pattern="MM/dd/yyyy HH:mm" /> 
+			<pf:message for="arrivo"></pf:message> 
 		</div>
 		
 		<div class="form-group">
 			<label >Disponibilità:</label> 
-			<h:inputText p:placeholder="Inserisci il numero di posti disponibili" class="form-control" value="#{voloBean.volo.disponibilita}" />
+			<h:inputText id="disponibilita" p:placeholder="Inserisci il numero di posti disponibili" class="form-control" value="#{voloBean.volo.disponibilita}" />
+			<pf:message for="disponibilita"></pf:message>
 		</div>
 		
 		<div class="form-group">
 			<label >Costo:</label> 
-			<h:inputText p:placeholder="Inserisci il costo" class="form-control" value="#{voloBean.volo.costo}" />
+			<h:inputText id="costo" p:placeholder="Inserisci il costo" class="form-control" value="#{voloBean.volo.costo}" />
+			<pf:message for="costo"></pf:message>
 		</div>
 
-		<h:commandButton value="Aggiungi"  class="btn btn-default" action="#{voloBean.aggiungiVolo()}" />
+		<h:commandButton id="aggiungi" value="Aggiungi"  class="btn btn-default" action="#{voloBean.aggiungiVolo()}" />
+		
 		</h:form>
+		
+		<pf:dialog header="Error" widgetVar="erroreDate" resizable="false" >
+			<h:outputText value="Inserire date valide" />
+		</pf:dialog>
 
 		<script>
 			jQuery.noConflict();

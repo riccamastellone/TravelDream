@@ -11,7 +11,14 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name= "VoloPacchetto")
-@NamedQuery(name="VoloPacchetto.findAll", query="SELECT v FROM VoloPacchetto v")
+@NamedQueries({
+	
+	@NamedQuery(name="VoloPacchetto.findAll", query="SELECT v FROM VoloPacchetto v"),
+	
+	@NamedQuery(name="VoloPacchetto.getPacchettiByVolo", query="SELECT v FROM VoloPacchetto v WHERE v.volo = :volo")
+	
+})
+
 public class VoloPacchetto implements Serializable {
 	private static final long serialVersionUID = 1L;
 

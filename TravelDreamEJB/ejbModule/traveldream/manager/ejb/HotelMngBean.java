@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import model.Hotel;
 import model.Pacchetto;
 import model.Volo;
+import model.VoloPacchetto;
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
@@ -69,6 +70,7 @@ public class HotelMngBean implements HotelMng{
 		hdto.setDisponibilita(h.getDisponibilita());
 		hdto.setDescrizione(h.getDescrizione());
 		hdto.setId(h.getId());
+		hdto.setEliminato(h.getEliminato());
 		return hdto;
 		
 	}
@@ -101,7 +103,13 @@ public class HotelMngBean implements HotelMng{
 	public void deleteHotel(HotelDTO hotel) {
 		Hotel hotelDaCancellare = this.findHotel(hotel.getId());
 		hotelDaCancellare.setEliminato(1);
-		em.merge(hotelDaCancellare);		
+		em.merge(hotelDaCancellare);
+		List<Pacchetto> hotelPacchetto = em.createNamedQuery("Pacchetto.getPacchettiByHotel", Pacchetto.class).setParameter("hotel", hotelDaCancellare).getResultList();
+		for (Pacchetto pacchetto : hotelPacchetto) {
+				pacchetto.setHotel(null);
+				em.merge(pacchetto);
+			
+		}
 	}
 
 
@@ -132,7 +140,7 @@ public class HotelMngBean implements HotelMng{
 		
 		List<Hotel> myList;
 		ArrayList <HotelDTO> myDTOlist = new ArrayList <HotelDTO> ();
-		myList = em.createNamedQuery("Hotel.getHotelCompatibiliPacchetto", Hotel.class).setParameter("luogo", luogo).getResultList();
+		myList = em.createNamedQuery("Hotel.getHotelCompatibiliPacchetto", Hotel.class).setParameter("luogo", "%"+luogo+"%").getResultList();
 		for (Hotel h : myList)
 		    {
 			 myDTOlist.add(HotelToDTO(h));

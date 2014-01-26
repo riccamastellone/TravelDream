@@ -74,5 +74,10 @@ public class AttivitaBean implements Serializable {
 	       attivitaMng.aggiornaAttivita((AttivitaSecondariaDTO) event.getObject());
 	       FacesContext.getCurrentInstance().addMessage(null, msg);  
 	    } 
+	
+	public String goToGestioneAttivita(){
+		refreshAttivita();
+		return "/dipendente/gestioneAttivita/catalogo?faces-redirect=true";
+	}
 
 }

@@ -11,8 +11,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import model.AttivitaSecondaria;
+import model.AttivitaSecondariaPacchetto;
 import model.Hotel;
 import model.Volo;
+import model.VoloPacchetto;
 import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.VoloDTO;
@@ -75,6 +77,11 @@ public class AttivitaMngBean implements AttivitaMng {
 		AttivitaSecondaria attivitaDC = this.findAttivita(attivita.getId());
 		attivitaDC.setEliminato(1);
 		em.merge(attivitaDC);
+		List<AttivitaSecondariaPacchetto> attivitaPacchetto = em.createNamedQuery("AttivitaSecondariaPacchetto.getPacchettiByAttivita", AttivitaSecondariaPacchetto.class).setParameter("attivita", attivitaDC).getResultList();
+		for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : attivitaPacchetto) {
+				em.remove(attivitaSecondariaPacchetto);
+			
+		}
 	}
 	
 	private AttivitaSecondaria getLastAttivita() {
@@ -96,7 +103,8 @@ public class AttivitaMngBean implements AttivitaMng {
 	public List<AttivitaSecondariaDTO> getAttivitaCompatibiliPacchetto(PacchettoDTO pacchetto) {
 		// TODO Auto-generated method stub
 		List<AttivitaSecondariaDTO> attivitaDTO = new ArrayList<AttivitaSecondariaDTO>();
-		List<AttivitaSecondaria> listaAttivita = em.createNamedQuery("AttivitaSecondaria.getAttivitaCompatibiliPacchetto", AttivitaSecondaria.class).setParameter("localita", pacchetto.getLocalita()).getResultList();
+		
+		List<AttivitaSecondaria> listaAttivita = em.createNamedQuery("AttivitaSecondaria.getAttivitaCompatibiliPacchetto", AttivitaSecondaria.class).setParameter("localita", "%"+pacchetto.getLocalita()+"%").getResultList();
 	
 		for (AttivitaSecondaria attivita : listaAttivita) {
 

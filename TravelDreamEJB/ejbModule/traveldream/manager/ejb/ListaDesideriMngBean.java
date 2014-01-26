@@ -10,9 +10,11 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import model.AttivitaSecondariaPacchetto;
 import model.ListaDesideri;
 import model.Pacchetto;
 import model.Utente;
+import model.VoloPacchetto;
 import registrazione.ejb.UtenteMgrBean;
 import traveldream.dtos.ListaDesideriMng;
 import traveldream.dtos.UtenteDTO;
@@ -80,6 +82,38 @@ public class ListaDesideriMngBean implements ListaDesideriMng{
 		ListaDesideriDTO lista = new ListaDesideriDTO();
 		lista.setId(listaDesideri.getId());
 		lista.setPacchetto(PacchettoMngBean.convertToDto(listaDesideri.getPacchetto()));
+		//ricavo l hotel
+		if (listaDesideri.getPacchetto().getHotel() == null) {
+			lista.getPacchetto().setHotel(null);
+		}
+		else {
+			lista.getPacchetto().setHotel(HotelMngBean.HotelToDTO(listaDesideri.getPacchetto().getHotel()));
+		}
+		
+		//ricavo tutti i voli e li distinguo tra andata e ritorno
+		for (VoloPacchetto voloPacchetto : listaDesideri.getPacchetto().getVoliPacchetto()) {
+
+			if (voloPacchetto.getTipo().equals("Andata")) {
+				lista.getPacchetto().getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+			} else {
+				lista.getPacchetto().getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+			}
+
+			
+		}
+		
+		//ricavo la lista delle attivita secondarie asociate al paccchetto
+		for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : listaDesideri.getPacchetto().getAttivitaSecondariePacchetto()) {
+			lista.getPacchetto().getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+		}
+		
+		if (lista.getPacchetto().getVoliAndata().isEmpty() || lista.getPacchetto().getVoliRitorno().isEmpty() || lista.getPacchetto().getHotel() == null || lista.getPacchetto().getAttivitaSecondarie().isEmpty()){
+			lista.getPacchetto().setOk("X");
+		}
+		else {
+			lista.getPacchetto().setOk("OK");
+		}
+		
 		lista.setPagatoDa(listaDesideri.getPagatoDa());
 		lista.setUtente(UtenteMgrBean.convertToDTO(listaDesideri.getUtente()));
 		return lista;

@@ -13,6 +13,7 @@ public class PacchettoDTO {
 
 	private int id;
 	
+	@NotEmpty(message= "Non deve essere vuoto") 
 	private String descrizione;
 	
 	@Temporal(TemporalType.DATE)
@@ -27,10 +28,10 @@ public class PacchettoDTO {
 	@NotEmpty
 	private String immagine;
 	
-	@NotEmpty
+	@NotEmpty(message= "Non deve essere vuoto") 
 	private String localita;
 	
-	@NotEmpty
+	@NotEmpty(message= "Non deve essere vuoto") 
 	private String nome;
 
 	private List<VoloDTO> voliAndata;
@@ -38,6 +39,10 @@ public class PacchettoDTO {
 	private List<VoloDTO> voliRitorno;
 	
 	private List<AttivitaSecondariaDTO> attivitaSecondarie;
+	
+	private String ok;
+	
+	private int eliminato;
 	
 	public PacchettoDTO(){
 		this.voliAndata = new ArrayList<VoloDTO>();
@@ -133,6 +138,22 @@ public class PacchettoDTO {
 
 	public void setVoliRitorno(List<VoloDTO> voliRitorno) {
 		this.voliRitorno = voliRitorno;
+	}
+
+	public String getOk() {
+		return ok;
+	}
+
+	public void setOk(String ok) {
+		this.ok = ok;
+	}
+
+	public int getEliminato() {
+		return eliminato;
+	}
+
+	public void setEliminato(int eliminato) {
+		this.eliminato = eliminato;
 	}
 
 	

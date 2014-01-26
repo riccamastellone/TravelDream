@@ -13,9 +13,10 @@
 		<h:form enctype="multipart/form-data">
 			<div class="form-group">
 				<label>Nome:</label>
-				<h:inputText class="form-control"
-					p:placeholder="Inserisci il nome dell'albergo"
+				<p:inputText id="nome" styleClass="form-control"
+					placeholder="Inserisci il nome dell'albergo"
 					value="#{hotelBean.hotel.nome}" />
+				<p:message for="nome"></p:message>
 			</div>
 
 			<div class="form-group">
@@ -33,32 +34,37 @@
 
 			<div class="form-group">
 				<label>Costo Giornaliero:</label>
-				<h:inputText p:placeholder="Inserisci il costo giornaliero"
-					class="form-control" value="#{hotelBean.hotel.costoGiornaliero}" />
+				<p:inputText id="costo" placeholder="Inserisci il costo giornaliero"
+					styleClass="form-control" value="#{hotelBean.hotel.costoGiornaliero}" />
+				<p:message for="costo"></p:message>
 			</div>
 
 			<div class="form-group">
 				<label>Posti disponibili :</label>
-				<h:inputText
-					p:placeholder="Inserisci il numero di posti disponibili"
-					class="form-control" value="#{hotelBean.hotel.disponibilita}" />
+				<p:inputText id="disponibilita"
+					placeholder="Inserisci il numero di posti disponibili"
+					styleClass="form-control" value="#{hotelBean.hotel.disponibilita}" />
+					<p:message for="disponibilita"></p:message>
 			</div>
 
 			<div class="form-group">
 				<label>Luogo:</label>
-				<h:inputText p:placeholder="Inserisci l'ubicazione dell'albergo"
-					class="form-control" value="#{hotelBean.hotel.luogo}" />
+				<p:inputText id="luogo" placeholder="Inserisci l'ubicazione dell'albergo"
+					styleClass="form-control" value="#{hotelBean.hotel.luogo}" />
+				<p:message for="luogo"></p:message>
 			</div>
 
 
 			<div class="form-group">
 				<label>Descrizione:</label>
-				<h:inputTextarea class="form-control"
-					p:placeholder="Inserisci una descrzione"
+				<p:inputTextarea id="descrizione" styleClass="form-control"
+					placeholder="Inserisci una descrzione"
 					value="#{hotelBean.hotel.descrizione}" />
+				<p:message for="descrizione"></p:message>
 			</div>
 
-			<p:fileUpload value="#{hotelBean.file}" mode="simple" />
+			<p:fileUpload id="immagine" value="#{hotelBean.file}" mode="simple" />
+			<p:message for="immagine"></p:message>
 
 
 			<h:commandButton value="Aggiungi" class="btn btn-default"

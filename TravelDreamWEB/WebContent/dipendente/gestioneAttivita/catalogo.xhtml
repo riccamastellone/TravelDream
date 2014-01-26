@@ -21,7 +21,7 @@
 		
 			<p:growl id="messages" showDetail="true" />
 
-			<p:dataTable id="dataTable" var="attivita" value="#{attivitaBean.allAttivita}" editable="true" lazy="true">
+			<p:dataTable id="dataTable" var="attivita" value="#{attivitaBean.allAttivita}" editable="true" >
 				<f:facet name="header">  
             Elenco Attivita Secondarie 
         </f:facet>
@@ -39,9 +39,20 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
+				
+				<p:column sortBy="descrizione" headerText="Descrizione">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{attivita.descrizione}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{attivita.descrizione}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
 
 
-				<p:column sortBy="costoGiornaliero" headerText="Costo">
+				<p:column sortBy="costo" headerText="Costo">
 				 <p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{attivita.costo} €" />
@@ -52,13 +63,13 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column sortBy="luogo" headerText="Luogo">
+				<p:column sortBy="localita" headerText="Luogo">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{attivita.localita}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{attivita.localita}" style="width:100%" />
+							<h:outputText value="#{attivita.localita}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>

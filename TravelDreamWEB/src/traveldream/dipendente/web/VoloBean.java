@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import traveldream.dtos.HotelDTO;
@@ -44,10 +45,13 @@ public class VoloBean implements Serializable {
 	}
 
 
-	public String aggiungiVolo() throws ParseException {
+	public String aggiungiVolo() throws ParseException, InterruptedException {
 		
 		System.out.println(this.volo);
-		
+		if (volo.getPartenza().after(volo.getArrivo()) || volo.getPartenza().equals(volo.getArrivo())){
+			RequestContext.getCurrentInstance().execute("erroreDate.show()");
+			return null;
+		}
 		voloMng.salvaVolo(volo);
 		this.voli = new ArrayList<VoloDTO>();
 		this.volo = new VoloDTO();
@@ -61,8 +65,15 @@ public class VoloBean implements Serializable {
 	}
 	
 	 public void onEdit(RowEditEvent event) throws ParseException { 
+		 
+		 VoloDTO voloDaAggiornare = (VoloDTO) event.getObject();
+		 if (voloDaAggiornare.getPartenza().after(voloDaAggiornare.getArrivo()) || voloDaAggiornare.getPartenza().equals(voloDaAggiornare.getArrivo())){
+			this.voli = this.voloMng.getVoli();
+			 RequestContext.getCurrentInstance().execute("erroreDate.show()");
+			 return;
+		 }
 	       FacesMessage msg = new FacesMessage("Volo Aggiornato");  
-	       voloMng.aggiornaVolo((VoloDTO) event.getObject());
+	       voloMng.aggiornaVolo(voloDaAggiornare);
 	       FacesContext.getCurrentInstance().addMessage(null, msg);  
 	    } 
 	
@@ -83,6 +94,11 @@ public class VoloBean implements Serializable {
 		voloMng.deleteVolo(volo);
 		this.voli.remove(volo);	
 
+	}
+	
+	public String goToGestioneVoli(){
+		this.voli = voloMng.getVoli();
+		return "/dipendente/gestioneVolo/catalogo.xhtml?faces-redirect=true";
 	}
 
 }

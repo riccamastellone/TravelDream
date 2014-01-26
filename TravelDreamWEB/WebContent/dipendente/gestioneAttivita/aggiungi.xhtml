@@ -3,7 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://richfaces.org/rich">
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="../template.xhtml">
 
@@ -14,36 +14,41 @@
 
 			<div class="form-group">
 				<label>Nome:</label>
-				<h:inputText class="form-control"
-					p:placeholder="Inserisci il nome dell'attivita"
+				<p:inputText id="nome" styleClass="form-control"
+					placeholder="Inserisci il nome dell'attivita"
 					value="#{attivitaBean.attivita.nome}" />
+				<p:message for="nome"></p:message>
 			</div>
 
 			<div class="form-group">
 				<label>Costo:</label>
-				<h:inputText p:placeholder="Inserisci il costo"
-					class="form-control" value="#{attivitaBean.attivita.costo}" />
+				<p:inputText id="costo" placeholder="Inserisci il costo"
+					styleClass="form-control" value="#{attivitaBean.attivita.costo}" />
+				<p:message for="costo"></p:message>
 			</div>
 
 			<div class="form-group">
 				<label>Posti disponibili :</label>
-				<h:inputText
-					p:placeholder="Inserisci il numero di posti disponibili"
-					class="form-control" value="#{attivitaBean.attivita.disponibilita}" />
+				<p:inputText id="disponibilita"
+					placeholder="Inserisci il numero di posti disponibili"
+					styleClass="form-control" value="#{attivitaBean.attivita.disponibilita}" />
+				<p:message for="disponibilita"></p:message>
 			</div>
 
 			<div class="form-group">
 				<label>Luogo:</label>
-				<h:inputText p:placeholder="Inserisci la località dell'attivita"
-					class="form-control" value="#{attivitaBean.attivita.localita}" />
+				<p:inputText id="luogo" placeholder="Inserisci la località dell'attivita"
+					styleClass="form-control" value="#{attivitaBean.attivita.localita}" />
+				<p:message for="luogo"></p:message>
 			</div>
 
 
 			<div class="form-group">
 				<label>Descrizione:</label>
-				<h:inputTextarea class="form-control"
-					p:placeholder="Inserisci una descrzione"
+				<p:inputTextarea id="descrizione" styleClass="form-control"
+					placeholder="Inserisci una descrzione"
 					value="#{attivitaBean.attivita.descrizione}" />
+				<p:message for="descrizione"></p:message>
 			</div>
 
 			<h:commandButton value="Aggiungi" class="btn btn-default"

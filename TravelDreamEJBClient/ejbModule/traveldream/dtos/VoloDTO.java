@@ -11,25 +11,29 @@ public class VoloDTO {
 
 	private int id;
 	
-	@NotNull
-	private Date arrivo;
 	
-	@NotNull
+	
+	@NotNull(message= "Non deve essere vuoto")
 	private Date partenza;
+	
+	
+	@NotNull(message= "Non deve essere vuoto")
+	private Date arrivo;
 
-	@NotEmpty
+	@NotEmpty(message= "Non deve essere vuoto")
 	private String cittaArrivo;
 
-	@NotEmpty
+	@NotEmpty(message= "Non deve essere vuoto")
 	private String cittaPartenza;
 	
+	@Min(value = 0, message = "Non deve essere negativo")
 	@Digits(integer=6, fraction=2)
 	private float costo;
 	
-	@Min(0)
+	@Min(value = 0, message = "Non deve essere negativo")
 	private int disponibilita;
 
-	@NotEmpty
+	@NotEmpty(message= "Non deve essere vuoto")
 	private String nomeCompagnia;
 
 	private int eliminato;

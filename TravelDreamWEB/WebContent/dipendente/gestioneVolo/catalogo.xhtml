@@ -21,13 +21,13 @@
 			<p:growl id="messages" showDetail="true" />
 
 			<p:dataTable id="dataTable" var="volo" value="#{voloBean.voli}"
-				editable="true" sortMode="single" lazy="true">
+				editable="true"  >
 				<f:facet name="header">  
            		 Elenco Voli 
         		</f:facet>
 
 				<p:ajax event="rowEdit" listener="#{voloBean.onEdit}"
-					update=":form:messages" />
+					update=":form:messages, :form:dataTable" />
 				
 
 				<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea" filteredValue = "#{volo.nomeCompagnia}">
@@ -67,7 +67,7 @@
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{volo.partenza}">
-								<f:convertDateTime type="date" pattern="MM/dd/yyyy" timeZone="Europe/Rome" />
+								<f:convertDateTime type="date" pattern="MM/dd/yyyy HH:mm" timeZone="Europe/Rome" />
 							</h:outputText>
 
 						</f:facet>
@@ -81,7 +81,7 @@
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{volo.arrivo}">
-								<f:convertDateTime type="date" pattern="MM/dd/yyyy" timeZone="Europe/Rome" />
+								<f:convertDateTime type="date" pattern="MM/dd/yyyy HH:mm" timeZone="Europe/Rome" />
 							</h:outputText>
 						</f:facet>
 						<f:facet name="input">
@@ -129,6 +129,11 @@
 
 		</h:form>
 
+	
+		<p:dialog header="Error" widgetVar="erroreDate" resizable="false" >
+			<h:outputText value="Inserire date valide" />
+		</p:dialog>
+		
 		<script>
 			jQuery.noConflict();
 		</script>

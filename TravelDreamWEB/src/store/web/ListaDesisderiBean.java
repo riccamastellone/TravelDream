@@ -15,6 +15,7 @@ import javax.faces.bean.SessionScoped;
 import org.primefaces.context.RequestContext;
 import org.primefaces.expression.impl.ThisExpressionResolver;
 
+import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.ListaDesideriDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.UtenteDTO;
@@ -42,10 +43,7 @@ public class ListaDesisderiBean implements Serializable{
 	private String nomePagante = "";
 	
 	private ListaDesideriDTO listaDaPagare;
-	
-	private List<VoloDTO> listaVoliAndata;
-	
-	private List<VoloDTO> listaVoliRitorno;
+
 	
 	private String date1;
 	
@@ -55,14 +53,17 @@ public class ListaDesisderiBean implements Serializable{
 	
 	private Date fine;
 	
-	private boolean listePiene;
+	private float costo = 0;
+	
+	private VoloDTO voloAndata;
+	
+	private VoloDTO voloRitorno;
 	
 	public ListaDesisderiBean(){
 		
 		this.listaDesideriUtente = new ArrayList<ListaDesideriDTO>();
-		this.listaVoliAndata = new ArrayList<VoloDTO>();
-		this.listaVoliRitorno = new ArrayList<VoloDTO>();
-		
+		this.voloAndata = new VoloDTO();
+		this.voloRitorno = new VoloDTO();
 	}
 	
 	public void addAListaDesideri(PacchettoDTO pacchetto){
@@ -130,27 +131,49 @@ public class ListaDesisderiBean implements Serializable{
 		
 	}
 	
-	public void goToScegliVoli(ListaDesideriDTO lista) throws ParseException{
-		System.out.println("premuto");
-		this.listePiene = true;
-		this.listaDaPagare = lista;		
-		this.listaVoliAndata.clear();
-		this.listaVoliRitorno.clear();
-		//if (date1.equals(date2)){
-			this.listaVoliAndata.addAll(lista.getPacchetto().getVoliAndata());
-			this.listaVoliRitorno = lista.getPacchetto().getVoliRitorno();
-			System.out.println(lista.getPacchetto().getVoliAndata().size());
-			System.out.println(this.listaVoliAndata.size());
-		//}
+	public void goToPaga() throws ParseException{
+		//this.listaDaPagare = lista;
 		/*
-		if (!this.listaVoliAndata.isEmpty() && !this.listaVoliRitorno.isEmpty()) {
-			this.listePiene = true;
+		if (this.voloAndata.getCittaPartenza() == null || this.voloRitorno.getCittaPartenza() == null){
+			RequestContext.getCurrentInstance().execute("errorDialog.show()");
+			return;
 		}
-		System.out.println(this.listePiene);
-		System.out.println(this.date1);
-		this.inizio = new SimpleDateFormat("yyyy-MM-dd").parse(this.date1);
-		System.out.println(this.inizio);
+
+		else {
 		*/
+		//System.out.println(this.voloAndata.getCittaArrivo());
+			//this.costo = this.calcolaCostoPrenotazione(lista.getPacchetto()); 
+			//System.out.println(this.costo);
+			RequestContext.getCurrentInstance().execute("errorDialog.show()");
+		
+	}
+	
+	public float calcolaCostoPrenotazione(PacchettoDTO pacchetto) {
+		float costo = 0;
+		try {
+			// Costo dei voli
+
+				costo += this.voloAndata.getCosto() + this.voloRitorno.getCosto();
+
+				// Costo dell'hotel
+
+				// Calcolo la durata della permanenza
+				long diff = Math.abs(this.voloRitorno.getPartenza().getTime() - this.voloAndata.getArrivo().getTime());
+				int diffDays = (int) Math.ceil((diff + 12 * 60 * 60 * 1000) / (24 * 60 * 60 * 1000));
+
+				costo += pacchetto.getHotel().getCostoGiornaliero() * diffDays;
+
+				// Costo delle attivita secondarie
+				for (AttivitaSecondariaDTO attivita : pacchetto.getAttivitaSecondarie()) {
+					costo += attivita.getCosto();
+				}
+
+			
+			return costo;
+		} catch (NullPointerException e) {
+			return 0;		
+		}
+		
 	}
 
 	public String getNomePagante() {
@@ -169,29 +192,6 @@ public class ListaDesisderiBean implements Serializable{
 		this.listaDaPagare = listaDaPagare;
 	}
 
-	public List<VoloDTO> getListaVoliAndata() {
-		return listaVoliAndata;
-	}
-
-	public void setListaVoliAndata(List<VoloDTO> listaVoliAndata) {
-		this.listaVoliAndata = listaVoliAndata;
-	}
-
-	public List<VoloDTO> getListaVoliRitorno() {
-		return listaVoliRitorno;
-	}
-
-	public void setListaVoliRitorno(List<VoloDTO> listaVoliRitorno) {
-		this.listaVoliRitorno = listaVoliRitorno;
-	}
-
-	public boolean isListePiene() {
-		return listePiene;
-	}
-
-	public void setListePiene(boolean listePiene) {
-		this.listePiene = listePiene;
-	}
 
 	public String getDate1() {
 		return date1;
@@ -223,6 +223,30 @@ public class ListaDesisderiBean implements Serializable{
 
 	public void setFine(Date fine) {
 		this.fine = fine;
+	}
+
+	public VoloDTO getVoloAndata() {
+		return voloAndata;
+	}
+
+	public void setVoloAndata(VoloDTO voloAndata) {
+		this.voloAndata = voloAndata;
+	}
+
+	public VoloDTO getVoloRitorno() {
+		return voloRitorno;
+	}
+
+	public void setVoloRitorno(VoloDTO voloRitorno) {
+		this.voloRitorno = voloRitorno;
+	}
+
+	public float getCosto() {
+		return costo;
+	}
+
+	public void setCosto(float costo) {
+		this.costo = costo;
 	}
 
 }

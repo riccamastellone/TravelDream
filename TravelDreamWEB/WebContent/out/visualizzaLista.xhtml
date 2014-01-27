@@ -5,198 +5,188 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="../template.xhtml">
+<h:head> bene </h:head>
 
-	<ui:define name="content">
-	
-	<h1>CIAO</h1>
-	
-	<f:metadata>
-    <f:viewParam name="user" value="#{listaDesideriBean.utenteProprietario}" />
-    <f:viewParam name="date1" value="#{listaDesideriBean.date1}" />
-    <f:viewParam name="date2" value="#{listaDesideriBean.date2}" />
-	</f:metadata>
-	
-	<span class="dark size18">Wish list</span>
-	
-								
-								
-								<div class="line4"></div>
-								<br />
-								<p:outputPanel id="listaDesideri">
-								<ui:repeat value="#{listaDesideriBean.listaDesideriUtente}" var="lista" >
-								
-								<h:form>
-								<div>
-									<div class="col-md-4 offset-0">
-									
-										<p:graphicImage cache="false"
-												value="#{frontendBean.generateImage()}">
-												<f:param name="img" value="#{lista.pacchetto.immagine}" />
-												<f:param name="width" value="83" />
-												<f:param name="height" value="62" />
-											</p:graphicImage> 
-										<a class="dark" ><h:link outcome="/store/details.xhtml" value="#{lista.pacchetto.nome}">
-													<f:param name="id" value="#{lista.pacchetto.id}" />
-													
-												</h:link></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
-										<span class="opensans green bold size14"></span> <span
-											class="grey">avg/night</span><br /><h:graphicImage library="store"
-													name="images/filter-rating-#{lista.pacchetto.hotel.stelle}"
-													width="60" /><br />
-									</div>
-									<div class="col-md-7">
-										<span class="grey">#{lista.pacchetto.descrizione}</span>
-									</div>
-									<div class="col-md-1 offset-0">
-											<p:commandButton value="View details"
-												styleClass="btn-search5 right"
-												action="#{listaDesideriBean.goToScegliVoli(lista)}"
-												update=":scegli:displayAndata"
-												oncomplete="if (#{listaDesideriBean.listePiene} == true ) { jQuery('#scegliVoli').modal('show')} else { jQuery('#error').modal('show')}" />
-										</div>
-										<div class="clearfix"></div>
-									
-									
-									
-									<div class="clearfix"></div>
-									<div class="line6"></div>
-								</div>
-	
-								</h:form>
-								
-						
-								</ui:repeat>
-							</p:outputPanel>
-							
-							
-		<div class="modal fade" id="scegliVoli">
-			<h:form id="scegli">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-body">
-						
-				<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-				<h:outputText value="Inserisci nome e cognome"></h:outputText>
-				<h:inputText value="#{listaDesideriBean.nomePagante}" />
-				<br />
-							
-				<p:dataTable id="displayAndata" var="volo"
-					value="#{listadesideriBean.listaVoliAndata}"
-					>
-					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
-						<h:outputText value="#{volo.nomeCompagnia}" />
-					</p:column>
-
-					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
-						<h:outputText value="#{volo.cittaPartenza}" />
-					</p:column>
-
-					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-						<h:outputText value="#{volo.cittaArrivo}" />
-					</p:column>
-
-					<p:column sortBy="partenza" headerText="Data di Partenza">
-						<h:outputText value="#{volo.partenza}">
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-						</h:outputText>
-					</p:column>
-
-					<p:column sortBy="arrivo" headerText="Data di arrivo">
-						<h:outputText value="#{volo.arrivo}">
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-						</h:outputText>
-					</p:column>
-
-					<p:column sortBy="disponibilita" headerText="Posti disponibili">
-						<h:outputText value="#{volo.disponibilita}" />
-
-
-					</p:column>
-
-					<p:column sortBy="costo" headerText="Prezzo">
-						<h:outputText value="#{volo.costo} €" />
-					</p:column>
-
-
-				</p:dataTable>
-				<br />
-				<p class="lato size22 slim">Inbound Flights</p>
-				<p:dataTable id="displayRitorno" var="volo_r"
-					value="#{listadesideriBean.listaVoliRitorno}"
-					selection="#{bookBean.voloRitorno}" selectionMode="single"
-					rowKey="#{volo_r.id}">
-					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
-						<h:outputText value="#{volo_r.nomeCompagnia}" />
-					</p:column>
-
-					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
-						<h:outputText value="#{volo_r.cittaPartenza}" />
-					</p:column>
-
-					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-						<h:outputText value="#{volo_r.cittaArrivo}" />
-					</p:column>
-
-					<p:column sortBy="partenza" headerText="Data di Partenza">
-						<h:outputText value="#{volo_r.partenza}">
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-						</h:outputText>
-					</p:column>
-
-					<p:column sortBy="arrivo" headerText="Data di arrivo">
-						<h:outputText value="#{volo_r.arrivo}">
-							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-						</h:outputText>
-					</p:column>
-
-					<p:column sortBy="disponibilita" headerText="Posti disponibili">
-						<h:outputText value="#{volo_r.disponibilita}" />
-
-
-					</p:column>
-
-					<p:column sortBy="costo" headerText="Prezzo">
-						<h:outputText value="#{volo_r.costo} €" />
-					</p:column>
+<h:body>
 
 
 
-				</p:dataTable>
-				
-				<br />
-				<p:commandButton value="Paga"
-							styleClass="btn-search5 right"
-							action="#{listaDesideriBean.pagaPacchetto()}"
-							oncomplete="jQuery('#scegliVoli').modal('hide')" />
-							
-				</div>
-			</div>
-		</div>	
-	</h:form>
-</div>
+		<h1>CIAO</h1>
 
-	<div class="modal fade" id="error">
-			
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-body">
-						
-				<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-				<h:outputText value="errore"></h:outputText>
+		<f:metadata>
+			<f:viewParam name="user"
+				value="#{listaDesideriBean.utenteProprietario}" />
+			<f:viewParam name="date1" value="#{listaDesideriBean.date1}" />
+			<f:viewParam name="date2" value="#{listaDesideriBean.date2}" />
+		</f:metadata>
+
+		<span class="dark size18">Wish list</span>
+
+
+
+		<div class="line4"></div>
+		<br />
+		<p:outputPanel id="listaDesideri">
+			<ui:repeat value="#{listaDesideriBean.listaDesideriUtente}"
+				var="lista">
+
+				<h:form>
+					<div>
+						<div class="col-md-4 offset-0">
+
+							<p:graphicImage cache="false"
+								value="#{frontendBean.generateImage()}">
+								<f:param name="img" value="#{lista.pacchetto.immagine}" />
+								<f:param name="width" value="83" />
+								<f:param name="height" value="62" />
+							</p:graphicImage>
+							<a class="dark"><h:link outcome="/store/details.xhtml"
+									value="#{lista.pacchetto.nome}">
+									<f:param name="id" value="#{lista.pacchetto.id}" />
+
+								</h:link></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
+							<span class="opensans green bold size14"></span> <span
+								class="grey">avg/night</span><br />
+							<h:graphicImage library="store"
+								name="images/filter-rating-#{lista.pacchetto.hotel.stelle}"
+								width="60" />
+							<br />
+						</div>
+						<div class="col-md-7">
+							<span class="grey">#{lista.pacchetto.descrizione}</span>
+						</div>
+						<p:dataTable id="displayAndata" var="volo"
+							value="#{lista.pacchetto.voliAndata}"
+							selection="#{listaDesideriBean.voloAndata}"
+							selectionMode="single" rowKey="#{volo.id}">
 					
+					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+								<h:outputText value="#{volo.nomeCompagnia}" />
+							</p:column>
+
+							<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+								<h:outputText value="#{volo.cittaPartenza}" />
+							</p:column>
+
+							<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+								<h:outputText value="#{volo.cittaArrivo}" />
+							</p:column>
+
+							<p:column sortBy="partenza" headerText="Data di Partenza">
+								<h:outputText value="#{volo.partenza}">
+									<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+								</h:outputText>
+							</p:column>
+
+							<p:column sortBy="arrivo" headerText="Data di arrivo">
+								<h:outputText value="#{volo.arrivo}">
+									<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+								</h:outputText>
+							</p:column>
+
+							<p:column sortBy="disponibilita" headerText="Posti disponibili">
+								<h:outputText value="#{volo.disponibilita}" />
+
+
+							</p:column>
+
+							<p:column sortBy="costo" headerText="Prezzo">
+								<h:outputText value="#{volo.costo} €" />
+							</p:column>
+
+
+						</p:dataTable>
+						<br />
+						<p class="lato size22 slim">Inbound Flights</p>
+						<p:dataTable id="displayRitorno" var="volo_r"
+							value="#{lista.pacchetto.voliRitorno}"
+							selection="#{listaDesideriBean.voloRitorno}"
+							selectionMode="single" rowKey="#{volo_r.id}">
+							<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+								<h:outputText value="#{volo_r.nomeCompagnia}" />
+							</p:column>
+
+							<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+								<h:outputText value="#{volo_r.cittaPartenza}" />
+							</p:column>
+
+							<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+								<h:outputText value="#{volo_r.cittaArrivo}" />
+							</p:column>
+
+							<p:column sortBy="partenza" headerText="Data di Partenza">
+								<h:outputText value="#{volo_r.partenza}">
+									<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+								</h:outputText>
+							</p:column>
+
+							<p:column sortBy="arrivo" headerText="Data di arrivo">
+								<h:outputText value="#{volo_r.arrivo}">
+									<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+								</h:outputText>
+							</p:column>
+
+							<p:column sortBy="disponibilita" headerText="Posti disponibili">
+								<h:outputText value="#{volo_r.disponibilita}" />
+
+
+							</p:column>
+
+							<p:column sortBy="costo" headerText="Prezzo">
+								<h:outputText value="#{volo_r.costo} €" />
+							</p:column>
+
+
+
+						</p:dataTable>
+
+						<br />
+						<div class="col-md-1 offset-0">
+							<p:commandButton id="vai" value="View details"
+								styleClass="btn-search5 right"
+								action="#{listaDesideriBean.goToPaga(lista)}" >
+								<p:ajax execute="vai" />
+							</p:commandButton>
+
+						</div>
+						<div class="clearfix"></div>
+
+
+
+						<div class="clearfix"></div>
+						<div class="line6"></div>
+					</div>
+
+				</h:form>
+
+
+			</ui:repeat>
+		</p:outputPanel>
+
+
+		<p:dialog header="Error" widgetVar="errorDialog" resizable="false">
+			<p>You have to select one departure flight and one arrival
+				flight!
+			</p>
+		</p:dialog>
+
+		<div class="modal fade" id="error">
+
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h:outputText value="errore"></h:outputText>
+
+					</div>
 				</div>
 			</div>
-		</div>	
-	
-</div>
-						
-			
 
-</ui:define>
-	
-</ui:composition>
+		</div>
+
+		
+</h:body>
 
 </html>

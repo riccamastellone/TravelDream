@@ -1,7 +1,10 @@
 package store.web;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.expression.impl.ThisExpressionResolver;
 
 import traveldream.dtos.ListaDesideriDTO;
 import traveldream.dtos.PacchettoDTO;
@@ -42,6 +46,14 @@ public class ListaDesisderiBean implements Serializable{
 	private List<VoloDTO> listaVoliAndata;
 	
 	private List<VoloDTO> listaVoliRitorno;
+	
+	private String date1;
+	
+	private String date2;
+	
+	private Date inizio;
+	
+	private Date fine;
 	
 	private boolean listePiene = false;
 	
@@ -118,7 +130,7 @@ public class ListaDesisderiBean implements Serializable{
 		
 	}
 	
-	public void goToScegliVoli(ListaDesideriDTO lista){
+	public void goToScegliVoli(ListaDesideriDTO lista) throws ParseException{
 		System.out.println("premuto");
 		this.listePiene = false;
 		this.listaDaPagare = lista;		
@@ -127,7 +139,9 @@ public class ListaDesisderiBean implements Serializable{
 		if (!this.listaVoliAndata.isEmpty() && !this.listaVoliRitorno.isEmpty()) {
 			this.listePiene = true;
 		}
-		System.out.println(listePiene);
+		System.out.println(this.date1);
+		this.inizio = new SimpleDateFormat("yyyy-MM-dd").parse(this.date1);
+		System.out.println(this.inizio);
 	}
 
 	public String getNomePagante() {
@@ -168,6 +182,38 @@ public class ListaDesisderiBean implements Serializable{
 
 	public void setListePiene(boolean listePiene) {
 		this.listePiene = listePiene;
+	}
+
+	public String getDate1() {
+		return date1;
+	}
+
+	public void setDate1(String date1) {
+		this.date1 = date1;
+	}
+
+	public String getDate2() {
+		return date2;
+	}
+
+	public void setDate2(String date2) {
+		this.date2 = date2;
+	}
+
+	public Date getInizio() {
+		return inizio;
+	}
+
+	public void setInizio(Date inizio) {
+		this.inizio = inizio;
+	}
+
+	public Date getFine() {
+		return fine;
+	}
+
+	public void setFine(Date fine) {
+		this.fine = fine;
 	}
 
 }

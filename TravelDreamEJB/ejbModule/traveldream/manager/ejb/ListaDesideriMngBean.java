@@ -79,6 +79,12 @@ public class ListaDesideriMngBean implements ListaDesideriMng{
 	}
 	
 	private ListaDesideriDTO convertToDto(ListaDesideri listaDesideri){
+		
+		//servono per impostare lo stato di ok o X
+		boolean attivitaTutteVuote = true;
+		boolean voliAndataTuttiVuoti = true;
+		boolean voliRitornoTuttiVuoti = true;
+		
 		ListaDesideriDTO lista = new ListaDesideriDTO();
 		lista.setId(listaDesideri.getId());
 		lista.setPacchetto(PacchettoMngBean.convertToDto(listaDesideri.getPacchetto()));
@@ -95,8 +101,14 @@ public class ListaDesideriMngBean implements ListaDesideriMng{
 
 			if (voloPacchetto.getTipo().equals("Andata")) {
 				lista.getPacchetto().getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+				if (voloPacchetto.getVolo().getDisponibilita() != 0) {
+					voliAndataTuttiVuoti = false;
+				}
 			} else {
 				lista.getPacchetto().getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+				if (voloPacchetto.getVolo().getDisponibilita() != 0) {
+					voliRitornoTuttiVuoti = false;
+				}
 			}
 
 			
@@ -105,9 +117,12 @@ public class ListaDesideriMngBean implements ListaDesideriMng{
 		//ricavo la lista delle attivita secondarie asociate al paccchetto
 		for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : listaDesideri.getPacchetto().getAttivitaSecondariePacchetto()) {
 			lista.getPacchetto().getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+			if (attivitaSecondariaPacchetto.getAttivitaSecondariaBean().getDisponibilita() != 0) {
+				attivitaTutteVuote = false;
+			}
 		}
 		
-		if (lista.getPacchetto().getVoliAndata().isEmpty() || lista.getPacchetto().getVoliRitorno().isEmpty() || lista.getPacchetto().getHotel() == null || lista.getPacchetto().getAttivitaSecondarie().isEmpty()){
+		if (lista.getPacchetto().getVoliAndata().isEmpty() || lista.getPacchetto().getVoliRitorno().isEmpty() || lista.getPacchetto().getHotel() == null || lista.getPacchetto().getAttivitaSecondarie().isEmpty() || voliAndataTuttiVuoti || voliRitornoTuttiVuoti || attivitaTutteVuote || lista.getPacchetto().getHotel().getDisponibilita() == 0){
 			lista.getPacchetto().setOk("X");
 		}
 		else {

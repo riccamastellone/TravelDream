@@ -727,8 +727,6 @@ public class PacchettoBean implements Serializable {
 	}
 
 	public List<PacchettoDTO> getAllPacchetti() {
-		// return new ArrayList<PacchettoDTO>();
-		System.out.println(pkgMng.getAllPacchetti().toString());
 		return pkgMng.getAllPacchetti();
 	}
 

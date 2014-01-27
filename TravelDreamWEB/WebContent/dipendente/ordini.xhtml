@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template.xhtml">
+
+	<ui:define name="content">
+
+		<br />
+		<br />
+		<h:form id="form">
+
+			<p:growl id="messages" showDetail="true" />
+
+			<p:dataTable id="dataTable" var="pren"
+				value="#{ordiniBean.prenotazioni}">
+				<f:facet name="header">  
+           		 Elenco Oridini
+        		</f:facet>
+
+
+				<p:column sortBy="pren.id" headerText="ID ordine"
+					filteredValue="#{pren.id}">
+					<h:outputText value="#{pren.id}" />
+				</p:column>
+
+				<p:column sortBy="pren.costoPersona" headerText="Costo/Persona">
+					<h:outputText value="#{pren.costoPersona} €" />
+				</p:column>
+
+
+				<p:column sortBy="pren.persone" headerText="Persone">
+					<h:outputText value="#{pren.persone}" />
+				</p:column>
+
+				<p:column sortBy="pren.dataCreazione" headerText="Data di creazione">
+					<h:outputText value="#{pren.dataCreazione}" />
+				</p:column>
+
+				<p:column sortBy="pren.hotel.nome" headerText="Nome hotel">
+					<h:outputText value="#{pren.hotel.nome}" />
+				</p:column>
+
+				<p:column sortBy="pren.hotel.nome" headerText="Nome hotel">
+					<h:outputText value="#{pren.hotel.nome}" />
+				</p:column>
+
+
+				<p:column>
+					<p:commandButton value="Vedi Dettaglio" type="button"
+						styleClass="btn btn-default">
+						<p:ajax listener="#{ordiniBean.mostraInfo(event,pren)}"
+							update=":dialogDettaglio"
+							oncomplete="PF('dettaglioOrdine').show();" />
+					</p:commandButton>
+				</p:column>
+
+
+
+
+			</p:dataTable>
+
+		</h:form>
+
+		<p:dialog header="Dettaglio ordine" widgetVar="dettaglioOrdine"
+			id="dialogDettaglio" resizable="false">
+			<div class="row">
+
+				<div class="col-md-6">
+					<h2>Hotel</h2>
+					<p>
+						Nome: #{ordiniBean.dettaglio.hotel.nome}<br />
+						<h:graphicImage library="store"
+							name="#{frontendBean.getStarsImage(ordiniBean.dettaglio.hotel.stelle)}" />
+						<br /> Luogo: #{ordiniBean.dettaglio.hotel.luogo}<br /> Costo
+						giornaliero: #{ordiniBean.dettaglio.hotel.costoGiornaliero}
+					</p>
+				</div>
+				<div class="col-md-6">
+				<h2>Info Generali</h2>
+					<p>
+						Persone: #{ordiniBean.dettaglio.persone}<br /> Costo per persona:
+						#{ordiniBean.dettaglio.costoPersona}<br /> Data di creazione:
+						#{ordiniBean.dettaglio.dataCreazione}
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<h2>Volo di Andata</h2>
+					<p>
+						Compagnia: #{ordiniBean.dettaglio.voloAndata.nomeCompagnia}<br />
+						Città di partenza:
+						#{ordiniBean.dettaglio.voloAndata.cittaPartenza}<br /> Città di
+						arrivo: #{ordiniBean.dettaglio.voloAndata.cittaArrivo}<br />
+						Partenza: #{ordiniBean.dettaglio.voloAndata.partenza}<br />
+						Arrivo: #{ordiniBean.dettaglio.voloAndata.arrivo}<br /> Costo:
+						#{ordiniBean.dettaglio.voloAndata.costo}
+					</p>
+				</div>
+
+				<div class="col-md-6">
+					<h2>Volo di Ritorno</h2>
+					<p>
+						Compagnia: #{ordiniBean.dettaglio.voloAndata.nomeCompagnia}<br />
+						Città di partenza:
+						#{ordiniBean.dettaglio.voloAndata.cittaPartenza}<br /> Città di
+						arrivo: #{ordiniBean.dettaglio.voloAndata.cittaArrivo}<br />
+						Partenza: #{ordiniBean.dettaglio.voloAndata.partenza}<br />
+						Arrivo: #{ordiniBean.dettaglio.voloAndata.arrivo}<br /> Costo:
+						#{ordiniBean.dettaglio.voloAndata.costo}
+					</p>
+				</div>
+			</div>
+		</p:dialog>
+
+
+		<script>
+			jQuery.noConflict();
+		</script>
+
+		<script>
+			$(function() {
+				$('.active').removeClass('active');
+				$('.nav li:nth-child(6)').addClass('active');
+			});
+		</script>
+
+	</ui:define>
+
+
+</ui:composition>
+</html>

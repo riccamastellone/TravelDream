@@ -419,6 +419,13 @@ public class BookBean implements Serializable {
 		
 		return "book?faces-redirect=true";
 	}
+	
+	public void goToVoliEsterni(){
+		RequestContext.getCurrentInstance().execute("voliDialog.hide()");
+		this.listaVoliAndata.clear();
+		this.listaVoliRitorno.clear();
+		RequestContext.getCurrentInstance().execute("scegliVoliDialog.show()");
+	}
 
 
 

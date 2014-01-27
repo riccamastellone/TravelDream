@@ -18,36 +18,35 @@
 
 			<p:growl id="messages" showDetail="true" />
 
-			<p:dataTable id="dataTable" var="pren"
-				value="#{ordiniBean.prenotazioni}">
+			<p:dataTable id="dataTable" var="pren" value="#{ordiniBean.prenotazioni}" editable="true">
 				<f:facet name="header">  
            		 Elenco Oridini
         		</f:facet>
 
 
-				<p:column sortBy="pren.id" headerText="ID ordine"
+				<p:column sortBy="id" headerText="ID ordine"
 					filteredValue="#{pren.id}">
 					<h:outputText value="#{pren.id}" />
 				</p:column>
 
-				<p:column sortBy="pren.costoPersona" headerText="Costo/Persona">
+				<p:column sortBy="costoPersona" headerText="Costo/Persona">
 					<h:outputText value="#{pren.costoPersona} €" />
 				</p:column>
 
 
-				<p:column sortBy="pren.persone" headerText="Persone">
+				<p:column sortBy="persone" headerText="Persone">
 					<h:outputText value="#{pren.persone}" />
 				</p:column>
 
-				<p:column sortBy="pren.dataCreazione" headerText="Data di creazione">
+				<p:column sortBy="dataCreazione" headerText="Data di creazione">
 					<h:outputText value="#{pren.dataCreazione}" />
 				</p:column>
 
-				<p:column sortBy="pren.hotel.nome" headerText="Nome hotel">
+				<p:column sortBy="nome" headerText="Nome hotel">
 					<h:outputText value="#{pren.hotel.nome}" />
 				</p:column>
 
-				<p:column sortBy="pren.hotel.nome" headerText="Nome hotel">
+				<p:column sortBy="nome" headerText="Nome hotel">
 					<h:outputText value="#{pren.hotel.nome}" />
 				</p:column>
 

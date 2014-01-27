@@ -16,6 +16,8 @@
 	</f:metadata>
 	
 	<span class="dark size18">Wish list</span>
+	
+								
 								
 								<div class="line4"></div>
 								<br />
@@ -44,24 +46,154 @@
 									<div class="col-md-7">
 										<span class="grey">#{lista.pacchetto.descrizione}</span>
 									</div>
-									<p:commandButton id="canc" styleClass="btn btn-default  " value="Paga"
-									action="#{listaDesideriBean.pagaPacchetto(lista)}" update=":listaDesideri">
-									<p:ajax execute="canc"  />
-									</p:commandButton>
+									<div class="col-md-1 offset-0">
+											<p:commandButton value="View details"
+												styleClass="btn-search5 right"
+												action="#{listaDesideriBean.goToScegliVoli(lista)}"
+												oncomplete="if (#{listaDesideriBean.listePiene}) { jQuery('#scegliVoli').modal('show')} else { jQuery('#error').modal('show')}" />
+										</div>
+										<div class="clearfix"></div>
 									
 									
 									
 									<div class="clearfix"></div>
 									<div class="line6"></div>
 								</div>
+	
 								</h:form>
 								
+						
 								</ui:repeat>
 							</p:outputPanel>
+							
+							
+		<div class="modal fade" id="scegliVoli">
+			<h:form id="scegli">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+						
+				<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+				<h:outputText value="Inserisci nome e cognome"></h:outputText>
+				<h:inputText value="#{listaDesideriBean.nomePagante}" />
+				<br />
+							
+				<p:dataTable id="displayAndata" var="volo"
+					value="#{listadesideriBean.listaVoliAndata}"
+					selection="#{bookBean.voloAndata}" selectionMode="single"
+					rowKey="#{volo.id}">
+					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+						<h:outputText value="#{volo.nomeCompagnia}" />
+					</p:column>
+
+					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+						<h:outputText value="#{volo.cittaPartenza}" />
+					</p:column>
+
+					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+						<h:outputText value="#{volo.cittaArrivo}" />
+					</p:column>
+
+					<p:column sortBy="partenza" headerText="Data di Partenza">
+						<h:outputText value="#{volo.partenza}">
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="arrivo" headerText="Data di arrivo">
+						<h:outputText value="#{volo.arrivo}">
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{volo.disponibilita}" />
+
+
+					</p:column>
+
+					<p:column sortBy="costo" headerText="Prezzo">
+						<h:outputText value="#{volo.costo} €" />
+					</p:column>
+
+
+				</p:dataTable>
+				<br />
+				<p class="lato size22 slim">Inbound Flights</p>
+				<p:dataTable id="displayRitorno" var="volo_r"
+					value="#{listadesideriBean.listaVoliRitorno}"
+					selection="#{bookBean.voloRitorno}" selectionMode="single"
+					rowKey="#{volo_r.id}">
+					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+						<h:outputText value="#{volo_r.nomeCompagnia}" />
+					</p:column>
+
+					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+						<h:outputText value="#{volo_r.cittaPartenza}" />
+					</p:column>
+
+					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+						<h:outputText value="#{volo_r.cittaArrivo}" />
+					</p:column>
+
+					<p:column sortBy="partenza" headerText="Data di Partenza">
+						<h:outputText value="#{volo_r.partenza}">
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="arrivo" headerText="Data di arrivo">
+						<h:outputText value="#{volo_r.arrivo}">
+							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+						<h:outputText value="#{volo_r.disponibilita}" />
+
+
+					</p:column>
+
+					<p:column sortBy="costo" headerText="Prezzo">
+						<h:outputText value="#{volo_r.costo} €" />
+					</p:column>
+
+
+
+				</p:dataTable>
+				
+				<br />
+				<p:commandButton value="Paga"
+							styleClass="btn-search5 right"
+							action="#{listaDesideriBean.pagaPacchetto()}"
+							oncomplete="jQuery('#scegliVoli').modal('hide')" />
+							
+				</div>
+			</div>
+		</div>	
+	</h:form>
+</div>
+
+	<div class="modal fade" id="error">
+			
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+						
+				<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+				<h:outputText value="errore"></h:outputText>
+					
+				</div>
+			</div>
+		</div>	
+	
+</div>
+						
 			
 
-		
-	</ui:define>
+</ui:define>
 	
 </ui:composition>
 

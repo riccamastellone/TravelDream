@@ -9,9 +9,12 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 import traveldream.dtos.ListaDesideriDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.UtenteDTO;
+import traveldream.dtos.VoloDTO;
 import traveldream.manager.ListaDesideriMng;
 import traveldream.manager.UtenteMrg;
 
@@ -30,11 +33,23 @@ public class ListaDesisderiBean implements Serializable{
 	
 	private List<ListaDesideriDTO> listaDesideriUtente;
 	
-	private String utenteProprietario ="";
+	private String utenteProprietario = "";
+	
+	private String nomePagante = "";
+	
+	private ListaDesideriDTO listaDaPagare;
+	
+	private List<VoloDTO> listaVoliAndata;
+	
+	private List<VoloDTO> listaVoliRitorno;
+	
+	private boolean listePiene = false;
 	
 	public ListaDesisderiBean(){
 		
 		this.listaDesideriUtente = new ArrayList<ListaDesideriDTO>();
+		this.listaVoliAndata = new ArrayList<VoloDTO>();
+		this.listaVoliRitorno = new ArrayList<VoloDTO>();
 		
 	}
 	
@@ -95,9 +110,64 @@ public class ListaDesisderiBean implements Serializable{
 		this.utenteProprietario = utenteProprietario;
 	}
 	
-	public void pagaPacchetto(ListaDesideriDTO lista){
+	public void pagaPacchetto(){
+		RequestContext.getCurrentInstance().execute("ciaoDialog.hide()");
 		System.out.println("pagato");
-		this.listaDesideriMng.pagaPacchttoInListaDesideri(lista, "bruno");
+		System.out.println(nomePagante);
+		//this.listaDesideriMng.pagaPacchttoInListaDesideri(lista, "bruno");
+		
+	}
+	
+	public void goToScegliVoli(ListaDesideriDTO lista){
+		System.out.println("premuto");
+		this.listePiene = false;
+		this.listaDaPagare = lista;		
+		this.listaVoliAndata.clear();
+		this.listaVoliRitorno.clear();
+		if (!this.listaVoliAndata.isEmpty() && !this.listaVoliRitorno.isEmpty()) {
+			this.listePiene = true;
+		}
+		System.out.println(listePiene);
+	}
+
+	public String getNomePagante() {
+		return nomePagante;
+	}
+
+	public void setNomePagante(String nomePagante) {
+		this.nomePagante = nomePagante;
+	}
+
+	public ListaDesideriDTO getListaDaPagare() {
+		return listaDaPagare;
+	}
+
+	public void setListaDaPagare(ListaDesideriDTO listaDaPagare) {
+		this.listaDaPagare = listaDaPagare;
+	}
+
+	public List<VoloDTO> getListaVoliAndata() {
+		return listaVoliAndata;
+	}
+
+	public void setListaVoliAndata(List<VoloDTO> listaVoliAndata) {
+		this.listaVoliAndata = listaVoliAndata;
+	}
+
+	public List<VoloDTO> getListaVoliRitorno() {
+		return listaVoliRitorno;
+	}
+
+	public void setListaVoliRitorno(List<VoloDTO> listaVoliRitorno) {
+		this.listaVoliRitorno = listaVoliRitorno;
+	}
+
+	public boolean isListePiene() {
+		return listePiene;
+	}
+
+	public void setListePiene(boolean listePiene) {
+		this.listePiene = listePiene;
 	}
 
 }

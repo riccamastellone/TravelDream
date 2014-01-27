@@ -131,7 +131,8 @@
 											placeholder="" value="#{commonBean.user.indirizzo}" />
 										<br />
 										<br />
-										<p:commandButton value="Update" styleClass="greenbtn  margtop20"
+										<p:commandButton value="Update"
+											styleClass="greenbtn  margtop20"
 											action="#{commonBean.updateUtente()}" update=":user-details"
 											process="@this, user-details" />
 									</h:form>
@@ -152,35 +153,41 @@
 								<div class="padding40">
 									<span class="dark size18">Your latest bookings</span>
 
-									<ui:repeat value="#{utenteFrontBean.prenotazioni}" var="prenotazione">
+									<ui:repeat value="#{utenteFrontBean.prenotazioni}"
+										var="prenotazione">
 
 										<div class="line4"></div>
 										<br />
 
 										<div class="col-md-4 offset-0">
-										<p:graphicImage cache="false" styleClass="left mr20"
-															value="#{frontendBean.generateImage()}">
-															<f:param name="img" value="#{prenotazione.hotel.pathtoImage}" />
-															<f:param name="width" value="96" />
-															<f:param name="height" value="61" />
-														</p:graphicImage>
-											<a class="dark" href="#"><b>#{prenotazione.hotel.nome}</b></a> / <span
-												class="dark size12">#{prenotazione.voloAndata.cittaArrivo}</span><br /> 
-												<h:graphicImage library="store" class="left mr20"
-												name="images/filter-rating-#{prenotazione.hotel.stelle}.png" alt="" /><br />
-												<span class="opensans green bold size14">#{prenotazione.costoPersona} €</span> 
-												<span class="grey">per person</span><br />
-												
-												<span class="opensans green bold size14">#{prenotazione.persone}</span> 
-												<span class="grey"><h:outputText value="#{(prenotazione.persone==1) ? 'person' : 'people'}" />  </span><br />
-												
+											<p:graphicImage cache="false" styleClass="left mr20"
+												value="#{frontendBean.generateImage()}">
+												<f:param name="img"
+													value="#{prenotazione.hotel.pathtoImage}" />
+												<f:param name="width" value="96" />
+												<f:param name="height" value="61" />
+											</p:graphicImage>
+											<a class="dark" href="#"><b>#{prenotazione.hotel.nome}</b></a>
+											/ <span class="dark size12">#{prenotazione.voloAndata.cittaArrivo}</span><br />
+											<h:graphicImage library="store" class="left mr20"
+												name="images/filter-rating-#{prenotazione.hotel.stelle}.png"
+												alt="" />
+											<br /> <span class="opensans green bold size14">#{prenotazione.costoPersona}
+												€</span> <span class="grey">per person</span><br /> <span
+												class="opensans green bold size14">#{prenotazione.persone}</span>
+											<span class="grey"><h:outputText
+													value="#{(prenotazione.persone==1) ? 'person' : 'people'}" />
+											</span><br />
+
 										</div>
-										<div class="col-md-7" style="padding-right:30px;">
+										<div class="col-md-7" style="padding-right: 30px;">
 											<span class="grey">#{prenotazione.hotel.descrizione}</span>
 										</div>
 										<div class="col-md-1 offset-0">
-											<button onclick="errorMessage()" type="submit"
-												class="btn-search5 right">View details</button>
+											<p:commandButton value="View details"
+												styleClass="btn-search5 right"
+												action="#{utenteFrontBean.dettaglioBook(prenotazione)}"
+												update=":dettaglioPrenotazione" oncomplete="jQuery('#dettaglioPacchetto').modal('show')" />
 										</div>
 										<div class="clearfix"></div>
 
@@ -356,6 +363,67 @@
 								<p:ajax execute="sendEmail" />
 							</p:commandButton>
 
+						</div>
+					</div>
+				</div>
+			</h:form>
+		</div>
+
+
+		<div class="modal fade" id="dettaglioPacchetto">
+			<h:form id="dettaglioPrenotazione">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<p class="opensans size16 dark bold">Your booking details</p>
+							<div class="line2"></div>
+							<br />
+
+							<div class="row">
+								<div class="col-md-6">
+									<p class="lato size22 slim">General Info</p>
+									<p class="grey">
+										#{utenteFrontBean.dettaglio.persone} #{(utenteFrontBean.dettaglio.persone==1) ? 'person' : 'people'}<br /> 
+										#{utenteFrontBean.dettaglio.costoPersona} € / person<br />
+										Booked #{utenteFrontBean.dettaglio.dataCreazione}<br />
+									</p>
+								</div>
+								<div class="col-md-6">
+									<p class="lato size22 slim">Hotel</p>
+									<p class="grey">
+										<b>#{utenteFrontBean.dettaglio.hotel.nome}</b><br />
+										<h:graphicImage library="store"
+											name="#{frontendBean.getStarsImage(utenteFrontBean.dettaglio.hotel.stelle)}" />
+										<br />#{utenteFrontBean.dettaglio.hotel.luogo}<br />
+										#{utenteFrontBean.dettaglio.hotel.costoGiornaliero} € / day
+									</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<p class="lato size22 slim">Outbound Flight</p>
+									<p class="grey">
+										<b>#{utenteFrontBean.dettaglio.voloAndata.nomeCompagnia}</b><br />
+										Departure: 
+										#{utenteFrontBean.dettaglio.voloAndata.cittaPartenza} / #{utenteFrontBean.dettaglio.voloAndata.partenza}<br /> 
+										Arrival: #{utenteFrontBean.dettaglio.voloAndata.cittaArrivo} / #{utenteFrontBean.dettaglio.voloAndata.arrivo}<br />
+										#{utenteFrontBean.dettaglio.voloAndata.costo} € / person
+									</p>
+								</div>
+
+								<div class="col-md-6">
+									<p class="lato size22 slim">Inbound Flight</p>
+									<p class="grey">
+										<b>#{utenteFrontBean.dettaglio.voloAndata.nomeCompagnia}</b><br />
+										Departure: 
+										#{utenteFrontBean.dettaglio.voloAndata.cittaPartenza} / #{utenteFrontBean.dettaglio.voloAndata.partenza}
+										<br /> Arrival #{utenteFrontBean.dettaglio.voloAndata.cittaArrivo} / #{utenteFrontBean.dettaglio.voloAndata.arrivo}<br />
+										#{utenteFrontBean.dettaglio.voloAndata.costo} € / person
+									</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -2,6 +2,7 @@ package store.web;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -56,8 +57,16 @@ public class ListaDesisderiBean implements Serializable{
 		listaDaScremare = this.listaDesideriMng.getListaDesisderiUtente(utente);
 		
 		for (ListaDesideriDTO listaDesideriDTO : listaDaScremare) {
-			if (listaDesideriDTO.getPagatoDa() == null){
+			if (listaDesideriDTO.getPagatoDa() == null ){
 				this.listaDesideriUtente.add(listaDesideriDTO);
+			}
+		}
+		
+		for (Iterator<ListaDesideriDTO> s = this.listaDesideriUtente.iterator(); s.hasNext(); ) {
+			
+			ListaDesideriDTO listaDaControllare = s.next();
+			if (listaDaControllare.getPacchetto().getOk().equals("X") || listaDaControllare.getPacchetto().getEliminato() == 1) {
+				s.remove();
 			}
 		}
 		

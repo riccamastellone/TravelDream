@@ -10,9 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import traveldream.dtos.ListaDesideriDTO;
-import traveldream.dtos.PacchettoDTO;
 import traveldream.dtos.PrenotazioneDTO;
-import traveldream.dtos.ShareDTO;
 import traveldream.manager.ListaDesideriMng;
 import traveldream.manager.PrenotazioneMng;
 import traveldream.manager.UtenteMrg;
@@ -21,9 +19,6 @@ import traveldream.manager.UtenteMrg;
 @SessionScoped
 public class UtenteFrontBean implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 781977263206659707L;
 	
 	private List<ListaDesideriDTO> listaDesideri;
@@ -39,15 +34,15 @@ public class UtenteFrontBean implements Serializable {
 	
 	private List<PrenotazioneDTO> prenotazioni;
 	
+	private PrenotazioneDTO dettaglio;
+	
 	public UtenteFrontBean(){
 		this.listaDesideri = new ArrayList<ListaDesideriDTO>();
 		
 	}
 
 	public List<ListaDesideriDTO> getListaDesideri() {
-		this.listaDesideri = listaDesideriMng.getListaDesisderiUtente(this.userMgr.getUserDTO());
-		System.out.println("grandezza lista" + listaDesideri.size());
-		
+		this.listaDesideri = listaDesideriMng.getListaDesisderiUtente(this.userMgr.getUserDTO());		
 		for (ListaDesideriDTO pacchettoDTO : this.listaDesideri) {
 			System.out.println(pacchettoDTO.getPacchetto().getOk());
 		}
@@ -57,9 +52,7 @@ public class UtenteFrontBean implements Serializable {
 			if (listaDaControllare.getPacchetto().getOk().equals("X") || listaDaControllare.getPacchetto().getEliminato() == 1) {
 				s.remove();
 			}
-		}
-		System.out.println("grandezza lista dopo" + listaDesideri.size());
-		
+		}		
 		return this.listaDesideri;
 	}
 
@@ -68,7 +61,6 @@ public class UtenteFrontBean implements Serializable {
 	}
 	
 	public void deletePacchetto(ListaDesideriDTO lista){
-		System.out.println("benissimo");
 		this.listaDesideriMng.eliminaDaListaDesideri(lista);
 		this.listaDesideri.remove(lista);
 	}
@@ -80,6 +72,20 @@ public class UtenteFrontBean implements Serializable {
 
 	public void setPrenotazioni(List<PrenotazioneDTO> prenotazioni) {
 		this.prenotazioni = prenotazioni;
+	}
+	
+	public void dettaglioBook(PrenotazioneDTO pacchetto) {
+		
+		dettaglio = pacchetto;
+		System.out.println(dettaglio.getHotel().getNome());
+	}
+
+	public PrenotazioneDTO getDettaglio() {
+		return dettaglio;
+	}
+
+	public void setDettaglio(PrenotazioneDTO dettaglio) {
+		this.dettaglio = dettaglio;
 	}
 	
 	

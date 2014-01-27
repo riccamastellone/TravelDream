@@ -164,6 +164,11 @@ public class PacchettoMngBean implements PacchettoMng {
 
 
 	private List<PacchettoDTO> buildPacchetti(List<Pacchetto> pacchetti) {
+		
+		boolean attivitaTutteVuote = true;
+		boolean voliAndataTuttiVuoti = true;
+		boolean voliRitornoTuttiVuoti = true;
+		
 		List<PacchettoDTO> pacchettiDto = new ArrayList<PacchettoDTO>();
 		for (Pacchetto pacchetto : pacchetti) {
 
@@ -174,8 +179,14 @@ public class PacchettoMngBean implements PacchettoMng {
 
 				if (voloPacchetto.getTipo().equals("Andata")) {
 					pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+					if (voloPacchetto.getVolo().getDisponibilita() != 0) {
+						voliAndataTuttiVuoti = false;
+					}
 				} else {
 					pacchettoDTO.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+					if (voloPacchetto.getVolo().getDisponibilita() != 0) {
+						voliRitornoTuttiVuoti = false;
+					}
 				}
 
 				
@@ -193,9 +204,12 @@ public class PacchettoMngBean implements PacchettoMng {
 			//ricavo la lista delle attivita secondarie asociate al paccchetto
 			for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : pacchetto.getAttivitaSecondariePacchetto()) {
 				pacchettoDTO.getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+				if (attivitaSecondariaPacchetto.getAttivitaSecondariaBean().getDisponibilita() != 0) {
+					attivitaTutteVuote = false;
+				}
 			}
 			
-			if (pacchettoDTO.getVoliAndata().isEmpty() || pacchettoDTO.getVoliRitorno().isEmpty() || pacchettoDTO.getHotel() == null || pacchettoDTO.getAttivitaSecondarie().isEmpty()){
+			if (pacchettoDTO.getVoliAndata().isEmpty() || pacchettoDTO.getVoliRitorno().isEmpty() || pacchettoDTO.getHotel() == null || pacchettoDTO.getAttivitaSecondarie().isEmpty() || voliAndataTuttiVuoti || voliRitornoTuttiVuoti || attivitaTutteVuote || pacchettoDTO.getHotel().getDisponibilita() == 0){
 				pacchettoDTO.setOk("X");
 			}
 			else {

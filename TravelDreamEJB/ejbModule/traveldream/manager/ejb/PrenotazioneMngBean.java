@@ -38,18 +38,32 @@ public class PrenotazioneMngBean implements PrenotazioneMng {
 		// TODO Auto-generated method stub
 		
 		Prenotazione prenotazioneDaSalvare = new Prenotazione(prenotazione);
-		prenotazioneDaSalvare.setHotel(em.find(Hotel.class, prenotazione.getHotel().getId()));
-		prenotazioneDaSalvare.setVoloAndata(em.find(Volo.class, prenotazione.getVoloAndata().getId()));
-		prenotazioneDaSalvare.setVoloRitorno(em.find(Volo.class, prenotazione.getVoloRitorno().getId()));
+		Hotel hotel = em.find(Hotel.class, prenotazione.getHotel().getId());
+		Volo voloAndata = em.find(Volo.class, prenotazione.getVoloAndata().getId());
+		Volo voloRitorno = em.find(Volo.class, prenotazione.getVoloRitorno().getId());
+		
+		prenotazioneDaSalvare.setHotel(hotel);
+		prenotazioneDaSalvare.setVoloAndata(voloAndata);
+		prenotazioneDaSalvare.setVoloRitorno(voloRitorno);
 		prenotazioneDaSalvare.setUtente(em.find(Utente.class, prenotazione.getUtente().getEmail()));
 		
 		em.persist(prenotazioneDaSalvare);
+		
+		hotel.setDisponibilita(hotel.getDisponibilita() - prenotazione.getPersone());
+		voloAndata.setDisponibilita(voloAndata.getDisponibilita() - prenotazione.getPersone());
+		voloRitorno.setDisponibilita(voloRitorno.getDisponibilita() - prenotazione.getPersone());
+		
+		em.merge(voloAndata);
+		em.merge(voloRitorno);
+		em.merge(hotel);
 		
 		for (AttivitaSecondariaDTO attivita : prenotazione.getListAttivitaSecondarie()) {
 			
 			AttivitaSecondaria attivitaDaAssociare = em.find(AttivitaSecondaria.class, attivita.getId());
 			AttivitaSecondariaPrenotazione attivitaPrenotazione = new AttivitaSecondariaPrenotazione(attivitaDaAssociare, this.getLastPrenotazione());
 			em.persist(attivitaPrenotazione);
+			attivitaDaAssociare.setDisponibilita(attivitaDaAssociare.getDisponibilita() - prenotazione.getPersone());
+			em.merge(attivitaDaAssociare);
 		}
 		
 	}

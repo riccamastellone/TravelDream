@@ -131,8 +131,9 @@
 											placeholder="" value="#{commonBean.user.indirizzo}" />
 										<br />
 										<br />
-										<p:commandLink value="Update" styleClass="greenbtn  margtop20"
-											action="#{commonBean.updateUtente()}" update=":user-details" />
+										<p:commandButton value="Update" styleClass="greenbtn  margtop20"
+											action="#{commonBean.updateUtente()}" update=":user-details"
+											process="@this, user-details" />
 									</h:form>
 								</div>
 								<!-- END OF COL 1 -->

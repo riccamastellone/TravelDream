@@ -42,5 +42,7 @@ public interface UtenteMrg {
 	
 	public String getGruppo(UtenteDTO utente);
 	
+	public UtenteDTO getUtenteByMail(String email);
+	
 
 }

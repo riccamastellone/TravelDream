@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.expression.impl.ThisExpressionResolver;
@@ -18,9 +19,11 @@ import org.primefaces.expression.impl.ThisExpressionResolver;
 import traveldream.dtos.AttivitaSecondariaDTO;
 import traveldream.dtos.ListaDesideriDTO;
 import traveldream.dtos.PacchettoDTO;
+import traveldream.dtos.PrenotazioneDTO;
 import traveldream.dtos.UtenteDTO;
 import traveldream.dtos.VoloDTO;
 import traveldream.manager.ListaDesideriMng;
+import traveldream.manager.PrenotazioneMng;
 import traveldream.manager.UtenteMrg;
 
 @ManagedBean(name = "listaDesideriBean")
@@ -34,6 +37,9 @@ public class ListaDesisderiBean implements Serializable{
 	private UtenteMrg userMgr;
 	
 	@EJB
+	private PrenotazioneMng prenotazioneMng;
+	
+	@EJB
 	private ListaDesideriMng listaDesideriMng;
 	
 	private List<ListaDesideriDTO> listaDesideriUtente;
@@ -44,6 +50,9 @@ public class ListaDesisderiBean implements Serializable{
 	
 	private ListaDesideriDTO listaDaPagare;
 
+	private List<VoloDTO> listaVoliAndata;
+	
+	private List<VoloDTO> listaVoliRitorno;
 	
 	private String date1;
 	
@@ -64,6 +73,9 @@ public class ListaDesisderiBean implements Serializable{
 		this.listaDesideriUtente = new ArrayList<ListaDesideriDTO>();
 		this.voloAndata = new VoloDTO();
 		this.voloRitorno = new VoloDTO();
+		this.listaVoliAndata = new ArrayList<VoloDTO>();
+		this.listaVoliRitorno = new ArrayList<VoloDTO>();
+		
 	}
 	
 	public void addAListaDesideri(PacchettoDTO pacchetto){
@@ -124,27 +136,54 @@ public class ListaDesisderiBean implements Serializable{
 	}
 	
 	public void pagaPacchetto(){
-		RequestContext.getCurrentInstance().execute("ciaoDialog.hide()");
+		
+		RequestContext.getCurrentInstance().execute("costoDialog.hide()");
 		System.out.println("pagato");
 		System.out.println(nomePagante);
-		//this.listaDesideriMng.pagaPacchttoInListaDesideri(lista, "bruno");
+		PrenotazioneDTO prenotazione = new PrenotazioneDTO();
+		prenotazione.setHotel(this.listaDaPagare.getPacchetto().getHotel());
+		prenotazione.setPersone(1);
+		prenotazione.setUtente(this.userMgr.getUtenteByMail(this.utenteProprietario));
+		prenotazione.setVoloAndata(this.voloAndata);
+		prenotazione.setVoloRitorno(this.voloRitorno);
+		prenotazione.setCostoPersona(this.costo);
+		prenotazione.setListAttivitaSecondarie(listaDaPagare.getPacchetto().getAttivitaSecondarie());
+		this.prenotazioneMng.Prenota(prenotazione);
+		this.voloAndata = new VoloDTO();
+		this.voloRitorno = new VoloDTO();
+		this.listaDesideriMng.pagaPacchttoInListaDesideri(this.listaDaPagare, nomePagante);
 		
 	}
 	
-	public void goToPaga() throws ParseException{
-		//this.listaDaPagare = lista;
-		/*
-		if (this.voloAndata.getCittaPartenza() == null || this.voloRitorno.getCittaPartenza() == null){
+	public void goToPaga(ActionEvent action, ListaDesideriDTO lista) {
+		this.listaDaPagare = lista;
+		
+		this.voloAndata = new VoloDTO();
+		this.voloRitorno = new VoloDTO();
+		this.listaVoliAndata = lista.getPacchetto().getVoliAndata();
+		this.listaVoliRitorno = lista.getPacchetto().getVoliRitorno();
+	
+		RequestContext.getCurrentInstance().execute("scegliDialog.show()");
+		
+		
+	}
+	
+	public void printa(ActionEvent action) {
+		
+		if (this.voloAndata == null || this.voloRitorno == null){
 			RequestContext.getCurrentInstance().execute("errorDialog.show()");
 			return;
 		}
 
 		else {
-		*/
-		//System.out.println(this.voloAndata.getCittaArrivo());
-			//this.costo = this.calcolaCostoPrenotazione(lista.getPacchetto()); 
-			//System.out.println(this.costo);
-			RequestContext.getCurrentInstance().execute("errorDialog.show()");
+			
+			System.out.println(this.voloAndata.getCittaArrivo());
+			System.out.println(this.voloRitorno.getCittaPartenza());
+			this.costo = calcolaCostoPrenotazione(this.listaDaPagare.getPacchetto());
+			System.out.println(this.costo);
+			RequestContext.getCurrentInstance().execute("scegliDialog.hide()");
+			RequestContext.getCurrentInstance().execute("costoDialog.show()");
+		}
 		
 	}
 	
@@ -247,6 +286,22 @@ public class ListaDesisderiBean implements Serializable{
 
 	public void setCosto(float costo) {
 		this.costo = costo;
+	}
+
+	public List<VoloDTO> getListaVoliAndata() {
+		return listaVoliAndata;
+	}
+
+	public void setListaVoliAndata(List<VoloDTO> listaVoliAndata) {
+		this.listaVoliAndata = listaVoliAndata;
+	}
+
+	public List<VoloDTO> getListaVoliRitorno() {
+		return listaVoliRitorno;
+	}
+
+	public void setListaVoliRitorno(List<VoloDTO> listaVoliRitorno) {
+		this.listaVoliRitorno = listaVoliRitorno;
 	}
 
 }

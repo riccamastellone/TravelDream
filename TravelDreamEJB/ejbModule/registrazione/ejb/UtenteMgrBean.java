@@ -12,7 +12,6 @@ import javax.persistence.PersistenceContext;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-
 import traveldream.dtos.UtenteDTO;
 import traveldream.manager.UtenteMrg;
 import model.*;
@@ -196,6 +195,14 @@ public class UtenteMgrBean implements UtenteMrg{
 		Query queryGetUtenteGruppoByUtente = em.createNamedQuery("UtenteGruppo.findByIdUtente").setParameter("utente", utente);
 		List<UtenteGruppo> utenti = queryGetUtenteGruppoByUtente.getResultList();
 		return utenti.get(0);
+	}
+
+	@Override
+	public UtenteDTO getUtenteByMail(String email) {
+		// TODO Auto-generated method stub
+		Utente utente = em.find(Utente.class, email);
+		
+		return convertToDTO(utente);
 	}
 
 

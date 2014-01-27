@@ -1,5 +1,6 @@
 package traveldream.manager.ejb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,14 +10,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import model.AttivitaSecondaria;
+import model.AttivitaSecondariaPacchetto;
 import model.AttivitaSecondariaPrenotazione;
 import model.Hotel;
 import model.Pacchetto;
+import model.PacchettoCondiviso;
 import model.Prenotazione;
 import model.Utente;
 import model.Volo;
+import registrazione.ejb.UtenteMgrBean;
 import traveldream.dtos.AttivitaSecondariaDTO;
+import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PrenotazioneDTO;
+import traveldream.dtos.UtenteDTO;
 import traveldream.manager.PrenotazioneMng;
 
 /**
@@ -72,6 +78,35 @@ public class PrenotazioneMngBean implements PrenotazioneMng {
 		
 		List<Prenotazione> prenotazioni = em.createNamedQuery("Prenotazione.selectMax", Prenotazione.class).getResultList();
 		return prenotazioni.get(0);
+		
+	}
+
+	public List<PrenotazioneDTO> getPrenotazioniUtente(UtenteDTO userDTO) {
+		Utente utente = em.find(Utente.class, userDTO.getEmail());
+		List<Prenotazione> lista = em.createNamedQuery("Prenotazione.getByUtente", Prenotazione.class).setParameter("utente", utente).getResultList();
+		ArrayList <PrenotazioneDTO> myDTOlist = new ArrayList <PrenotazioneDTO> ();
+		for(Prenotazione p : lista) {
+			myDTOlist.add(convertToDto(p));
+		}
+		return myDTOlist;
+	}
+	
+	protected static PrenotazioneDTO convertToDto(Prenotazione p) {
+		PrenotazioneDTO pdto = new PrenotazioneDTO();
+		pdto.setCostoPersona(p.getCostoPersona());
+		pdto.setDataCreazione(p.getDataCreazione());
+		pdto.setHotel(HotelMngBean.HotelToDTO(p.getHotel()));
+		pdto.setId(p.getId());
+		pdto.setPersone(p.getPersone());
+		pdto.setVoloRitorno(VoloMngBean.convertVoloToDTO(p.getVoloRitorno()));
+		pdto.setVoloAndata(VoloMngBean.convertVoloToDTO(p.getVoloAndata()));
+		
+		for (AttivitaSecondariaPrenotazione a : p.getAttivitaSecondariePrenotazione()) {
+			pdto.getListAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(a.getAttivitaSecondariaBean()));
+		}
+		
+		pdto.setUtente(UtenteMgrBean.convertToDTO(p.getUtente()));
+		return pdto;
 		
 	}
 

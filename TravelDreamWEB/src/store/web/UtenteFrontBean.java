@@ -11,8 +11,10 @@ import javax.faces.bean.SessionScoped;
 
 import traveldream.dtos.ListaDesideriDTO;
 import traveldream.dtos.PacchettoDTO;
+import traveldream.dtos.PrenotazioneDTO;
 import traveldream.dtos.ShareDTO;
 import traveldream.manager.ListaDesideriMng;
+import traveldream.manager.PrenotazioneMng;
 import traveldream.manager.UtenteMrg;
 
 @ManagedBean(name = "utenteFrontBean")
@@ -31,6 +33,11 @@ public class UtenteFrontBean implements Serializable {
 	
 	@EJB
 	private ListaDesideriMng listaDesideriMng;
+	
+	@EJB
+	private PrenotazioneMng prenotazioneMng;
+	
+	private List<PrenotazioneDTO> prenotazioni;
 	
 	public UtenteFrontBean(){
 		this.listaDesideri = new ArrayList<ListaDesideriDTO>();
@@ -64,6 +71,15 @@ public class UtenteFrontBean implements Serializable {
 		System.out.println("benissimo");
 		this.listaDesideriMng.eliminaDaListaDesideri(lista);
 		this.listaDesideri.remove(lista);
+	}
+
+	public List<PrenotazioneDTO> getPrenotazioni() {
+		prenotazioni = prenotazioneMng.getPrenotazioniUtente(userMgr.getUserDTO());
+		return prenotazioni;
+	}
+
+	public void setPrenotazioni(List<PrenotazioneDTO> prenotazioni) {
+		this.prenotazioni = prenotazioni;
 	}
 	
 	

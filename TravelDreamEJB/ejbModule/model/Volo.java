@@ -26,7 +26,7 @@ import java.util.List;
 	
 	@NamedQuery(name="Volo.getVoliDisponibiliECompatibili", query="SELECT v FROM Volo v Where v.eliminato != 1 AND v.disponibilita > 0 AND v.partenza >= :partenza And v.partenza <= :arrivo"),
 	
-	@NamedQuery(name="Volo.getVoliByAndataERitorno", query="SELECT v FROM Volo v Where v.eliminato !=1 AND v.disponibilita >= :persone AND v.cittaPartenza = :partenza AND v.cittaArrivo = :arrivo"),
+	@NamedQuery(name="Volo.getVoliByAndataERitorno", query="SELECT v FROM Volo v Where v.eliminato !=1 AND v.disponibilita >= :persone AND v.cittaPartenza = :partenza AND v.cittaArrivo = :arrivo AND v.partenza >= :dataPartenza AND v.partenza <= :dataRitorno"),
 })
 
 public class Volo implements Serializable {

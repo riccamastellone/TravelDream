@@ -2,6 +2,7 @@ package traveldream.manager;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import traveldream.dtos.HotelDTO;
@@ -54,7 +55,7 @@ public interface VoloMng {
 	 */
 	public ArrayList<VoloDTO> getVoliDisponibiliECompatibili(PacchettoDTO pacchetto);
 	
-	public List<VoloDTO> getVoliByAndataERitorno(String andata, String ritorno, int persone);
+	public List<VoloDTO> getVoliByAndataERitorno(String andata, String ritorno, int persone, Date dataPartenza, Date dataRitorno);
 
 
 }

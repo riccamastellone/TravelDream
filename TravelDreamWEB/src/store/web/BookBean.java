@@ -362,8 +362,8 @@ public class BookBean implements Serializable {
 		this.listaVoliAndata.clear(); 
 		this.listaVoliRitorno.clear();
 		
-		this.listaVoliAndata = this.voloMng.getVoliByAndataERitorno(this.andataPartenza, this.andataArrivo, this.persone);
-		this.listaVoliRitorno = this.voloMng.getVoliByAndataERitorno(this.ritornoPartenza, this.ritornoArrivo, this.persone);
+		this.listaVoliAndata = this.voloMng.getVoliByAndataERitorno(this.andataPartenza, this.andataArrivo, this.persone, this.date1, this.date2);
+		this.listaVoliRitorno = this.voloMng.getVoliByAndataERitorno(this.ritornoPartenza, this.ritornoArrivo, this.persone, this.date1, this.date2);
 		
 	}
 
@@ -403,6 +403,8 @@ public class BookBean implements Serializable {
 		this.date1 = partenza;
 		this.date2 = ritorno;
 		this.persone = persone;
+		this.voloAndata = new VoloDTO();
+		this.voloRitorno = new VoloDTO();
 		return "book?faces-redirect=true";
 	}
 	

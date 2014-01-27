@@ -79,7 +79,11 @@
 
 					<div class="padding20">
 						<a href="#" class="sharebtn margtop5">Send to friend</a>
-						<h:link outcome="book" class="booknow margtop20 btnmarg">Book now</h:link>
+						<h:form>
+							<h:commandLink id="book" value="Book Now"
+								class="booknow margtop20 btnmarg"
+								action="#{bookBean.goToBookHotel( pacchettoFrontBean.persone )}" />
+						</h:form>
 					</div>
 				</div>
 				<!-- END OF RIGHT INFO -->

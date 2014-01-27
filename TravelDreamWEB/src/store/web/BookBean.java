@@ -240,52 +240,64 @@ public class BookBean implements Serializable {
 	
 	public String prenota(PacchettoDTO pacchetto){
 		System.out.println("tastopremuto");
-		//System.out.println(this.voloAndata.getCittaArrivo());
-		if (this.voloAndata == null || this.voloRitorno == null){
+		
+		try {
+			//System.out.println(this.voloAndata.getCittaArrivo());
+			if (this.voloAndata.getCittaPartenza() == null || this.voloRitorno.getCittaPartenza() == null){
+				RequestContext.getCurrentInstance().execute("errorDialog.show()");
+				return null;
+			}
+			else {
+				
+				this.prenotazione = new PrenotazioneDTO();
+				this.prenotazione.setHotel(pacchetto.getHotel());
+				this.prenotazione.setPersone(this.persone);
+				this.prenotazione.setUtente(this.userMgr.getUserDTO());
+				this.prenotazione.setVoloAndata(this.voloAndata);
+				this.prenotazione.setVoloRitorno(this.voloRitorno);
+				this.prenotazione.setCostoPersona(this.calcolaCostoPrenotazione(pacchetto));
+				this.prenotazione.setListAttivitaSecondarie(pacchetto.getAttivitaSecondarie());
+				this.prenotazioneMng.Prenota(this.prenotazione);
+				this.voloAndata = new VoloDTO();
+				this.voloRitorno = new VoloDTO();
+				return "prenotazioneOk?faces-redirect=true";
+			}
+		} catch (NullPointerException e) {
 			RequestContext.getCurrentInstance().execute("errorDialog.show()");
 			return null;
 		}
-		else {
-			
-			this.prenotazione = new PrenotazioneDTO();
-			this.prenotazione.setHotel(pacchetto.getHotel());
-			this.prenotazione.setPersone(this.persone);
-			this.prenotazione.setUtente(this.userMgr.getUserDTO());
-			this.prenotazione.setVoloAndata(this.voloAndata);
-			this.prenotazione.setVoloRitorno(this.voloRitorno);
-			this.prenotazione.setCostoPersona(this.calcolaCostoPrenotazione(pacchetto));
-			this.prenotazione.setListAttivitaSecondarie(pacchetto.getAttivitaSecondarie());
-			this.prenotazioneMng.Prenota(this.prenotazione);
-			
-			return "prenotazioneOk?faces-redirect=true";
-		}
+		
+		
 				
 	}
 	
 	public float calcolaCostoPrenotazione(PacchettoDTO pacchetto) {
 		float costo = 0;
-		
-		// Costo dei voli
-		if (this.voloAndata.getCittaPartenza() != null && this.voloRitorno.getCittaPartenza() != null) {
-			
-			costo += this.voloAndata.getCosto() + this.voloRitorno.getCosto();
+		try {
+			// Costo dei voli
+			if (this.voloAndata.getCittaPartenza() != null && this.voloRitorno.getCittaPartenza() != null) {
+				
+				costo += this.voloAndata.getCosto() + this.voloRitorno.getCosto();
 
-			// Costo dell'hotel
+				// Costo dell'hotel
 
-			// Calcolo la durata della permanenza
-			long diff = Math.abs(this.voloRitorno.getPartenza().getTime() - this.voloAndata.getArrivo().getTime());
-			int diffDays = (int) Math.ceil((diff + 12 * 60 * 60 * 1000) / (24 * 60 * 60 * 1000));
+				// Calcolo la durata della permanenza
+				long diff = Math.abs(this.voloRitorno.getPartenza().getTime() - this.voloAndata.getArrivo().getTime());
+				int diffDays = (int) Math.ceil((diff + 12 * 60 * 60 * 1000) / (24 * 60 * 60 * 1000));
 
-			costo += pacchetto.getHotel().getCostoGiornaliero() * diffDays;
+				costo += pacchetto.getHotel().getCostoGiornaliero() * diffDays;
 
-			// Costo delle attivita secondarie
-			for (AttivitaSecondariaDTO attivita : pacchetto.getAttivitaSecondarie()) {
-				costo += attivita.getCosto();
+				// Costo delle attivita secondarie
+				for (AttivitaSecondariaDTO attivita : pacchetto.getAttivitaSecondarie()) {
+					costo += attivita.getCosto();
+				}
+				costo = costo * this.persone;
 			}
-			costo = costo * this.persone;
-		}
+			
+			return costo;
+		} catch (NullPointerException e) {
+			return 0;		}
 		
-		return costo;
 	}
 	
 	public void goToCambiaHotel(ActionEvent event, PacchettoDTO pacchetto) {
@@ -387,9 +399,17 @@ public class BookBean implements Serializable {
 		this.andataArrivo = andataArrivo;
 	}
 	
-	public String goToBook(Date partenza, Date ritorno){
+	public String goToBook(Date partenza, Date ritorno, int persone){
 		this.date1 = partenza;
 		this.date2 = ritorno;
+		this.persone = persone;
+		return "book?faces-redirect=true";
+	}
+	
+	public String goToBookHotel(int persone){
+		this.date1 = new Date();
+		this.date2 = new Date();
+		this.persone = persone;
 		
 		return "book?faces-redirect=true";
 	}

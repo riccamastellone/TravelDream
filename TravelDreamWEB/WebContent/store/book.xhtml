@@ -459,50 +459,51 @@
 				process="@this,scegliVoliNuovi"/>
 			
 				
-				<p:dataTable id="displayRitornoNuovi" var="volo"
-					value="#{bookBean.listaVoliRitorno}"  selection="#{bookBean.voloRitorno}" selectionMode="single" rowKey="#{volo.id}">
+				<p:dataTable id="displayRitornoNuovi" var="volo_r"
+					value="#{bookBean.listaVoliRitorno}"  selection="#{bookBean.voloRitorno}" selectionMode="single" rowKey="#{volo_r.id}">
 					<f:facet name="header"> Andata  </f:facet>
 					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
-						<h:outputText value="#{volo.nomeCompagnia}" />
+						<h:outputText value="#{volo_r.nomeCompagnia}" />
 					</p:column>
 
 					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
-						<h:outputText value="#{volo.cittaPartenza}" />
+						<h:outputText value="#{volo_r.cittaPartenza}" />
 					</p:column>
 
 					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-						<h:outputText value="#{volo.cittaArrivo}" />
+						<h:outputText value="#{volo_r.cittaArrivo}" />
 					</p:column>
 
 					<p:column sortBy="partenza" headerText="Data di Partenza">
-						<h:outputText value="#{volo.partenza}">
+						<h:outputText value="#{volo_r.partenza}">
 							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
 						</h:outputText>
 					</p:column>
 
 					<p:column sortBy="arrivo" headerText="Data di arrivo">
-						<h:outputText value="#{volo.arrivo}">
+						<h:outputText value="#{volo_r.arrivo}">
 							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
 						</h:outputText>
 					</p:column>
 
 					<p:column sortBy="disponibilita" headerText="Posti disponibili">
-						<h:outputText value="#{volo.disponibilita}" />
+						<h:outputText value="#{volo_r.disponibilita}" />
 
 
 					</p:column>
 
 					<p:column sortBy="costo" headerText="Prezzo">
-						<h:outputText value="#{volo.costo} €" />
+						<h:outputText value="#{volo_r.costo} €" />
 					</p:column>
 					
 					
 				</p:dataTable>
 				
 
-				<p:commandButton value="Prenota" styleClass="btn btn-default"
-				action="#{bookBean.prenota(frontendBean.pacchetto)}"
-				/>
+				<p:commandButton value="Save" styleClass="btn btn-default">
+						<p:ajax update=":booking-form:preview-cost"
+							oncomplete="PF('scegliVoliDialog').hide();" />
+				</p:commandButton>
 				
 				
 			</h:form>

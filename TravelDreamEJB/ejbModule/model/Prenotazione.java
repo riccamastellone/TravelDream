@@ -21,7 +21,8 @@ import java.util.List;
 		
 	@NamedQuery(name="Prenotazione.findAll", query="SELECT p FROM Prenotazione p"),
 	
-	@NamedQuery(name= "Prenotazione.selectMax", query= "SELECT p FROM Prenotazione p WHERE p.id = (SELECT max(p.id) FROM Prenotazione p)")
+	@NamedQuery(name= "Prenotazione.selectMax", query= "SELECT p FROM Prenotazione p WHERE p.id = (SELECT max(p.id) FROM Prenotazione p)"),
+	@NamedQuery(name= "Prenotazione.getByUtente", query= "SELECT p FROM Prenotazione p WHERE p.utente = :utente")
 
 })
 public class Prenotazione implements Serializable {

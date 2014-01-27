@@ -146,140 +146,50 @@
 
 
 
-							<!-- TAB 2 -->
+							<!-- TAB PRENOTAZIONI -->
 							<div class="tab-pane" id="bookings">
 								<div class="padding40">
 									<span class="dark size18">Your latest bookings</span>
 
-									<div class="line4"></div>
-									<br />
+									<ui:repeat value="#{utenteFrontBean.prenotazioni}" var="prenotazione">
 
-									<div class="col-md-4 offset-0">
-										<a href="#"><h:graphicImage library="store"
-												class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a>
-										<a class="dark" href="#"><b>Package1</b></a> / <span
-											class="dark size12">Greece - Zakynthos</span><br /> <span
-											class="opensans green bold size14">$36-$160</span> <span
-											class="grey">avg/night</span><br />
-										<h:graphicImage library="store" class="left mr20"
-											name="images/filter-rating-1.png" alt="" />
+										<div class="line4"></div>
 										<br />
-									</div>
-									<div class="col-md-7">
-										<span class="grey">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam faucibus, quam vel interdum
-											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-									</div>
-									<div class="col-md-1 offset-0">
-										<button onclick="errorMessage()" type="submit"
-											class="btn-search5 right">More</button>
-									</div>
-									<div class="clearfix"></div>
-									<div class="line4"></div>
 
-									<div class="col-md-4 offset-0">
-										<a href="#"><h:graphicImage library="store"
-												class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a>
-										<a class="dark" href="#"><b>Package1</b></a> / <span
-											class="dark size12">Greece - Zakynthos</span><br /> <span
-											class="opensans green bold size14">$36-$160</span> <span
-											class="grey">avg/night</span><br />
-										<h:graphicImage library="store" class="left mr20"
-											name="images/filter-rating-4.png" alt="" />
-										<br />
-									</div>
-									<div class="col-md-7">
-										<span class="grey">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam faucibus, quam vel interdum
-											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-									</div>
-									<div class="col-md-1 offset-0">
-										<button onclick="errorMessage()" type="submit"
-											class="btn-search5 right">More</button>
-									</div>
-									<div class="clearfix"></div>
-									<div class="line4"></div>
+										<div class="col-md-4 offset-0">
+										<p:graphicImage cache="false" styleClass="left mr20"
+															value="#{frontendBean.generateImage()}">
+															<f:param name="img" value="#{prenotazione.hotel.pathtoImage}" />
+															<f:param name="width" value="96" />
+															<f:param name="height" value="61" />
+														</p:graphicImage>
+											<a class="dark" href="#"><b>#{prenotazione.hotel.nome}</b></a> / <span
+												class="dark size12">#{prenotazione.voloAndata.cittaArrivo}</span><br /> 
+												<h:graphicImage library="store" class="left mr20"
+												name="images/filter-rating-#{prenotazione.hotel.stelle}.png" alt="" /><br />
+												<span class="opensans green bold size14">#{prenotazione.costoPersona} €</span> 
+												<span class="grey">per person</span><br />
+												
+												<span class="opensans green bold size14">#{prenotazione.persone}</span> 
+												<span class="grey"><h:outputText value="#{(prenotazione.persone==1) ? 'person' : 'people'}" />  </span><br />
+												
+										</div>
+										<div class="col-md-7">
+											<span class="grey">#{prenotazione.hotel.descrizione}</span>
+										</div>
+										<div class="col-md-1 offset-0">
+											<button onclick="errorMessage()" type="submit"
+												class="btn-search5 right">View details</button>
+										</div>
+										<div class="clearfix"></div>
 
-									<div class="col-md-4 offset-0">
-										<a href="#"><h:graphicImage library="store"
-												class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a>
-										<a class="dark" href="#"><b>Package1</b></a> / <span
-											class="dark size12">Greece - Zakynthos</span><br /> <span
-											class="opensans green bold size14">$36-$160</span> <span
-											class="grey">avg/night</span><br />
-										<h:graphicImage library="store" class="left mr20"
-											name="images/filter-rating-2.png" alt="" />
-										<br />
-									</div>
-									<div class="col-md-7">
-										<span class="grey">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam faucibus, quam vel interdum
-											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-									</div>
-									<div class="col-md-1 offset-0">
-										<button onclick="errorMessage()" type="submit"
-											class="btn-search5 right">More</button>
-									</div>
-									<div class="clearfix"></div>
-									<div class="line4"></div>
-
-									<div class="col-md-4 offset-0">
-										<a href="#"><h:graphicImage library="store"
-												class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a>
-										<a class="dark" href="#"><b>Package1</b></a> / <span
-											class="dark size12">Greece - Zakynthos</span><br /> <span
-											class="opensans green bold size14">$36-$160</span> <span
-											class="grey">avg/night</span><br />
-										<h:graphicImage library="store" class="left mr20"
-											name="images/filter-rating-5.png" alt="" />
-										<br />
-									</div>
-									<div class="col-md-7">
-										<span class="grey">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam faucibus, quam vel interdum
-											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-									</div>
-									<div class="col-md-1 offset-0">
-										<button onclick="errorMessage()" type="submit"
-											class="btn-search5 right">More</button>
-									</div>
-									<div class="clearfix"></div>
-									<div class="line4"></div>
-
-									<div class="col-md-4 offset-0">
-										<a href="#"><h:graphicImage library="store"
-												class="left mr20" name="images/smallthumb-1.jpg" alt="" /></a>
-										<a class="dark" href="#"><b>Package1</b></a> / <span
-											class="dark size12">Greece - Zakynthos</span><br /> <span
-											class="opensans green bold size14">$36-$160</span> <span
-											class="grey">avg/night</span><br />
-										<h:graphicImage library="store" class="left mr20"
-											name="images/filter-rating-3.png" alt="" />
-										<br />
-									</div>
-									<div class="col-md-7">
-										<span class="grey">Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nam faucibus, quam vel interdum
-											lacinia, lacus justo rutrum lorem, in fermentum ligula est a
-											diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-									</div>
-									<div class="col-md-1 offset-0">
-										<button onclick="errorMessage()" type="submit"
-											class="btn-search5 right">More</button>
-									</div>
-									<div class="clearfix"></div>
-
-									<div class="line4"></div>
+									</ui:repeat>
 
 
 
 								</div>
 							</div>
-							<!-- END OF TAB 2 -->
+							<!-- END OF TAB PRENOTAZIONI -->
 
 							<!-- TAB WISH LIST -->
 							<div class="tab-pane" id="wishlist">

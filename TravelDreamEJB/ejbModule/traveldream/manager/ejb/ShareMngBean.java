@@ -78,6 +78,10 @@ public class ShareMngBean implements ShareMng {
 	
 	
 	protected void buildDTO(PacchettoCondiviso s) {
+		//servono per impostare lo stato di ok o x
+		boolean attivitaTutteVuote = true;
+		boolean voliAndataTuttiVuoti = true;
+		boolean voliRitornoTuttiVuoti = true;
 		
 		List<String> friend = new ArrayList<String>();
 		friend.add(s.getEmailAmico());
@@ -100,8 +104,14 @@ public class ShareMngBean implements ShareMng {
 
 				if (voloPacchetto.getTipo().equals("Andata")) {
 					share.getPacchetto().getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+					if (voloPacchetto.getVolo().getDisponibilita() != 0) {
+						voliAndataTuttiVuoti = false;
+					}
 				} else {
 					share.getPacchetto().getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
+					if (voloPacchetto.getVolo().getDisponibilita() != 0) {
+						voliRitornoTuttiVuoti = false;
+					}
 				}
 
 				
@@ -119,9 +129,12 @@ public class ShareMngBean implements ShareMng {
 			//ricavo la lista delle attivita secondarie asociate al paccchetto
 			for (AttivitaSecondariaPacchetto attivitaSecondariaPacchetto : s.getPacchetto().getAttivitaSecondariePacchetto()) {
 				share.getPacchetto().getAttivitaSecondarie().add(AttivitaMngBean.AttivitaToDTO(attivitaSecondariaPacchetto.getAttivitaSecondariaBean()));
+				if (attivitaSecondariaPacchetto.getAttivitaSecondariaBean().getDisponibilita() != 0) {
+					attivitaTutteVuote = false;
+				}
 			}
 			
-			if (share.getPacchetto().getVoliAndata().isEmpty() || share.getPacchetto().getVoliRitorno().isEmpty() || share.getPacchetto().getHotel() == null || share.getPacchetto().getAttivitaSecondarie().isEmpty()){
+			if (share.getPacchetto().getVoliAndata().isEmpty() || share.getPacchetto().getVoliRitorno().isEmpty() || share.getPacchetto().getHotel() == null || share.getPacchetto().getAttivitaSecondarie().isEmpty() || voliAndataTuttiVuoti || voliRitornoTuttiVuoti || attivitaTutteVuote || share.getPacchetto().getHotel().getDisponibilita() == 0){
 				share.getPacchetto().setOk("X");
 			}
 			else {

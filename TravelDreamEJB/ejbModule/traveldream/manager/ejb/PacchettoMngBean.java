@@ -165,6 +165,7 @@ public class PacchettoMngBean implements PacchettoMng {
 
 	private List<PacchettoDTO> buildPacchetti(List<Pacchetto> pacchetti) {
 		
+		//servono per impostare lo stato di ok o X
 		boolean attivitaTutteVuote = true;
 		boolean voliAndataTuttiVuoti = true;
 		boolean voliRitornoTuttiVuoti = true;

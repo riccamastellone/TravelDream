@@ -55,7 +55,7 @@ public class ListaDesisderiBean implements Serializable{
 	
 	private Date fine;
 	
-	private boolean listePiene = false;
+	private boolean listePiene;
 	
 	public ListaDesisderiBean(){
 		
@@ -105,7 +105,7 @@ public class ListaDesisderiBean implements Serializable{
 
 	public List<ListaDesideriDTO> getListaDesideriUtente() {
 		
-			this.getListaDesideriUtenteProprietario();
+		this.getListaDesideriUtenteProprietario();
 		
 		return listaDesideriUtente;
 	}
@@ -132,16 +132,25 @@ public class ListaDesisderiBean implements Serializable{
 	
 	public void goToScegliVoli(ListaDesideriDTO lista) throws ParseException{
 		System.out.println("premuto");
-		this.listePiene = false;
+		this.listePiene = true;
 		this.listaDaPagare = lista;		
 		this.listaVoliAndata.clear();
 		this.listaVoliRitorno.clear();
+		//if (date1.equals(date2)){
+			this.listaVoliAndata.addAll(lista.getPacchetto().getVoliAndata());
+			this.listaVoliRitorno = lista.getPacchetto().getVoliRitorno();
+			System.out.println(lista.getPacchetto().getVoliAndata().size());
+			System.out.println(this.listaVoliAndata.size());
+		//}
+		/*
 		if (!this.listaVoliAndata.isEmpty() && !this.listaVoliRitorno.isEmpty()) {
 			this.listePiene = true;
 		}
+		System.out.println(this.listePiene);
 		System.out.println(this.date1);
 		this.inizio = new SimpleDateFormat("yyyy-MM-dd").parse(this.date1);
 		System.out.println(this.inizio);
+		*/
 	}
 
 	public String getNomePagante() {

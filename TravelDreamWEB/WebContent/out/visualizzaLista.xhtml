@@ -52,7 +52,8 @@
 											<p:commandButton value="View details"
 												styleClass="btn-search5 right"
 												action="#{listaDesideriBean.goToScegliVoli(lista)}"
-												oncomplete="if (#{listaDesideriBean.listePiene}) { jQuery('#scegliVoli').modal('show')} else { jQuery('#error').modal('show')}" />
+												update=":scegli:displayAndata"
+												oncomplete="if (#{listaDesideriBean.listePiene} == true ) { jQuery('#scegliVoli').modal('show')} else { jQuery('#error').modal('show')}" />
 										</div>
 										<div class="clearfix"></div>
 									
@@ -83,8 +84,7 @@
 							
 				<p:dataTable id="displayAndata" var="volo"
 					value="#{listadesideriBean.listaVoliAndata}"
-					selection="#{bookBean.voloAndata}" selectionMode="single"
-					rowKey="#{volo.id}">
+					>
 					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
 						<h:outputText value="#{volo.nomeCompagnia}" />
 					</p:column>

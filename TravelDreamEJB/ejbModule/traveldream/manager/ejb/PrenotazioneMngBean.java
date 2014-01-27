@@ -10,17 +10,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import model.AttivitaSecondaria;
-import model.AttivitaSecondariaPacchetto;
 import model.AttivitaSecondariaPrenotazione;
 import model.Hotel;
-import model.Pacchetto;
-import model.PacchettoCondiviso;
 import model.Prenotazione;
 import model.Utente;
 import model.Volo;
 import registrazione.ejb.UtenteMgrBean;
 import traveldream.dtos.AttivitaSecondariaDTO;
-import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PrenotazioneDTO;
 import traveldream.dtos.UtenteDTO;
 import traveldream.manager.PrenotazioneMng;
@@ -108,6 +104,16 @@ public class PrenotazioneMngBean implements PrenotazioneMng {
 		pdto.setUtente(UtenteMgrBean.convertToDTO(p.getUtente()));
 		return pdto;
 		
+	}
+	
+	public List<PrenotazioneDTO> getPrenotazioni() {
+		
+		List<Prenotazione> lista = em.createNamedQuery("Prenotazione.findAll", Prenotazione.class).getResultList();
+		ArrayList <PrenotazioneDTO> myDTOlist = new ArrayList <PrenotazioneDTO> ();
+		for(Prenotazione p : lista) {
+			myDTOlist.add(convertToDto(p));
+		}
+		return myDTOlist;
 	}
 
 }

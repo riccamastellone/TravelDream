@@ -4,11 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import traveldream.dtos.HotelDTO;
 import traveldream.dtos.VoloDTO;
 
 import java.util.Date;
-import java.util.List;
 
 
 /**

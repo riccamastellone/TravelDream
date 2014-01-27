@@ -290,6 +290,15 @@ public class BookBean implements Serializable {
 	
 	public void goToCambiaHotel(ActionEvent event, PacchettoDTO pacchetto) {
 		this.hotelDisponibili = this.hotelMng.getAllHotelCompatibili(pacchetto.getLocalita());
+		
+		for (Iterator<HotelDTO> hotelEsistenti = this.hotelDisponibili.iterator(); hotelEsistenti.hasNext(); ) {
+			HotelDTO hotellDTO = hotelEsistenti.next();
+			if(hotellDTO.getId() == pacchetto.getHotel().getId() || hotellDTO.getDisponibilita() < persone){
+				hotelEsistenti.remove();
+			}
+			
+		}
+		
 		RequestContext.getCurrentInstance().execute("hotelDialog.show()");
 	}
 	
@@ -307,7 +316,7 @@ public class BookBean implements Serializable {
 				
 			for (Iterator<AttivitaSecondariaDTO> attivitaEsistente = this.listaAttivitaSecondarie.iterator(); attivitaEsistente.hasNext(); ) {
 				AttivitaSecondariaDTO attivitaSecondariaDTO = attivitaEsistente.next();
-				if(attivitaSecondariaDTO.getId() == attivitaPacchetto.getId()){
+				if(attivitaSecondariaDTO.getId() == attivitaPacchetto.getId() || attivitaSecondariaDTO.getDisponibilita() < persone){
 					attivitaEsistente.remove();
 				}
 				

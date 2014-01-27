@@ -136,6 +136,13 @@ public class PacchettoFrontBean implements Serializable {
 		
 	
 		this.listaHotel = hotelMng.getAllHotel();
+		 for (Iterator<HotelDTO> hoteldaFiltrare = this.listaHotel.iterator(); hoteldaFiltrare.hasNext();) {
+				HotelDTO hotelDaControllare = hoteldaFiltrare.next();
+				if (hotelDaControllare.getDisponibilita() == 0) {
+					hoteldaFiltrare.remove();
+				}
+
+			}
 		this.destinazione = "";
 		return "listHotel?faces-redirect=true";
 		

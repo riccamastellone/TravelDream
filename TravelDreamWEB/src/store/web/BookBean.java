@@ -409,6 +409,10 @@ public class BookBean implements Serializable {
 	public String goToBookHotel(int persone){
 		this.date1 = new Date();
 		this.date2 = new Date();
+		this.listaVoliAndata.clear();
+		this.listaVoliRitorno.clear();
+		this.voloAndata = new VoloDTO();
+		this.voloRitorno = new VoloDTO();
 		this.persone = persone;
 		
 		return "book?faces-redirect=true";

@@ -1,39 +1,19 @@
 package store.web;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.PhaseId;
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
-import org.imgscalr.Scalr;
-import org.primefaces.expression.impl.ThisExpressionResolver;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
-
-import traveldream.dtos.HotelDTO;
-import traveldream.dtos.PacchettoDTO;
-import traveldream.dtos.VoloDTO;
-import traveldream.manager.HotelMng;
-import traveldream.manager.PacchettoMng;
 import traveldream.manager.UtenteMrg;
-import traveldream.manager.VoloMng;
 
 @ManagedBean(name = "mailBean")
 @SessionScoped
@@ -62,7 +42,7 @@ public class MailBean implements Serializable {
 		Email email = new SimpleEmail();
 		email.setHostName("localhost");
 		email.setSmtpPort(25);
-		email.setFrom("traveldream@rmdesign.it");
+		email.setFrom("traveldream@rmdesign.it", "TravelDream");
 		email.setSubject("Mail dal sito");
 		email.setMsg("Nome " + nome + "\n\rTelefono " + telefono + "\n\rEmail " + mail + "\n\r\n\r" + messaggio);
 		email.addTo("riccardo.mastellone@gmail.com");
@@ -91,7 +71,7 @@ public class MailBean implements Serializable {
 		Email email = new SimpleEmail();
 		email.setHostName("localhost");
 		email.setSmtpPort(25);
-		email.setFrom("traveldream@rmdesign.it");
+		email.setFrom("traveldream@rmdesign.it", "TravelDream");
 		email.setSubject("Lista desideri");
 		email.setMsg("Hi, I'm " + this.userMgr.getUserDTO().getNome() + ", and this is my wish list.\n\r" + url + "/out/viewlist?user=" + this.userMgr.getUserDTO().getEmail() + "&date1=" + inizio +"&date2=" + fine );
 		email.addTo(this.mail);

@@ -97,7 +97,7 @@ public class ShareBean implements Serializable {
 		Email s_email = new SimpleEmail();
 		s_email.setHostName("localhost");
 		s_email.setSmtpPort(25);
-		s_email.setFrom("traveldream@rmdesign.it");
+		s_email.setFrom("traveldream@rmdesign.it", "TravelDream");
 		s_email.setSubject("TravelDream Invitation");
 		s_email.setMsg("You have been invited to join your friend " + userMgr.getUserDTO().getNome() + " on TravelDream\n" + "Click here to view the package he'd like you to join: " + url);
 		s_email.addTo(email);

@@ -361,18 +361,20 @@
 							<div class="line2"></div>
 							<br />
 							<p class="grey">Insert the e-mail address of your friend</p>
-							<p:inputText value="#{mailBean.mail}" placeholder="E-mail" />
-						</div>
-						<div>
-							<p class="grey">Insert a date range if you want do restrict the book possibilities <br></br>
+							<p:inputText value="#{mailBean.mail}" placeholder="E-mail" styleClass="form-control" />
+							 <br /> <br />
+	
+							<p class="grey">Insert a date range if you want do restrict the book possibilities <br />
 							 (leave as is if you don't want)</p>
 							 <br />
 							 <h:outputText>Begin</h:outputText>
-							 <p:calendar value="#{mailBean.date1}" id="inlineCal1"
-										 />
+							 <h:inputText value="#{mailBean.date1}" class="datepicker form-control" >
+							 <f:convertDateTime pattern="MM/dd/yyyy"/>  
+							 </h:inputText><br />
 							<h:outputText>End</h:outputText>
-							<p:calendar value="#{mailBean.date1}" id="inlineCal2"
-										 />
+							<h:inputText value="#{mailBean.date2}" class="datepicker form-control">
+							<f:convertDateTime pattern="MM/dd/yyyy"/>  
+							</h:inputText>
 										 
 						</div>
 						<div class="modal-footer">
@@ -380,7 +382,7 @@
 							<a class="btn bookbtn" data-dismiss="modal">Cancel</a>
 							<p:commandButton id="sendEmail" styleClass="btn bookbtn"
 								value="Send" action="#{mailBean.sendListaDesideri()}">
-								<p:ajax execute="sendEmail" />
+								<p:ajax execute="sendEmail" oncomplete="jQuery('#sendToAFriendModal').modal('hide');" />
 							</p:commandButton>
 
 						</div>

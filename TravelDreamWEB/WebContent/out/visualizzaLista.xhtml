@@ -5,183 +5,217 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head>
 
 <h:body>
-	
-	<f:metadata>
-			<f:viewParam name="user"
-				value="#{listaDesideriBean.utenteProprietario}" />
-			<f:viewParam name="date1" value="#{listaDesideriBean.date1}" />
-			<f:viewParam name="date2" value="#{listaDesideriBean.date2}" />
-		</f:metadata>
-		
-		
-		<p:outputPanel id="listaDesideri">
-		<ui:repeat value="#{listaDesideriBean.listaDesideriUtente}"
-				var="lista">
+	<ui:composition template="../template.xhtml">
 
-				<h:form>
-					<div>
-						<div class="col-md-4 offset-0">
+		<ui:define name="content">
+			<script>
+				$.noConflict();
+			</script>
 
-							<p:graphicImage cache="false"
-								value="#{frontendBean.generateImage()}">
-								<f:param name="img" value="#{lista.pacchetto.immagine}" />
-								<f:param name="width" value="83" />
-								<f:param name="height" value="62" />
-							</p:graphicImage>
-							<a class="dark"><h:link outcome="/store/details.xhtml"
-									value="#{lista.pacchetto.nome}">
-									<f:param name="id" value="#{lista.pacchetto.id}" />
 
-								</h:link></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
-							<span class="opensans green bold size14"></span> <span
-								class="grey">avg/night</span><br />
-							<h:graphicImage library="store"
-								name="images/filter-rating-#{lista.pacchetto.hotel.stelle}"
-								width="60" />
-							<br />
-						</div>
-						<div class="col-md-7">
-							<span class="grey">#{lista.pacchetto.descrizione}</span>
-						</div>
-						
-						<p:commandButton id="vai" value="View details" actionListener="#{listaDesideriBean.goToPaga(action, lista)}"
-						update=":dialog:displayAndata,:dialog:displayRitorno" />
-						<br />
-						
-						
-						<div class="clearfix"></div>
+			<f:metadata>
+				<f:viewParam name="user"
+					value="#{listaDesideriBean.utenteProprietario}" />
+				<f:viewParam name="date1" value="#{listaDesideriBean.date1}" />
+				<f:viewParam name="date2" value="#{listaDesideriBean.date2}" />
+			</f:metadata>
+
+
+			<div class="container pagecontainer2 offset-0"
+				style="margin-top: 40px;">
+				<div class="hpadding50c">
+					<p class="lato size30 slim">This is
+						#{listaDesideriBean.utenteProprietario} wish list!</p>
+					<p class="lato size16 slim">Help him out paying something for
+						him!</p>
+					<div class="clearfix"></div>
+					<p class="aboutarrow"></p>
+				</div>
+
+				<div class="line3"></div>
+
+				<div class="hpadding50c">
 
 
 
-						<div class="clearfix"></div>
-						<div class="line6"></div>
+
+					<p:outputPanel id="listaDesideri">
+						<ui:repeat value="#{listaDesideriBean.listaDesideriUtente}"
+							var="lista">
+
+							<h:form>
+								<div>
+									<div class="col-md-4 offset-0">
+
+										<p:graphicImage cache="false" styleClass="left mr20"
+											value="#{frontendBean.generateImage()}">
+											<f:param name="img" value="#{lista.pacchetto.immagine}" />
+											<f:param name="width" value="83" />
+											<f:param name="height" value="62" />
+										</p:graphicImage>
+										<a class="dark"><h:link outcome="/store/details.xhtml"
+												value="#{lista.pacchetto.nome}">
+												<f:param name="id" value="#{lista.pacchetto.id}" />
+
+											</h:link></a> / <span class="dark size12">#{lista.pacchetto.localita}</span><br />
+										<h:graphicImage library="store" class="left mr20"
+											name="images/filter-rating-#{lista.pacchetto.hotel.stelle}.png"
+											width="60" />
+										<br />
+									</div>
+									<div class="col-md-7">
+										<span class="grey">#{lista.pacchetto.descrizione}</span>
+									</div>
+
+									<div class="col-md-1 offset-0">
+										<p:commandButton id="vai" value="View details"
+											actionListener="#{listaDesideriBean.goToPaga(action, lista)}"
+											update=":dialog:displayAndata,:dialog:displayRitorno" />
+									</div>
+
+									<div class="clearfix"></div>
+									<div class="line6"></div>
+								</div>
+
+							</h:form>
+
+
+						</ui:repeat>
+					</p:outputPanel>
+
+				</div>
+			</div>
+
+
+
+			<p:dialog header="Select flights" widgetVar="scegliDialog"
+				resizable="false">
+				<h:form id="dialog">
+					<p class="lato size22 slim">Outbound Flights</p>
+					<p:dataTable id="displayAndata" var="volo"
+						value="#{listaDesideriBean.listaVoliAndata}"
+						selection="#{listaDesideriBean.voloAndata}" selectionMode="single"
+						rowKey="#{volo.id}">
+
+						<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+							<h:outputText value="#{volo.nomeCompagnia}" />
+						</p:column>
+
+						<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+							<h:outputText value="#{volo.cittaPartenza}" />
+						</p:column>
+
+						<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+							<h:outputText value="#{volo.cittaArrivo}" />
+						</p:column>
+
+						<p:column sortBy="partenza" headerText="Data di Partenza">
+							<h:outputText value="#{volo.partenza}">
+								<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+							</h:outputText>
+						</p:column>
+
+						<p:column sortBy="arrivo" headerText="Data di arrivo">
+							<h:outputText value="#{volo.arrivo}">
+								<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+							</h:outputText>
+						</p:column>
+
+						<p:column sortBy="disponibilita" headerText="Posti disponibili">
+							<h:outputText value="#{volo.disponibilita}" />
+
+
+						</p:column>
+
+						<p:column sortBy="costo" headerText="Prezzo">
+							<h:outputText value="#{volo.costo} €" />
+						</p:column>
+
+
+					</p:dataTable>
+					<br />
+					<p class="lato size22 slim">Inbound Flights</p>
+					<p:dataTable id="displayRitorno" var="volo_r"
+						value="#{listaDesideriBean.listaVoliRitorno}"
+						selection="#{listaDesideriBean.voloRitorno}"
+						selectionMode="single" rowKey="#{volo_r.id}">
+						<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+							<h:outputText value="#{volo_r.nomeCompagnia}" />
+						</p:column>
+
+						<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+							<h:outputText value="#{volo_r.cittaPartenza}" />
+						</p:column>
+
+						<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+							<h:outputText value="#{volo_r.cittaArrivo}" />
+						</p:column>
+
+						<p:column sortBy="partenza" headerText="Data di Partenza">
+							<h:outputText value="#{volo_r.partenza}">
+								<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+							</h:outputText>
+						</p:column>
+
+						<p:column sortBy="arrivo" headerText="Data di arrivo">
+							<h:outputText value="#{volo_r.arrivo}">
+								<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
+							</h:outputText>
+						</p:column>
+
+						<p:column sortBy="disponibilita" headerText="Posti disponibili">
+							<h:outputText value="#{volo_r.disponibilita}" />
+
+
+						</p:column>
+
+						<p:column sortBy="costo" headerText="Prezzo">
+							<h:outputText value="#{volo_r.costo} €" />
+						</p:column>
+
+
+
+					</p:dataTable>
+
+					<div class="textcenter" style="margin-top:20px;">
+						<p:commandButton id="printa" value="Continue"
+							styleClass="btn btn-default"
+							actionListener="#{listaDesideriBean.printa(action)}"
+							update=":paga:costoPanel" />
 					</div>
+
+
+
 
 				</h:form>
 
+			</p:dialog>
 
-			</ui:repeat>
-	</p:outputPanel>
-							
-		
+			<p:dialog header="Error" widgetVar="errorDialog" resizable="false">
+				<p>You have to select one departure flight and one arrival
+					flight!</p>
+			</p:dialog>
 
-		<p:dialog header="Scegli" widgetVar="scegliDialog" resizable="false">
-		<h:form id="dialog">
-			<p:dataTable id="displayAndata" var="volo"
-							value="#{listaDesideriBean.listaVoliAndata}"
-							selection="#{listaDesideriBean.voloAndata}"
-							selectionMode="single" rowKey="#{volo.id}">
-					
-					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
-								<h:outputText value="#{volo.nomeCompagnia}" />
-							</p:column>
+			<p:dialog header="Complete order" widgetVar="costoDialog" resizable="false">
+				<h:form id="paga">
+					<p:panel id="costoPanel">
 
-							<p:column sortBy="cittaPartenza" headerText="Città di partenza">
-								<h:outputText value="#{volo.cittaPartenza}" />
-							</p:column>
+						<h:outputText value="Total cost: " />
+						<h:outputText value="#{listaDesideriBean.costo} €" />
+						<br /><br />
+						<h:outputText value="Type in your name and surname: " /><br />
+						<h:inputText value="#{listaDesideriBean.nomePagante}" /><br /><br />
+						<p:commandButton id="printa" value="Pay" styleClass="btn btn-success"
+							actionListener="#{listaDesideriBean.pagaPacchetto()}"
+							update=":listaDesideri" />
+					</p:panel>
+				</h:form>
+			</p:dialog>
+		</ui:define>
+	</ui:composition>
 
-							<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-								<h:outputText value="#{volo.cittaArrivo}" />
-							</p:column>
-
-							<p:column sortBy="partenza" headerText="Data di Partenza">
-								<h:outputText value="#{volo.partenza}">
-									<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-								</h:outputText>
-							</p:column>
-
-							<p:column sortBy="arrivo" headerText="Data di arrivo">
-								<h:outputText value="#{volo.arrivo}">
-									<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-								</h:outputText>
-							</p:column>
-
-							<p:column sortBy="disponibilita" headerText="Posti disponibili">
-								<h:outputText value="#{volo.disponibilita}" />
-
-
-							</p:column>
-
-							<p:column sortBy="costo" headerText="Prezzo">
-								<h:outputText value="#{volo.costo} €" />
-							</p:column>
-
-
-						</p:dataTable>
-						<br />
-						<p class="lato size22 slim">Inbound Flights</p>
-						<p:dataTable id="displayRitorno" var="volo_r"
-							value="#{listaDesideriBean.listaVoliRitorno}"
-							selection="#{listaDesideriBean.voloRitorno}"
-							selectionMode="single" rowKey="#{volo_r.id}">
-							<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
-								<h:outputText value="#{volo_r.nomeCompagnia}" />
-							</p:column>
-
-							<p:column sortBy="cittaPartenza" headerText="Città di partenza">
-								<h:outputText value="#{volo_r.cittaPartenza}" />
-							</p:column>
-
-							<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
-								<h:outputText value="#{volo_r.cittaArrivo}" />
-							</p:column>
-
-							<p:column sortBy="partenza" headerText="Data di Partenza">
-								<h:outputText value="#{volo_r.partenza}">
-									<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-								</h:outputText>
-							</p:column>
-
-							<p:column sortBy="arrivo" headerText="Data di arrivo">
-								<h:outputText value="#{volo_r.arrivo}">
-									<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
-								</h:outputText>
-							</p:column>
-
-							<p:column sortBy="disponibilita" headerText="Posti disponibili">
-								<h:outputText value="#{volo_r.disponibilita}" />
-
-
-							</p:column>
-
-							<p:column sortBy="costo" headerText="Prezzo">
-								<h:outputText value="#{volo_r.costo} €" />
-							</p:column>
-
-
-
-						</p:dataTable>
-						
-						<p:commandButton id="printa" value="View details" actionListener="#{listaDesideriBean.printa(action)}"
-						update=":paga:costoPanel" />
-						</h:form>
-						
-		</p:dialog>
-		
-		<p:dialog header="Error" widgetVar="errorDialog" resizable="false">
-			<p>You have to select one departure flight and one arrival
-				flight!</p>
-		</p:dialog>
-		
-		<p:dialog header="Costo" widgetVar="costoDialog" resizable="false">
-			<h:form id="paga">
-			<p:panel id="costoPanel">
-			
-				<h:outputText value="Prezzo:"/>
-				<h:outputText value="#{listaDesideriBean.costo}"/>
-				<br></br>
-				<h:outputText value="Inserisci nome e cognome: " />
-				<h:inputText value="#{listaDesideriBean.nomePagante}" />
-				<p:commandButton id="printa" value="Paga" actionListener="#{listaDesideriBean.pagaPacchetto()}"
-						update=":listaDesideri"  />
-			</p:panel>
-			</h:form>
-		</p:dialog>
-		
-		
 
 
 

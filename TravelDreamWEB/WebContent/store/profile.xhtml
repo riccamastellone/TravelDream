@@ -431,6 +431,19 @@
 									</p>
 								</div>
 							</div>
+							
+							<div class="row">
+								<div class="col-md-12">
+									<p class="lato size22 slim">Activities</p>
+									<ui:repeat var="attivita" value="#{utenteFrontBean.dettaglio.listAttivitaSecondarie}">
+										<p class="grey"><b>#{attivita.nome}</b> (#{attivita.costo} €) / #{attivita.localita}<br />
+										#{attivita.descrizione}</p>
+										<div class="line2"></div>
+									</ui:repeat>
+								</div>
+							</div>
+							
+							
 						</div>
 					</div>
 				</div>

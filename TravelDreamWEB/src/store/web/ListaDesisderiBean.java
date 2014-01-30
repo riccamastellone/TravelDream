@@ -54,13 +54,6 @@ public class ListaDesisderiBean implements Serializable{
 	
 	private List<VoloDTO> listaVoliRitorno;
 	
-	private String date1;
-	
-	private String date2;
-	
-	private Date inizio;
-	
-	private Date fine;
 	
 	private float costo = 0;
 	
@@ -76,6 +69,62 @@ public class ListaDesisderiBean implements Serializable{
 		this.listaVoliAndata = new ArrayList<VoloDTO>();
 		this.listaVoliRitorno = new ArrayList<VoloDTO>();
 		
+	}
+	
+	public String getNomePagante() {
+		return nomePagante;
+	}
+
+	public void setNomePagante(String nomePagante) {
+		this.nomePagante = nomePagante;
+	}
+
+	public ListaDesideriDTO getListaDaPagare() {
+		return listaDaPagare;
+	}
+
+	public void setListaDaPagare(ListaDesideriDTO listaDaPagare) {
+		this.listaDaPagare = listaDaPagare;
+	}
+
+	public VoloDTO getVoloAndata() {
+		return voloAndata;
+	}
+
+	public void setVoloAndata(VoloDTO voloAndata) {
+		this.voloAndata = voloAndata;
+	}
+
+	public VoloDTO getVoloRitorno() {
+		return voloRitorno;
+	}
+
+	public void setVoloRitorno(VoloDTO voloRitorno) {
+		this.voloRitorno = voloRitorno;
+	}
+
+	public float getCosto() {
+		return costo;
+	}
+
+	public void setCosto(float costo) {
+		this.costo = costo;
+	}
+
+	public List<VoloDTO> getListaVoliAndata() {
+		return listaVoliAndata;
+	}
+
+	public void setListaVoliAndata(List<VoloDTO> listaVoliAndata) {
+		this.listaVoliAndata = listaVoliAndata;
+	}
+
+	public List<VoloDTO> getListaVoliRitorno() {
+		return listaVoliRitorno;
+	}
+
+	public void setListaVoliRitorno(List<VoloDTO> listaVoliRitorno) {
+		this.listaVoliRitorno = listaVoliRitorno;
 	}
 	
 	public void addAListaDesideri(PacchettoDTO pacchetto){
@@ -215,93 +264,6 @@ public class ListaDesisderiBean implements Serializable{
 		
 	}
 
-	public String getNomePagante() {
-		return nomePagante;
-	}
-
-	public void setNomePagante(String nomePagante) {
-		this.nomePagante = nomePagante;
-	}
-
-	public ListaDesideriDTO getListaDaPagare() {
-		return listaDaPagare;
-	}
-
-	public void setListaDaPagare(ListaDesideriDTO listaDaPagare) {
-		this.listaDaPagare = listaDaPagare;
-	}
-
-
-	public String getDate1() {
-		return date1;
-	}
-
-	public void setDate1(String date1) {
-		this.date1 = date1;
-	}
-
-	public String getDate2() {
-		return date2;
-	}
-
-	public void setDate2(String date2) {
-		this.date2 = date2;
-	}
-
-	public Date getInizio() {
-		return inizio;
-	}
-
-	public void setInizio(Date inizio) {
-		this.inizio = inizio;
-	}
-
-	public Date getFine() {
-		return fine;
-	}
-
-	public void setFine(Date fine) {
-		this.fine = fine;
-	}
-
-	public VoloDTO getVoloAndata() {
-		return voloAndata;
-	}
-
-	public void setVoloAndata(VoloDTO voloAndata) {
-		this.voloAndata = voloAndata;
-	}
-
-	public VoloDTO getVoloRitorno() {
-		return voloRitorno;
-	}
-
-	public void setVoloRitorno(VoloDTO voloRitorno) {
-		this.voloRitorno = voloRitorno;
-	}
-
-	public float getCosto() {
-		return costo;
-	}
-
-	public void setCosto(float costo) {
-		this.costo = costo;
-	}
-
-	public List<VoloDTO> getListaVoliAndata() {
-		return listaVoliAndata;
-	}
-
-	public void setListaVoliAndata(List<VoloDTO> listaVoliAndata) {
-		this.listaVoliAndata = listaVoliAndata;
-	}
-
-	public List<VoloDTO> getListaVoliRitorno() {
-		return listaVoliRitorno;
-	}
-
-	public void setListaVoliRitorno(List<VoloDTO> listaVoliRitorno) {
-		this.listaVoliRitorno = listaVoliRitorno;
-	}
+	
 
 }

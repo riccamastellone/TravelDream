@@ -59,10 +59,7 @@
 								onclick="mySelectUpdate()"> <span class="newsletter-icon"></span>
 									Shared Packages
 							</a></li>
-							<li><a href="#password" data-toggle="tab"
-								onclick="mySelectUpdate()"> <span class="password-icon"></span>
-									Change password
-							</a></li>
+							
 						</ul>
 						<div class="clearfix"></div>
 					</div>
@@ -97,27 +94,27 @@
 
 								<!-- COL 1 -->
 								<div class="col-md-12 offset-0">
-									<h:form id="user-details">
+									
 
-										<br /> Name*: <h:inputText class="form-control"
+										<br /> Name: <h:outputText class="form-control"
 											placeholder="John Doe" rel="popover" id="user-name"
 											data-content="This field is mandatory"
 											data-original-title="Here you can edit your name"
 											value="#{commonBean.user.nome}" />
 										<br />
-										Surname*: <h:inputText class="form-control"
+										Surname: <h:outputText class="form-control"
 											placeholder="John Doe" rel="popover" id="user-surname"
 											data-content="This field is mandatory"
 											data-original-title="Here you can edit your surname"
 											value="#{commonBean.user.cognome}" />
 										<br />
-									E-mail*: <h:inputText class="form-control"
+									E-mail: <h:outputText class="form-control"
 											placeholder="office@email.com" id="email"
 											data-content="This field is mandatory"
 											data-original-title="Edit your email address"
 											value="#{commonBean.user.email}" />
 										<br />
-									Birth date: <h:inputText class="form-control"
+									Birth date: <h:outputText class="form-control"
 											placeholder="20/11/1991" id="birthdate"
 											data-content="This field is not mandatory"
 											data-original-title="Edit your birth date"
@@ -127,15 +124,12 @@
 										<span class="size16 bold">Your address</span>
 										<div class="line2"></div>
 
-										<br /> Address*: <h:inputText class="form-control"
+										<br /> Address*: <h:outputText class="form-control"
 											placeholder="" value="#{commonBean.user.indirizzo}" />
 										<br />
 										<br />
-										<p:commandButton value="Update"
-											styleClass="greenbtn  margtop20"
-											action="#{commonBean.updateUtente()}" update=":user-details"
-											process="@this, user-details" />
-									</h:form>
+										
+									
 								</div>
 								<!-- END OF COL 1 -->
 
@@ -364,17 +358,8 @@
 							<p:inputText value="#{mailBean.mail}" placeholder="E-mail" styleClass="form-control" />
 							 <br /> <br />
 	
-							<p class="grey">Insert a date range if you want do restrict the book possibilities <br />
-							 (leave as is if you don't want)</p>
-							 <br />
-							 <h:outputText>Begin</h:outputText>
-							 <h:inputText value="#{mailBean.date1}" class="datepicker form-control" >
-							 <f:convertDateTime pattern="MM/dd/yyyy"/>  
-							 </h:inputText><br />
-							<h:outputText>End</h:outputText>
-							<h:inputText value="#{mailBean.date2}" class="datepicker form-control">
-							<f:convertDateTime pattern="MM/dd/yyyy"/>  
-							</h:inputText>
+				
+							
 										 
 						</div>
 						<div class="modal-footer">

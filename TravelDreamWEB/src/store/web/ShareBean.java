@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Pattern;
 
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
@@ -45,6 +46,9 @@ public class ShareBean implements Serializable {
 	private SecureRandom random;
 	private int idshare;
 	private PacchettoDTO pacchetto;
+	
+	@Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+            message="invalid email")
 	private String email;
 
 	private List<ShareDTO> shares;

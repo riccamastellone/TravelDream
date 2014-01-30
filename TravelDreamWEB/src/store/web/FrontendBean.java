@@ -166,12 +166,21 @@ public class FrontendBean implements Serializable {
 	}
 	
 	public PacchettoDTO getLastMinute() {
-		//List<PacchettoDTO> tmp = ;
-		return pkgMng.getAllPacchetti().get(0);
+		
+		List<PacchettoDTO> lastMinutes = pkgMng.getAllPacchetti();
+		for (Iterator<PacchettoDTO> pacchettidaFiltrare = lastMinutes.iterator(); pacchettidaFiltrare.hasNext();) {
+			PacchettoDTO pacchettoDaControllare = pacchettidaFiltrare.next();
+			if (pacchettoDaControllare.getOk().equals("X")) {
+				pacchettidaFiltrare.remove();
+			}
+
+		}
+		
+		return lastMinutes.get(0);
 	}
 	/**
 	 * Quando valutiamo il costo di un pacchetto, controlla tutti i voli e le partenze 
-	 * per avere il costo più basso. Questo metodo ritorna la data del volo di partenza 
+	 * per avere il costo pi�� basso. Questo metodo ritorna la data del volo di partenza 
 	 * considerato
 	 * @return
 	 */

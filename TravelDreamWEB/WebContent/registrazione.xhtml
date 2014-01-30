@@ -8,6 +8,8 @@
 <ui:composition template="template.xhtml">
 
 	<ui:define name="content">
+	
+		
 		<!-- 100% Width & Height container  -->
 		<div class="login-fullwidith">
 
@@ -33,11 +35,6 @@
 								styleClass="form-control logpadding"
 								value="#{registrazioneBean.user.cognome}" />
 								<p:message for="cognome"></p:message>
-							<br />
-							<p:inputText id="dataNascita" placeholder="Date of Birth"
-								styleClass="form-control logpadding"
-								value="#{registrazioneBean.user.dataNascita}" />
-								<p:message for="dataNascita"></p:message>
 							<br />
 							<p:inputText id="indirizzo" placeholder="Address"
 								styleClass="form-control logpadding"
@@ -76,6 +73,8 @@
 
 		</div>
 		<!-- End of Container  -->
+		
+		
 
 		<h:outputScript library="store" name="js/initialize-loginpage.js" />
 		<h:outputScript library="store" name="js/jquery.easing.js" />
@@ -87,6 +86,12 @@
 				});
 			}
 		</script>
+		
+		<p:dialog header="Error" widgetVar="errorDialog" resizable="false">
+			<p>You have to select one departure flight and one arrival
+				flight!</p>
+		</p:dialog>
+		
 
 	</ui:define>
 

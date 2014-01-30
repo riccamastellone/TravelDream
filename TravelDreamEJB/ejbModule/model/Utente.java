@@ -31,7 +31,6 @@ public class Utente implements Serializable {
 	
 	private String cognome;
 
-	private String dataNascita;
 	
 	@Id
 	private String email;
@@ -53,7 +52,6 @@ public class Utente implements Serializable {
 		
 		this.nome = utente.getNome();
 		this.cognome = utente.getCognome();
-		this.dataNascita = utente.getDataNascita();
 		this.email = utente.getEmail();
 		this.indirizzo = utente.getIndirizzo();
 		this.password = DigestUtils.sha256Hex(utente.getPassword());
@@ -75,14 +73,6 @@ public class Utente implements Serializable {
 
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
-	}
-
-	public String getDataNascita() {
-		return this.dataNascita;
-	}
-
-	public void setDataNascita(String dataNascita) {
-		this.dataNascita = dataNascita;
 	}
 
 	public String getEmail() {

@@ -98,7 +98,6 @@ public class UtenteMgrBean implements UtenteMrg{
 			
 			user.setCognome(utente.getCognome());
 			user.setNome(utente.getNome());
-			user.setDataNascita(utente.getDataNascita());
 			user.setIndirizzo(utente.getIndirizzo());
 			em.merge(user);			
 		}
@@ -126,7 +125,6 @@ public class UtenteMgrBean implements UtenteMrg{
 		udto.setEmail(user.getEmail());
 		udto.setNome(user.getNome());
 		udto.setCognome(user.getCognome());
-		udto.setDataNascita(user.getDataNascita());
 		udto.setIndirizzo(user.getIndirizzo());
 		udto.setPassword(user.getPassword());
 		return udto;

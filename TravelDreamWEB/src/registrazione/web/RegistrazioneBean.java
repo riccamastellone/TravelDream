@@ -11,6 +11,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
+import org.primefaces.context.RequestContext;
+
 import traveldream.dtos.UtenteDTO;
 import traveldream.manager.UtenteMrg;
 
@@ -42,8 +44,8 @@ public class RegistrazioneBean implements Serializable {
 	}
 	
 
-	public void validateUsername(FacesContext context,UIComponent component,Object value) throws ValidatorException{
-		if (userMgr.existEmail((String)value)){
+	public void validateUsername(String email) {
+		if (userMgr.existEmail(email)){
 			throw new ValidatorException(new FacesMessage("Username already used.Choose another one."));
 		}
 	}
@@ -60,9 +62,16 @@ public class RegistrazioneBean implements Serializable {
 	 * @return
 	 */
 	public String register(){
-		System.out.println("bottone premuto");
-		userMgr.salvaUtente(user, "cliente");
-		return "home?faces-redirect=true";
+		try {
+			System.out.println("bottone premuto");
+			this.validateUsername(user.getEmail());
+			userMgr.salvaUtente(user, "cliente");
+			return "home?faces-redirect=true";
+		} catch (ValidatorException e) {
+			RequestContext.getCurrentInstance().execute("errorDialog.show()");
+			return null;
+		}
+		
 	}
 	
 	/**

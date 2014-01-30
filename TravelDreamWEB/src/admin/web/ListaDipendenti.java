@@ -23,7 +23,7 @@ public class ListaDipendenti {
 	
 	//prova render lista dipendenti (ho messo CLIENTE per provare)
 	public ArrayList<UtenteDTO> getUtenti(){
-		return userMgr.getUtentiByGruppi("CLIENTE");
+		return userMgr.getUtentiByGruppi("DIPENDENTE");
 	}
 	
 	public void edit(){

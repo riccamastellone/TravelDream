@@ -108,24 +108,25 @@
 							<div class="line2"></div>
 							<br />
 
+							<!-- ATTIVITA -->
 							<h:panelGroup id="select-attivita" class="textcenter"
 								layout="block">
 								<p class="lato size22 slim">What would you like to do?</p>
 								<p:dataTable id="dataTableAttivita" var="attivita"
 									value="#{frontendBean.pacchetto.attivitaSecondarie}"
 									lazy="true">
-									<p:column sortBy="nome" headerText="Nome">
+									<p:column sortBy="nome" headerText="Name">
 										<h:outputText value="#{attivita.nome}" />
 									</p:column>
 
-									<p:column sortBy="costoGiornaliero" headerText="Costo">
+									<p:column sortBy="costoGiornaliero" headerText="Price">
 										<h:outputText value="#{attivita.costo} €" />
 									</p:column>
 
-									<p:column sortBy="luogo" headerText="Luogo">
+									<p:column sortBy="luogo" headerText="Location">
 										<h:outputText value="#{attivita.localita}" />
 									</p:column>
-									<p:column sortBy="disponibilita" headerText="Posti disponibili">
+									<p:column sortBy="disponibilita" headerText="Available sites">
 										<h:outputText value="#{attivita.disponibilita}" />
 									</p:column>
 
@@ -210,37 +211,37 @@
 					value="#{bookBean.listaVoliAndata}"
 					selection="#{bookBean.voloAndata}" selectionMode="single"
 					rowKey="#{volo.id}">
-					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+					<p:column sortBy="nomeCompagnia" headerText="Flight company">
 						<h:outputText value="#{volo.nomeCompagnia}" />
 					</p:column>
 
-					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+					<p:column sortBy="cittaPartenza" headerText="Departure city">
 						<h:outputText value="#{volo.cittaPartenza}" />
 					</p:column>
 
-					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+					<p:column sortBy="cittaArrivo" headerText="Arrival city">
 						<h:outputText value="#{volo.cittaArrivo}" />
 					</p:column>
 
-					<p:column sortBy="partenza" headerText="Data di Partenza">
+					<p:column sortBy="partenza" headerText="Departure date">
 						<h:outputText value="#{volo.partenza}">
 							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
 						</h:outputText>
 					</p:column>
 
-					<p:column sortBy="arrivo" headerText="Data di arrivo">
+					<p:column sortBy="arrivo" headerText="Arrival date">
 						<h:outputText value="#{volo.arrivo}">
 							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
 						</h:outputText>
 					</p:column>
 
-					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+					<p:column sortBy="disponibilita" headerText="Available seats">
 						<h:outputText value="#{volo.disponibilita}" />
 
 
 					</p:column>
 
-					<p:column sortBy="costo" headerText="Prezzo">
+					<p:column sortBy="costo" headerText="Price">
 						<h:outputText value="#{volo.costo} €" />
 					</p:column>
 
@@ -252,37 +253,37 @@
 					value="#{bookBean.listaVoliRitorno}"
 					selection="#{bookBean.voloRitorno}" selectionMode="single"
 					rowKey="#{volo_r.id}">
-					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+					<p:column sortBy="nomeCompagnia" headerText="Flight company">
 						<h:outputText value="#{volo_r.nomeCompagnia}" />
 					</p:column>
 
-					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+					<p:column sortBy="cittaPartenza" headerText="Departure city">
 						<h:outputText value="#{volo_r.cittaPartenza}" />
 					</p:column>
 
-					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+					<p:column sortBy="cittaArrivo" headerText="Arrivial city">
 						<h:outputText value="#{volo_r.cittaArrivo}" />
 					</p:column>
 
-					<p:column sortBy="partenza" headerText="Data di Partenza">
+					<p:column sortBy="partenza" headerText="Departure date">
 						<h:outputText value="#{volo_r.partenza}">
 							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
 						</h:outputText>
 					</p:column>
 
-					<p:column sortBy="arrivo" headerText="Data di arrivo">
+					<p:column sortBy="arrivo" headerText="Arrival date">
 						<h:outputText value="#{volo_r.arrivo}">
 							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
 						</h:outputText>
 					</p:column>
 
-					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+					<p:column sortBy="disponibilita" headerText="Available seats">
 						<h:outputText value="#{volo_r.disponibilita}" />
 
 
 					</p:column>
 
-					<p:column sortBy="costo" headerText="Prezzo">
+					<p:column sortBy="costo" headerText="Price">
 						<h:outputText value="#{volo_r.costo} €" />
 					</p:column>
 
@@ -314,29 +315,29 @@
 				<p:dataTable id="hotelDisponibili" var="hotel"
 					value="#{bookBean.hotelDisponibili}">
 
-					<p:column sortBy="nome" headerText="Nome">
+					<p:column sortBy="nome" headerText="Name">
 						<h:outputText value="#{hotel.nome}" />
 					</p:column>
 
-					<p:column sortBy="stelle" headerText="Stelle">
+					<p:column sortBy="stelle" headerText="Stars">
 						<h:outputText value="#{hotel.stelle}" />
 					</p:column>
 
-					<p:column sortBy="costoGiornaliero" headerText="Costo giornaliero">
+					<p:column sortBy="costoGiornaliero" headerText="Daily price">
 						<h:outputText value="#{hotel.costoGiornaliero} €" />
 					</p:column>
 
-					<p:column sortBy="luogo" headerText="Luogo">
+					<p:column sortBy="luogo" headerText="Location">
 						<h:outputText value="#{hotel.luogo}" />
 					</p:column>
 
-					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+					<p:column sortBy="disponibilita" headerText="Available rooms">
 						<h:outputText value="#{hotel.disponibilita}" />
 					</p:column>
 
 					<p:column>
 
-						<h:commandLink id="cambia" value="Scegli" class="btn btn-default"
+						<h:commandLink id="cambia" value="Select" class="btn btn-default"
 							action="#{bookBean.cambiaHotel(frontendBean.pacchetto, hotel)}"
 							onclick="">
 							<p:ajax execute="aggiungi"
@@ -359,18 +360,18 @@
 				<p class="lato size22 slim">Available Activies</p>
 				<p:dataTable id="dataTableAttivita2" var="attivita"
 					value="#{bookBean.listaAttivitaSecondarie}" lazy="true">
-					<p:column sortBy="nome" headerText="Nome">
+					<p:column sortBy="nome" headerText="Name">
 						<h:outputText value="#{attivita.nome}" />
 					</p:column>
 
-					<p:column sortBy="costoGiornaliero" headerText="Costo">
+					<p:column sortBy="costoGiornaliero" headerText="price">
 						<h:outputText value="#{attivita.costo} €" />
 					</p:column>
 
-					<p:column sortBy="luogo" headerText="Luogo">
+					<p:column sortBy="luogo" headerText="Location">
 						<h:outputText value="#{attivita.localita}" />
 					</p:column>
-					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+					<p:column sortBy="disponibilita" headerText="Available seats">
 						<h:outputText value="#{attivita.disponibilita}" />
 					</p:column>
 
@@ -403,9 +404,9 @@
 			<h:form id="scegliVoliNuovi">
 			
 				
-				<h:outputText value = "Andata" />
+				<h:outputText value = "Departure" />
 				<h:inputText value = "#{bookBean.andataPartenza}" />
-				<h:outputText value = "Andata" />
+				<h:outputText value = "Arrive" />
 				<h:inputText value = "#{bookBean.andataArrivo}" />
 				<p:commandButton value="Ricerca" styleClass="btn btn-default"
 				action="#{bookBean.ricercaVoli()}"
@@ -415,37 +416,37 @@
 				<p:dataTable id="displayAndataNuovi" var="volo"
 					value="#{bookBean.listaVoliAndata}"  selection="#{bookBean.voloAndata}" selectionMode="single" rowKey="#{volo.id}">
 					<f:facet name="header"> Andata  </f:facet>
-					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+					<p:column sortBy="nomeCompagnia" headerText="Flight company">
 						<h:outputText value="#{volo.nomeCompagnia}" />
 					</p:column>
 
-					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+					<p:column sortBy="cittaPartenza" headerText="Departure city">
 						<h:outputText value="#{volo.cittaPartenza}" />
 					</p:column>
 
-					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+					<p:column sortBy="cittaArrivo" headerText="Arrival city">
 						<h:outputText value="#{volo.cittaArrivo}" />
 					</p:column>
 
-					<p:column sortBy="partenza" headerText="Data di Partenza">
+					<p:column sortBy="partenza" headerText="Departure date">
 						<h:outputText value="#{volo.partenza}">
 							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
 						</h:outputText>
 					</p:column>
 
-					<p:column sortBy="arrivo" headerText="Data di arrivo">
+					<p:column sortBy="arrivo" headerText="Arrival date">
 						<h:outputText value="#{volo.arrivo}">
 							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
 						</h:outputText>
 					</p:column>
 
-					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+					<p:column sortBy="disponibilita" headerText="Available seats">
 						<h:outputText value="#{volo.disponibilita}" />
 
 
 					</p:column>
 
-					<p:column sortBy="costo" headerText="Prezzo">
+					<p:column sortBy="costo" headerText="Price">
 						<h:outputText value="#{volo.costo} €" />
 					</p:column>
 					
@@ -453,9 +454,9 @@
 				</p:dataTable>
 				
 				
-				<h:outputText value = "Ritorno" />
+				<h:outputText value = "Departure" />
 				<h:inputText value = "#{bookBean.ritornoPartenza}" />
-				<h:outputText value = "Andata" />
+				<h:outputText value = "Arrive" />
 				<h:inputText value = "#{bookBean.ritornoArrivo}" />
 				<p:commandButton value="Ricerca" styleClass="btn btn-default"
 				action="#{bookBean.ricercaVoli()}"
@@ -466,37 +467,37 @@
 				<p:dataTable id="displayRitornoNuovi" var="volo_r"
 					value="#{bookBean.listaVoliRitorno}"  selection="#{bookBean.voloRitorno}" selectionMode="single" rowKey="#{volo_r.id}">
 					<f:facet name="header"> Andata  </f:facet>
-					<p:column sortBy="nomeCompagnia" headerText="Compagnia aerea">
+					<p:column sortBy="nomeCompagnia" headerText="Flight company">
 						<h:outputText value="#{volo_r.nomeCompagnia}" />
 					</p:column>
 
-					<p:column sortBy="cittaPartenza" headerText="Città di partenza">
+					<p:column sortBy="cittaPartenza" headerText="Departure city">
 						<h:outputText value="#{volo_r.cittaPartenza}" />
 					</p:column>
 
-					<p:column sortBy="cittaArrivo" headerText="Città di arrivo">
+					<p:column sortBy="cittaArrivo" headerText="Arrival city">
 						<h:outputText value="#{volo_r.cittaArrivo}" />
 					</p:column>
 
-					<p:column sortBy="partenza" headerText="Data di Partenza">
+					<p:column sortBy="partenza" headerText="Departure date">
 						<h:outputText value="#{volo_r.partenza}">
 							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
 						</h:outputText>
 					</p:column>
 
-					<p:column sortBy="arrivo" headerText="Data di arrivo">
+					<p:column sortBy="arrivo" headerText="Arrival date">
 						<h:outputText value="#{volo_r.arrivo}">
 							<f:convertDateTime type="date" pattern="MM:dd:yyy HH:mm" />
 						</h:outputText>
 					</p:column>
 
-					<p:column sortBy="disponibilita" headerText="Posti disponibili">
+					<p:column sortBy="disponibilita" headerText="Available seats">
 						<h:outputText value="#{volo_r.disponibilita}" />
 
 
 					</p:column>
 
-					<p:column sortBy="costo" headerText="Prezzo">
+					<p:column sortBy="costo" headerText="Price">
 						<h:outputText value="#{volo_r.costo} €" />
 					</p:column>
 					

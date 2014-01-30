@@ -17,8 +17,6 @@ public class UtenteDTO{
 	@NotEmpty
     private String cognome;
 	
-	@NotEmpty
-    private String dataNascita;
 	
 	@NotEmpty
     private String indirizzo;
@@ -51,13 +49,6 @@ public class UtenteDTO{
         this.email = email;
     }
     
-    public String getDataNascita() {
-        return dataNascita;
-    } 
-    
-    public void setDataNascita(String dataNascita) {
-        this.dataNascita = dataNascita;
-    }
     
     public String getIndirizzo() {
         return indirizzo;

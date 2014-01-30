@@ -96,18 +96,18 @@
 
 					<ul class="nav nav-tabs" id="myTab">
 
-						<li onclick="mySelectUpdate()" class="active"><a
+						<li class="active"><a
 							data-toggle="tab" href="#hotel"><span class="summary"></span><span
 								class="hidetext">Hotel</span>&nbsp;</a></li>
 
-						<li onclick="mySelectUpdate()" class=""><a data-toggle="tab"
+						<li class=""><a data-toggle="tab"
 							href="#thingstodo"><span class="thingstodo"></span><span
 								class="hidetext">Things to do</span>&nbsp;</a></li>
 
 					</ul>
 					<div class="tab-content4">
 
-						<!-- TAB 1 -->
+						<!-- TAB HOTEL -->
 						<div id="hotel" class="tab-pane fade active in">
 							<p:graphicImage cache="false" style="width:379px;float:right;"
 								value="#{frontendBean.generateImage()}">
@@ -139,9 +139,11 @@
 
 							</div>
 						</div>
+						
+						<!-- END TAB HOTEL -->
 
 
-						<!-- TAB 3 -->
+						<!-- TAB ATTIVITA -->
 						<div id="thingstodo" class="tab-pane fade">
 							<p class="hpadding20">These are the Things to Do available in
 								this package</p>
@@ -160,6 +162,8 @@
 							</ui:repeat>
 
 						</div>
+						
+						<!-- END TAB ATTIVITA -->
 					</div>
 				</div>
 
@@ -264,6 +268,9 @@
 			$(function() {
 				$('.active').removeClass('active');
 				$('.nav li:nth-child(2)').first().addClass('active');
+					// aprimo il primo tab
+					$('#myTab a:first').tab('show');
+				  
 			});
 		</script>
 

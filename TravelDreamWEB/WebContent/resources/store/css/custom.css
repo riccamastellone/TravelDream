@@ -181,8 +181,13 @@ a:hover.clblue{color:#72bf66;}
 a.green2{color:#72bf66; font-weight:normal; text-decoration:none; -webkit-transition:.3s;-moz-transition:.3s;transition:.3s;}
 a:hover.green2{color:#339933; font-weight:normal; text-decoration:none;}
 
-
-/*COLORS*/
+.loader {
+	width:64px;
+	height:64px;
+	background-image:url("#{resource['store:images/loader.gif']}");
+	background-size:64px 64px;
+	margin:0 auto;
+}
 
 
 /*SHADOW*/
@@ -1960,53 +1965,6 @@ border-radius: 2px;
 
 margin-top:4px;
 }
-.hotelpreferences2 li:hover{}
-.hotelpreferences2 li.icohp-internet{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -3px no-repeat;}
-.hotelpreferences2 li:hover.icohp-internet{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -3px no-repeat;}
-.hotelpreferences2 li.icohp-air{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -33px no-repeat;}
-.hotelpreferences2 li:hover.icohp-air{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -33px no-repeat;}
-.hotelpreferences2 li.icohp-pool{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -63px no-repeat;}
-.hotelpreferences2 li:hover.icohp-pool{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -63px no-repeat;}
-.hotelpreferences2 li.icohp-childcare{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -93px no-repeat;}
-.hotelpreferences2 li:hover.icohp-childcare{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -93px no-repeat;}
-.hotelpreferences2 li.icohp-fitness{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -123px no-repeat;}
-.hotelpreferences2 li:hover.icohp-fitness{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -123px no-repeat;}
-.hotelpreferences2 li.icohp-breakfast{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -153px no-repeat;}
-.hotelpreferences2 li:hover.icohp-breakfast{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -153px no-repeat;}
-.hotelpreferences2 li.icohp-parking{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -183px no-repeat;}
-.hotelpreferences2 li:hover.icohp-parking{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -183px no-repeat;}
-.hotelpreferences2 li.icohp-pets{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -213px no-repeat;}
-.hotelpreferences2 li:hover.icohp-pets{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -213px no-repeat;}
-.hotelpreferences2 li.icohp-spa{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -243px no-repeat;}
-.hotelpreferences2 li:hover.icohp-spa{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -243px no-repeat;}
-.hotelpreferences2 li.icohp-hairdryer{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -273px no-repeat;}
-.hotelpreferences2 li:hover.icohp-hairdryer{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -273px no-repeat;}
-.hotelpreferences2 li.icohp-garden{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -303px no-repeat;}
-.hotelpreferences2 li:hover.icohp-garden{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -303px no-repeat;}
-.hotelpreferences2 li.icohp-grill{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -333px no-repeat;}
-.hotelpreferences2 li:hover.icohp-grill{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -333px no-repeat;}
-.hotelpreferences2 li.icohp-kitchen{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -363px no-repeat;}
-.hotelpreferences2 li:hover.icohp-kitchen{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -363px no-repeat;}
-.hotelpreferences2 li.icohp-bar{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -393px no-repeat;}
-.hotelpreferences2 li:hover.icohp-bar{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -393px no-repeat;}
-.hotelpreferences2 li.icohp-living{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -423px no-repeat;}
-.hotelpreferences2 li:hover.icohp-living{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -423px no-repeat;}
-.hotelpreferences2 li.icohp-tv{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -453px no-repeat;}
-.hotelpreferences2 li:hover.icohp-tv{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -453px no-repeat;}
-.hotelpreferences2 li.icohp-fridge{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -483px no-repeat;}
-.hotelpreferences2 li:hover.icohp-fridge{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -483px no-repeat;}
-.hotelpreferences2 li.icohp-microwave{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -513px no-repeat;}
-.hotelpreferences2 li:hover.icohp-microwave{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -513px no-repeat;}
-.hotelpreferences2 li.icohp-washing{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -543px no-repeat;}
-.hotelpreferences2 li:hover.icohp-washing{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -543px no-repeat;}
-.hotelpreferences2 li.icohp-roomservice{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -573px no-repeat;}
-.hotelpreferences2 li:hover.icohp-roomservice{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -573px no-repeat;}
-.hotelpreferences2 li.icohp-safe{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -603px no-repeat;}
-.hotelpreferences2 li:hover.icohp-safe{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -603px no-repeat;}
-.hotelpreferences2 li.icohp-playground{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -633px no-repeat;}
-.hotelpreferences2 li:hover.icohp-playground{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -633px no-repeat;}
-.hotelpreferences2 li.icohp-conferenceroom{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -3px -663px no-repeat;}
-.hotelpreferences2 li:hover.icohp-conferenceroom{background:url("#{resource['store:images/hotelpref-ico-green.png']}") #ff9900 scroll -33px -663px no-repeat;}
 
 
 ul.hpref-text {list-style:none; margin-top:-5px; padding-left:10px;}

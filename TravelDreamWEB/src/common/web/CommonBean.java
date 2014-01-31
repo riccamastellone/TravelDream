@@ -4,12 +4,8 @@ import java.io.Serializable;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
-
-
 import traveldream.dtos.UtenteDTO;
 import traveldream.manager.UtenteMrg;
 
@@ -29,7 +25,7 @@ public class CommonBean implements Serializable{
 
 	private String gruppo;
 
-	private String gruppo2 = "default";
+	private String gruppo2;
 	
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
@@ -48,6 +44,9 @@ public class CommonBean implements Serializable{
 	}
 
 	public String getGruppo() {
+		if(gruppo == null) {
+			getUser();
+		}
 		return gruppo;
 	}
 
@@ -56,8 +55,6 @@ public class CommonBean implements Serializable{
 	}
 	
 	public void updateUtente(){
-		System.out.println(user.getNome());
-		System.out.println(user.getEmail());
 		userMgr.aggiornaUtente(user, backup_mail);
 	}
 
@@ -68,6 +65,7 @@ public class CommonBean implements Serializable{
 	public void setBackup_mail(String backup_mail) {
 		this.backup_mail = backup_mail;
 	}
+
 
 	public String getGruppo2() {
 	System.out.println(this.gruppo2);
@@ -88,5 +86,6 @@ public class CommonBean implements Serializable{
 	public void setGruppo2(String gruppo2) {
 		this.gruppo2 = gruppo2;
 	}
+
 
 }

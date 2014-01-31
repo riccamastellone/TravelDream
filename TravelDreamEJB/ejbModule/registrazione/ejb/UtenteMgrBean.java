@@ -206,10 +206,11 @@ public class UtenteMgrBean implements UtenteMrg{
 	@Override
 	public void deleteDipendente(UtenteDTO user) {
 		Utente dipendnete = em.find(Utente.class, user.getEmail());
+		em.remove(dipendnete);
 		for (UtenteGruppo utenteGruppo : dipendnete.getUtenteGruppos()) {
 			em.remove(utenteGruppo);
 		}
-		em.remove(dipendnete);
+		
 		// TODO Auto-generated method stub
 		
 	}

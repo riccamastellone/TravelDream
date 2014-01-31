@@ -81,10 +81,16 @@ public class RegistrazioneBean implements Serializable {
 	 * @return
 	 */
 	public String aggiungiDipendente(){
+		try {
 		System.out.println("bottone premuto");
+		this.validateUsername(user.getEmail());
 		userMgr.salvaUtente(user, "dipendnte");
 		this.user = new UtenteDTO();
 		return "home?faces-redirect=true";
+		} catch (ValidatorException e) {
+			
+			return null;
+		}
 	}
 	
 	/**

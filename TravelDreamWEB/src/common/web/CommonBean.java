@@ -4,6 +4,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
@@ -24,6 +25,8 @@ public class CommonBean {
 
 	private String gruppo;
 
+	private String gruppo2 = "default";
+	
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/home?faces-redirect=true";
@@ -60,6 +63,24 @@ public class CommonBean {
 
 	public void setBackup_mail(String backup_mail) {
 		this.backup_mail = backup_mail;
+	}
+
+	public String getGruppo2() {
+	
+			return this.gruppo2;
+		
+		
+	}
+	
+	public void aggiorna(){
+		System.out.println("prima");
+		this.user = userMgr.getUserDTO();
+		this.gruppo2 = userMgr.getGruppo(user);
+		System.out.println("chiamato da js");
+	}
+
+	public void setGruppo2(String gruppo2) {
+		this.gruppo2 = gruppo2;
 	}
 
 }

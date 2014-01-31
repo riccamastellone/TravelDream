@@ -42,14 +42,30 @@ $(document).ready(function($) {
 				if(data=='<?xml version=\'1.0\' encoding=\'UTF-8\' ?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml">error</html>') {
 					errorMessage();
 				} else {
+					/*
 					if (location.pathname == '/TravelDreamWEB/'){
 						window.location = "store";
 					}
 					else{
 						window.location = location.pathname;
 					}
-				}
-				
+					*/
+					document.getElementById('ciao:info').click;
+					console.log(document.getElementById('ciao:yyy').value);
+					if (document.getElementById('ciao:yyy').value == 'AMMINISTRATORE'){
+						window.location = "admin";
+					}
+					else{
+						if (document.getElementById('ciao:yyy').value == 'DIPENDENTE'){
+							window.location = "dipendente";
+						}
+						else{
+							window.location = "store";
+						}
+					}
+						
+					}
+
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
 				errorMessage();

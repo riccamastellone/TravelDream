@@ -4,12 +4,6 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
-
 import traveldream.dtos.UtenteDTO;
 import traveldream.manager.UtenteMrg;
 
@@ -25,8 +19,6 @@ public class CommonBean {
 
 	private String gruppo;
 
-	private String gruppo2 = "default";
-	
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/home?faces-redirect=true";
@@ -44,6 +36,9 @@ public class CommonBean {
 	}
 
 	public String getGruppo() {
+		if(gruppo == null) {
+			getUser();
+		}
 		return gruppo;
 	}
 
@@ -52,8 +47,6 @@ public class CommonBean {
 	}
 	
 	public void updateUtente(){
-		System.out.println(user.getNome());
-		System.out.println(user.getEmail());
 		userMgr.aggiornaUtente(user, backup_mail);
 	}
 
@@ -65,22 +58,5 @@ public class CommonBean {
 		this.backup_mail = backup_mail;
 	}
 
-	public String getGruppo2() {
-	
-			return this.gruppo2;
-		
-		
-	}
-	
-	public void aggiorna(){
-		System.out.println("prima");
-		this.user = userMgr.getUserDTO();
-		this.gruppo2 = userMgr.getGruppo(user);
-		System.out.println("chiamato da js");
-	}
-
-	public void setGruppo2(String gruppo2) {
-		this.gruppo2 = gruppo2;
-	}
 
 }

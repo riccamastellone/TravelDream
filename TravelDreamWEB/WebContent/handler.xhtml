@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template.xhtml">
+
+	<ui:define name="content">
+
+		<div class="container textcenter">
+		<br /><br />
+			<div class="loader"></div>
+		</div>
+		<script>
+			jQuery(document).ready(function($) {
+				jQuery( "body" ).addClass("thebg");
+				var gruppo = "#{commonBean.gruppo}";
+				 if(gruppo == 'AMMINISTRATORE') {
+					window.location = 'admin/';
+				} else if(gruppo == 'DIPENDENTE') {
+					window.location = 'dipendente/';
+				} else {
+					window.location = 'store/';
+				}
+			});
+		</script>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>
+

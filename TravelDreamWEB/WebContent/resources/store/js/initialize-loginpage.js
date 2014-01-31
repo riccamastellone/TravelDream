@@ -43,30 +43,14 @@ $(document).ready(function($) {
 					errorMessage();
 				} else {
 					
-					if (window.location.pathname.indexOf("dipendente/") != -1){
-						window.location = "../dipendente";
-					} else if (window.location.pathname.indexOf("admin/") != -1) {
-						window.location = "../admin";
-					} else if (window.location.pathname.indexOf("store/") != -1) {
-						window.location = "../store";
+					if (window.location.pathname.indexOf("dipendente/") != -1 ||
+							window.location.pathname.indexOf("admin/") != -1 ||
+							window.location.pathname.indexOf("store/") != -1) {
+						window.location = "../handler.xhtml";
+					} else {
+						window.location = "handler.xhtml";
 					}
-					else{
-						window.location = "store";
-					}
-					/*
-					document.getElementById('ciao:info').click;
-					console.log(document.getElementById('ciao:yyy').value);
-					if (document.getElementById('ciao:yyy').value == 'AMMINISTRATORE'){
-						window.location = "admin";
-					}
-					else{
-						if (document.getElementById('ciao:yyy').value == 'DIPENDENTE'){
-							window.location = "dipendente";
-						}
-						else{
-							window.location = "store";
-						}
-					} */
+					
 						
 					}
 

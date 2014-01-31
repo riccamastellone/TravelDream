@@ -18,7 +18,8 @@
 
 			<p:growl id="messages" showDetail="true" />
 
-			<p:dataTable id="dataTable" var="pren" value="#{ordiniBean.prenotazioni}" editable="true">
+			<p:dataTable id="dataTable" var="pren"
+				value="#{ordiniBean.prenotazioni}" editable="true">
 				<f:facet name="header">  
            		 Elenco Oridini
         		</f:facet>
@@ -82,12 +83,13 @@
 					</p>
 				</div>
 				<div class="col-md-6">
-				<h2>Info Generali</h2>
+					<h2>Info Generali</h2>
 					<p>
 						Persone: #{ordiniBean.dettaglio.persone}<br /> Costo per persona:
 						#{ordiniBean.dettaglio.costoPersona}<br /> Data di creazione:
-						#{ordiniBean.dettaglio.dataCreazione}<br />
-						Utente: #{ordiniBean.dettaglio.utente.nome} #{ordiniBean.dettaglio.utente.cognome}
+						#{ordiniBean.dettaglio.dataCreazione}<br /> Utente:
+						#{ordiniBean.dettaglio.utente.nome}
+						#{ordiniBean.dettaglio.utente.cognome}
 					</p>
 				</div>
 			</div>
@@ -116,6 +118,19 @@
 						Arrivo: #{ordiniBean.dettaglio.voloAndata.arrivo}<br /> Costo:
 						#{ordiniBean.dettaglio.voloAndata.costo}
 					</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Attività</h2>
+					<ui:repeat var="attivita"
+						value="#{ordiniBean.dettaglio.listAttivitaSecondarie}">
+						<p>
+							<b>#{attivita.nome}</b> (#{attivita.costo} €) /
+							#{attivita.localita}<br /> #{attivita.descrizione}
+						</p>
+					</ui:repeat>
 				</div>
 			</div>
 		</p:dialog>

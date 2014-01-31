@@ -42,14 +42,16 @@ $(document).ready(function($) {
 				if(data=='<?xml version=\'1.0\' encoding=\'UTF-8\' ?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml">error</html>') {
 					errorMessage();
 				} else {
-					/*
-					if (location.pathname == '/TravelDreamWEB/'){
-						window.location = "store";
+					
+					if (window.location.pathname.indexOf("dipendente/") != -1){
+						window.location = "../dipendente";
+					} else if (window.location.pathname.indexOf("admin/") != -1) {
+						window.location = "../admin";
 					}
 					else{
-						window.location = location.pathname;
+						window.location = "../store";
 					}
-					*/
+					/*
 					document.getElementById('ciao:info').click;
 					console.log(document.getElementById('ciao:yyy').value);
 					if (document.getElementById('ciao:yyy').value == 'AMMINISTRATORE'){
@@ -62,7 +64,7 @@ $(document).ready(function($) {
 						else{
 							window.location = "store";
 						}
-					}
+					} */
 						
 					}
 

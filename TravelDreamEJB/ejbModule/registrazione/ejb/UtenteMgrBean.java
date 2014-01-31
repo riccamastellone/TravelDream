@@ -203,6 +203,17 @@ public class UtenteMgrBean implements UtenteMrg{
 		return convertToDTO(utente);
 	}
 
+	@Override
+	public void deleteDipendente(UtenteDTO user) {
+		Utente dipendnete = em.find(Utente.class, user.getEmail());
+		for (UtenteGruppo utenteGruppo : dipendnete.getUtenteGruppos()) {
+			em.remove(utenteGruppo);
+		}
+		em.remove(dipendnete);
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 

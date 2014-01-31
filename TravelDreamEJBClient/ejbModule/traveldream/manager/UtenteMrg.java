@@ -44,5 +44,8 @@ public interface UtenteMrg {
 	
 	public UtenteDTO getUtenteByMail(String email);
 	
+	public void deleteDipendente(UtenteDTO user);
+	
+	
 
 }

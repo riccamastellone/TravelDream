@@ -11,8 +11,9 @@
 		<div style="text-align: right; margin-bottom:10px;">
 			<h:link value="Aggiungi nuovo dipendente"
 				outcome="/admin/aggiungi.xhtml" class="btn btn-default" />
-			<h:commandButton action="#{commonBean.logout}"
-				class="btn btn-default" value="Logout" />
+			<h:form>
+			<h:commandLink class="btn btn-default" action="#{commonBean.logout}">Logout</h:commandLink>
+			</h:form>
 		</div>
 		<h:form>
 			<p:dataTable id="dataTable" var="dipendente"
@@ -45,6 +46,15 @@
 							<span class="glyphicon glyphicon-pencil"></span>
 						</h:commandLink>
 					</div>
+				</p:column>
+				
+				<p:column style="width:6%">
+					<h:commandLink id="canc" class="btn btn-default btn-danger"
+							onclick="return confirm('Confermi di voler eliminare questo dipendente?');"
+							action="#{registrazioneBean.deleteDipendente(dipendente)}">
+							<span class="glyphicon glyphicon-trash white"></span>
+							<f:ajax execute="canc" render="dataTable" />
+						</h:commandLink>
 				</p:column>
 
 			</p:dataTable>

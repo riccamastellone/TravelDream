@@ -13,6 +13,7 @@ import javax.faces.validator.ValidatorException;
 
 import org.primefaces.context.RequestContext;
 
+import traveldream.dtos.HotelDTO;
 import traveldream.dtos.UtenteDTO;
 import traveldream.manager.UtenteMrg;
 
@@ -82,7 +83,8 @@ public class RegistrazioneBean implements Serializable {
 	public String aggiungiDipendente(){
 		System.out.println("bottone premuto");
 		userMgr.salvaUtente(user, "dipendnte");
-		return "homeAdmin?faces-redirect=true";
+		this.user = new UtenteDTO();
+		return "home?faces-redirect=true";
 	}
 	
 	/**
@@ -103,14 +105,19 @@ public class RegistrazioneBean implements Serializable {
 		this.user.printaDati();
 	}
 	
-	public void editDipendente() {
+	public String editDipendente() {
 		System.out.println("tato premuto");
 		userMgr.aggiornaUtente(user, vecchiaEmail);
+		return "home?faces-redirect=true";
 	}
 	
 	public void getGruppoBean(){
 		System.out.println(userMgr.getGruppo(userMgr.getUserDTO()));
 	}
 	
+	public void deleteDipendente(UtenteDTO utente) {
+		this.userMgr.deleteDipendente(utente);
+		
+	}
 
 }

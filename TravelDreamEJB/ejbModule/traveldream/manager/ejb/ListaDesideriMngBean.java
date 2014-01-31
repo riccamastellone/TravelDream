@@ -2,6 +2,7 @@ package traveldream.manager.ejb;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -101,12 +102,12 @@ public class ListaDesideriMngBean implements ListaDesideriMng{
 
 			if (voloPacchetto.getTipo().equals("Andata")) {
 				lista.getPacchetto().getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
-				if (voloPacchetto.getVolo().getDisponibilita() != 0) {
+				if (voloPacchetto.getVolo().getDisponibilita() != 0 && (voloPacchetto.getVolo().getPartenza().after(new Date()) || voloPacchetto.getVolo().getPartenza().equals(new Date()))) {
 					voliAndataTuttiVuoti = false;
 				}
 			} else {
 				lista.getPacchetto().getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
-				if (voloPacchetto.getVolo().getDisponibilita() != 0) {
+				if (voloPacchetto.getVolo().getDisponibilita() != 0  && (voloPacchetto.getVolo().getPartenza().after(new Date()) || voloPacchetto.getVolo().getPartenza().equals(new Date()))) {
 					voliRitornoTuttiVuoti = false;
 				}
 			}

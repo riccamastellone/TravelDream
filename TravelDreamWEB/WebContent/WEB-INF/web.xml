@@ -20,8 +20,9 @@
         <form-login-page>/home.xhtml</form-login-page>
         <form-error-page>/loginError.xhtml</form-error-page>
     </form-login-config>
-
   </login-config>
+  
+  
 
 
   <security-constraint>

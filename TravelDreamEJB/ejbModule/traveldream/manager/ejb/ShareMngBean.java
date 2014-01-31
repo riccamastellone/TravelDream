@@ -1,6 +1,7 @@
 package traveldream.manager.ejb;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -104,12 +105,12 @@ public class ShareMngBean implements ShareMng {
 
 				if (voloPacchetto.getTipo().equals("Andata")) {
 					share.getPacchetto().getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
-					if (voloPacchetto.getVolo().getDisponibilita() != 0) {
+					if (voloPacchetto.getVolo().getDisponibilita() != 0 && (voloPacchetto.getVolo().getPartenza().after(new Date()) || voloPacchetto.getVolo().getPartenza().equals(new Date()))) {
 						voliAndataTuttiVuoti = false;
 					}
 				} else {
 					share.getPacchetto().getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
-					if (voloPacchetto.getVolo().getDisponibilita() != 0) {
+					if (voloPacchetto.getVolo().getDisponibilita() != 0 && (voloPacchetto.getVolo().getPartenza().after(new Date()) || voloPacchetto.getVolo().getPartenza().equals(new Date()))) {
 						voliRitornoTuttiVuoti = false;
 					}
 				}

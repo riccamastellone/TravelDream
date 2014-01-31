@@ -165,13 +165,13 @@ public class PacchettoMngBean implements PacchettoMng {
 
 	private List<PacchettoDTO> buildPacchetti(List<Pacchetto> pacchetti) {
 		
-		//servono per impostare lo stato di ok o X
-		boolean attivitaTutteVuote = true;
-		boolean voliAndataTuttiVuoti = true;
-		boolean voliRitornoTuttiVuoti = true;
+		
 		
 		List<PacchettoDTO> pacchettiDto = new ArrayList<PacchettoDTO>();
 		for (Pacchetto pacchetto : pacchetti) {
+			boolean attivitaTutteVuote = true;
+			boolean voliAndataTuttiVuoti = true;
+			boolean voliRitornoTuttiVuoti = true;
 
 			PacchettoDTO pacchettoDTO = this.convertToDto(pacchetto);
 			
@@ -180,12 +180,13 @@ public class PacchettoMngBean implements PacchettoMng {
 
 				if (voloPacchetto.getTipo().equals("Andata")) {
 					pacchettoDTO.getVoliAndata().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
-					if (voloPacchetto.getVolo().getDisponibilita() != 0) {
+					if (voloPacchetto.getVolo().getDisponibilita() != 0 && (voloPacchetto.getVolo().getPartenza().after(new Date()) || voloPacchetto.getVolo().getPartenza().equals(new Date()))) {
 						voliAndataTuttiVuoti = false;
 					}
 				} else {
 					pacchettoDTO.getVoliRitorno().add(VoloMngBean.convertVoloToDTO(voloPacchetto.getVolo()));
-					if (voloPacchetto.getVolo().getDisponibilita() != 0) {
+					if (voloPacchetto.getVolo().getDisponibilita() != 0 && (voloPacchetto.getVolo().getPartenza().after(new Date()) || voloPacchetto.getVolo().getPartenza().equals(new Date()))) {
+						System.out.println(voloPacchetto.getPacchetto().getNome() + (voloPacchetto.getVolo().getPartenza().after(new Date()) || voloPacchetto.getVolo().getPartenza().equals(new Date())));
 						voliRitornoTuttiVuoti = false;
 					}
 				}

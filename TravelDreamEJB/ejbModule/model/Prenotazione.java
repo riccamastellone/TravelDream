@@ -66,7 +66,7 @@ public class Prenotazione implements Serializable {
 	
 	public Prenotazione(PrenotazioneDTO prenotazione) {
 		
-		this.costoPersona = prenotazione.getCostoPersona();
+		this.costoPersona = prenotazione.getCostoPersona() / prenotazione.getPersone();
 		this.persone = prenotazione.getPersone();
 	}
 

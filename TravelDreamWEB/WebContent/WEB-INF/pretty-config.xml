@@ -7,6 +7,16 @@
 	
 	
 	
+	<url-mapping id="login">
+		<pattern value="/login" />
+		<view-id value="/home.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="store-home">
+		<pattern value="/store/home" />
+		<view-id value="/store/home.xhtml" />
+	</url-mapping>
+	
 	<url-mapping id="dettaglio">
 		<pattern value="/store/details/#{id : frontendBean.idPacchetto}" />
 		<view-id value="/store/details.xhtml" />

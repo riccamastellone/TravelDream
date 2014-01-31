@@ -11,9 +11,6 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-import org.primefaces.expression.impl.ThisExpressionResolver;
-
 import traveldream.dtos.HotelDTO;
 import traveldream.dtos.PacchettoDTO;
 import traveldream.manager.HotelMng;

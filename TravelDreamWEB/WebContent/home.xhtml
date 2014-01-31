@@ -47,7 +47,18 @@
 
 		</div>
 		<!-- End of Container  -->
-
+	
+		
+	<h:inputHidden id="yyy" value="#{commonBean.gruppo2}"/>
+	
+	
+	<h:form id="ciao">
+	
+	<p:commandButton type="hidden" id="info" value="#{commonBean.gruppo2}" actionListener="#{commonBean.aggiorna()}" update=":yyy" oncomplete="prova()"/>
+                 
+	 </h:form>  
+	 
+	
 		<h:outputScript library="store"
 			name="js/initialize-loginpage.js" />
 		<h:outputScript library="store" name="js/jquery.easing.js" />
@@ -60,13 +71,33 @@
 			}
 		</script>
 
+		<script>
+			function prova() {
+				console.log('ciao');
+				
+					console.log(document.getElementById("yyy").value);
+					
+					if (location.pathname == '/TravelDreamWEB/' ){
+						
+						if (document.getElementById('yyy').value == 'AMMINISTRATORE'){
+							window.location = "admin";
+						}
+						else{
+							if (document.getElementById('yyy').value == 'DIPENDENTE'){
+								window.location = "dipendente";
+							}
+							else{
+								window.location = "store";
+							}
+						}
+					}
+					else{
+						window.location = location.pathname;
+					}
+				
+			}
+		</script>
 	
-	<h:form id="ciao">
-	<h:inputHidden id="yyy" value="#{commonBean.gruppo2}"/>
-	<p:commandButton id="info" actionListener="#{commonBean.aggiorna()}"
-                     update="yyy"  />
-                 
-	 </h:form>  
 	</ui:define>
 
 </ui:composition>

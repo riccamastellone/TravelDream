@@ -1,22 +1,26 @@
 package common.web;
 
+import java.io.Serializable;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
+
 
 import traveldream.dtos.UtenteDTO;
 import traveldream.manager.UtenteMrg;
 
 @ManagedBean(name = "commonBean")
-@RequestScoped
-public class CommonBean {
+@SessionScoped
+public class CommonBean implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6309040245211680506L;
 	private UtenteDTO user;
 	private String backup_mail;
 
@@ -66,7 +70,7 @@ public class CommonBean {
 	}
 
 	public String getGruppo2() {
-	
+	System.out.println(this.gruppo2);
 			return this.gruppo2;
 		
 		
@@ -75,7 +79,9 @@ public class CommonBean {
 	public void aggiorna(){
 		System.out.println("prima");
 		this.user = userMgr.getUserDTO();
+		System.out.println(this.user.getNome());
 		this.gruppo2 = userMgr.getGruppo(user);
+		System.out.println(this.gruppo2);
 		System.out.println("chiamato da js");
 	}
 

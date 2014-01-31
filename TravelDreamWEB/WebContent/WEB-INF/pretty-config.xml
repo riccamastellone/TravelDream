@@ -8,7 +8,7 @@
 	
 	
 	<url-mapping id="login">
-		<pattern value="/login" />
+		<pattern value="/" />
 		<view-id value="/home.xhtml" />
 	</url-mapping>
 	

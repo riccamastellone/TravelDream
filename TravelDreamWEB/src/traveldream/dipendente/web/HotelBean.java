@@ -76,7 +76,7 @@ public class HotelBean implements Serializable{
 		
 		try {
 			// Glassfish deve avere i permessi!!
-			File path = new File("/var/uploads/up");
+			File path = new File("C:\\uploads");
 			String filename = FilenameUtils.getName(file.getFileName());
 			
 			String basename = FilenameUtils.getBaseName(filename) + "_";
@@ -136,7 +136,7 @@ public class HotelBean implements Serializable{
         
         try {
 			// Glassfish deve avere i permessi!!
-			File path = new File("/var/uploads/up");
+			File path = new File("C:\\uploads");
 			
 			String filename = FilenameUtils.getName(file.getFileName());
 			String basename = FilenameUtils.getBaseName(filename) + "_";
@@ -179,7 +179,7 @@ public class HotelBean implements Serializable{
 		
 		try {
 			// Glassfish deve avere i permessi!!
-			File path = new File("/var/uploads/up");
+			File path = new File("C:\\uploads");
 			
 			String filename = FilenameUtils.getName(file.getFileName());
 			String basename = FilenameUtils.getBaseName(filename) + "_";

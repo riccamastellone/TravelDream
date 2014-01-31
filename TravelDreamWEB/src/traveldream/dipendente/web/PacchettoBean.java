@@ -268,7 +268,7 @@ public class PacchettoBean implements Serializable {
         
         try {
 			// Glassfish deve avere i permessi!!
-			File path = new File("/var/uploads/up");
+			File path = new File("C:\\uploads");
 			
 			String filename = FilenameUtils.getName(fileHotel.getFileName());
 			String basename = FilenameUtils.getBaseName(filename) + "_";
@@ -307,7 +307,7 @@ public class PacchettoBean implements Serializable {
 		        
 		        try {
 					// Glassfish deve avere i permessi!!
-					File path = new File("/var/uploads/up");
+					File path = new File("C:\\uploads");
 					
 					String filename = FilenameUtils.getName(file.getFileName());
 					String basename = FilenameUtils.getBaseName(filename) + "_";
@@ -354,7 +354,7 @@ public class PacchettoBean implements Serializable {
 		pacchetto.setImmagine(null);
 		try {
 			// Glassfish deve avere i permessi!!
-			File path = new File("/var/uploads/up");
+			File path = new File("C:\\uploads");
 			
 			String filename = FilenameUtils.getName(file.getFileName());
 			String basename = FilenameUtils.getBaseName(filename) + "_";
@@ -529,7 +529,7 @@ public class PacchettoBean implements Serializable {
 		hotelDTO.setPathtoImage(null);
 		try {
 			// Glassfish deve avere i permessi!!
-			File path = new File("/var/uploads/up");
+			File path = new File("C:\\uploads");
 			
 			String filename = FilenameUtils.getName(file.getFileName());
 			String basename = FilenameUtils.getBaseName(filename) + "_";

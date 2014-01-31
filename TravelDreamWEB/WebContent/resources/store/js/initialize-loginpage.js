@@ -47,9 +47,11 @@ $(document).ready(function($) {
 						window.location = "../dipendente";
 					} else if (window.location.pathname.indexOf("admin/") != -1) {
 						window.location = "../admin";
+					} else if (window.location.pathname.indexOf("store/") != -1) {
+						window.location = "../store";
 					}
 					else{
-						window.location = "../store";
+						window.location = "store";
 					}
 					/*
 					document.getElementById('ciao:info').click;

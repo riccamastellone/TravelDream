@@ -169,5 +169,15 @@ CREATE TABLE IF NOT EXISTS `PacchettoCondiviso` (
   FOREIGN KEY (`pacchetto`) REFERENCES `Pacchetto` (`id`)
   ON UPDATE CASCADE ON DELETE CASCADE
   )ENGINE = InnoDB DEFAULT CHARSET=utf8;
+  
+LOCK TABLES `Utente` WRITE;
+/*!40000 ALTER TABLE `Utente` DISABLE KEYS */;
+INSERT INTO `Utente` VALUES (1,'admin','admin','copernico','admin@gmail.com','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918');
+/*!40000 ALTER TABLE `Utente` ENABLE KEYS */;
+UNLOCK TABLES;
 
-
+LOCK TABLES `UtenteGruppo` WRITE;
+/*!40000 ALTER TABLE `UtenteGruppo` DISABLE KEYS */;
+INSERT INTO `UtenteGruppo` VALUES (1,'admin@gmail.com','AMMINISTRATORE');
+/*!40000 ALTER TABLE `UtenteGruppo` ENABLE KEYS */;
+UNLOCK TABLES;

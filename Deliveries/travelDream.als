@@ -31,23 +31,21 @@ sig Pacchetto{
 	descrizione: one Testo,
 	prezzo: one Int,
 	nome: one Testo,
-	tipo: one Testo,
-	voloAndata: one Trasporto,
-	voloRitorno: one Trasporto,
+	voloAndata: some Trasporto,
+	voloRitorno: some Trasporto,
 	hotel: one Hotel,
-	attivitaSecondaria: one AttivitaSecondaria,
+	attivitaSecondaria: some AttivitaSecondaria,
 	inizioValidita: one Int,
 	fineValidita: one Int,
+	localita: one Testo,
 }
 
-sig Volo extends Trasporto{
-	codiceVolo: one Testo,
-	
+sig Volo extends Trasporto{	
 }
+
 sig Hotel extends ComponentePacchetto{
 	localita: one Testo,
 	nome: one Testo,
-	indirizzo: one Testo,
 	stelle: one Int,
 }
 
@@ -58,12 +56,11 @@ sig AttivitaSecondaria extends ComponentePacchetto{
 
 sig Prenotazione{
 	cliente: one Cliente,
-	volo: lone Volo,
-	hotel: lone Hotel,
-	attivitaSecondaria: lone AttivitaSecondaria,
-	pacchetto: lone Pacchetto,
-}{ ((#pacchetto >0) implies (#volo=0 and #hotel=0 and #attivitaSecondaria = 0)) and  
-	((#volo>0 or #hotel>0 or #attivitaSecondaria > 0) implies (#pacchetto =0))}
+	voloAndata: one Volo,
+	voloRitorno: one Volo,
+	hotel: one Hotel,
+	attivitaSecondaria: set AttivitaSecondaria,
+}
 
 //il catalogo deve essere unico
 one sig Catalogo{
@@ -95,7 +92,6 @@ sig Cliente extends UtenteRegistrato{
 }
 
 sig Dipendente extends UtenteRegistrato{
-	codiceUfficio: one Int,
 }
 	
 
@@ -106,22 +102,14 @@ fact NoEmailDuplicate{
 	no disj u1, u2: UtenteRegistrato | u1.email = u2.email 
 }
 
-//non ci possono essere 2 pacchetti con lo stesso nome
-fact NoPacchettiUguali{
-	no disj p1, p2: Pacchetto | (p1.nome = p2.nome) and ( ( (p1.voloAndata = p2.voloAndata) and (p1.voloRitorno = p2.voloRitorno) )  or 
-																						(p1.attivitaSecondaria = p2.attivitaSecondaria) or
-																						(p1.hotel = p2.hotel) )
-}
-
 //non ci possono essere 2 voli con lo stesso codice
 fact NoVoliDuplicati{
-	no disj v1, v2: Volo | v1.codiceVolo = v2.codiceVolo
+	no disj v1, v2: Volo | v1.id = v2.id
 }
 
 //non ci possono essere 2 hotel uguali nella stessa località (stesso nome, indirizzo, località)
 fact NoHotelDuplicati{
-	no disj h1, h2: Hotel | (h1.indirizzo = h2.indirizzo) and 
-									  (h1.nome = h2.nome) and 
+	no disj h1, h2: Hotel |(h1.nome = h2.nome) and 
 									  (h1.localita = h2.localita) 
 }
 
@@ -143,18 +131,19 @@ fact PrenotazioniInStoricoOrdini{
 
 //tutte le prenotazioni devono avere almeno un componente prenotato
 fact NoPrenotazioniVuote{
- all p : Prenotazione | ( (#p.pacchetto = 1) or 
-										( #p.volo = 1) or 
-										(#p.hotel = 1) or 
-										(#p.attivitaSecondaria = 1) )
+ all p : Prenotazione | ( (#p.voloAndata = 1) and 
+									( #p.voloRitorno = 1) and 
+									(#p.hotel = 1) and
+									(#p.attivitaSecondaria >= 1) )
 }
 
 //tutte le prenotazioni devono avere i componenti disponibili
 //il vincolo sul pacchetto non c'è perchè non possono esistere pacchetti non disponibili
 fact NoPrenotazioniNonDisponibili{
-	all p : Prenotazione | (#p.volo = 1 implies isTrue[p.volo.disponibilita]) and
+	all p : Prenotazione | (#p.voloAndata = 1 implies isTrue[p.voloAndata.disponibilita]) and
+									(#p.voloRitorno = 1 implies isTrue[p.voloRitorno.disponibilita]) and
 									(#p.hotel = 1 implies isTrue[p.hotel.disponibilita]) and
-									(#p.attivitaSecondaria = 1 implies isTrue[p.attivitaSecondaria.disponibilita])
+									(all a: AttivitaSecondaria |a in p.attivitaSecondaria  implies isTrue[a.disponibilita])
 }
 
 //non posso aggiungere 2 volte lo stesso pacchetto alla lista desideri
@@ -164,30 +153,12 @@ fact NoDuplicatiInListaDesideri{
 															 (p1 = p2) 
 }
 
-//il volo non puo partire e arrivare nella stessa citta
-//NB: questo fatto è solo su volo e non su Trasporto, un ipotetico pullman potrebbe partire ed arrivare nella stessa citta
-fact CittaDistinteInVolo{
-	all v:  Volo | v.cittaPartenza != v.cittaArrivo
-}
-
-//non può esistere un componente pacchetto che non sia almeno in un pacchetto
-fact NoComponentePacchettoStandAlone{
-	(all a : AttivitaSecondaria |
-    some p: Pacchetto | a in p.attivitaSecondaria)
-	and
-	(all v : Volo |
-    some p: Pacchetto | (v in p.voloAndata) or (v in p.voloRitorno))
-	and
-	(all h : Hotel |
-    some p: Pacchetto | h  in p.hotel)
-}
-
 //tutti i pacchetti devono avere tutte le componenti disponibili
 fact NoPacchettiComponentiNonDisponibili{
-	all p: Pacchetto | (isTrue[p.voloAndata.disponibilita] ) and
-							  (isTrue[p.voloAndata.disponibilita] ) and
+	all p: Pacchetto | (some va: Volo | va in p.voloAndata and isTrue[va.disponibilita] ) and
+							  (some vr: Volo | vr in p.voloRitorno and isTrue[vr.disponibilita] ) and
 							  (isTrue[p.hotel.disponibilita]) and 
-							  (isTrue[p.attivitaSecondaria.disponibilita]) 
+							  (some a:AttivitaSecondaria | a in p.attivitaSecondaria and isTrue[a.disponibilita]) 
 }
 
 //fatto che modellizza tutte le date in gioco nel nostro modello
@@ -202,17 +173,13 @@ fact DateValidePacchetto{
 						and (v.dataArrivo = v.dataPartenza implies v.oraArrivo > v.oraPartenza))
 }
 
-//il pacchetto deve avere i voli di andata e ritorno che arrivano e partono nella stessa citta rispettivamente
+
 //le date del  volo di andata e del volo di partenza devono essere comprese tra l'inizio e la fine della validita del pacchetto
-//il volo di andata e ritorno devono arrivare e partire nella stessa citta dell'hotel del pachetto
-//il volo di ritorno e partenza devono arrivare e partire nella stessa citta di partenza
 fact PacchettoCoerente{
-	all p: Pacchetto | (p.voloRitorno.cittaPartenza in p.voloAndata.cittaArrivo) and
-							 (p.voloAndata.dataPartenza >= p.inizioValidita) and (p.voloRitorno.dataPartenza <= p.fineValidita) and
-							 (p.hotel.localita = p.voloAndata.cittaArrivo) and ( (p.hotel.localita = p.voloRitorno.cittaPartenza)) and 
-							 (p.voloAndata.cittaPartenza = p.voloRitorno.cittaArrivo) and
-							 (p.attivitaSecondaria.localitaValida = p.hotel.localita)
-						
+	all p: Pacchetto | (all v:Volo | v in p.voloAndata and v.dataPartenza >= p.inizioValidita) and 
+							 (all v1:Volo | v1 in p.voloRitorno and v1.dataPartenza <= p.fineValidita) and
+							 (p.hotel.localita = p.localita) and
+							 (all a:AttivitaSecondaria | a in p.attivitaSecondaria and a.localitaValida = p.localita)
 }
 
 
@@ -232,7 +199,7 @@ check NoAggiuntaPacchettoEsistente for 10
 //non può esistere una prenotazione contenete solo il cliente
 assert NoPrenotazioneVuota{
 	all p: Prenotazione |
-	(one p.cliente) implies ( (one p.volo) or (one p.hotel) or (one p.attivitaSecondaria) or (one p.pacchetto) )
+	(one p.cliente) implies ( (one p.voloAndata) and (one p.voloRitorno) and (one p.hotel)  )
 }
 
 check NoPrenotazioneVuota for 10
@@ -242,23 +209,24 @@ assert TuttePrenotazioniInStoricoOrdini{
 	p not in StoricoOrdini.insiemePrenotazioni
 }
 
-//check TuttePrenotazioniInStoricoOrdini for 10
+check TuttePrenotazioniInStoricoOrdini for 10
 
 //verifico che non ci siano pacchetti con componenti non disponibili
 assert NoPacchettiNonDisponibili{
-	no p: Pacchetto | ((not isTrue[p.voloAndata.disponibilita] ) and
-							  (not isTrue[p.voloRitorno.disponibilita] )) or
+	no p: Pacchetto | (all va:Volo | va in p.voloAndata and not isTrue[va.disponibilita] ) or
+							  (all vr:Volo | vr in p.voloRitorno and not isTrue[vr.disponibilita] ) or
 							  (not isTrue[p.hotel.disponibilita]) or 
-							  (not isTrue[p.attivitaSecondaria.disponibilita]) 
+							  (all a:AttivitaSecondaria | a in p.attivitaSecondaria and not isTrue[a.disponibilita]) 
 }
 
 check NoPacchettiNonDisponibili for 10
 
 //verifico che non ci siano prenotazioni su componenti non disponibili
 assert NoPrenotazioneDiComponentiNonDisponibili{
-	no p : Prenotazione | (#p.volo = 1 and not isTrue[p.volo.disponibilita]) or
+	no p : Prenotazione | (#p.voloAndata = 1 and not isTrue[p.voloAndata.disponibilita]) or
+									(#p.voloRitorno = 1 and not isTrue[p.voloRitorno.disponibilita]) or
 									(#p.hotel = 1 and not isTrue[p.hotel.disponibilita]) or 
-									(#p.attivitaSecondaria = 1 and not isTrue[p.attivitaSecondaria.disponibilita])
+									(all a:AttivitaSecondaria | a in p.attivitaSecondaria and not isTrue[a.disponibilita])
 
 }
 
@@ -266,11 +234,10 @@ check NoPrenotazioneDiComponentiNonDisponibili for 10
 
 //verifico che tutti i pacchetti siano consistenti
 assert TuttiPacchettiConsistenti{
-	no p: Pacchetto | (p.voloRitorno.cittaPartenza != p.voloAndata.cittaArrivo) or
-							 (p.voloAndata.dataPartenza < p.inizioValidita) or (p.voloRitorno.dataPartenza > p.fineValidita) or
-							 (p.hotel.localita != p.voloAndata.cittaArrivo) or ( (p.hotel.localita != p.voloRitorno.cittaPartenza)) or 
-							 (p.voloAndata.cittaPartenza != p.voloRitorno.cittaArrivo) or
-							 (p.attivitaSecondaria.localitaValida != p.hotel.localita)
+	no p: Pacchetto | (some va:Volo | va in p.voloAndata and va.dataPartenza < p.inizioValidita) or
+							 (some vr:Volo | vr in p.voloRitorno and vr.dataPartenza > p.fineValidita) or
+							 (p.hotel.localita != p.localita) or 
+							 (some a: AttivitaSecondaria | a in p.attivitaSecondaria and a.localitaValida != p.localita)
 }
 
 check TuttiPacchettiConsistenti for 10
@@ -280,8 +247,7 @@ check TuttiPacchettiConsistenti for 10
 pred show() {
 #Prenotazione = 2
 #Pacchetto = 2}
-
-run show for 4
+run show for 10
 
 pred aggiungiPacchetto( c, c1 : Catalogo, p: Pacchetto ){
 	c1.insiemePacchetti = c.insiemePacchetti + p 
